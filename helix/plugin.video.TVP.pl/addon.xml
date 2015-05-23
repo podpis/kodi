@@ -15,7 +15,7 @@
   </extension>
   <extension point="xbmc.addon.metadata">
     <summary lang="en">...</summary>
-    <description lang="en">Wczytuje plik .txt z linkami do filmow</description>
+    <description lang="en">Wiadomosci i kabarety z tvp.pl</description>
     <disclaimer lang="en"></disclaimer>
     <language></language>
     <platform>all</platform>
