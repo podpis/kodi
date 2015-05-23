@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon 
+	id="ramicTVP.pl" 
+	name="TVP.pl" 
+	version="1.0.1" 
+	provider-name="Michal">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0"/>
+	<import addon="plugin.video.youtube" version="5.1.1"/>
+	<import addon="script.module.urlresolver" version="2.9.0"/>
+	<import addon="script.module.beautifulsoup4" version="4.3.2"/>
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="addon.py">
+    <provides>video</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en">...</summary>
+    <description lang="en">Wczytuje plik .txt z linkami do filmow</description>
+    <disclaimer lang="en"></disclaimer>
+    <language></language>
+    <platform>all</platform>
+    <license></license>
+    <forum></forum>
+    <website></website>
+    <email></email>
+    <source></source>
+  </extension>
+</addon>

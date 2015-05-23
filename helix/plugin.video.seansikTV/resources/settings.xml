@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+        <category label="Opcje">
+				<setting type="sep" />
+                <setting id="sort" type="select" label="Sortuje Filmy/Seriale" values="Brak|Data dodania|Tytul|Odslony|Oceny" default="Brak" />
+				<setting id="sort_order" type="bool" label="Malejaco"  default="true" />
+                <setting type="sep" />
+				<setting id="quality" type="select" label="Jakosc Filmy/Seriale" values="Wszystkie|DVD+|HD" default="Wszystkie" />
+				<setting type="sep" />
+				<setting id="translation" type="select" label="Wersja Językowa" values="Wszystkie|Dubbing/Polski|Lektor/Dubbing/Polski" default="Wszystkie" />
+        </category>
+</settings>
