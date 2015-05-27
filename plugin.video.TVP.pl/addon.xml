@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addon 
-	id="ramicTVP.pl" 
+	id="plugin.video.seansikTV" 
 	name="TVP.pl" 
 	version="1.0.1" 
 	provider-name="Michal">

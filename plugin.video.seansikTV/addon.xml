@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addon 
-	id="ramic_seansik" 
+	id="plugin.video.seansikTV" 
 	name="Seansik.tv" 
 	version="1.0.1" 
 	provider-name="Michal">
