@@ -28,7 +28,7 @@
 </addon>
 
 <addon
-	id="plugin.video.seansikTV"
+	id="plugin.video.TVP.pl"
 	name="TVP.pl"
 	version="1.0.1"
 	provider-name="Michal">
