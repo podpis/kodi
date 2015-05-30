@@ -6,6 +6,7 @@ import xbmcplugin
 #import urlresolver
 #import base64
 from bs4 import BeautifulSoup
+import vodTVPapi as vod
 
 
 base_url        = sys.argv[0]
@@ -45,7 +46,7 @@ def getUrl(url):
     response.close()
     return link
 
-def addLinkItem(name, url, mode, iconimage=None, infoLabels=False, IsPlayable=True):
+def addLinkItem(name, url, mode, iconimage=None, infoLabels=False, IsPlayable=True,fanart=None):
     u = build_url({'mode': mode, 'foldername': name, 'ex_link' : url})
     if iconimage==None:
         iconimage='DefaultFolder.png'
@@ -55,14 +56,17 @@ def addLinkItem(name, url, mode, iconimage=None, infoLabels=False, IsPlayable=Tr
     liz.setInfo(type="Video", infoLabels=infoLabels)
     if IsPlayable:
         liz.setProperty('IsPlayable', 'true')
-    #liz.setProperty('fanart_image',fanart)
+    if fanart:
+        liz.setProperty('fanart_image',fanart)
     ok = xbmcplugin.addDirectoryItem(handle=addon_handle, url=u, listitem=liz)
     return ok
 
 
-def addDir(name,ex_link=None,mode='folder',iconImage='DefaultFolder.png'):
+def addDir(name,ex_link=None,mode='folder',iconImage='DefaultFolder.png',fanart=''):
     url = build_url({'mode': mode, 'foldername': name, 'ex_link' : ex_link})
     li = xbmcgui.ListItem(name, iconImage=iconImage)
+    if fanart:
+        li.setProperty('fanart_image', fanart )
     xbmcplugin.addDirectoryItem(handle=addon_handle, url=url,listitem=li, isFolder=True)
 
 def build_url(query):
@@ -198,6 +202,7 @@ if mode is None:
     addDir('TVP info Live','http://tvpstream.tvp.pl',iconImage=RESOURCES+'tvp-info.png')    
     addDir('Kabarety TVP')
     addDir('Dzieki Bogu Juz Weekend',iconImage=RESOURCES+'dbjw_logo.png')
+    addDir('vod.TVP.pl')
 
 elif mode[0] == '_news_': 
     tvp_news(fname,ex_link)
@@ -237,8 +242,25 @@ elif mode[0] == '_sort_':
         if ret>-1:
             url = build_url({'mode': 'folder', 'foldername': '', 'ex_link' : hrefs[ret]})
             xbmc.executebuiltin('XBMC.Container.Refresh(%s)'% url)
-          
     
+elif mode[0]=='vodTVP_play':
+    stream_url = vod.vodTVP_GetStreamUrl(ex_link)
+    if stream_url:
+        xbmcplugin.setResolvedUrl(addon_handle, True, xbmcgui.ListItem(path=stream_url))
+    else:
+        xbmcgui.Dialog().ok('ERROR','URL jest niedostepny')
+        
+elif mode[0]=='vodTVP':
+    (katalog,episodes) = vod.vodTVPapi(ex_link)
+    if len(episodes):
+        for e in episodes:
+            addLinkItem(e.get('title',''), e.get('filename',''), 'vodTVP_play', 
+                        infoLabels=e,iconimage=e.get('img',None),fanart=e.get('fanart',None))
+    elif len(katalog):
+        for one in katalog:
+            addDir(one['title'].title(),ex_link=one['id'],mode='vodTVP',iconImage=one['img'])
+    
+        
 elif mode[0] == 'folder':
     if fname=='Kabarety TVP':
         addDir('TOP 10','/wideo/top10_d/')
@@ -254,7 +276,11 @@ elif mode[0] == 'folder':
         addDir('Odcinki','/wideo/odcinki/',mode='update_DziekiBogu')
         addDir('Skecze','/wideo/skecze/',mode='update_DziekiBogu')
         addDir('Kulisy','/wideo/kulisy/',mode='update_DziekiBogu')        
-
+    elif fname == 'vod.TVP.pl':
+        Kategorie = vod.vodTVP_root()
+        for k in Kategorie:
+            addDir(k.get('title','').title().encode('utf-8'),str(k.get('id','')),mode='vodTVP')
+      
     else:
         scanTVPsource(ex_link)
        
