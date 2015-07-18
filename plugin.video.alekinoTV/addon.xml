@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon 
+	id="plugin.video.alekinoTV" 
+	name="Alekino.tv" 
+	version="1.0.0" 
+	provider-name="Michal">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0"/>
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="addon.py">
+    <provides>video</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="pl">...</summary>
+    <description lang="pl">Odgrywa zasoby Alekino.tv</description>
+    <disclaimer lang="pl"></disclaimer>
+    <language></language>
+    <platform>all</platform>
+    <license></license>
+    <forum></forum>
+    <website></website>
+    <email></email>
+    <source></source>
+  </extension>
+</addon>
