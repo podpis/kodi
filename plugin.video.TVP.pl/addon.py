@@ -73,7 +73,7 @@ def build_url(query):
     return base_url + '?' + urllib.urlencode(query)
 
 
-def scanTVPsource(ex_link='/wideo/festiwale_d/'):
+def scanTVPsource(ex_link='/1342039/top10/'):
     if ex_link=='':
         return 0
     ALL=[]
@@ -84,18 +84,21 @@ def scanTVPsource(ex_link='/wideo/festiwale_d/'):
     #strainer = SoupStrainer('div', attrs={'class': 'pagination'})
     #soup = BeautifulSoup(content, parse_only=strainer)    
     
-    strony=soup.find('div',{'class':"pagination"}).find_all('li')
-    prev_page=strony[0].a.get('href')
-    next_page=strony[-1].a.get('href')
-    last_page=strony[-2].a.get('href').split('-')[-1]
-    if not next_page=='#':  
-        addLinkItem('== Sortuj ==',ex_link, '_sort_',IsPlayable=False)
-    if not prev_page=='#':
-        addLinkItem('<< Poprzednia Strona <<' , prev_page, '__page__',IsPlayable=False)
-    if not next_page=='#':
-        addLinkItem('>> Nastepna Strona %s/%s >>' %(next_page.split('-')[-1],last_page), next_page, '__page__',IsPlayable=False)
-    #strainer = SoupStrainer('div', attrs={'class': 'item block'})
-    #soup = BeautifulSoup(content, parse_only=strainer)  
+    strony=soup.find('div',{'class':"pagination"})
+    if strony:
+        strony = strony.find_all('li')
+        prev_page=strony[0].a.get('href')
+        next_page=strony[-1].a.get('href')
+        last_page=strony[-2].a.get('href').split('-')[-1]
+        if not next_page=='#':  
+            addLinkItem('== Sortuj ==',ex_link, '_sort_',IsPlayable=False)
+        if not prev_page=='#':
+            addLinkItem('<< Poprzednia Strona <<' , prev_page, '__page__',IsPlayable=False)
+        if not next_page=='#':
+            addLinkItem('>> Nastepna Strona %s/%s >>' %(next_page.split('-')[-1],last_page), next_page, '__page__',IsPlayable=False)
+        #strainer = SoupStrainer('div', attrs={'class': 'item block'})
+        #soup = BeautifulSoup(content, parse_only=strainer)  
+        
     skecze = soup.find_all('div',{'class':"item block"})
     for skecz in skecze:
         img = skecz.img.get('src')   
@@ -154,15 +157,17 @@ def ResolveDziekiBoguPandPlay(ex_link='/wideo/skecze/leszcze-rozesmiana-15325863
        listitem = xbmcgui.ListItem(path=vido_link[0])
        xbmcplugin.setResolvedUrl(addon_handle, True, listitem) 
 
-def ResolveTVPandPlay(ex_link='/wideo/top10/formacja-chatelet-dzem-z-zajaca-20082745'):
+def ResolveTVPandPlay(ex_link='/1343773/tomson-baron-i-paranienormalni-tonight'):
     url_player=BASE_URL+ex_link   
     content = getUrl(url_player)
     #src = re.compile("<iframe(.*?)src=\"(.+?)\"(.*?)</iframe>", re.DOTALL).findall(content[:])[0][1]
     soup=BeautifulSoup(content,)
     src=soup.find('iframe',{'class':'tvplayer'}).get('src')
-    content = getUrl(src)
-    vido_link = re.compile("1:{src:\'(.+?)\'", re.DOTALL).findall(content)[0]
-    listitem = xbmcgui.ListItem(path=vido_link)
+    content = getUrl('http://tvpstream.tvp.pl'+src)
+    vido_link = re.compile("1:{src:\'(.+?)\'", re.DOTALL).findall(content)
+    if not vido_link:
+        vido_link = re.compile("0:{src:\'(.+?)\'", re.DOTALL).findall(content)
+    listitem = xbmcgui.ListItem(path=vido_link[0])
     xbmcplugin.setResolvedUrl(addon_handle, True, listitem)      
     
 def get_tvpLiveStreams(url):
@@ -263,10 +268,10 @@ elif mode[0]=='vodTVP':
         
 elif mode[0] == 'folder':
     if fname=='Kabarety TVP':
-        addDir('TOP 10','/wideo/top10_d/')
-        addDir('Skecze','/wideo/skecze_d/')
-        addDir('Festiwale','/wideo/festiwale_d/')
-        addDir('Teraz Ogladane','/wideo/teraz_ogladane_d/')
+        addDir('TOP 10','/1342039/top10/')
+        addDir('Skecze','/883/wideo/skecze/')
+        addDir('Festiwale','/4982024/wideo/festiwale/')
+        addDir('Teraz Ogladane','/5264287/teraz-ogladane/')
     elif fname == 'TVP info Live':
         out = get_tvpLiveStreams(ex_link)
         #xbmcgui.Dialog().ok('Jestem w Live',out[0]['title'].encode('utf-8'))

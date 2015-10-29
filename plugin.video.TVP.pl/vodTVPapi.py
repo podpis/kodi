@@ -68,7 +68,8 @@ def vodTVP_root(parent_id='1785454'):
           {'id': 1627183, 'img': '', 'title': 'filmy fabularne'},
           {'id': 4190012, 'img': '', 'title': 'dokumenty'},
           {'id': 4190017, 'img': '', 'title': 'archiwa'},
-          {'id': 4934948, 'img': '', 'title': 'audycje / programy'}]
+          {'id': 4934948, 'img': '', 'title': 'audycje / programy'},
+          {'id': 8525989, 'img': '', 'title': '-> [Rozrywka]'}]
     return ROOT
 
 def vodTVPapi(parent_id,Count=150):
@@ -92,3 +93,8 @@ def vodTVPapi(parent_id,Count=150):
         (lista_katalogow,lista_pozycji) = vodTVPapi(lista_katalogow[0].get('id'),Count)
     return (lista_katalogow,lista_pozycji)
 
+# Rozrywka
+# a=vodTVPapi(8525989) 
+# Latajacy klub dwojki
+# a=vodTVPapi(19021815)
+# vodTVP_GetStreamUrl(a[1][2]['filename'])
