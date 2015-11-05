@@ -7,7 +7,9 @@ import xbmcplugin
 #import base64
 from bs4 import BeautifulSoup
 import vodTVPapi as vod
-
+# LOOKNIJ
+import looknijtv as ltv
+# LOOKNIJ
 
 base_url        = sys.argv[0]
 addon_handle    = int(sys.argv[1])
@@ -208,7 +210,10 @@ if mode is None:
     addDir('Kabarety TVP')
     addDir('Dzieki Bogu Juz Weekend',iconImage=RESOURCES+'dbjw_logo.png')
     addDir('vod.TVP.pl')
-
+# LOOKNIJ    
+    addDir('looknij.tv -> live TV')
+# LOOKNIJ
+    
 elif mode[0] == '_news_': 
     tvp_news(fname,ex_link)
 
@@ -264,7 +269,20 @@ elif mode[0]=='vodTVP':
     elif len(katalog):
         for one in katalog:
             addDir(one['title'].title(),ex_link=one['id'],mode='vodTVP',iconImage=one['img'])
-    
+# LOOKNIJ
+elif mode[0]=='play_looknij':
+    print 'MIC: play_looknij ' + ex_link
+    stream_url = ltv.decode_url(ex_link)
+    print 'MIC: stream_url ' + stream_url
+    if stream_url:
+        xbmcplugin.setResolvedUrl(addon_handle, True, xbmcgui.ListItem(path=stream_url))
+#    listitem = xbmcgui.ListItem( idx[1], iconImage=idx[2], thumbnailImage=idx[2])
+#    playlist = xbmc.PlayList( xbmc.PLAYLIST_VIDEO )
+#    playlist.clear()
+#    playlist.add( url, listitem )
+#    xbmcPlayer.play(playlist,None,False)
+#    sys.exit(0)
+# LOOKNIJ    
         
 elif mode[0] == 'folder':
     if fname=='Kabarety TVP':
@@ -285,7 +303,12 @@ elif mode[0] == 'folder':
         Kategorie = vod.vodTVP_root()
         for k in Kategorie:
             addDir(k.get('title','').title().encode('utf-8'),str(k.get('id','')),mode='vodTVP')
-      
+# LOOKNIJ
+    elif fname == 'looknij.tv -> live TV':
+        content = ltv.get_root_looknji()
+        for one in content:
+            addLinkItem(one.get('title',''), one.get('url',''), 'play_looknij', iconimage=one.get('img'))
+# LOOKNIJ            
     else:
         scanTVPsource(ex_link)
        
