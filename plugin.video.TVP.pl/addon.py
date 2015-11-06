@@ -211,7 +211,7 @@ if mode is None:
     addDir('Dzieki Bogu Juz Weekend',iconImage=RESOURCES+'dbjw_logo.png')
     addDir('vod.TVP.pl')
 # LOOKNIJ    
-    addDir('looknij.tv -> live TV')
+    addDir('== Programy TV polskiej (live) ==')
 # LOOKNIJ
     
 elif mode[0] == '_news_': 
@@ -271,17 +271,9 @@ elif mode[0]=='vodTVP':
             addDir(one['title'].title(),ex_link=one['id'],mode='vodTVP',iconImage=one['img'])
 # LOOKNIJ
 elif mode[0]=='play_looknij':
-    print 'MIC: play_looknij ' + ex_link
     stream_url = ltv.decode_url(ex_link)
-    print 'MIC: stream_url ' + stream_url
     if stream_url:
         xbmcplugin.setResolvedUrl(addon_handle, True, xbmcgui.ListItem(path=stream_url))
-#    listitem = xbmcgui.ListItem( idx[1], iconImage=idx[2], thumbnailImage=idx[2])
-#    playlist = xbmc.PlayList( xbmc.PLAYLIST_VIDEO )
-#    playlist.clear()
-#    playlist.add( url, listitem )
-#    xbmcPlayer.play(playlist,None,False)
-#    sys.exit(0)
 # LOOKNIJ    
         
 elif mode[0] == 'folder':
@@ -304,7 +296,7 @@ elif mode[0] == 'folder':
         for k in Kategorie:
             addDir(k.get('title','').title().encode('utf-8'),str(k.get('id','')),mode='vodTVP')
 # LOOKNIJ
-    elif fname == 'looknij.tv -> live TV':
+    elif fname == '== Programy TV polskiej (live) ==':
         content = ltv.get_root_looknji()
         for one in content:
             addLinkItem(one.get('title',''), one.get('url',''), 'play_looknij', iconimage=one.get('img'))
