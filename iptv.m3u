@@ -30,7 +30,7 @@ rtmp://149.202.74.234/live/ playpath=blackaxn swfUrl=http://looknij.tv/wp-conten
 #EXTINF:-1 tvg-logo="http://looknij.tv/wp-content/uploads/2015/05/axnwhite.jpg" group-title="dla-kobiet seriale",AXN White
 rtmp://149.202.74.234/live/ playpath=whiteaxn swfUrl=http://looknij.tv/wp-content/plugins/yendif-player/public/assets/libraries/player.swf?1438149198120 pageUrl=http://looknij.tv live=1
 
-#EXTINF:-1 tvg-logo="http://looknij.tv/wp-content/uploads/2015/03/nationalgeo.jpg" group-title="rozrywka",National Geographic
+#EXTINF:-1 tvg-logo="http://looknij.tv/wp-content/uploads/2015/03/nationalgeo.jpg" group-title="rozrywka",National Geographic Channel
 rtmp://144.76.154.14/live/ playpath=nageo swfUrl=http://looknij.tv/wp-content/plugins/yendif-player/public/assets/libraries/player.swf?1438149198120 pageUrl=http://looknij.tv live=1
 
 #EXTINF:-1 tvg-logo="http://looknij.tv/wp-content/uploads/2015/03/eurosport-e1426769970875.jpg" group-title="sport",Eurosport
@@ -45,7 +45,7 @@ rtmp://85.10.208.218/live/ playpath=jedynka1 swfUrl=http://looknij.tv/wp-content
 #EXTINF:-1 tvg-logo="http://looknij.tv/wp-content/uploads/2015/02/tvp21.jpg" group-title="info rozrywka",TVP 2
 rtmp://149.202.74.239/live/ playpath=Tvp2 swfUrl=http://looknij.tv/wp-content/plugins/yendif-player/public/assets/libraries/player.swf?1438149198120 pageUrl=http://looknij.tv live=1
 
-#EXTINF:-1 tvg-logo="http://looknij.tv/wp-content/uploads/2015/02/domo.jpg" group-title="dla-kobiet rozrywka",DOMO+
+#EXTINF:-1 tvg-logo="http://looknij.tv/wp-content/uploads/2015/02/domo.jpg" group-title="dla-kobiet rozrywka",Domo+ HD
 rtmp://149.202.74.234/live/ playpath=domo swfUrl=http://looknij.tv/wp-content/plugins/yendif-player/public/assets/libraries/player.swf?1438149198120 pageUrl=http://looknij.tv live=1
 
 #EXTINF:-1 tvg-logo="http://looknij.tv/wp-content/uploads/2015/02/canal.jpg" group-title="film rozrywka",Canal+
@@ -63,7 +63,7 @@ rtmp://85.10.208.218/live/ playpath=tvpsport swfUrl=http://looknij.tv/wp-content
 #EXTINF:-1 tvg-logo="http://looknij.tv/wp-content/uploads/2015/02/polsat-sport-news.gif" group-title="sport",Polsat Sport News
 rtmp://149.202.74.239/live/ playpath=snpolsat swfUrl=http://looknij.tv/wp-content/plugins/yendif-player/public/assets/libraries/player.swf?1438149198120 pageUrl=http://looknij.tv live=1
 
-#EXTINF:-1 tvg-logo="http://looknij.tv/wp-content/uploads/2015/02/discovery.jpg" group-title="rozrywka",Discovery
+#EXTINF:-1 tvg-logo="http://looknij.tv/wp-content/uploads/2015/02/discovery.jpg" group-title="rozrywka",Discovery Channel
 rtmp://149.202.74.234/live/ playpath=discoveryhd swfUrl=http://looknij.tv/wp-content/plugins/yendif-player/public/assets/libraries/player.swf?1438149198120 pageUrl=http://looknij.tv live=1
 
 #EXTINF:-1 tvg-logo="http://looknij.tv/wp-content/uploads/2015/02/hbocomedy-e1426770271306.jpg" group-title="film",HBO Comedy
