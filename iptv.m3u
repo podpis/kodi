@@ -18,7 +18,7 @@ rtmp://144.76.154.14/live/ playpath=elevensport swfUrl=http://looknij.tv/wp-cont
 #EXTINF:-1 tvg-logo="http://looknij.tv/wp-content/uploads/2015/06/nsport.jpg" group-title="sport",N Sport
 rtmp://85.10.208.218/live/ playpath=n2sport swfUrl=http://looknij.tv/wp-content/plugins/yendif-player/public/assets/libraries/player.swf?1438149198120 pageUrl=http://looknij.tv live=1
 
-#EXTINF:-1 tvg-logo="http://looknij.tv/wp-content/uploads/2015/05/FoxCom.jpg" group-title="rozrywka",FOX Comedy
+#EXTINF:-1 tvg-logo="http://looknij.tv/wp-content/uploads/2015/05/FoxCom.jpg" group-title="rozrywka",Fox Comedy
 rtmp://149.202.68.200/live/ playpath=foxcom swfUrl=http://looknij.tv/wp-content/plugins/yendif-player/public/assets/libraries/player.swf?1438149198120 pageUrl=http://looknij.tv live=1
 
 #EXTINF:-1 tvg-logo="http://looknij.tv/wp-content/uploads/2015/05/disneych.jpg" group-title="dzieci",Disney Channel
@@ -39,7 +39,7 @@ rtmp://85.10.208.218/live/ playpath=eurosport swfUrl=http://looknij.tv/wp-conten
 #EXTINF:-1 tvg-logo="http://looknij.tv/wp-content/uploads/2015/03/eurosport2.jpg" group-title="sport",Eurosport 2
 rtmp://149.202.68.200/live/ playpath=eurosport2hd swfUrl=http://looknij.tv/wp-content/plugins/yendif-player/public/assets/libraries/player.swf?1438149198120 pageUrl=http://looknij.tv live=1
 
-#EXTINF:-1 tvg-logo="http://looknij.tv/wp-content/uploads/2015/02/tvp1.jpg" group-title="info rozrywka",TVP1
+#EXTINF:-1 tvg-logo="http://looknij.tv/wp-content/uploads/2015/02/tvp1.jpg" group-title="info rozrywka",TVP 1
 rtmp://85.10.208.218/live/ playpath=jedynka1 swfUrl=http://looknij.tv/wp-content/plugins/yendif-player/public/assets/libraries/player.swf?1438149198120 pageUrl=http://looknij.tv live=1
 
 #EXTINF:-1 tvg-logo="http://looknij.tv/wp-content/uploads/2015/02/tvp21.jpg" group-title="info rozrywka",TVP 2
@@ -69,7 +69,7 @@ rtmp://149.202.74.234/live/ playpath=discoveryhd swfUrl=http://looknij.tv/wp-con
 #EXTINF:-1 tvg-logo="http://looknij.tv/wp-content/uploads/2015/02/hbocomedy-e1426770271306.jpg" group-title="film",HBO Comedy
 rtmp://149.202.74.234/live/ playpath=hbocom swfUrl=http://looknij.tv/wp-content/plugins/yendif-player/public/assets/libraries/player.swf?1438149198120 pageUrl=http://looknij.tv live=1
 
-#EXTINF:-1 tvg-logo="http://looknij.tv/wp-content/uploads/2015/02/hbo2.jpg" group-title="film",HBO 2
+#EXTINF:-1 tvg-logo="http://looknij.tv/wp-content/uploads/2015/02/hbo2.jpg" group-title="film",HBO2
 rtmp://149.202.74.234/live/ playpath=hbo2 swfUrl=http://looknij.tv/wp-content/plugins/yendif-player/public/assets/libraries/player.swf?1438149198120 pageUrl=http://looknij.tv live=1
 
 #EXTINF:-1 tvg-logo="http://looknij.tv/wp-content/uploads/2015/02/ttv.jpg" group-title="info rozrywka",TTV
