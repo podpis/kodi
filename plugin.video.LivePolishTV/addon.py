@@ -1,0 +1,289 @@
+import sys,re,os
+import urllib,urllib2
+import urlparse
+import xbmc,xbmcgui,xbmcaddon
+import xbmcplugin
+from bs4 import BeautifulSoup
+from xml.etree import ElementTree as et
+import json 
+
+
+import looknijtv as ltv
+import telewizjada as tel
+
+
+base_url        = sys.argv[0]
+addon_handle    = int(sys.argv[1])
+args            = urlparse.parse_qs(sys.argv[2][1:])
+my_addon        = xbmcaddon.Addon()
+
+PATH        = my_addon.getAddonInfo('path')
+RESOURCES   = PATH+'/resources/'
+
+# ____________________________
+def getUrl(url,data=None):
+    req = urllib2.Request(url,data)
+    req.add_header('User-Agent', 'Mozilla/5.0 (Windows NT 6.1; rv:22.0) Gecko/20100101 Firefox/22.0')
+    response = urllib2.urlopen(req)
+    link = response.read()
+    response.close()
+    return link
+    
+def addLinkItem(name, url, mode, iconimage=None, infoLabels=False, IsPlayable=True,fanart=None):
+    u = build_url({'mode': mode, 'foldername': name, 'ex_link' : url})
+    if iconimage==None:
+        iconimage='DefaultFolder.png'
+    liz = xbmcgui.ListItem(name, iconImage=iconimage, thumbnailImage=iconimage)
+    if not infoLabels:
+        infoLabels={"Title": name}
+    liz.setInfo(type="Video", infoLabels=infoLabels)
+    if IsPlayable:
+        liz.setProperty('IsPlayable', 'true')
+    if fanart:
+        liz.setProperty('fanart_image',fanart)
+    ok = xbmcplugin.addDirectoryItem(handle=addon_handle, url=u, listitem=liz)
+    return ok
+
+
+def addDir(name,ex_link=None,mode='folder',iconImage='DefaultFolder.png',fanart=''):
+    url = build_url({'mode': mode, 'foldername': name, 'ex_link' : ex_link})
+    li = xbmcgui.ListItem(name, iconImage=iconImage)
+    if fanart:
+        li.setProperty('fanart_image', fanart )
+    xbmcplugin.addDirectoryItem(handle=addon_handle, url=url,listitem=li, isFolder=True)
+
+def build_url(query):
+    return base_url + '?' + urllib.urlencode(query)
+
+    
+def get_tvpLiveStreams(url):
+    data=getUrl(url)
+    livesrc="/sess/tvplayer.php?object_id=%s"
+    soup=BeautifulSoup(data)
+    out=[]
+    zrodla = soup.find_all('div',{"class":"button"})
+    for z in zrodla:
+        video_id = z.get('data-video_id')
+        title = z.img.get('alt') + ' : ' + z.get('title')
+        img = z.img.get('src')
+        out.append({'title':title,'img':img,
+                    'url':url+livesrc % video_id})
+    return out   
+
+def playLiveVido(ex_link='http://tvpstream.tvp.pl/sess/tvplayer.php?object_id=15349841'):
+    data=getUrl(ex_link)
+    live_src = re.compile("0:{src:'(.*?)'", re.DOTALL).findall(data)
+    if live_src:
+        listitem = xbmcgui.ListItem(path=live_src[0])
+        xbmcplugin.setResolvedUrl(addon_handle, True, listitem)  
+    
+        
+#-------------------------------------------	
+#
+#
+def __update_file(settings_file,new_path):
+    tree = et.parse(settings_file)        
+    tree.find('setting/[@id="m3uPath"]').attrib["value"]=new_path
+    tree.find('setting/[@id="m3uPathType"]').attrib["value"]='0'
+    tree.find('setting/[@id="epgUrl"]').attrib["value"]="http://epg.iptvlive.org"
+    tree.find('setting/[@id="epgPathType"]').attrib["value"]='1'
+    tree.find('setting/[@id="logoFromEpg"]').attrib["value"]='2'
+    tree.write(settings_file)
+    
+def update_prv_simpleiptv(pvr_path,m3uPath):
+    #pvr_path='C:/Users\\ramic/AppData/Roaming/Kodi/userdata/addon_data/pvr.iptvsimple'
+    settings_file=os.path.join(pvr_path,'settings.xml')
+    if os.path.exists(settings_file):
+        print 'updating settings.xml file'
+        __update_file(settings_file,m3uPath)
+        return 'Updated %s' %(settings_file)
+    else:
+        print 'creating settings file'
+        xmlcontent="""
+<settings>
+    <setting id="epgCache" value="true" />
+    <setting id="epgPath" value="" />
+    <setting id="epgPathType" value="1" />
+    <setting id="epgTSOverride" value="true" />
+    <setting id="epgTimeShift" value="0.000000" />
+    <setting id="epgUrl" value="" />
+    <setting id="logoBaseUrl" value="" />
+    <setting id="logoFromEpg" value="2" />
+    <setting id="logoPath" value="" />
+    <setting id="logoPathType" value="1" />
+    <setting id="m3uCache" value="true" />
+    <setting id="m3uPath" value="" />
+    <setting id="m3uPathType" value="0" />
+    <setting id="m3uUrl" value="" />
+    <setting id="sep1" value="" />
+    <setting id="sep2" value="" />
+    <setting id="sep3" value="" />
+    <setting id="startNum" value="1" />
+</settings>
+"""
+        try:
+            os.makedirs(pvr_path)
+            with open(settings_file,'w') as f:
+                f.write(xmlcontent)
+            __update_file(settings_file,m3uPath)
+            return 'Created %s' %(settings_file)
+        except:
+            return 'Problem z uworzeniem settings.xml'
+ 
+#
+#
+#
+
+   
+xbmcplugin.setContent(addon_handle, 'movies')	
+	
+mode = args.get('mode', None)
+fname = args.get('foldername',[''])[0]
+ex_link = args.get('ex_link',[''])[0]
+
+
+if mode is None:
+    addDir('LIVE TV: looknij',iconImage=RESOURCES+'logo-looknij.png')
+    addDir('LIVE TV: telewizjada',iconImage=RESOURCES+'logo_telewizjada.png')
+    addDir('LIVE TV: tvp.info','http://tvpstream.tvp.pl',iconImage=RESOURCES+'tvp-info.png')    
+    url = build_url({'mode': 'Opcje'})
+    li = xbmcgui.ListItem(label = '[COLOR blue]-> aktywuj PVR Live TV[/COLOR]', iconImage='DefaultScript.png')
+    xbmcplugin.addDirectoryItem(handle=addon_handle, url=url,listitem=li)
+
+elif mode[0] == 'Opcje':
+    my_addon.openSettings()   
+
+elif mode[0] == 'palyLiveVideo':
+    playLiveVido(ex_link)
+
+# LOOKNIJ
+elif mode[0]=='play_looknij':
+    stream_url = ltv.decode_url(ex_link)
+    if stream_url:
+        xbmcplugin.setResolvedUrl(addon_handle, True, xbmcgui.ListItem(path=stream_url))
+elif mode[0]=='play_telewizjada':
+    video_link,_id = ex_link.split('|')
+    print PATH
+    stream_url = tel.decode_url(video_link,int(_id))
+    if stream_url:
+        xbmcplugin.setResolvedUrl(addon_handle, True, xbmcgui.ListItem(path=stream_url))
+
+
+elif mode[0] == 'UPDATE_IPTV':
+    fname = my_addon.getSetting('fname')
+    path =  my_addon.getSetting('path')
+    m3uPath = os.path.join(path,fname) 
+    if os.path.exists(m3uPath):
+        pvr_path=  xbmc.translatePath(os.path.join('special://userdata/','addon_data','pvr.iptvsimple'))
+        msg=update_prv_simpleiptv(pvr_path,m3uPath)
+        
+        xbmcgui.Dialog().notification('', msg, xbmcgui.NOTIFICATION_INFO, 1000)
+
+        #Enable prv.ipsimple
+        xbmc.executeJSONRPC('{"jsonrpc":"2.0","method":"Addons.SetAddonEnabled","id":1,"params":{"addonid":"pvr.iptvsimple", "enabled":true}}' )
+        #print xbmc.executeJSONRPC('{"jsonrpc":"2.0","method":"Addons.SetAddonEnabled","params":{"addonid":"pvr.iptvsimple","enabled":"toggle"},"id":1}')
+	  
+        version = int(xbmc.getInfoLabel("System.BuildVersion" )[0:2])
+        print 'Kodi version: %d, checking if PVR is active' % version
+        json_response = xbmc.executeJSONRPC('{"jsonrpc":"2.0","method":"Settings.GetSettingValue","params":{"setting":"pvrmanager.enabled"},"id":9}')
+        decoded_data = json.loads(json_response)
+        pvrmanager = decoded_data['result']['value']
+    
+        if not pvrmanager:
+            xbmcgui.Dialog().ok('[COLOR red]Telewizja nie jest aktywna![/COLOR] ','Telewizja PVR nie jest aktywaowana', 'Aktywuj po OK')
+            # http://kodi.wiki/view/Window_IDs
+            xbmc.executebuiltin('ActivateWindow(10021)')
+        
+        json_response = xbmc.executeJSONRPC('{"jsonrpc":"2.0","method":"Settings.GetSettingValue","params":{"setting":"pvrmanager.enabled"},"id":9}')
+        decoded_data = json.loads(json_response)
+        pvrmanager = decoded_data['result']['value']
+        if pvrmanager:
+            xbmc.executebuiltin('StartPVRManager')
+            xbmc.executebuiltin('PVR.StartManager')
+            xbmc.executebuiltin('PVR.SearchMissingChannelIcons')
+            xbmc.executebuiltin('Notification(PVR Manager, PVR Manager (re)started, 5000)')
+            xbmc.sleep(1000)
+        xbmc.executebuiltin('Container.Refresh')
+
+    else:
+        xbmcgui.Dialog().notification('ERROR', '[COLOR red[Lista m3u jeszcze nie istnieje![/COLOR]', xbmcgui.NOTIFICATION_ERROR, 3000)    
+
+    
+elif mode[0] == 'BUID_M3U':
+    
+    fname = my_addon.getSetting('fname')
+    path =  my_addon.getSetting('path')
+    src1 = True if my_addon.getSetting('src1') == 'true' else False
+    src2 = True if my_addon.getSetting('src2') == 'true' else False
+
+    error_msg=""
+    if not fname:
+        error_msg +="Podaj nazwe pliku "
+    if not path:
+        error_msg +="Podaj katalog docelowy "
+    if not (src1 | src2):
+        error_msg +="Wybierz jakies source"
+    
+    if error_msg:
+        xbmcgui.Dialog().notification('[COLOR red]ERROR[/COLOR]', error_msg, xbmcgui.NOTIFICATION_ERROR, 1000)
+        pvr_path=  xbmc.translatePath(os.path.join('special://userdata/','addon_data','pvr.iptvsimple'))
+        print pvr_path
+        if os.path.exists(os.path.join(pvr_path,'settings.xml')):
+            print 'settings.xml exists'
+    else:
+        outfilename = os.path.join(path,fname)     
+        
+        out_all = []
+        if src1: 
+            out_all = out_all + tel.get_root_telewizjada(addheader=True)
+        if src2:
+            out_all = out_all + ltv.get_root_looknji(addheader=True)
+        
+        pDialog = xbmcgui.DialogProgressBG()
+        pDialog.create('Tworze liste programow TV [%s]'%(fname), 'Uzyj z [COLOR blue]PVR IPTV Simple Client[/COLOR]')
+        
+        N=len(out_all)
+        out_sum=[]
+        
+        for i,one in enumerate(out_all):
+            progress = int((i)*100.0/N)
+            message = '{}/{} {:<15}'.format(i,N-1,one.get('title','')) 
+            pDialog.update(progress, message=message)
+            #print "%d\t%s" % (progress,message)
+            try:
+                if 'telewizjada' in one.get('img',''):
+                    one['url'] = tel.decode_url(one.get('url',''),one.get('id',''))
+                if 'looknij' in one.get('img',''):
+                    one['url'] = ltv.decode_url(one.get('url',''))
+                out_sum.append(one)
+            except:
+                pass
+        if out_sum:
+            tel.build_m3u(out_sum,outfilename)
+            pDialog.update(progress, message=outfilename)
+            xbmcgui.Dialog().notification('Lista zapisana', outfilename, xbmcgui.NOTIFICATION_INFO, 10000)
+            xbmcgui.Dialog().ok('[COLOR green]Lista zapisana[/COLOR] ','[COLOR blue]'+outfilename+'[/COLOR]','Uaktualnij ustawienia [COLOR blue]PVR IPTV Simple Client[/COLOR] i (re)aktywuj Live TV')
+            
+        pDialog.close()
+    my_addon.openSettings()      
+
+elif mode[0] == 'folder':
+    if fname == 'LIVE TV: tvp.info':
+        out = get_tvpLiveStreams(ex_link)
+        #xbmcgui.Dialog().ok('Jestem w Live',out[0]['title'].encode('utf-8'))
+        for one in out:
+           addLinkItem(one['title'].encode('utf-8'), one['url'], 'palyLiveVideo', iconimage=one['img'])
+
+    elif fname == 'LIVE TV: looknij':
+        content = ltv.get_root_looknji()
+        for one in content:
+            addLinkItem(one.get('title',''), one.get('url',''), 'play_looknij', iconimage=one.get('img'))
+
+    elif fname == 'LIVE TV: telewizjada':
+        content = tel.get_root_telewizjada()
+        for one in content:
+            ex_link="%s|%s" % (one.get('url',''),one.get('id'))
+            addLinkItem(one.get('title',''), ex_link, 'play_telewizjada', iconimage=one.get('img'))
+
+               
+xbmcplugin.endOfDirectory(addon_handle)

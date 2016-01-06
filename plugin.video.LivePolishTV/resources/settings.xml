@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+        <category label="Kreator listy m3u i Live TV">
+    <setting label="Lista m3u (Nazwa Pliku oraz Katalog Docelowy)" type="lsep"/>
+    <setting label="Nazwa"      type="text"   id="fname" default="iptv.m3u" />
+    <setting label="Katalog"    type="folder" id="path" source="auto" option="writeable"/>
+				
+    <setting label="źródła" type="lsep"/>
+    <setting label="Telewizjada" type="bool" id="src1" default="true"/>
+    <setting label="Looknij" type="bool" id="src2" default="false"/>
+	
+    <setting label="Akcja: (Utworz/odswierz liste i reaktywj Telewizje)" type="lsep"/>
+    <setting type="action"
+             action="RunPlugin(plugin://plugin.video.LivePolishTV?mode=BUID_M3U)"
+             label="Utwórz liste m3u" 
+             option="close" />
+    <setting type="action"
+             action="RunPlugin(plugin://plugin.video.LivePolishTV?mode=UPDATE_IPTV)"
+             label="Uaktualnij ustawienia [COLOR blue]PVR IPTV Simple Client[/COLOR] i (re)aktywuj Live TV" 
+             option="close" />
+    </category>
+
+</settings>
