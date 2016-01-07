@@ -4,7 +4,6 @@ import urlparse
 import xbmc,xbmcgui,xbmcaddon
 import xbmcplugin
 from bs4 import BeautifulSoup
-from xml.etree import ElementTree as et
 import json 
 
 
@@ -81,14 +80,16 @@ def playLiveVido(ex_link='http://tvpstream.tvp.pl/sess/tvplayer.php?object_id=15
 #-------------------------------------------	
 #
 #
+# settings_replace = lambda k,v,z: re.sub(r'(?P<id>id="%s") value="(.*)"'%k ,'\g<id> value="%s"'%v, z)
 def __update_file(settings_file,new_path):
-    tree = et.parse(settings_file)        
-    tree.find('setting/[@id="m3uPath"]').attrib["value"]=new_path
-    tree.find('setting/[@id="m3uPathType"]').attrib["value"]='0'
-    tree.find('setting/[@id="epgUrl"]').attrib["value"]="http://epg.iptvlive.org"
-    tree.find('setting/[@id="epgPathType"]').attrib["value"]='1'
-    tree.find('setting/[@id="logoFromEpg"]').attrib["value"]='2'
-    tree.write(settings_file)
+    pass
+#    tree = et.parse(settings_file)        
+#    tree.find('setting/[@id="m3uPath"]').attrib["value"]=new_path
+#    tree.find('setting/[@id="m3uPathType"]').attrib["value"]='0'
+#    tree.find('setting/[@id="epgUrl"]').attrib["value"]="http://epg.iptvlive.org"
+#    tree.find('setting/[@id="epgPathType"]').attrib["value"]='1'
+#    tree.find('setting/[@id="logoFromEpg"]').attrib["value"]='2'
+#    tree.write(settings_file)
     
 def update_prv_simpleiptv(pvr_path,m3uPath):
     #pvr_path='C:/Users\\ramic/AppData/Roaming/Kodi/userdata/addon_data/pvr.iptvsimple'
@@ -133,7 +134,22 @@ def update_prv_simpleiptv(pvr_path,m3uPath):
 #
 #
 #
-
+#repl = lambda k,v,z: re.sub(r'(?P<id>id="%s") value="(.*)"'%k ,'\g<id> value="%s"'%v, z)
+def addon_enable_and_set(addonid='pvr.iptvsimple',settings={'m3uPath': 'dupa'}):
+    print '_addon_enable_and_set ID=%s' % addonid
+    xbmc.executeJSONRPC('{"jsonrpc":"2.0","method":"Addons.SetAddonEnabled","id":1,"params":{"addonid":"%s", "enabled":true}}'%addonid )
+    xbmc.sleep(500)
+    msg=''
+    try:
+        pvr_addon = xbmcaddon.Addon(addonid)
+        for k,v in settings.items():
+            print 'k=%s v=%s' % (k,v)
+            pvr_addon.setSetting(k,v)
+        msg='PVR aktywny in uaktualniony'
+    except:
+        msg='[COLOR red]ERROR[/COLOR] PVR nie uaktualniony, zrob to recznie'
+    return msg
+    
    
 xbmcplugin.setContent(addon_handle, 'movies')	
 	
@@ -174,15 +190,11 @@ elif mode[0] == 'UPDATE_IPTV':
     path =  my_addon.getSetting('path')
     m3uPath = os.path.join(path,fname) 
     if os.path.exists(m3uPath):
-        pvr_path=  xbmc.translatePath(os.path.join('special://userdata/','addon_data','pvr.iptvsimple'))
-        msg=update_prv_simpleiptv(pvr_path,m3uPath)
+        new_settings={'m3uPath': m3uPath,'m3uPathType':'0','epgUrl':"http://epg.iptvlive.org",'epgPathType':'1','logoFromEpg':'2'}
+        msg=addon_enable_and_set(addonid='pvr.iptvsimple',settings=new_settings)
         
         xbmcgui.Dialog().notification('', msg, xbmcgui.NOTIFICATION_INFO, 1000)
-
-        #Enable prv.ipsimple
-        xbmc.executeJSONRPC('{"jsonrpc":"2.0","method":"Addons.SetAddonEnabled","id":1,"params":{"addonid":"pvr.iptvsimple", "enabled":true}}' )
-        #print xbmc.executeJSONRPC('{"jsonrpc":"2.0","method":"Addons.SetAddonEnabled","params":{"addonid":"pvr.iptvsimple","enabled":"toggle"},"id":1}')
-	  
+  
         version = int(xbmc.getInfoLabel("System.BuildVersion" )[0:2])
         print 'Kodi version: %d, checking if PVR is active' % version
         json_response = xbmc.executeJSONRPC('{"jsonrpc":"2.0","method":"Settings.GetSettingValue","params":{"setting":"pvrmanager.enabled"},"id":9}')
@@ -190,7 +202,7 @@ elif mode[0] == 'UPDATE_IPTV':
         pvrmanager = decoded_data['result']['value']
     
         if not pvrmanager:
-            xbmcgui.Dialog().ok('[COLOR red]Telewizja nie jest aktywna![/COLOR] ','Telewizja PVR nie jest aktywaowana', 'Aktywuj po OK')
+            xbmcgui.Dialog().ok('[COLOR red]Telewizja nie jest aktywna![/COLOR] ','Telewizja PVR nie jest aktywaowana', 'Aktywuj i uruchom ponownie jak Telewizja sie nie pojawi')
             # http://kodi.wiki/view/Window_IDs
             xbmc.executebuiltin('ActivateWindow(10021)')
         
@@ -207,7 +219,6 @@ elif mode[0] == 'UPDATE_IPTV':
 
     else:
         xbmcgui.Dialog().notification('ERROR', '[COLOR red[Lista m3u jeszcze nie istnieje![/COLOR]', xbmcgui.NOTIFICATION_ERROR, 3000)    
-
     
 elif mode[0] == 'BUID_M3U':
     
@@ -247,7 +258,7 @@ elif mode[0] == 'BUID_M3U':
         
         for i,one in enumerate(out_all):
             progress = int((i)*100.0/N)
-            message = '{}/{} {:<15}'.format(i,N-1,one.get('title','')) 
+            message = '%d/%d %s'.format(i,N-1,one.get('title','')) 
             pDialog.update(progress, message=message)
             #print "%d\t%s" % (progress,message)
             try:
