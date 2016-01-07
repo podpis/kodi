@@ -190,6 +190,8 @@ elif mode[0] == 'UPDATE_IPTV':
     path =  my_addon.getSetting('path')
     m3uPath = os.path.join(path,fname) 
     if os.path.exists(m3uPath):
+        xbmc.executebuiltin('StopPVRManager')
+        xbmc.executebuiltin('PVR.StopManager')
         new_settings={'m3uPath': m3uPath,'m3uPathType':'0','epgUrl':"http://epg.iptvlive.org",'epgPathType':'1','logoFromEpg':'2'}
         msg=addon_enable_and_set(addonid='pvr.iptvsimple',settings=new_settings)
         
@@ -258,7 +260,7 @@ elif mode[0] == 'BUID_M3U':
         
         for i,one in enumerate(out_all):
             progress = int((i)*100.0/N)
-            message = '%d/%d %s'.format(i,N-1,one.get('title','')) 
+            message = '%d/%d %s'%(i,N-1,one.get('title','')) 
             pDialog.update(progress, message=message)
             #print "%d\t%s" % (progress,message)
             try:
