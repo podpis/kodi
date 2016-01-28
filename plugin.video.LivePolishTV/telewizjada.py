@@ -125,14 +125,25 @@ def get_root_telewizjada(addheader=False):
         out.append(one_fix)
     return out
 
+#url=out[0].get('url')
+#_id=out[0].get('id')
+
 def decode_url(url,_id):
     cookies =  get_Cookies(BASEURL + 'set_cookie.php','url=%s' % url)
     msec = get_cookie_value(cookies,'msec')
     sessid = get_cookie_value(cookies,'sessid')
     cookie_ref = '|Cookie='+ urllib.quote_plus( msec + '; ' + sessid)
-        
+    #http://www.telewizjada.net/live.php?cid=2    
+    #href = getUrl(BASEURL + 'get_channel_url.php','cid=%d' % _id,cookies)    
     href = getUrl(BASEURL + 'get_channel_url.php','cid=%d' % _id,cookies)    
+    if not href.startswith('http'):
+        href = json.loads(href).get('url','')
     return href+cookie_ref
+
+def get_epg(channelname='polsat'):
+    epg=getUrl('http://www.telewizjada.net/get_epg.php','channelname=%s&offset=60'%channelname)
+    epg=json.loads(epg)
+    #href=getUrl('http://www.telewizjada.net/get_epg.php','channelname=polsat&offset=60',cookies)
 
 def decode_all_urls(out,):
     out_hrefs=[]    
