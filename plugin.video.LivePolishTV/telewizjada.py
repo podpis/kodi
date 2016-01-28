@@ -97,6 +97,7 @@ def listChannels():
                 'group': item['categoryID'],
                 'url': href+cookie_ref,
                 'urlepg' :item['epgUrl'],
+                'epgname':item['name'][6:],
                 'href': item['url']}
         one_fix = fixForEPG(one)
         print one_fix.get('title')
@@ -111,15 +112,17 @@ def get_root_telewizjada(addheader=False):
         t='[COLOR yellow]Updated: %s (Telewizjada)[/COLOR]' %time.strftime("%d/%m/%Y: %H:%M:%S")
         out.append({'title':t,'tvid':'','img':'','url':'http://looknij.tv','group':'','urlepg':''})
     for item in result['channels']:
-        
+        #now_next = get_epg_now_next(item['name'][6:])
         one = { 'id': item['id'], 
-                'title': item['displayName'].encode('utf-8'),
+                'title': item['displayName'].encode('utf-8') ,
                 'tvid': item['displayName'].encode('utf-8'),
                 'img': BASEURL + item['bigThumb'],
                 'group': item['categoryID'],
                 'url': item['url'], #href+cookie_ref,
                 'urlepg' :item['epgUrl'],
+                'epgname':item['name'][6:],
                 'href': item['url']}
+        
         one_fix = fixForEPG(one)
         print one_fix.get('title')
         out.append(one_fix)
@@ -140,10 +143,27 @@ def decode_url(url,_id):
         href = json.loads(href).get('url','')
     return href+cookie_ref
 
+def get_epg_now_next(channelname='polsat'):
+    epg=getUrl('http://www.telewizjada.net/get_epg.php','channelname=%s&offset=60'%channelname)
+    strout =''
+    if epg:
+        epg=json.loads(epg)
+        if epg:
+            strout='[COLOR green]%s[/COLOR], [COLOR blue]%s[/COLOR]'%( epg[0].get('title',''),epg[1].get('title','') ) 
+    return strout
+    #href=getUrl('http://www.telewizjada.net/get_epg.php','channelname=polsat&offset=60',cookies)
+
 def get_epg(channelname='polsat'):
     epg=getUrl('http://www.telewizjada.net/get_epg.php','channelname=%s&offset=60'%channelname)
-    epg=json.loads(epg)
-    #href=getUrl('http://www.telewizjada.net/get_epg.php','channelname=polsat&offset=60',cookies)
+    strout =''
+    if epg:
+        epg=json.loads(epg)
+        for one in epg:
+            mytime = time.strftime('%H:%M', time.localtime(one.get('starttime')))
+            strout += '%s [COLOR green]%s[/COLOR] [%s]\n' % (mytime,one.get('title').encode('utf-8') ,one.get('category').encode('utf-8'))
+#        if epg:
+ #           strout='[COLOR green]%s[/COLOR], [COLOR blue]%s[/COLOR]'%( epg[0].get('title',''),epg[1].get('title','') ) 
+    return strout
 
 def decode_all_urls(out,):
     out_hrefs=[]    
@@ -170,7 +190,6 @@ def build_m3u(out,fname='telewizjadatv.m3u'):
 if __name__ == "__main__":
     out=get_root_telewizjada()
     decode_url(out[0].get('url'),out[0].get('id'))
+    get_epg_now_next(out[0]['epgname'])
     out2=decode_all_urls(out)
-    build_m3u(out,fname='telewizjadatv_new.m3u')
-    
-        
+    #build_m3u(out,fname='telewizjadatv_new.m3u')

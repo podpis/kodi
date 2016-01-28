@@ -28,11 +28,16 @@ def getUrl(url,data=None):
     response.close()
     return link
     
-def addLinkItem(name, url, mode, iconimage=None, infoLabels=False, IsPlayable=True,fanart=None):
+def addLinkItem(name, url, mode, epgname=None, iconimage=None, infoLabels=False, IsPlayable=True,fanart=None):
     u = build_url({'mode': mode, 'foldername': name, 'ex_link' : url})
+    
     if iconimage==None:
         iconimage='DefaultFolder.png'
     liz = xbmcgui.ListItem(name, iconImage=iconimage, thumbnailImage=iconimage)
+    if epgname:
+        commands = []
+        commands.append(( 'Program TV', 'RunPlugin(plugin://plugin.video.LivePolishTV?mode=TELEWIZJADA_EPG&ex_link=%s)'%epgname ))
+        liz.addContextMenuItems( commands )    
     if not infoLabels:
         infoLabels={"Title": name}
     liz.setInfo(type="Video", infoLabels=infoLabels)
@@ -183,7 +188,11 @@ elif mode[0]=='play_telewizjada':
     stream_url = tel.decode_url(video_link,int(_id))
     if stream_url:
         xbmcplugin.setResolvedUrl(addon_handle, True, xbmcgui.ListItem(path=stream_url))
-
+elif mode[0]=='TELEWIZJADA_EPG':
+    print ex_link
+    programTV=tel.get_epg(ex_link)
+    if programTV:
+        ret = xbmcgui.Dialog().select('Program', programTV.split('\n'))
 
 elif mode[0] == 'UPDATE_IPTV':
     fname = my_addon.getSetting('fname')
@@ -296,7 +305,7 @@ elif mode[0] == 'folder':
         content = tel.get_root_telewizjada()
         for one in content:
             ex_link="%s|%s" % (one.get('url',''),one.get('id'))
-            addLinkItem(one.get('title',''), ex_link, 'play_telewizjada', iconimage=one.get('img'))
+            addLinkItem(one.get('title',''), ex_link, 'play_telewizjada', one.get('epgname',None),iconimage=one.get('img'))
 
                
 xbmcplugin.endOfDirectory(addon_handle)
