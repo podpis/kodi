@@ -1,9 +1,0 @@
-1.0.2
-- epg available from context menu (addon mode) telewizjada
-
-1.0.1
-- link fix for telewizjada
-
-1.0.0
-- initial version
-	
