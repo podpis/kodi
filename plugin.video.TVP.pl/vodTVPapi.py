@@ -6,7 +6,8 @@ Created on Fri May 29 22:10:54 2015
 """
 
 import urllib2
-import simplejson
+#import simplejson 
+import json as simplejson
 from time import localtime, strftime
 
 
