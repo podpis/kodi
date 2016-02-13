@@ -118,8 +118,7 @@ json_file = args.get('json_file',[''])[0]
 
 if mode is None:
     mainWalk("",os.path.join(PATH,'root.json'))
-    
-    addDir('TEST',ex_link=u'',json_file=os.path.join(PATH,'document.json'), mode='walk', iconImage=RESOURCES+'logo-looknij.png')
+    #addDir('TEST',ex_link=u'',json_file=os.path.join(PATH,'document.json'), mode='walk', iconImage=RESOURCES+'logo-looknij.png')
 
 
 elif mode[0] == 'decodeVideo':

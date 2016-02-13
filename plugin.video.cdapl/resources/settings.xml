@@ -3,6 +3,8 @@
     <category label="Jakość vioeo">
     <setting label="Lista m3u (Nazwa Pliku oraz Katalog Docelowy)" type="lsep"/>
 
-    </category>
+    <setting id="auto_select" type="enum" label="Wybieraj jakość filmu" entries="0|1" values="ręcznie|automatycznie" default="0"/>
+    <setting id="resolution" type="labelenum" label="ograniczaj jakość filmu do:" subsetting="true" visible="eq(-1,1)" values="bez ograniczeń|360p|480p|720p|1080p" default="bez ograniczeń" />
+        </category>
 
 </settings>

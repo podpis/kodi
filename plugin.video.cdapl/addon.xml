@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addon id="plugin.video.cdapl"
-    version="0.9.0"
+    version="1.0.0"
     name="CDAPL"
     provider-name="Michal">
 
