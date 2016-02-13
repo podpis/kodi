@@ -40,8 +40,8 @@
 
 <extension point="xbmc.addon.metadata">
   <summary lang="en">CDAPL Kodi Video Plugin</summary>
-  <description lang="en"></description>
-  <disclaimer lang="en"></disclaimer>
+  <description lang="en">...</description>
+  <disclaimer lang="en">...</disclaimer>
   <platform>all</platform>
 </extension>
 </addon>
