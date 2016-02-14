@@ -85,7 +85,36 @@ def decodeVideo(ex_link):
     
     if stream_url:
         xbmcplugin.setResolvedUrl(addon_handle, True, xbmcgui.ListItem(path=stream_url))
+
+def playVideoRemote(ex_link):
+    xbmcgui.Dialog().notification('Remote video requested', ex_link , xbmcgui.NOTIFICATION_INFO, 5000)
+    stream_url = cda.getVideoUrls(ex_link)
+    if type(stream_url) is list:
+        qualityList = [x[0] for x in stream_url]
+        selection = xbmcgui.Dialog().select("Quality [can be set default]", qualityList)
+        if selection>-1:
+            stream_url = cda.getVideoUrls(stream_url[selection][1],4)
+        else:
+            stream_url=''
     
+    if not stream_url:
+        return False
+        
+    liz=xbmcgui.ListItem('Remote video')
+    liz.setInfo( type="Video", infoLabels={ "Title": 'Remote video', } )
+    try:
+        # videoList = xbmc.PlayList(xbmc.PLAYLIST_VIDEO)
+        # videoList.clear()
+        # videoList.add(stream_url)
+        # xbmc.Player().play(videoList)
+        xbmcPlayer = xbmc.Player()
+        xbmcPlayer.play(stream_url, liz)
+        #xbmcplugin.setResolvedUrl(addon_handle, True, xbmcgui.ListItem(path=stream_url))
+    except Exception as ex:
+        xbmcgui.Dialog().ok('Problem z odtworzeniem.', 'Wystąpił nieznany błąd', str(ex))
+
+    return 1
+        
 
 
 def mainWalk(ex_link,json_file):
@@ -106,7 +135,8 @@ def mainWalk(ex_link,json_file):
     for item in items:
         addLinkItem(name=item.get('title').encode("utf-8"), url=item.get('url'), mode='decodeVideo', iconimage=item.get('img'), infoLabels=item, IsPlayable=True,fanart=None)
 
- 
+    xbmcplugin.endOfDirectory(addon_handle)
+
 ## MAIN LOOP 
    
 xbmcplugin.setContent(addon_handle, 'movies')	
@@ -121,8 +151,13 @@ if mode is None:
     #addDir('TEST',ex_link=u'',json_file=os.path.join(PATH,'document.json'), mode='walk', iconImage=RESOURCES+'logo-looknij.png')
 
 
+
 elif mode[0] == 'decodeVideo':
     decodeVideo(ex_link)
+
+elif mode[0] == 'play':
+    playVideoRemote(ex_link)
+
 
 elif mode[0] == 'Opcje':
     my_addon.openSettings()   
@@ -135,6 +170,4 @@ elif mode[0] == 'folder':
         pass
    
 
-        
-
-xbmcplugin.endOfDirectory(addon_handle)
+ 
