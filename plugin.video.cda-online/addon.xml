@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon id="plugin.video.cda-online"
+version="1.0.0"
+name="cda-online"
+provider-name="Michal">
+<requires>
+  <import addon="xbmc.python" version="2.24.0"/>
+  <import addon="script.module.urlresolver" version="2.10.0"/>
+</requires>
+<extension point="xbmc.python.pluginsource" library="main.py">
+  <provides>video</provides>
+</extension>
+<extension point="xbmc.addon.metadata">
+  <summary lang="en">cda-online</summary>
+  <description lang="en">Zasoby cda-online.pl</description>
+  <disclaimer lang="en">private use</disclaimer>
+</extension>
+</addon>
