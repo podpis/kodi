@@ -4,7 +4,7 @@ version="1.0.0"
 name="cda-online"
 provider-name="Michal">
 <requires>
-  <import addon="xbmc.python" version="2.24.0"/>
+  <import addon="xbmc.python" version="2.1.0"/>
   <import addon="script.module.urlresolver" version="2.10.0"/>
 </requires>
 <extension point="xbmc.python.pluginsource" library="main.py">
