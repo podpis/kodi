@@ -2,7 +2,7 @@
 <addons>
 <addon id="plugin.video.cdaonline"
 version="1.0.0"
-name="cda-online"
+name="CDA-Online"
 provider-name="Michal">
 <requires>
   <import addon="xbmc.python" version="2.1.0"/>
