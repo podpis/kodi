@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import urllib2
 import re
  
@@ -43,8 +45,8 @@ def scanMainpage(url,page=1):
             if img.startswith('//'):
                 img = 'http:'+img
             one = {'href'   : href.group(1),
-                'title'  : title.group(1),
-                'plot'   : plot.group(1) if plot else '',
+                'title'  : unicodePLchar(title.group(1)),
+                'plot'   : unicodePLchar(plot.group(1)) if plot else '',
                 'img'    : img,
                 'rating' : imdb.group(1) if imdb else '?',
                 'year'   : year.group(1) if year else '?',
@@ -118,9 +120,54 @@ def scanTVshow(url):
             d= date.group(1) if date else ''
             t= hreftitle.group(2) + ' ' + d
             one = {'href'  : hreftitle.group(1),
-                'title' : t.strip()}
+                'title' : unicodePLchar(t.strip())}
             out.append(one)
     return out
+
+
+def getGatunekRok(rodzaj='film',typ='gatunek'):
+    content = getUrl('http://cda-online.pl/')
+    selected = []
+    if rodzaj=='film':
+        if typ=='gatunek':
+            selected = re.compile('<a href="(http://cda-online.pl/kategoria/.*?/)" >(.*?)</a> <span>(\d+)</span>').findall(content)
+        else:
+            selected = re.compile('<a href="(http://cda-online.pl/rok/\d{4}/)">(\d{4})</a>').findall(content)
+    elif rodzaj=='serial':
+        if typ=='gatunek':
+            selected = re.compile('<a href="(http://cda-online.pl/seriale-gatunek/.*?/)" >(.*?)</a> <span>(\d+)</span>').findall(content)
+        else:
+            selected = re.compile('<a href="(http://cda-online.pl/seriale-rok/\d{4}/)">(\d{4})</a>').findall(content)
+    if selected:
+        url_list = [x[0] for x in selected]
+        display = [' '.join(x[1:]) for x in selected]
+        return (display,url_list)
+    return False
+
+def unicodePLchar(txt):
+    txt = txt.replace('#038;','')
+    txt = txt.replace('&lt;br/&gt;',' ')
+    txt = txt.replace('&#34;','"')
+    txt = txt.replace('&#39;','\'').replace('&#039;','\'')
+    txt = txt.replace('&#8221;','"')
+    txt = txt.replace('&#8222;','"')
+    txt = txt.replace('&#8217;','\'')
+    txt = txt.replace('&#8211;','-').replace('&ndash;','-')
+    txt = txt.replace('&quot;','"').replace('&amp;quot;','"')
+    txt = txt.replace('&oacute;','ó').replace('&Oacute;','Ó')
+    txt = txt.replace('&amp;oacute;','ó').replace('&amp;Oacute;','Ó')
+    #txt = txt.replace('&amp;','&')
+    txt = txt.replace('\u0105','ą').replace('\u0104','Ą')
+    txt = txt.replace('\u0107','ć').replace('\u0106','Ć')
+    txt = txt.replace('\u0119','ę').replace('\u0118','Ę')
+    txt = txt.replace('\u0142','ł').replace('\u0141','Ł')
+    txt = txt.replace('\u0144','ń').replace('\u0144','Ń')
+    txt = txt.replace('\u00f3','ó').replace('\u00d3','Ó')
+    txt = txt.replace('\u015b','ś').replace('\u015a','Ś')
+    txt = txt.replace('\u017a','ź').replace('\u0179','Ź')
+    txt = txt.replace('\u017c','ż').replace('\u017b','Ż')
+    return txt
+    
 
 if __name__=="main":
     url='http://cda-online.pl/filmy-online/'
@@ -142,3 +189,6 @@ if __name__=="main":
     url='http://go.cda-online.pl/Juv6D'
     links = getVideoLinks(url)
     _getOrginalURL('http://go.cda-online.pl/Juv6D')
+    data=getGatunekRok(rodzaj='film',typ='gatunek')
+ 
+    
