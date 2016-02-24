@@ -163,19 +163,19 @@ ex_link = args.get('ex_link',[''])[0]
 page = args.get('page',[1])[0]
 
 if mode is None:
-    addSeparator('[COLOR blue] == FILMY == [/COLOR]',fanart=FANART)
+    #addSeparator('[COLOR blue] FILMY == [/COLOR]',fanart=FANART)
+    addDir(name="[COLOR blue]Filmy[/COLOR]",ex_link='http://cda-online.pl/filmy-online/',page=1, mode='ListMovies',iconImage='DefaultFolder.png',fanart=FANART)
     addDir(name="Premiery",ex_link='http://cda-online.pl/kategoria/premiery/',page=1, mode='ListMovies',iconImage='DefaultFolder.png',fanart=FANART)
     addDir(name="Filmy HD",ex_link='http://cda-online.pl/jakosc/hd/',page=1, mode='ListMovies',iconImage='DefaultFolder.png',fanart=FANART)
-    addDir(name="Filmy",ex_link='http://cda-online.pl/filmy-online/',page=1, mode='ListMovies',iconImage='DefaultFolder.png',fanart=FANART)
     addDir(name=" => [Gatunek]",ex_link='film|gatunek',page=1, mode='GatunekRok',iconImage='DefaultFolder.png',fanart=FANART)
     addDir(name=" => [Rok]",ex_link='film|rok',page=1, mode='GatunekRok',iconImage='DefaultFolder.png',fanart=FANART)
     
-    addSeparator('[COLOR blue] == SERIALE == [/COLOR]',fanart=FANART)
-    addDir(name="Seriale",ex_link='http://cda-online.pl/seriale/',page=1, mode='ListSeriale',iconImage='DefaultFolder.png',fanart=FANART)
+    #addSeparator('[COLOR blue]SERIALE[/COLOR]',fanart=FANART)
+    addDir(name="[COLOR blue]Seriale[/COLOR]",ex_link='http://cda-online.pl/seriale/',page=1, mode='ListSeriale',iconImage='DefaultFolder.png',fanart=FANART)
     addDir(name=" => [Gatunek]",ex_link='serial|gatunek',page=1, mode='GatunekRok',iconImage='DefaultFolder.png',fanart=FANART)
     addDir(name=" => [Rok]",ex_link='serial|rok',page=1, mode='GatunekRok',iconImage='DefaultFolder.png',fanart=FANART)
     
-    addDir('[COLOR blue] == Szukaj == [/COLOR]','')
+    addDir('[COLOR green]Szukaj[/COLOR]','')
     
 
 elif mode[0] == '__page__M':
