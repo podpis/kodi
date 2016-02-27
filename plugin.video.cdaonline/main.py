@@ -7,6 +7,13 @@ import xbmc,xbmcgui,xbmcaddon
 import xbmcplugin
 import urlresolver
 
+try:
+   import StorageServer
+except:
+   import storageserverdummy as StorageServer
+cache = StorageServer.StorageServer("cdaonline")
+
+
 import resources.lib.cdaonline as cdaonline
 import resources.lib.cdaresolver as cdaresolver
 
@@ -14,6 +21,7 @@ base_url        = sys.argv[0]
 addon_handle    = int(sys.argv[1])
 args            = urlparse.parse_qs(sys.argv[2][1:])
 my_addon        = xbmcaddon.Addon()
+addonName       = my_addon.getAddonInfo('name')
 
 PATH        = my_addon.getAddonInfo('path')
 RESOURCES   = PATH+'/resources/'
@@ -50,7 +58,7 @@ def addLinkItem(name, url, mode, page=1, iconimage=None, infoLabels=False, IsPla
     xbmcplugin.addSortMethod(addon_handle, sortMethod=xbmcplugin.SORT_METHOD_NONE, label2Mask = "%R, %Y, %P")
     return ok
 
-def addDir(name,ex_link=None, page=1, mode='folder',iconImage='DefaultFolder.png', infoLabels=None, fanart=FANART):
+def addDir(name,ex_link=None, page=1, mode='folder',iconImage='DefaultFolder.png', infoLabels=None, fanart=FANART,contextmenu=None):
     url = build_url({'mode': mode, 'foldername': name, 'ex_link' : ex_link, 'page' : page})
     #li = xbmcgui.ListItem(name.encode("utf-8"), iconImage=iconImage)
     li = xbmcgui.ListItem(name, iconImage=iconImage, thumbnailImage=iconImage)
@@ -58,9 +66,14 @@ def addDir(name,ex_link=None, page=1, mode='folder',iconImage='DefaultFolder.png
         li.setInfo(type="movie", infoLabels=infoLabels)
     if fanart:
         li.setProperty('fanart_image', fanart )
-    contextMenuItems = []
-    contextMenuItems.append(('Informacja', 'XBMC.Action(Info)'))
-    li.addContextMenuItems(contextMenuItems, replaceItems=False)        
+    if contextmenu:
+        contextMenuItems=contextmenu
+        li.addContextMenuItems(contextMenuItems, replaceItems=True) 
+    else:
+        contextMenuItems = []
+        contextMenuItems.append(('Informacja', 'XBMC.Action(Info)'),)
+        li.addContextMenuItems(contextMenuItems, replaceItems=False)  
+          
     xbmcplugin.addDirectoryItem(handle=addon_handle, url=url,listitem=li, isFolder=True)
     xbmcplugin.addSortMethod(addon_handle, sortMethod=xbmcplugin.SORT_METHOD_NONE, label2Mask = "%R, %Y, %P")
 
@@ -118,6 +131,7 @@ def ListEpisodes(ex_link):
     for f in episodes:
         addLinkItem(name=f.get('title'), url=f.get('href'), mode='getLinks', iconimage=f.get('img'), infoLabels=f, IsPlayable=True)
 
+    
 def getLinks(ex_link):
     links = cdaonline.getVideoLinks(ex_link)
     stream_url=''
@@ -148,6 +162,28 @@ def getLinks(ex_link):
     else:
         xbmcplugin.setResolvedUrl(addon_handle, False, xbmcgui.ListItem(path=stream_url))
         
+## Historia wyszukiwania
+def HistoryLoad():
+    return cache.get('history').split(';')
+
+def HistoryAdd(entry):
+    history = HistoryLoad()
+    if history == ['']:
+        history = []
+    history.insert(0, entry)
+    cache.set('history',';'.join(history[:50]))
+
+def HistoryDel(entry):
+    history = HistoryLoad()
+    history.remove(entry)
+    if history:
+        cache.set('history',';'.join(history[:50]))
+    else:
+        HistoryClear()
+
+def HistoryClear():
+    cache.delete('history')
+
 
 ## ######################
 ## MAIN
@@ -163,20 +199,18 @@ ex_link = args.get('ex_link',[''])[0]
 page = args.get('page',[1])[0]
 
 if mode is None:
-    #addSeparator('[COLOR blue] FILMY == [/COLOR]',fanart=FANART)
     addDir(name="[COLOR blue]Filmy[/COLOR]",ex_link='http://cda-online.pl/filmy-online/',page=1, mode='ListMovies',iconImage='DefaultFolder.png',fanart=FANART)
     addDir(name="Premiery",ex_link='http://cda-online.pl/kategoria/premiery/',page=1, mode='ListMovies',iconImage='DefaultFolder.png',fanart=FANART)
     addDir(name="Filmy HD",ex_link='http://cda-online.pl/jakosc/hd/',page=1, mode='ListMovies',iconImage='DefaultFolder.png',fanart=FANART)
     addDir(name=" => [Gatunek]",ex_link='film|gatunek',page=1, mode='GatunekRok',iconImage='DefaultFolder.png',fanart=FANART)
     addDir(name=" => [Rok]",ex_link='film|rok',page=1, mode='GatunekRok',iconImage='DefaultFolder.png',fanart=FANART)
     
-    #addSeparator('[COLOR blue]SERIALE[/COLOR]',fanart=FANART)
     addDir(name="[COLOR blue]Seriale[/COLOR]",ex_link='http://cda-online.pl/seriale/',page=1, mode='ListSeriale',iconImage='DefaultFolder.png',fanart=FANART)
     addDir(name=" => [Gatunek]",ex_link='serial|gatunek',page=1, mode='GatunekRok',iconImage='DefaultFolder.png',fanart=FANART)
     addDir(name=" => [Rok]",ex_link='serial|rok',page=1, mode='GatunekRok',iconImage='DefaultFolder.png',fanart=FANART)
     
-    addDir('[COLOR green]Szukaj[/COLOR]','')
-    
+    addDir('[COLOR green]Szukaj[/COLOR]','',mode='Szukaj')
+
 
 elif mode[0] == '__page__M':
     url = build_url({'mode': 'ListMovies', 'foldername': '', 'ex_link' : ex_link, 'page': page})
@@ -215,13 +249,37 @@ elif mode[0] == 'GatunekRok':
 elif mode[0] == 'Opcje':
     my_addon.openSettings()   
 
+elif mode[0] =='Szukaj':
+    addDir('[COLOR green]Nowe Szukanie[/COLOR]','',mode='SzukajNowe')
+    historia = HistoryLoad()
+    if not historia == ['']:
+        for entry in historia:
+            contextmenu = []
+            contextmenu.append(('Usuń', 'XBMC.Container.Refresh(%s)'% build_url({'mode': 'SzukajUsun', 'ex_link' : entry})),)
+            contextmenu.append(('Usuń całą historię', 'XBMC.Container.Update(%s)' % build_url({'mode': 'SzukajUsunAll'})),)
+            addDir(name=entry, ex_link='http://cda-online.pl/?s='+entry.replace(' ','+'), mode='ListMovies', fanart=None, contextmenu=contextmenu) 
+        
 
-elif mode[0] == 'folder':
-    if 'Szukaj' in fname:
-        dialog = xbmcgui.Dialog()
-        d = dialog.input('Szukaj, Podaj tytul filmu/serialu/bajki', type=xbmcgui.INPUT_ALPHANUM)
+        
+elif mode[0] =='SzukajNowe':
+    d = xbmcgui.Dialog().input('Szukaj, Podaj tytul filmu/serialu/bajki', type=xbmcgui.INPUT_ALPHANUM)
+    if d:
+        HistoryAdd(d)
         ex_link='http://cda-online.pl/?s='+d.replace(' ','+')
         ListMovies(ex_link,page)
+
+elif mode[0] =='SzukajUsun':
+    HistoryDel(ex_link)
+    xbmc.executebuiltin('XBMC.Container.Refresh(%s)'%  build_url({'mode': 'Szukaj'}))
+
+    
+elif mode[0] == 'SzukajUsunAll':
+    HistoryClear()
+    xbmc.executebuiltin('XBMC.Container.Refresh(%s)'%  build_url({'mode': 'Szukaj'}))
+
+elif mode[0] == 'folder':
+    pass
+
 else:
     xbmcplugin.setResolvedUrl(addon_handle, False, xbmcgui.ListItem(path=''))        
 
