@@ -1,0 +1,15 @@
+1.2.0
+- settings: view selection
+- settings: filmweb metadata
+- sorting video: Title/Rating/Year ....
+- Filmy HD
+- Seriale HD
+- Szukaj
+- new type of dict
+
+1.1.0
+- remote access added via chrome extension [cda.pl2kodi.crx]
+- extension available on github: https://github.com/ramicspa/kodi
+
+1.0.0
+- initial version with remote json sources
