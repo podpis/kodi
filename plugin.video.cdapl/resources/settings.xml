@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <settings>
-    <category label="Jakość vioeo">
-    <setting label="Lista m3u (Nazwa Pliku oraz Katalog Docelowy)" type="lsep"/>
-
-    <setting id="auto_select" type="enum" label="Wybieraj jakość filmu" entries="0|1" values="ręcznie|automatycznie" default="0"/>
-    <setting id="resolution" type="labelenum" label="ograniczaj jakość filmu do:" subsetting="true" visible="eq(-1,1)" values="bez ograniczeń|360p|480p|720p|1080p" default="bez ograniczeń" />
-        </category>
-
+    <category label="Filmweb Metadata">
+        <setting label="szukać informacji o video na filmweb?" type="lsep"/>
+        <setting id="filmweb_film" label="Filmy HD Lektor | Dubbing" type="bool"  default="true"/>
+        <setting id="filmweb_serial" label="Serial HD Lektor | Dubbing" type="bool"  default="true"/>
+        <setting id="filmweb_search" label="Szukaj" type="bool"  default="true"/>
+    </category>
+    <category label="AutoView" >
+        <setting id="auto-view" type="bool" label="Widok" default="true" enable=/>
+        <setting id="view_mode" type="enum" label="Movies View" values="List|Big List|Thumbnails|Poster Wrap|Fanart|Media info|Media info 2|Media info 3" enable="!eq(-1,false)+!eq(-2,false)"/>
+    </category>    
 </settings>

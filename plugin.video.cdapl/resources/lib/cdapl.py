@@ -8,11 +8,13 @@ Created on Thu Feb 11 18:47:43 2016
 import urllib2
 import re
 import json as json
+from collections import OrderedDict
 
 import jsunpack as jsunpack
 
 BASEURL='http://www.cda.pl'
 TIMEOUT = 5
+
 
 def getUrl(url,data=None,cookies=None):
     req = urllib2.Request(url,data)
@@ -215,7 +217,7 @@ def _scan_UserFolder(urlF,recursive=True,items=[],folders=[]):
     
     return items,folders
   
-   
+
 def get_UserFolder_content( urlF,recursive=True,filtr_items={}):
     items=[]
     folders=[]
@@ -233,7 +235,66 @@ def get_UserFolder_content( urlF,recursive=True,filtr_items={}):
         print 'Filted %d items by [%s in %s]' %(cnt, value, key)
     return items,folders
     
+def l2d(l):
+    """
+    converts list to dictionary for safe data picup
+    """
+    return dict(zip(range(len(l)),l))
 
+# url='http://www.cda.pl/video/show/3d_dubbing/p1?duration=dlugie&section=&quality=720p&section=&s=best&section='
+# url='http://www.cda.pl/video/show/film_lektor_pl_dubbing/p1?duration=dlugie&section=&quality=720p&section=&s=date&section='
+# items=searchCDA(url)
+# print_toJson(items)
+def searchCDA(url):
+    content = getUrl(url)
+    labels=re.compile('<label(.*?)</label>', re.DOTALL).findall(content)
+    nextpage =re.compile(' class="sbmBigNext btn-my btn-large fiximg" href="(.*?)">').findall(content)
+    
+    items=[]
+    label=labels[0]
+    for label in labels:
+        if label.find('premium')>0: 
+            pass
+        plot = re.compile('title="(.*)"').findall(label)
+        image = re.compile('src="(.*)"').findall(label)
+        hd = re.compile('<span class="hd-ico-elem hd-elem-pos">(.*?)</span>').findall(label)
+        duration = re.compile('<span class="timeElem">\s+(.*?)\s+</span>').findall(label)
+        title=re.compile('<a class="titleElem" href="(/video/.*?)">(.*?)<').findall(label)
+        nowosc = 'Nowość' if label.find('Nowość')>0 else ''
+        if title:
+            if len(title[0])==2:
+                url = BASEURL+ title[0][0]
+                title = unicodePLchar(title[0][1])
+                duration =  sum([a*b for a,b in zip([3600,60,1], map(int,duration[0].split(':')))]) if duration else ''
+                code = hd[0] if hd else ''
+                plot = unicodePLchar(plot[0])
+                img = image[0] if image else ''
+                items.append({'url':url,'title':unicode(title,'utf-8'),'code':code,'plot':unicode(plot,'utf-8'),'img':img,'duration':duration,'new':nowosc})
+    if items and nextpage:
+        nextpage = BASEURL+ nextpage[0]
+    #    items.append({'url':BASEURL+ nextpage[0],'title':unicode('Następna strona','utf-8'),'code':'','plot':'','img':'','duration':'','new':''})
+    return items,nextpage
+
+def print_toJson(items):
+    for i in items:
+        #print 'title':i.get('title'),'url':i.get('url'),'code':i.get('code')}
+        print '{"title":"%s","url":"%s","code":"%s"}' % (i.get('title'),i.get('url'),i.get('code'))
+
+def cleanTitle(title):
+    pattern = re.compile(r"[({;,/]")
+    year=''
+    reyear = re.search('\d{4}',title)
+    if reyear:
+        title = re.sub('\d{4}','',title)
+        title = pattern.split(title)[0]
+        year = reyear.group()
+    
+    title=title.lower()
+    rmList=['lektor',' pl ','hd']
+    for rm in rmList:
+        title = title.replace(rm,'')
+    return title, year
+    
 
 ## JSON TASK
 
@@ -251,22 +312,30 @@ def html_entity_decode_char(m):
         else:
             return ent
 
-def html_entity_decode( string):
+def html_entity_decode(string):
     string = string.decode('UTF-8')
     s = re.compile("&#?(\w+?);").sub(html_entity_decode_char, string)
     return s.encode('UTF-8')
     
-    
+
 def ReadJsonFile(jfilename):
     if jfilename.startswith('http'):
         content = getUrl(jfilename)
     else: # local content
         with open(jfilename,'r') as f:
             content =  f.read()
-    data=json.loads(html_entity_decode(content))
+    #data=json.loads(html_entity_decode(content))
+    data=json.loads(html_entity_decode(content), object_pairs_hook=OrderedDict)
+    #print '#'*4, 'Json loads orderddict'
+    #print data.keys()
+    #print json.dumps(data, indent=4)
     #data=json.loads(content)
     return data
 
+# jfilename=r'C:\Users\ramic\OneDrive\Public\Kodi\cdapl\bajki.json'
+# jfilename=r'C:\Users\ramic\OneDrive\Public\Kodi\cdapl\filmy3D.json'
+# mydict=ReadJsonFile(jfilename)
+# a=xpath(mydict,'')
 def xpath(mydict, path=''):
     elem = mydict
     if path:
@@ -282,7 +351,7 @@ def jsconWalk(data,path):
     lista_pozycji=[]
     
     elems = xpath(data,path) 
-    if type(elems) is dict:
+    if type(elems) is dict or type(elems) is OrderedDict:
         # created directory
         for e in elems.keys():
             one=elems.get(e)
@@ -343,3 +412,4 @@ def unicodePLchar(txt):
     txt = txt.replace('\u017a','ź').replace('\u0179','Ź')
     txt = txt.replace('\u017c','ż').replace('\u017b','Ż')
     return txt
+    
