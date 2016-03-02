@@ -1,0 +1,44 @@
+{
+  "Nowe Filmy" : "https://onedrive.live.com/download?resid=5FCAAB989C993382!6421&authkey=!ANNO7uKkoXjIUvM&ithint=file%2cjson",
+  "Filmy Dokumentalne": {
+    "Starożytni Kosmici" :[{ "folder" : "http://www.cda.pl/majtek2/folder/1000375", "subfoders" : true, "items" : true, "flter_item" :{} }],
+    "Wielkie bitwy Historii" :[{ "folder" : "http://www.cda.pl/majtek2/folder/997762", "subfoders" : false, "items" : true, "flter_item" :{} }],
+	"Discovery" :[{"folder" : "http://www.cda.pl/mbkasek/folder/645639"}]
+	},
+  "Bajki": {
+     "Smerfy Sezon1" : [{
+      "folder" : "http://www.cda.pl/Marek_Dj-Marco/folder/1048262",
+      "subfoders" : false,
+      "items" : true,
+      "recursive" :true,
+      "flter_item" :{"title":"Smerfy"}
+    }],
+    "Zaczarowany Ołówek HD" : [{"folder" : "http://www.cda.pl/Marek_Dj-Marco/folder/1048262/2","subfoders" : false, "items" : true,  "recursive" :false, "flter_item" :{"title":"Zaczarowany"} }],
+	"Zaczarowany Ołówek (wszystkie odcinki) " : [{"folder" : "http://www.cda.pl/Bajki_Polskie/folder/1031187"}]
+	} ,
+  "Kolekcje Filmowe" : "https://onedrive.live.com/download?resid=5FCAAB989C993382!6415&authkey=!AIwfMoPgWLG-uDc&ithint=file%2cjson",
+  
+  "Foldery użytkowników": {
+	"PromillBox" : {
+		 "Kolekcja Filmowa" : [{ "folder" : "http://www.cda.pl/PromillBox/folder/933310"} ],
+		 "Filmy" : [{ "folder" : "http://www.cda.pl/PromillBox/folder/705617"} ],
+		 "seriale": [{ "folder" :"http://www.cda.pl/PromillBox/folder/705618"} ]
+    },
+	"Marek_Dj-Marco - Folder glowny" :[{
+      "folder" : "http://www.cda.pl/Marek_Dj-Marco/folder-glowny",
+      "subfoders" : true,
+      "items" : true,
+      "flter_item" :{}
+    }]
+	},
+	"__TEST__": {
+		"Zaczarowany Ołówek HD" :{
+			"Starożytni Kosmici" : {
+				"sezon użytkowników" :{
+					"Kolekcja Filmowa" : [{ "folder" : "http://www.cda.pl/PromillBox/folder/933310"} ],
+					"Filmy" : [{ "folder" : "http://www.cda.pl/PromillBox/folder/705617"} ],
+					"seriale": [{ "folder" :"http://www.cda.pl/PromillBox/folder/705618"} ] }
+				}
+		}
+	}
+}

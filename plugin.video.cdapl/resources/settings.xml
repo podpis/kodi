@@ -3,11 +3,11 @@
     <category label="Filmweb Metadata">
         <setting label="szukać informacji o video na filmweb?" type="lsep"/>
         <setting id="filmweb_film" label="Filmy HD Lektor | Dubbing" type="bool"  default="true"/>
-        <setting id="filmweb_serial" label="Serial HD Lektor | Dubbing" type="bool"  default="true"/>
-        <setting id="filmweb_search" label="Szukaj" type="bool"  default="true"/>
+        <setting id="filmweb_serial" label="Serial HD Lektor | Dubbing" type="bool"  default="false"/>
+        <setting id="filmweb_search" label="Szukaj" type="bool"  default="false"/>
     </category>
     <category label="AutoView" >
-        <setting id="auto-view" type="bool" label="Widok" default="true" enable=/>
+        <setting id="auto-view" type="bool" label="Widok" default="false" enable=/>
         <setting id="view_mode" type="enum" label="Movies View" values="List|Big List|Thumbnails|Poster Wrap|Fanart|Media info|Media info 2|Media info 3" enable="!eq(-1,false)+!eq(-2,false)"/>
     </category>    
 </settings>

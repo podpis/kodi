@@ -8,7 +8,7 @@ Created on Thu Feb 11 18:47:43 2016
 import urllib2
 import re
 import json as json
-from collections import OrderedDict
+#from collections import OrderedDict
 
 import jsunpack as jsunpack
 
@@ -324,12 +324,8 @@ def ReadJsonFile(jfilename):
     else: # local content
         with open(jfilename,'r') as f:
             content =  f.read()
-    #data=json.loads(html_entity_decode(content))
-    data=json.loads(html_entity_decode(content), object_pairs_hook=OrderedDict)
-    #print '#'*4, 'Json loads orderddict'
-    #print data.keys()
-    #print json.dumps(data, indent=4)
-    #data=json.loads(content)
+    data=json.loads(html_entity_decode(content))
+    #data=json.loads(html_entity_decode(content), object_pairs_hook=OrderedDict)
     return data
 
 # jfilename=r'C:\Users\ramic\OneDrive\Public\Kodi\cdapl\bajki.json'
@@ -351,7 +347,7 @@ def jsconWalk(data,path):
     lista_pozycji=[]
     
     elems = xpath(data,path) 
-    if type(elems) is dict or type(elems) is OrderedDict:
+    if type(elems) is dict: # or type(elems) is OrderedDict:
         # created directory
         for e in elems.keys():
             one=elems.get(e)

@@ -5,6 +5,7 @@
 - Filmy HD
 - Seriale HD
 - Szukaj
+- new type of dict
 
 1.1.0
 - remote access added via chrome extension [cda.pl2kodi.crx]
