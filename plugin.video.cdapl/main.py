@@ -37,7 +37,7 @@ def addLinkItem(name, url, mode, iconimage=None, infoLabels=False, IsPlayable=Fa
     if not infoLabels:
         infoLabels={"title": name}
     liz.setInfo(type="video", infoLabels=infoLabels)
-    liz.setContentLookup(False)
+    #liz.setContentLookup(False)
     if IsPlayable:
         liz.setProperty('IsPlayable', 'True')
     if fanart:
@@ -176,7 +176,7 @@ def mainWalk(ex_link,json_file):
         addDir(f.get('title'),ex_link=f.get('url'), json_file=tmp_json_file, mode='walk', iconImage=f.get('img',''),fanart=f.get('fanart',''),totalItems=N_folders)
     N_items=len(items)
     for item in items:
-        addLinkItem(name=item.get('title').encode("utf-8"), url=item.get('url'), mode='decodeVideo', iconimage=item.get('img'), infoLabels=item, IsPlayable=False,fanart=item.get('img'),totalItems=N_items)
+        addLinkItem(name=item.get('title').encode("utf-8"), url=item.get('url'), mode='decodeVideo', iconimage=item.get('img'), infoLabels=item, IsPlayable=True,fanart=item.get('img'),totalItems=N_items)
     
     if N_folders : setView()
     return 1
@@ -215,7 +215,7 @@ elif mode[0]=='cdaSearch':
     if items:
         for item in items:
             item=updateMetadata(item,use_filmweb)
-            addLinkItem(name=item.get('title').encode("utf-8"), url=item.get('url'), mode='decodeVideo', iconimage=item.get('img'), infoLabels=item, IsPlayable=False,fanart=item.get('img'),totalItems=N_items)
+            addLinkItem(name=item.get('title').encode("utf-8"), url=item.get('url'), mode='decodeVideo', iconimage=item.get('img'), infoLabels=item, IsPlayable=True,fanart=item.get('img'),totalItems=N_items)
         if nextpage:
             addDir('[COLOR green]Następna strona >> [/COLOR] ',ex_link=nextpage, mode='cdaSearch')
         setView()

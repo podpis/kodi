@@ -95,7 +95,8 @@ def getVideoLinks(url):
             j= jezyk.group(1) if jezyk else ''
             q= jakosc.group(1) if jakosc else ''
             host = host.groups()[-1]
-            link = _getOrginalURL(href.group(1).replace('http://cda-online.pl?',''),host)
+            href_go = 'http'+ href.group(1).split('http')[-1]
+            link = _getOrginalURL(href_go.replace('http://cda-online.pl?',''),host)
             
             if link:
                 one = {'url' : link,
@@ -186,7 +187,8 @@ if __name__=="main":
     out = scanTVshow(url)
     url = out[0].get('href')
     links = getVideoLinks(url)
-    url='http://go.cda-online.pl/Juv6D'
+    url='http://cda-online.pl/dama-w-vanie/'
+
     links = getVideoLinks(url)
     _getOrginalURL('http://go.cda-online.pl/Juv6D')
     data=getGatunekRok(rodzaj='film',typ='gatunek')
