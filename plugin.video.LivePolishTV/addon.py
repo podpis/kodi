@@ -3,7 +3,6 @@ import urllib,urllib2
 import urlparse
 import xbmc,xbmcgui,xbmcaddon
 import xbmcplugin
-from bs4 import BeautifulSoup
 import json 
 
 
@@ -157,7 +156,7 @@ def addon_enable_and_set(addonid='pvr.iptvsimple',settings={'m3uPath': 'dupa'}):
     
    
 xbmcplugin.setContent(addon_handle, 'movies')	
-	
+
 mode = args.get('mode', None)
 fname = args.get('foldername',[''])[0]
 ex_link = args.get('ex_link',[''])[0]
@@ -230,8 +229,11 @@ elif mode[0] == 'UPDATE_IPTV':
 
     else:
         xbmcgui.Dialog().notification('ERROR', '[COLOR red[Lista m3u jeszcze nie istnieje![/COLOR]', xbmcgui.NOTIFICATION_ERROR, 3000)    
+
+
     
 elif mode[0] == 'BUID_M3U':
+    #http://192.168.1.3/jsonrpc?request={%22jsonrpc%22:%222.0%22,%22method%22:%22Addons.ExecuteAddon%22,%22params%22:{%22addonid%22:%22plugin.video.LivePolishTV%22,%22params%22:[%22mode=BUID_M3U%22]},%22id%22:1}
     
     fname = my_addon.getSetting('fname')
     path =  my_addon.getSetting('path')
@@ -249,23 +251,28 @@ elif mode[0] == 'BUID_M3U':
     if error_msg:
         xbmcgui.Dialog().notification('[COLOR red]ERROR[/COLOR]', error_msg, xbmcgui.NOTIFICATION_ERROR, 1000)
         pvr_path=  xbmc.translatePath(os.path.join('special://userdata/','addon_data','pvr.iptvsimple'))
-        print pvr_path
+        #print pvr_path
         if os.path.exists(os.path.join(pvr_path,'settings.xml')):
             print 'settings.xml exists'
     else:
         outfilename = os.path.join(path,fname)     
-        
-        out_all = []
-        if src1: 
-            out_all = out_all + tel.get_root_telewizjada(addheader=True)
-        if src2:
-            out_all = out_all + ltv.get_root_looknji(addheader=True)
-        
         pDialog = xbmcgui.DialogProgressBG()
         pDialog.create('Tworze liste programow TV [%s]'%(fname), 'Uzyj z [COLOR blue]PVR IPTV Simple Client[/COLOR]')
         
+        out_all = []
+        if src1: 
+            pDialog.update(0,message='Szukam: [telewizjada.net]')
+            out_all = out_all + tel.get_root_telewizjada(addheader=True)
+        if src2:
+            pDialog.update(0,message='Szukam: [telewizjada.net]')
+            out_all = out_all + ltv.get_root_looknji(addheader=True)
+        
+        
+        
+        
         N=len(out_all)
         out_sum=[]
+        pDialog.update(0,message= 'Znalazlem!  %d' % N  )
         
         for i,one in enumerate(out_all):
             progress = int((i)*100.0/N)

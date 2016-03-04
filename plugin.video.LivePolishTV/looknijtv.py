@@ -11,6 +11,7 @@ import re
 import time
 
 NameFix={
+    "Hustler HD":"Hustler",
     "TV PULS":"TV Puls",
     "PULS 2":"Puls 2",
     "TeleToon":"Teletoon+",
@@ -24,6 +25,9 @@ NameFix={
     "Ale Kino":"ale kino+",
     "Canal Sport 2":"Canal+ Sport 2",
     "Discovery":"Discovery Channel",
+    "Discovery Scie":"Discovery Science",
+    "TVN Biznes":"TVN 24 BIS",
+    "Extreme Sports":"Extreme Sport",
     "National Geographic":"National Geographic Channel",
     }
 
@@ -88,3 +92,8 @@ def decode_all_urls(out):
 #out=get_root_looknji(addheader=True)
 #out2=decode_all_urls(out)    
 #decode_url()
+# tmplist=[]
+# for i in range(len(out)):
+#     if 'TVP' in out[i].get('title'):
+#         out.insert(
+#         print out[i].get('title')

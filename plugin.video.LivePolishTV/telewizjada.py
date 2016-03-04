@@ -20,6 +20,10 @@ import json as json
 BASEURL='http://www.telewizjada.net/'
 
 NameFix={
+    "Private TV":"Private",
+    "Extreme Sports":"Extreme Sport",
+    "Boomerang Central":"Boomerang",
+    "Domo+":"Domo+ HD",
     "TV PULS":"TV Puls",
     "TV6":"TV 6",
     "TV4":"TV 4",
@@ -104,6 +108,12 @@ def listChannels():
         out.append(one_fix)
     return out
 
+
+def get_mainchannel(cid=1):
+    data=getUrl(BASEURL + 'get_mainchannel.php','cid=%s' % cid)
+    return json.loads(data)
+
+
 def get_root_telewizjada(addheader=False):     
     data=getUrl(BASEURL + 'get_channels.php')
     result = json.loads(data)
@@ -112,16 +122,16 @@ def get_root_telewizjada(addheader=False):
         t='[COLOR yellow]Updated: %s (Telewizjada)[/COLOR]' %time.strftime("%d/%m/%Y: %H:%M:%S")
         out.append({'title':t,'tvid':'','img':'','url':'http://looknij.tv','group':'','urlepg':''})
     for item in result['channels']:
-        #now_next = get_epg_now_next(item['name'][6:])
-        one = { 'id': item['id'], 
-                'title': item['displayName'].encode('utf-8') ,
-                'tvid': item['displayName'].encode('utf-8'),
-                'img': BASEURL + item['bigThumb'],
-                'group': item['categoryID'],
-                'url': item['url'], #href+cookie_ref,
-                'urlepg' :item['epgUrl'],
-                'epgname':item['name'][6:],
-                'href': item['url']}
+        item.update(get_mainchannel(item.get('id')))
+        one = { 'id': item.get('id'), 
+                'title': item.get('displayName').encode('utf-8') ,
+                'tvid': item.get('displayName').encode('utf-8'),
+                'img': BASEURL + item.get('thumb'),
+                'group': item.get('categoryID'),
+                'url': item.get('url'), #href+cookie_ref,
+                'urlepg' :item.get('epgUrl'),
+                'epgname':item.get('displayName'),
+                'href': item.get('url')}
         
         one_fix = fixForEPG(one)
         print one_fix.get('title')
@@ -189,7 +199,7 @@ def build_m3u(out,fname='telewizjadatv.m3u'):
 
 if __name__ == "__main__":
     out=get_root_telewizjada()
-    decode_url(out[0].get('url'),out[0].get('id'))
-    get_epg_now_next(out[0]['epgname'])
-    out2=decode_all_urls(out)
+    #decode_url(out[0].get('url'),out[0].get('id'))
+    #get_epg_now_next(out[0]['epgname'])
+    #out2=decode_all_urls(out)
     #build_m3u(out,fname='telewizjadatv_new.m3u')
