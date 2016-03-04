@@ -9,6 +9,7 @@ import urllib2
 import hashlib
 import json
 
+
 # Global Settings
 API_SERVER = "https://ssl.filmweb.pl/api?";
 KEY = "qjcGhW2JnvGT9dfCt3uT_jozR3s";
@@ -28,8 +29,14 @@ def _getUrl(url):
     Get Url contnetnt
     return: string
     """
-    req = urllib2.Request(url)
-    req.add_header('User-Agent', 'Mozilla/5.0 (Linux; Android 4.1.1; Galaxy Nexus Build/JRO03C) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.166 Mobile Safari/535.19')
+    headers = {'User-Agent': 'Mozilla/5.0 (Linux; Android 4.1.1; Galaxy Nexus Build/JRO03C) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.166 Mobile Safari/535.19',
+           'X-Requested-With':'XMLHttpRequest',
+           #'Host':'www.filmweb.pl',
+           #'Referer':'www.filmweb.pl',
+           #'Connection':'keep-alive',
+            }
+                       
+    req = urllib2.Request(url, None, headers)
     response = urllib2.urlopen(req,timeout=5)
     link = response.read()
     response.close()
@@ -64,7 +71,7 @@ def _processResponse(response,_response_keys):
     return out
 
 
-def getFilmInfoFull(filmID='1'):
+def getFilmInfoFull(filmID='728144'):
     method = 'getFilmInfoFull [' + filmID + ']'
     _response_keys ={
         0 :  'title',
@@ -80,22 +87,24 @@ def getFilmInfoFull(filmID='1'):
         10 :  'hasDescription',
         11 :  'img',
         12 :  'video',
-        13 :  'premiereWorld',
+        13 :  'aired', # premiereWorld
         14 :  'premiered',
         15 :  'filmType',
         16 :  'seasonsCount',
         17 :  'episodesCount',
         18 :  'countriesString',
-        19 :  'plotoutline'
+        19 :  'plot'
     }
     response = _getUrl( API_SERVER + _prepareParams(method))
     out = {}
     if response[:2]=='ok':  
         out =_processResponse(response,_response_keys)
         if out.get('video'):
-            out['trailer']=out.get('video')[-1]
+            out['trailer']=[ x for x in out.get('video') if 'mp4' in str(x) ]
         if out.get('img'):
             out['img']=IMG_POSTER_URL + out.get('img').replace('.2.','.3.')
+        if out.get('year'):
+            out['title'] += ' (%s)' % out.get('year')
     return out
 
 

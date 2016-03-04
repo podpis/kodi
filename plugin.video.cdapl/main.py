@@ -107,36 +107,51 @@ def updateMetadata(item,use_filmweb=True):
         if data:
             item.update(data)
             item['OriginalTitle']=title_org
-            item['title']=u'%s (%d)' %(data.get('title'),data.get('year',''))
     return item
 
 
 ## COMMON Functions
 
-def decodeVideo(ex_link):
-    stream_url = cda.getVideoUrls(ex_link)
+def selectQuality(stream_url,quality):
+    msg = u'Wybierz jakość video [albo ustaw automat w opcjach]'
+    stream_selected=''
     if type(stream_url) is list:
         qualityList = [x[0] for x in stream_url]
-        selection = xbmcgui.Dialog().select("Quality [can be set default]", qualityList)
-        if selection>-1:
-            stream_url = cda.getVideoUrls(stream_url[selection][1],4)
-        else:
-            stream_url=''
-    print stream_url    
-    
+        if quality > 0:
+            user_selection = ['','Najlepsza','1080p','720p','480p','360p'][quality]
+            if user_selection=='Najlepsza':
+                stream_selected = cda.getVideoUrls(stream_url[0][1],4)  # najepsza - pierwszy link
+            elif user_selection in qualityList:
+                stream_selected = cda.getVideoUrls(stream_url[qualityList.index(user_selection)][1],4)
+            else:
+                msg = u'Problem z automatycznym wyborem ... wybierz jakosc'
+            
+        if not stream_selected:    
+            selection = xbmcgui.Dialog().select(msg, qualityList)
+            if selection>-1:
+                stream_selected = cda.getVideoUrls(stream_url[selection][1],4)
+            else:
+                stream_selected=''
+    else:
+        stream_selected = stream_url
+    return stream_selected
+  
+
+def decodeVideo(ex_link):
+    stream_url = cda.getVideoUrls(ex_link)
+    quality = my_addon.getSetting('quality')
+    stream_url = selectQuality(stream_url,int(quality))
+    print '$'*10
+    print stream_url
     if stream_url:
         xbmcplugin.setResolvedUrl(addon_handle, True, xbmcgui.ListItem(path=stream_url))
 
 def playVideoRemote(ex_link):
     xbmcgui.Dialog().notification('Remote video requested', ex_link , xbmcgui.NOTIFICATION_INFO, 5000)
     stream_url = cda.getVideoUrls(ex_link)
-    if type(stream_url) is list:
-        qualityList = [x[0] for x in stream_url]
-        selection = xbmcgui.Dialog().select("Quality [can be set default]", qualityList)
-        if selection>-1:
-            stream_url = cda.getVideoUrls(stream_url[selection][1],4)
-        else:
-            stream_url=''
+    
+    quality = my_addon.getSetting('quality_remote')
+    stream_url = selectQuality(stream_url,int(quality))
     
     if not stream_url:
         return False
@@ -155,13 +170,78 @@ def playVideoRemote(ex_link):
         xbmcgui.Dialog().ok('Problem z odtworzeniem.', 'Wystąpił nieznany błąd', str(ex))
 
     return 1
-        
+    
+## USER FOLDERS        
 
+def userFolder(userF='K1'):
+    enabled = my_addon.getSetting(userF)
+    if enabled=='true':
+        title = my_addon.getSetting(userF+'_filtr0')
+        
+        list_of_special_chars = [
+        ('Ą', b'a'),
+        ('ą', b'a'),
+        ('Ę', b'e'),
+        ('ę', b'e'),
+        ('Ó', b'o'),
+        ('ó', b'o'),
+        ('Ć', b'c'),
+        ('ć', b'c'),
+        ('Ł', b'l'),
+        ('ł', b'l'),
+        ('Ń', b'n'),
+        ('ń', b'n'),
+        ('Ś', b's'),
+        ('ś', b's'),
+        ('Ź', b'z'),
+        ('ź', b'z'),
+        ('Ż', b'z'),
+        ('ż', b'z'),
+        (' ','_')]
+        fraza = title
+        for a,b in list_of_special_chars:
+            fraza = fraza.replace(a,b)
+        fraza = fraza.lower()
+        
+        sel = my_addon.getSetting(userF+'_filtr1')
+        dlugoscL = ["all","krotkie","srednie","dlugie"]
+        dlugosc = dlugoscL[int(sel)]
+
+        sel = my_addon.getSetting(userF+'_filtr2')
+        jakoscL = ["all","480p","720p","1080p"]
+        jakosc= jakoscL[int(sel)]
+        
+        sel = my_addon.getSetting(userF+'_filtr3')
+        sortujL=["best","date","popular","rate","alf"]
+        sortuj=sortujL[int(sel)]
+        
+        filmweb = my_addon.getSetting(userF+'_fwmeta')
+
+        url='http://www.cda.pl/video/show/%s?duration=%s&section=vid&quality=%s&section=&s=%s&section='%(fraza,dlugosc,jakosc,sortuj)
+        return {'url':url,'title': '[COLOR blue]%s[/COLOR]'%title.title(),'metadata':filmweb }
+    return False
+
+def userFolderADD():
+    folder_list=[]
+    for userF in ['K1','K2','K3','K4','K5','K6']:
+        one = userFolder(userF)
+        if one:     # json_file zawiera info czy sciagac meta czy nie
+            addDir(one.get('title'),ex_link=one.get('url'), mode='cdaSearch', json_file=one.get('metadata'))
+
+def updateMetadata_filmwebID(item):
+    if my_addon.getSetting('filmweb_isID')=='true' and item.get('filmweb',False):
+        # sprawdz czy update jest wymagany:
+        #if not item.get('img','') and not item.get('plot',''):
+        data=fa.getFilmInfoFull(str(item.get('filmweb')))
+        item.update(data)    
+    item['title'] += item.get('label','')+ item.get('msg','')       # dodatkowe info gdy zdefiniowane
+    return item
+    
 
 def mainWalk(ex_link,json_file):
     items=[]
     folders=[]
-    print ex_link 
+    #print ex_link 
     if ex_link=='' or ex_link.startswith('/'):       #jsonWalk
         data = cda.ReadJsonFile(json_file)
         items,folders = cda.jsconWalk(data,ex_link)
@@ -176,9 +256,10 @@ def mainWalk(ex_link,json_file):
         addDir(f.get('title'),ex_link=f.get('url'), json_file=tmp_json_file, mode='walk', iconImage=f.get('img',''),fanart=f.get('fanart',''),totalItems=N_folders)
     N_items=len(items)
     for item in items:
+        item=updateMetadata_filmwebID(item)
         addLinkItem(name=item.get('title').encode("utf-8"), url=item.get('url'), mode='decodeVideo', iconimage=item.get('img'), infoLabels=item, IsPlayable=True,fanart=item.get('img'),totalItems=N_items)
     
-    if N_folders : setView()
+    setView()
     return 1
 
 ## MAIN LOOP 
@@ -192,24 +273,23 @@ json_file = args.get('json_file',[''])[0]
 
 if mode is None:
     mainWalk("",os.path.join(PATH,'root.json'))
-    addDir('[COLOR blue]Filmy HD Lektor | Dubbing[/COLOR]',ex_link=u'http://www.cda.pl/video/show/film_lektor_pl_dubbing/p1?duration=dlugie&section=&quality=720p&section=&s=date&section=', mode='cdaSearch')
-    addDir('[COLOR blue]Serial HD Lektor | Dubbing[/COLOR]',ex_link=u'http://www.cda.pl/video/show/serial_lektor_pl_dubbing/p1?duration=srednie&section=&quality=720p&section=&s=date&section=', mode='cdaSearch')
-    addDir('[COLOR blue]Szukaj[/COLOR]',ex_link='', mode='cdaSearch')
-    addLinkItem('[COLOR blue]-=Opcje=-[/COLOR]','','Opcje')
+    #addDir('[COLOR blue]Filmy HD Lektor | Dubbing[/COLOR]',ex_link=u'http://www.cda.pl/video/show/film_lektor_pl_dubbing/p1?duration=dlugie&section=&quality=720p&section=&s=date&section=', mode='cdaSearch')
+    #addDir('[COLOR blue]Serial HD Lektor | Dubbing[/COLOR]',ex_link=u'http://www.cda.pl/video/show/serial_lektor_pl_dubbing/p1?duration=srednie&section=&quality=720p&section=&s=date&section=', mode='cdaSearch')
+    userFolderADD()
+    addDir('[COLOR green]Szukaj[/COLOR]',ex_link='', mode='cdaSearch')
+    addLinkItem('[COLOR gold]-=Opcje=-[/COLOR]','','Opcje')
+    
     xbmcplugin.endOfDirectory(addon_handle,succeeded=True)
     
 
 elif mode[0]=='cdaSearch':
+    use_filmweb=json_file if json_file else 'false'
     if not ex_link:
         use_filmweb = my_addon.getSetting('filmweb_search')
-        d = xbmcgui.Dialog().input('Szukaj, Podaj tytul', type=xbmcgui.INPUT_ALPHANUM)
+        d = xbmcgui.Dialog().input('Szukaj, Podaj tytuł', type=xbmcgui.INPUT_ALPHANUM)
         if d:
             ex_link='http://www.cda.pl/video/show/'+d.replace(' ','_')
-    elif 'serial_' in ex_link:
-        use_filmweb=my_addon.getSetting('filmweb_serial')
-    elif 'film_' in ex_link:
-        use_filmweb=my_addon.getSetting('filmweb_film')
-    
+
     items,nextpage = cda.searchCDA(ex_link)
     N_items=len(items)
     if items:
@@ -217,8 +297,8 @@ elif mode[0]=='cdaSearch':
             item=updateMetadata(item,use_filmweb)
             addLinkItem(name=item.get('title').encode("utf-8"), url=item.get('url'), mode='decodeVideo', iconimage=item.get('img'), infoLabels=item, IsPlayable=True,fanart=item.get('img'),totalItems=N_items)
         if nextpage:
-            addDir('[COLOR green]Następna strona >> [/COLOR] ',ex_link=nextpage, mode='cdaSearch')
-        setView()
+            addDir('[COLOR gold]Następna strona >> [/COLOR] ',ex_link=nextpage, json_file=use_filmweb, mode='cdaSearch')
+    setView()
     x=xbmcplugin.endOfDirectory(addon_handle,succeeded=True)
     
 
@@ -230,6 +310,7 @@ elif mode[0] == 'play':
 
 elif mode[0] == 'Opcje':
     my_addon.openSettings()   
+    xbmc.executebuiltin('XBMC.Container.Refresh()')
 
 elif mode[0] == 'walk':
     mainWalk(ex_link,json_file) 

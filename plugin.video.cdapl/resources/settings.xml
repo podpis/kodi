@@ -1,13 +1,71 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <settings>
-    <category label="Filmweb Metadata">
-        <setting label="szukać informacji o video na filmweb?" type="lsep"/>
-        <setting id="filmweb_film" label="Filmy HD Lektor | Dubbing" type="bool"  default="true"/>
-        <setting id="filmweb_serial" label="Serial HD Lektor | Dubbing" type="bool"  default="false"/>
-        <setting id="filmweb_search" label="Szukaj" type="bool"  default="false"/>
-    </category>
+
+    <category label="Dodatkowe Katalogi" >
+        
+        <setting id="K1"  type="bool" label="[COLOR blue]Katalog 1[/COLOR]" default="false"/>
+        <setting id="K1_filtr0" type="text" label="    Szukana Fraza" default="film lektor pl dubbing" visible="eq(-1,true)"/>
+        <setting id="K1_fwmeta" type="bool" label="    Metadata z Filmweb?"  default="false" visible="eq(-2,true)" />
+        <setting id="K1_filtr1" type="enum" label="    Długość"     values="wszystkie (każda długość)|krótkie (poniżej 5 minut)|średnie (powyżej 20 minut)|długie (powyżej 60 minut)" default="3" visible="eq(-3,true)"/>
+        <setting id="K1_filtr2" type="enum" label="    Jakość"      values="każda jakość|średnia jakość 480p|wysoka jakość 720p|bardzo wysoka jakość 1080p" default="2" visible="eq(-4,true)"/>
+        <setting id="K1_filtr3" type="enum" label="    Sortuj po"   values="Najtrafniejsze|Najnowsze|Najpopularniejsze|Najlepiej oceniane|Alfabetycznie" default="1" visible="eq(-5,true)"/>
+        <setting type="sep" />
+        
+        <setting id="K2"  type="bool" label="[COLOR blue]Katalog 2[/COLOR]" default="false"/>
+        <setting id="K2_filtr0" type="text" label="    Szukana Fraza" default="serial lektor pl dubbing" visible="eq(-1,true)"/>
+        <setting id="K2_fwmeta" type="bool" label="    Metadata z Filmweb?"  default="false" visible="eq(-2,true)" />
+        <setting id="K2_filtr1" type="enum" label="    Długość"     values="wszystkie (każda długość)|krótkie (poniżej 5 minut)|średnie (powyżej 20 minut)|długie (powyżej 60 minut)" default="0" visible="eq(-3,true)"/>
+        <setting id="K2_filtr2" type="enum" label="    Jakość"      values="każda jakość|średnia jakość 480p|wysoka jakość 720p|bardzo wysoka jakość 1080p" default="0" visible="eq(-4,true)"/>
+        <setting id="K2_filtr3" type="enum" label="    Sortuj po"   values="Najtrafniejsze|Najnowsze|Najpopularniejsze|Najlepiej oceniane|Alfabetycznie" default="1" visible="eq(-5,true)"/>
+        <setting type="sep" />
+        
+        <setting id="K3"  type="bool" label="[COLOR blue]Katalog 3[/COLOR]" default="false"/>
+        <setting id="K3_filtr0" type="text" label="    Szukana Fraza" default="film 2015" visible="eq(-1,true)"/>
+        <setting id="K3_fwmeta" type="bool" label="    Metadata z Filmweb?"  default="false" visible="eq(-2,true)" />
+        <setting id="K3_filtr1" type="enum" label="    Długość"     values="wszystkie (każda długość)|krótkie (poniżej 5 minut)|średnie (powyżej 20 minut)|długie (powyżej 60 minut)" default="3" visible="eq(-3,true)"/>
+        <setting id="K3_filtr2" type="enum" label="    Jakość"      values="każda jakość|średnia jakość 480p|wysoka jakość 720p|bardzo wysoka jakość 1080p" default="2" visible="eq(-4,true)"/>
+        <setting id="K3_filtr3" type="enum" label="    Sortuj po"   values="Najtrafniejsze|Najnowsze|Najpopularniejsze|Najlepiej oceniane|Alfabetycznie" default="3" visible="eq(-5,true)"/>
+        <setting type="sep" />
+        
+        <setting id="K4"  type="bool" label="[COLOR blue]Katalog 4[/COLOR]" default="false"/>
+        <setting id="K4_filtr0" type="text" label="    Szukana Fraza" default="3D" visible="eq(-1,true)"/>
+        <setting id="K4_fwmeta" type="bool" label="    Metadata z Filmweb?"  default="false" visible="eq(-2,true)" />
+        <setting id="K4_filtr1" type="enum" label="    Długość"     values="wszystkie (każda długość)|krótkie (poniżej 5 minut)|średnie (powyżej 20 minut)|długie (powyżej 60 minut)" default="3" visible="eq(-3,true)"/>
+        <setting id="K4_filtr2" type="enum" label="    Jakość"      values="każda jakość|średnia jakość 480p|wysoka jakość 720p|bardzo wysoka jakość 1080p" default="3" visible="eq(-4,true)"/>
+        <setting id="K4_filtr3" type="enum" label="    Sortuj po"   values="Najtrafniejsze|Najnowsze|Najpopularniejsze|Najlepiej oceniane|Alfabetycznie" default="1" visible="eq(-5,true)"/>
+        <setting type="sep" />      
+        
+        <setting id="K5"  type="bool" label="[COLOR blue]Katalog 5[/COLOR]" default="false"/>
+        <setting id="K5_filtr0" type="text" label="    Szukana Fraza" default="" visible="eq(-1,true)"/>
+        <setting id="K5_fwmeta" type="bool" label="    Metadata z Filmweb?"  default="false" visible="eq(-2,true)" />
+        <setting id="K5_filtr1" type="enum" label="    Długość"     values="wszystkie (każda długość)|krótkie (poniżej 5 minut)|średnie (powyżej 20 minut)|długie (powyżej 60 minut)" default="0" visible="eq(-3,true)"/>
+        <setting id="K5_filtr2" type="enum" label="    Jakość"      values="każda jakość|średnia jakość 480p|wysoka jakość 720p|bardzo wysoka jakość 1080p" default="0" visible="eq(-4,true)"/>
+        <setting id="K5_filtr3" type="enum" label="    Sortuj po"   values="Najtrafniejsze|Najnowsze|Najpopularniejsze|Najlepiej oceniane|Alfabetycznie" default="0" visible="eq(-5,true)"/>
+        <setting type="sep" />   
+         
+        <setting id="K6"  type="bool" label="[COLOR blue]Katalog 6[/COLOR]" default="false"/>
+        <setting id="K6_filtr0" type="text" label="    Szukana Fraza" default="" visible="eq(-1,true)"/>
+        <setting id="K6_fwmeta" type="bool" label="    Metadata z Filmweb?"  default="false" visible="eq(-2,true)" />
+        <setting id="K6_filtr1" type="enum" label="    Długość"     values="wszystkie (każda długość)|krótkie (poniżej 5 minut)|średnie (powyżej 20 minut)|długie (powyżej 60 minut)" default="0" visible="eq(-3,true)"/>
+        <setting id="K6_filtr2" type="enum" label="    Jakość"      values="każda jakość|średnia jakość 480p|wysoka jakość 720p|bardzo wysoka jakość 1080p" default="0" visible="eq(-4,true)"/>
+        <setting id="K6_filtr3" type="enum" label="    Sortuj po"   values="Najtrafniejsze|Najnowsze|Najpopularniejsze|Najlepiej oceniane|Alfabetycznie" default="0" visible="eq(-5,true)"/>
+    </category> 
+    
     <category label="AutoView" >
         <setting id="auto-view" type="bool" label="Widok" default="false" enable=/>
         <setting id="view_mode" type="enum" label="Movies View" values="List|Big List|Thumbnails|Poster Wrap|Fanart|Media info|Media info 2|Media info 3" enable="!eq(-1,false)+!eq(-2,false)"/>
-    </category>    
+    </category>  
+       
+    <category label="Pozostałe">
+        <setting label="Szukać informacji o video na filmweb?" type="lsep"/>
+        <setting id="filmweb_search" label="dla 'Szukaj'" type="bool"  default="false"/>
+        <setting id="filmweb_isID" label="uaktualnij metada gdy filmweb ID jest zdefiniowany" type="bool"  default="false"/>
+        <setting label="Wybierz lub ogranicz jakos video" type="lsep"/>
+        <setting id="quality" type="enum" label="Wybierz lub ogranicz" values="Ręcznie|Najepsza|1080p|720p|480p|360p" default="0" />
+        <setting label="Wybierz lub ogranicz jakos video gdy video wysyła dodatek chrome/opera " type="lsep"/>
+        <setting id="quality_remote" type="enum" label="Wybierz lub ogranicz (remote video)" values="Ręcznie|Najepsza|1080p|720p|480p|360p" default="0" />
+    </category>
+
 </settings>
+
+

@@ -38,9 +38,10 @@ def getUrl(url,data=None,cookies=None):
 
 def _get_encoded_unpaker(content):
     src =''
-    packed = re.compile('(eval.function.*?\)\))\n',re.DOTALL).findall(content)
-    if packed:
-        packed=re.sub('  ',' ',packed[0])
+    #packed = re.compile('(eval.function.*?\)\))\n',re.DOTALL).findall(content)
+    packedMulti = re.compile("eval(.*?)\{\}\)\)",re.DOTALL).findall(content)
+    for packed in packedMulti:
+        packed=re.sub('  ',' ',packed)
         packed=re.sub('\n','',packed)
         try:
             unpacked = jsunpack.unpack(packed)
@@ -54,6 +55,8 @@ def _get_encoded_unpaker(content):
                 src = src1.group(1)
             elif src2:
                 src = src2.group(1)
+            if src:
+                break
     return src
 
 def _get_encoded(content):
@@ -104,7 +107,8 @@ def _get_encoded(content):
                 src='http://%s.cda.pl/%s.mp4?st=%s&e=%s'%(out.get('server'),out.get('file'),out.get('st'),out.get('e'))
     return src
 
-# url='http://www.cda.pl/video/49982323?wersja=720p'
+# url='http://www.cda.pl/video/49982323'
+# url='http://www.cda.pl/video/941368e'
 # content = getUrl(url)
 
 def scanforVideoLink(content):
@@ -129,7 +133,7 @@ def scanforVideoLink(content):
     return video_link
 
 
-  
+#stream_url =getVideoUrls(url)
 def getVideoUrls(url,tryIT=4):
     """
     returns 
@@ -251,12 +255,12 @@ def searchCDA(url):
     nextpage =re.compile(' class="sbmBigNext btn-my btn-large fiximg" href="(.*?)">').findall(content)
     
     items=[]
-    label=labels[0]
+    #label=labels[0]
     for label in labels:
         if label.find('premium')>0: 
             pass
         plot = re.compile('title="(.*)"').findall(label)
-        image = re.compile('src="(.*)"').findall(label)
+        image = re.compile('src="(.*)" ').findall(label)
         hd = re.compile('<span class="hd-ico-elem hd-elem-pos">(.*?)</span>').findall(label)
         duration = re.compile('<span class="timeElem">\s+(.*?)\s+</span>').findall(label)
         title=re.compile('<a class="titleElem" href="(/video/.*?)">(.*?)<').findall(label)
@@ -267,12 +271,11 @@ def searchCDA(url):
                 title = unicodePLchar(title[0][1])
                 duration =  sum([a*b for a,b in zip([3600,60,1], map(int,duration[0].split(':')))]) if duration else ''
                 code = hd[0] if hd else ''
-                plot = unicodePLchar(plot[0])
+                plot = unicodePLchar(plot[0]) if plot else ''
                 img = image[0] if image else ''
                 items.append({'url':url,'title':unicode(title,'utf-8'),'code':code,'plot':unicode(plot,'utf-8'),'img':img,'duration':duration,'new':nowosc})
     if items and nextpage:
         nextpage = BASEURL+ nextpage[0]
-    #    items.append({'url':BASEURL+ nextpage[0],'title':unicode('Następna strona','utf-8'),'code':'','plot':'','img':'','duration':'','new':''})
     return items,nextpage
 
 def print_toJson(items):
@@ -280,8 +283,10 @@ def print_toJson(items):
         #print 'title':i.get('title'),'url':i.get('url'),'code':i.get('code')}
         print '{"title":"%s","url":"%s","code":"%s"}' % (i.get('title'),i.get('url'),i.get('code'))
 
+#title='Straight Outta Compton 2015 Lektor PL 1080p x265 by LexusFR'
+#title='Pan Hoppy i Żółwie / Roald Dahl’s Esio Trot (2015) Lektor PL'
 def cleanTitle(title):
-    pattern = re.compile(r"[({;,/]")
+    pattern = re.compile(r"[(-*{;,/]")
     year=''
     reyear = re.search('\d{4}',title)
     if reyear:
@@ -290,10 +295,40 @@ def cleanTitle(title):
         year = reyear.group()
     
     title=title.lower()
-    rmList=['lektor',' pl ','hd']
+    rmList=[' lektor ',' pl ','hd','720p','1080p']
+    
     for rm in rmList:
         title = title.replace(rm,'')
+      
     return title, year
+
+def cleanTitle_test(text):
+    #text=getNameWithoutExtension(text)
+    cutlist = ['x264','h264','720p','1080p','1080i','PAL','GERMAN','ENGLiSH','ENG', 'RUS', 'WS','DVDRiP','UNRATED','RETAIL','Web-DL','DL','LD','MiC','MD','DVDR','BDRiP','BLURAY','DTS','UNCUT',
+                'ANiME','AC3MD','AC3','AC3D','TS','DVDSCR','COMPLETE','INTERNAL','DTSD','XViD','DIVX','DUBBED','LINE.DUBBED','DD51','DVDR9','DVDR5','AVC','WEBHDTVRiP','WEBHDRiP','WEBRiP',
+                'WEBHDTV','WebHD','HDTVRiP','HDRiP','HDTV','ITUNESHD','REPACK','SYNC','REAL','PL']
+    
+    for word in cutlist:
+        #text = re.sub('(\_|\-|\.|\+)'+word+'(\_|\-|\.|\+)','+', text, flags=re.I)
+        text = re.sub('(\_|\-|\.|\+)'+word+'.*','.', text, flags=re.I) #assumtion is everything after garbage is garbadge too. ;)
+    #text = re.sub('(\_|\-|\.|\+)[12][0-9][0-9][0-9]\+.*','', text, flags=re.I) #if there is plus sign after date, date is most probably the garbage, so removing it ;)
+    
+    #let's take a year, if exists
+    try:
+        movieYear=re.sub('(\_|\-|\.|\+|\()','', re.search('(\_|\-|\.|\+|\()[12][09][0-9][0-9]', text, flags=re.I).group() ) #for future use
+    except:
+        movieYear=''
+    
+    #removing exact character combinations
+    ExactCutList = ['(\_|\-|\.|\+|\()[12][09][0-9][0-9](\_|\-|\.|\+|\))','^psig-','^[12][09][0-9]* [0-9][0-9]* - .* - ', '-[ ]*zwiastun']
+    for word in ExactCutList:
+        text = re.sub(word,'', text, flags=re.I) #assumtion is everything after garbage is garbadge too. ;)
+        
+    text = re.sub('(\_|\-|\.|\+)',' ', text, flags=re.I) #cleaning
+    text = re.sub('(  [ ]*)',' ', text, flags=re.I) #merge multiple (2+) spaces into one
+
+    return text, movieYear
+    
     
 
 ## JSON TASK
