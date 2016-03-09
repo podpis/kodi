@@ -36,9 +36,10 @@ def getUrl(url,data=None,cookies=None):
 
 def _get_encoded_unpaker(content):
     src =''
-    packed = re.compile('(eval.function.*?\)\))\n',re.DOTALL).findall(content)
-    if packed:
-        packed=re.sub('  ',' ',packed[0])
+    #packed = re.compile('(eval.function.*?\)\))\n',re.DOTALL).findall(content)
+    packedMulti = re.compile("eval(.*?)\{\}\)\)",re.DOTALL).findall(content)
+    for packed in packedMulti:
+        packed=re.sub('  ',' ',packed)
         packed=re.sub('\n','',packed)
         try:
             unpacked = jsunpack.unpack(packed)
@@ -52,6 +53,8 @@ def _get_encoded_unpaker(content):
                 src = src1.group(1)
             elif src2:
                 src = src2.group(1)
+            if src:
+                break
     return src
 
 def _get_encoded(content):

@@ -99,6 +99,8 @@ def getVideoLinks(url):
             link = _getOrginalURL(href_go.replace('http://cda-online.pl?',''),host)
             
             if link:
+                if 'openload' in host:
+                    continue
                 one = {'url' : link,
                     'title': "[%s] %s, %s" %(host,j,q),
                     'host': host    }
@@ -170,7 +172,7 @@ def unicodePLchar(txt):
     return txt
     
 
-if __name__=="main":
+if __name__=="dupa":
     url='http://cda-online.pl/filmy-online/'
     url='http://cda-online.pl/seriale-rok/2016'
     url='http://cda-online.pl/rok/2015/'
@@ -187,8 +189,8 @@ if __name__=="main":
     out = scanTVshow(url)
     url = out[0].get('href')
     links = getVideoLinks(url)
-    url='http://cda-online.pl/dama-w-vanie/'
-
+    
+    url='http://cda-online.pl/igrzyska-smierci-kosoglos-czesc-2/'
     links = getVideoLinks(url)
     _getOrginalURL('http://go.cda-online.pl/Juv6D')
     data=getGatunekRok(rodzaj='film',typ='gatunek')

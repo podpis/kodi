@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addons>
 <addon id="plugin.video.cdaonline"
-version="1.2.1"
+version="1.2.2"
 name="cda-online"
 provider-name="Michal">
 <requires>
