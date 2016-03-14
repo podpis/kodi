@@ -8,7 +8,7 @@ import urllib
 import urllib2
 import hashlib
 import json
-import re
+
 
 # Global Settings
 API_SERVER = "https://ssl.filmweb.pl/api?";
@@ -22,7 +22,8 @@ LIVE_SEARCH_URL = "http://www.filmweb.pl/search/live?q=";
 LIVE_SEARCH_FIELD_SPACER = "\\c";	
 LIVE_SEARCH_ROW_SPACER = "\\a";
 IMG_POSTER_URL = "http://1.fwcdn.pl/po"
-TIMEOUT=5
+
+TIMEOUT = 10
 
 def _getUrl(url):
     """
@@ -30,16 +31,18 @@ def _getUrl(url):
     return: string
     """
     headers = {'User-Agent': 'Mozilla/5.0 (Linux; Android 4.1.1; Galaxy Nexus Build/JRO03C) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.166 Mobile Safari/535.19',
-           #'X-Requested-With':'XMLHttpRequest',
-           #'Accept':'*/*',
+           'X-Requested-With':'XMLHttpRequest',
            #'Host':'www.filmweb.pl',
+           #'Referer':'www.filmweb.pl',
+           #'Connection':'keep-alive',
             }
-    req = urllib2.Request(url, None, headers)
-    #req = urllib2.Request(url)
-    #req.add_header('User-Agent', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.97 Safari/537.36')
-    response = urllib2.urlopen(req,timeout=TIMEOUT)
-    link = response.read()
-    response.close()
+    try:                   
+        req = urllib2.Request(url, None, headers)
+        response = urllib2.urlopen(req,timeout=TIMEOUT)
+        link = response.read()
+        response.close()
+    except:
+        link=''
     return link
     
 
@@ -66,13 +69,12 @@ def _processResponse(response,_response_keys):
         pass
     else:
         j_data=json.loads(data)
-        N=len(j_data)
         for k,v in _response_keys.iteritems():
-            if N>= k: out[v]=j_data[k]    #j_data is a list
+            out[v]=j_data[k]
     return out
 
 
-def getFilmInfoFull(filmID='628'):
+def getFilmInfoFull(filmID='36137'):
     method = 'getFilmInfoFull [' + filmID + ']'
     _response_keys ={
         0 :  'title',
@@ -88,33 +90,26 @@ def getFilmInfoFull(filmID='628'):
         10 :  'hasDescription',
         11 :  'img',
         12 :  'video',
-        13 :  'premiereWorld',
-        14 :  'date',  #'premiered'
+        13 :  'aired', # premiereWorld
+        14 :  'premiered',
         15 :  'filmType',
         16 :  'seasonsCount',
         17 :  'episodesCount',
-        18 :  'studio', # country
+        18 :  'countriesString',
         19 :  'plot'
     }
     response = _getUrl( API_SERVER + _prepareParams(method))
     out = {}
     if response[:2]=='ok':  
         out =_processResponse(response,_response_keys)
-        out['filmweb']=filmID
         if out.get('video'):
-            trailers = [ x for x in out.get('video') if 'mp4' in str(x) ]
-            # check trailer
-            pattern = ['.360p.', '.480p.', '.720p.']
-            trailer = trailers[0]
-            for p in pattern:
-                for t in trailers:
-                    if p in t:
-                        trailer = t
-            out['trailer']=trailer
+            out['trailer']=[ x for x in out.get('video') if 'mp4' in str(x) ]
         if out.get('img'):
             out['img']=IMG_POSTER_URL + out.get('img').replace('.2.','.3.')
+        if out.get('year'):
+            out['title'] += ' (%s)' % out.get('year')
         if out.get('duration'):
-            out['duration'] = float(out.get('duration'))*60    # filmweb in [min] kodi in [s]         
+            out['duration'] = float(out.get('duration'))*60
     return out
 
 
@@ -135,7 +130,7 @@ def getFilmsInfoShort(filmID='594357'):
     return out
 
 #persons = getFilmPersons('594357','producers')
-def getFilmPersons(filmID='594357', t='actors'):
+def getFilmPersons(filmID='594357', t='directors'):
     array_type = { 'directors': '1', 'scenarists': '2', 'musics': '3', 'photos': '4', 'actors': '6', 'producers': '9' }
     tableNames = ['id', 'role', 'role_type', 'name', 'img']
     dictPers = {}
@@ -169,7 +164,7 @@ def getFilmDescription(filmID='1'):
 
 def _prepareResultList(result):
     elementList = result.split(LIVE_SEARCH_ROW_SPACER);
-    print '\tFound %d entries' %len(elementList)
+    print len(elementList)
     element=elementList[0]
     results=[]
     for element in elementList:
@@ -202,8 +197,8 @@ def _FilmSearchResult(elementData):
         item['cast'] = elementData[7]
     return item
     
-def serachItem(param=u'strażnicy galaktyki'):
-    result = _getUrl( LIVE_SEARCH_URL + urllib.quote_plus(param.encode('utf-8').lower()) )
+def serachItem(param=u'Strażnicy+Galaktyki'):
+    result = _getUrl( LIVE_SEARCH_URL + urllib.quote_plus(param.encode('utf-8')) )
     out = _prepareResultList(result)
     return out
 
@@ -213,7 +208,6 @@ def searchFilmweb(title='',year='',itemType='f'):
     itemType = 'f' - Film
     itemType = 's' - Serial
     """
-    found={}
     search = u'%s' % title.strip()
     search += u' %s' % year if year else ''
     out= serachItem(search)
@@ -221,24 +215,22 @@ def searchFilmweb(title='',year='',itemType='f'):
         if len(out)==1:    #Found exactly one item
             found = out[0]
         else:
-            for one in sorted(out, key=lambda k: k['year'],reverse=True):
+            for one in sorted(out, key=lambda k: k['year'],reverse=True) :
                 if one.get('type') == itemType:
                     found = one
                     break
         return getFilmInfoFull(found.get('id',''))
     else:
-        return found
+        return {}
 
 if __name__=="__main__":
     pass
     # out = getFilmInfoFull(filmID='594357')
     # out = getFilmDescription('594357')
-    # p = getFilmPersons(filmID='594357', t='directors')
+    
     # title='Grawitacja (2013)'
-    # title='jestem bogiem  limitless '
-    # s = serachItem(title)
-    # filminfo = searchFilmweb(title,itemType='f')
+    # title='Terminator 2 1991'
     # title='Potop '
-    # filminfo = searchFilmweb(title,year='2011',itemType='f')
+    # filminfo = searchFilmweb(title,year='2014',itemType='f')
     # filminfo.get('img')
     # filminfo.get('trailer')

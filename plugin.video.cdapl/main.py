@@ -17,6 +17,8 @@ my_addon        = xbmcaddon.Addon()
 
 PATH        = my_addon.getAddonInfo('path')
 RESOURCES   = PATH+'/resources/'
+MEDIA       = RESOURCES+'/media/'
+
 
 ## COMMON Functions
 def getUrl(url,data=None):
@@ -27,12 +29,12 @@ def getUrl(url,data=None):
     response.close()
     return link
     
-def addLinkItem(name, url, mode, iconimage=None, infoLabels=False, IsPlayable=False,fanart=None,totalItems=1):
+def addLinkItem(name, url, mode, iconImage=None, infoLabels=False, IsPlayable=False,fanart=None,totalItems=1):
     u = build_url({'mode': mode, 'foldername': name, 'ex_link' : url})
     #u = urllib.urlencode(encoded_dict({'mode': mode, 'foldername': name, 'ex_link' : url}))
-    if iconimage==None:
-        iconimage='DefaultFolder.png'
-    liz = xbmcgui.ListItem(name, iconImage=iconimage, thumbnailImage=iconimage)
+    if iconImage==None:
+        iconImage='DefaultFolder.png'
+    liz = xbmcgui.ListItem(name, iconImage=iconImage, thumbnailImage=iconImage)
     
     if not infoLabels:
         infoLabels={"title": name}
@@ -42,23 +44,41 @@ def addLinkItem(name, url, mode, iconimage=None, infoLabels=False, IsPlayable=Fa
         liz.setProperty('IsPlayable', 'True')
     if fanart:
         liz.setProperty('fanart_image',fanart)
+    liz.setProperty('mimetype', 'video/x-msvideo')
     contextMenuItems = []
     contextMenuItems.append(('Informacja', 'XBMC.Action(Info)'))
+    if infoLabels.has_key('trailer'):
+        contextMenuItems.append(('Zwiastun', 'XBMC.PlayMedia(%s)'%infoLabels.get('trailer')))
+        
     liz.addContextMenuItems(contextMenuItems, replaceItems=False)           
     ok = xbmcplugin.addDirectoryItem(handle=addon_handle, url=u, listitem=liz,isFolder=False,totalItems=totalItems)
     xbmcplugin.addSortMethod(addon_handle, sortMethod=xbmcplugin.SORT_METHOD_UNSORTED, label2Mask = "%D, %P, %R")
     return ok
 
-def addDir(name,ex_link=None,json_file='', mode='walk',iconImage='DefaultFolder.png',fanart='',totalItems=1,contextmenu=None):
+def addDir(name,ex_link=None,json_file='', mode='walk',iconImage=None,fanart='',infoLabels=False,totalItems=1,contextmenu=None):
     url = build_url({'mode': mode, 'foldername': name, 'ex_link' : ex_link, 'json_file' : json_file})
     #li = xbmcgui.ListItem(name.encode("utf-8"), iconImage=iconImage)
-    li = xbmcgui.ListItem(name, iconImage=iconImage)
+    #MEDIA
+    li = xbmcgui.ListItem(label=name,iconImage='DefaultFolder.png')
+    if iconImage==None:
+        iconImage='DefaultFolder.png'
+    elif not iconImage.startswith('http'):  # local source
+         iconImage = MEDIA + iconImage
+    li = xbmcgui.ListItem(name, iconImage=iconImage, thumbnailImage=iconImage)
+
+    if not infoLabels:
+       infoLabels={"title": name}
+
+    li.setInfo(type="Video", infoLabels=infoLabels)
+    
     if fanart:
         li.setProperty('fanart_image', fanart )
     if contextmenu:
         contextMenuItems=contextmenu
-        li.addContextMenuItems(contextMenuItems, replaceItems=True)         
-    xbmcplugin.addDirectoryItem(handle=addon_handle, url=url,listitem=li, isFolder=True)
+        li.addContextMenuItems(contextMenuItems, replaceItems=True)    
+    ok = xbmcplugin.addDirectoryItem(handle=addon_handle, url=url,listitem=li, isFolder=True)
+    xbmcplugin.addSortMethod(addon_handle, sortMethod=xbmcplugin.SORT_METHOD_DATE, label2Mask = "%D, %P, %R")
+    return ok
 
 
 def setView():
@@ -77,11 +97,12 @@ def setView():
         xbmc.executebuiltin('Container.SetViewMode(%s)' % view_modes[view_mode])
 
     xbmcplugin.addSortMethod( handle=addon_handle, sortMethod=xbmcplugin.SORT_METHOD_UNSORTED )
-    xbmcplugin.addSortMethod( handle=addon_handle, sortMethod=xbmcplugin.SORT_METHOD_LABEL )
+    xbmcplugin.addSortMethod( handle=addon_handle, sortMethod=xbmcplugin.SORT_METHOD_TITLE )
     xbmcplugin.addSortMethod( handle=addon_handle, sortMethod=xbmcplugin.SORT_METHOD_VIDEO_RATING )
-    xbmcplugin.addSortMethod( handle=addon_handle, sortMethod=xbmcplugin.SORT_METHOD_DATE )
-    xbmcplugin.addSortMethod( handle=addon_handle, sortMethod=xbmcplugin.SORT_METHOD_VIDEO_RUNTIME )
+    xbmcplugin.addSortMethod( handle=addon_handle, sortMethod=xbmcplugin.SORT_METHOD_VIDEO_YEAR  )
     xbmcplugin.addSortMethod( handle=addon_handle, sortMethod=xbmcplugin.SORT_METHOD_GENRE )
+    xbmcplugin.addSortMethod( handle=addon_handle, sortMethod=xbmcplugin.SORT_METHOD_STUDIO  )
+    xbmcplugin.addSortMethod( handle=addon_handle, sortMethod=xbmcplugin.SORT_METHOD_VIDEO_RUNTIME )
 
 
 def encoded_dict(in_dict):
@@ -102,13 +123,17 @@ def build_url(query):
 def updateMetadata(item,use_filmweb=True):
     if use_filmweb=='true':
         title_org = item.get('title')
-        title,year=cda.cleanTitle(title_org)
+        title,year,label=cda.cleanTitle(title_org)
         data = fa.searchFilmweb(title.strip(),year.strip())
         if data:
             item.update(data)
             item['OriginalTitle']=title_org
+            if label:
+                item['label']=label
+            item['title'] += item.get('label','')+ item.get('msg','')
     return item
 
+    
 
 ## COMMON Functions
 
@@ -226,7 +251,7 @@ def userFolderADD():
     for userF in ['K1','K2','K3','K4','K5','K6']:
         one = userFolder(userF)
         if one:     # json_file zawiera info czy sciagac meta czy nie
-            addDir(one.get('title'),ex_link=one.get('url'), mode='cdaSearch', json_file=one.get('metadata'))
+            addDir(one.get('title'),ex_link=one.get('url'), mode='cdaSearch', json_file=one.get('metadata'),iconImage='Szukaj_cda.png')
 
 def updateMetadata_filmwebID(item):
     if my_addon.getSetting('filmweb_isID')=='true' and item.get('filmweb',False):
@@ -250,17 +275,34 @@ def mainWalk(ex_link,json_file):
                                 urlF        = ex_link,
                                 recursive   = True,
                                 filtr_items = {} )
+    elif 'obserwowani' in ex_link:
+        items,folders = cda.get_UserFolder_obserwowani(ex_link)
+    
     N_folders=len(items)
     for f in folders:
         tmp_json_file = f.get('jsonfile',json_file) # use new json file
-        addDir(f.get('title'),ex_link=f.get('url'), json_file=tmp_json_file, mode='walk', iconImage=f.get('img',''),fanart=f.get('fanart',''),totalItems=N_folders)
+        title = f.get('title') + f.get('count','') 
+        f['plot'] = f.get('plot','') + '\n' + f.get('update','')
+        addDir(title,ex_link=f.get('url'), json_file=tmp_json_file, mode='walk', iconImage=f.get('img',''),infoLabels=f,fanart=f.get('fanart',''),totalItems=N_folders)
     N_items=len(items)
     for item in items:
         item=updateMetadata_filmwebID(item)
-        addLinkItem(name=item.get('title').encode("utf-8"), url=item.get('url'), mode='decodeVideo', iconimage=item.get('img'), infoLabels=item, IsPlayable=True,fanart=item.get('img'),totalItems=N_items)
+        addLinkItem(name=item.get('title').encode("utf-8"), url=item.get('url'), mode='decodeVideo', iconImage=item.get('img'), infoLabels=item, IsPlayable=True,fanart=item.get('img'),totalItems=N_items)
     
     setView()
     return 1
+
+
+def logincda():
+    u = my_addon.getSetting('user')
+    p = my_addon.getSetting('pass')
+    if u and p:
+        if cda.CDA_login(u,p,RESOURCES+'cookie.cda'):
+            cda.COOKIEFILE=RESOURCES+'cookie.cda'
+            addDir('[B]Moje cda.pl[/B]',ex_link='', json_file='', mode='MojeCDA', iconImage='cdaMoje.png',infoLabels=False)
+       
+if os.path.exists(RESOURCES+'cookie.cda'):
+    cda.COOKIEFILE=RESOURCES+'cookie.cda'
 
 ## MAIN LOOP 
    
@@ -272,14 +314,13 @@ ex_link = args.get('ex_link',[''])[0]
 json_file = args.get('json_file',[''])[0]
 
 if mode is None:
+    logincda()  # perform login
     mainWalk("",os.path.join(PATH,'root.json'))
-    #addDir('[COLOR blue]Filmy HD Lektor | Dubbing[/COLOR]',ex_link=u'http://www.cda.pl/video/show/film_lektor_pl_dubbing/p1?duration=dlugie&section=&quality=720p&section=&s=date&section=', mode='cdaSearch')
-    #addDir('[COLOR blue]Serial HD Lektor | Dubbing[/COLOR]',ex_link=u'http://www.cda.pl/video/show/serial_lektor_pl_dubbing/p1?duration=srednie&section=&quality=720p&section=&s=date&section=', mode='cdaSearch')
     userFolderADD()
-    addDir('[COLOR green]Szukaj[/COLOR]',ex_link='', mode='cdaSearch')
-    addLinkItem('[COLOR gold]-=Opcje=-[/COLOR]','','Opcje')
+    addDir('[COLOR green]Szukaj[/COLOR]',ex_link='', mode='cdaSearch',iconImage='Szukaj_cda.png')
+    addLinkItem('[COLOR gold]-=Opcje=-[/COLOR]','','Opcje',iconImage=MEDIA+'Opcje.png')
     
-    xbmcplugin.endOfDirectory(addon_handle,succeeded=True)
+    xbmcplugin.endOfDirectory(addon_handle,succeeded=True) #,cacheToDisc=True)
     
 
 elif mode[0]=='cdaSearch':
@@ -295,12 +336,20 @@ elif mode[0]=='cdaSearch':
     if items:
         for item in items:
             item=updateMetadata(item,use_filmweb)
-            addLinkItem(name=item.get('title').encode("utf-8"), url=item.get('url'), mode='decodeVideo', iconimage=item.get('img'), infoLabels=item, IsPlayable=True,fanart=item.get('img'),totalItems=N_items)
+            print item
+            addLinkItem(name=item.get('title').encode("utf-8"), url=item.get('url'), mode='decodeVideo', iconImage=item.get('img'), infoLabels=item, IsPlayable=True,fanart=item.get('img'),totalItems=N_items)
         if nextpage:
-            addDir('[COLOR gold]Następna strona >> [/COLOR] ',ex_link=nextpage, json_file=use_filmweb, mode='cdaSearch')
+            addDir('[COLOR gold]Następna strona >> [/COLOR] ',ex_link=nextpage, json_file=use_filmweb, mode='cdaSearch',iconImage='next.png')
     setView()
     x=xbmcplugin.endOfDirectory(addon_handle,succeeded=True)
-    
+
+elif mode[0] == 'MojeCDA':
+    u = my_addon.getSetting('user')
+    if u:
+        addDir('Folder główny',ex_link='http://www.cda.pl/'+u+'/folder-glowny?type=pliki', json_file='', mode='walk', iconImage='cdaMoje.png')
+        addDir('Ulubione',ex_link='http://www.cda.pl/'+u+'/ulubione/folder-glowny?type=pliki', json_file='', mode='walk', iconImage='cdaUlubione.png')
+        addDir('Obserwowani @użytkownicy',ex_link='http://www.cda.pl/'+u+'/obserwowani', json_file='', mode='walk', iconImage='cdaObserwowani.png') 
+    xbmcplugin.endOfDirectory(addon_handle,succeeded=True) #,cacheToDisc=True)
 
 elif mode[0] == 'decodeVideo':
     decodeVideo(ex_link)

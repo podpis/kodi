@@ -4,19 +4,27 @@ Created on Thu Feb 11 18:47:43 2016
 
 @author: ramic
 """
-
-import urllib2
+import cookielib
+import urllib2,urllib
 import re
 import json as json
+
 #from collections import OrderedDict
 
 import jsunpack as jsunpack
 
 BASEURL='http://www.cda.pl'
-TIMEOUT = 5
+TIMEOUT = 10
+COOKIEFILE = ''
 
 
 def getUrl(url,data=None,cookies=None):
+    if COOKIEFILE:
+        cj = cookielib.LWPCookieJar()
+        cj.load(COOKIEFILE)
+        opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cj))
+        urllib2.install_opener(opener)
+    
     req = urllib2.Request(url,data)
     req.add_header('User-Agent', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.97 Safari/537.36')
     if cookies:
@@ -28,7 +36,27 @@ def getUrl(url,data=None,cookies=None):
     except:
         link=''
     return link
-
+    
+def CDA_login(USER,PASS,COOKIEFILE):
+    loginData = { 'username': USER, 'password': PASS, "submit_login": "" }
+    url='http://www.cda.pl/login'
+    cj = cookielib.LWPCookieJar()
+    opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cj))
+    urllib2.install_opener(opener)
+    params=urllib.urlencode(loginData)  
+    status=False
+    try:
+        req = urllib2.Request(url, params)
+        req.add_header('User-Agent', 'Mozilla/5.0 (Windows NT 6.1; rv:22.0) Gecko/20100101 Firefox/22.0')
+        response = urllib2.urlopen(req)
+        contents = response.read()
+        if 'wyloguj' in contents:   #check if logged in
+            cj.save(COOKIEFILE, ignore_discard = True)    
+            status=True
+            #print 'Zalogowany cookie : %s' %COOKIEFILE
+    except:
+        pass
+    return status
 
 ##  JSONUNPACK
 
@@ -181,7 +209,6 @@ def getVideoUrlsQuality(url,quality=0):
     return src
     
 
-
 def _scan_UserFolder(urlF,recursive=True,items=[],folders=[]):
     content = getUrl(urlF)
     items = items
@@ -198,7 +225,7 @@ def _scan_UserFolder(urlF,recursive=True,items=[],folders=[]):
     for i in range(len(match)):
         url = BASEURL+ match[i][0]
         title = unicodePLchar(match[i][1])
-        duration =  sum([a*b for a,b in zip([3600,60,1], map(int,matchT[i].split(':')))]) / 60.0
+        duration =  sum([a*b for a,b in zip([3600,60,1], map(int,matchT[i].split(':')))])
         code = matchHD[i]
         plot = unicodePLchar(matchIM[i][0])
         img = matchIM[i][1]
@@ -220,8 +247,21 @@ def _scan_UserFolder(urlF,recursive=True,items=[],folders=[]):
         _scan_UserFolder(nextpage[0],recursive,items)
     
     return items,folders
-  
 
+#url='http://www.cda.pl/ramicspa/obserwowani'
+def get_UserFolder_obserwowani(url):
+    content = getUrl(url)
+    items = []
+    folders = []
+    match=re.compile('@użytkownicy(.*?)<div class="panel-footer"></div>', re.DOTALL).findall(content)
+    if len(match) > 0:
+        data = re.compile('data-user="(.*?)" href="(.*?)"(.*?)src="(.*?)"', re.DOTALL).findall(match[0])
+        for one in data:
+            folders.append( {'url':one[1]+'/folder-glowny','title': html_entity_decode(one[0]),'img':one[3] })
+    return items,folders
+              
+# urlF='http://www.cda.pl/ramicspa/folder-glowny?type=pliki'
+# urlF='http://www.cda.pl/ramicspa/ulubione/folder-glowny'
 def get_UserFolder_content( urlF,recursive=True,filtr_items={}):
     items=[]
     folders=[]
@@ -238,6 +278,8 @@ def get_UserFolder_content( urlF,recursive=True,filtr_items={}):
         items = _items
         print 'Filted %d items by [%s in %s]' %(cnt, value, key)
     return items,folders
+
+
     
 def l2d(l):
     """
@@ -247,6 +289,7 @@ def l2d(l):
 
 # url='http://www.cda.pl/video/show/3d_dubbing/p1?duration=dlugie&section=&quality=720p&section=&s=best&section='
 # url='http://www.cda.pl/video/show/film_lektor_pl_dubbing/p1?duration=dlugie&section=&quality=720p&section=&s=date&section='
+
 # items=searchCDA(url)
 # print_toJson(items)
 def searchCDA(url):
@@ -286,49 +329,25 @@ def print_toJson(items):
 #title='Straight Outta Compton 2015 Lektor PL 1080p x265 by LexusFR'
 #title='Pan Hoppy i Żółwie / Roald Dahl’s Esio Trot (2015) Lektor PL'
 def cleanTitle(title):
-    pattern = re.compile(r"[(-*{;,/]")
+    #title=unicodePLchar(title)
+    pattern = re.compile(r"[(\[{;,/]")
     year=''
+    label=''
     reyear = re.search('\d{4}',title)
+    relabel = re.compile('(?:lektor|pl|dubbing|napis[y]*)', flags=re.I | re.X).findall(title.lower())
+    if relabel:
+        label = ' [COLOR green] %s [/COLOR]' % ' '.join(relabel)
     if reyear:
         title = re.sub('\d{4}','',title)
-        title = pattern.split(title)[0]
         year = reyear.group()
+    title = pattern.split(title)[0]
     
     title=title.lower()
-    rmList=[' lektor ',' pl ','hd','720p','1080p']
-    
+    rmList=['lektor','dubbing',' pl ','full','hd','*','720p','180p','"']
     for rm in rmList:
         title = title.replace(rm,'')
-      
-    return title, year
+    return title.strip(), year, label.strip()
 
-def cleanTitle_test(text):
-    #text=getNameWithoutExtension(text)
-    cutlist = ['x264','h264','720p','1080p','1080i','PAL','GERMAN','ENGLiSH','ENG', 'RUS', 'WS','DVDRiP','UNRATED','RETAIL','Web-DL','DL','LD','MiC','MD','DVDR','BDRiP','BLURAY','DTS','UNCUT',
-                'ANiME','AC3MD','AC3','AC3D','TS','DVDSCR','COMPLETE','INTERNAL','DTSD','XViD','DIVX','DUBBED','LINE.DUBBED','DD51','DVDR9','DVDR5','AVC','WEBHDTVRiP','WEBHDRiP','WEBRiP',
-                'WEBHDTV','WebHD','HDTVRiP','HDRiP','HDTV','ITUNESHD','REPACK','SYNC','REAL','PL']
-    
-    for word in cutlist:
-        #text = re.sub('(\_|\-|\.|\+)'+word+'(\_|\-|\.|\+)','+', text, flags=re.I)
-        text = re.sub('(\_|\-|\.|\+)'+word+'.*','.', text, flags=re.I) #assumtion is everything after garbage is garbadge too. ;)
-    #text = re.sub('(\_|\-|\.|\+)[12][0-9][0-9][0-9]\+.*','', text, flags=re.I) #if there is plus sign after date, date is most probably the garbage, so removing it ;)
-    
-    #let's take a year, if exists
-    try:
-        movieYear=re.sub('(\_|\-|\.|\+|\()','', re.search('(\_|\-|\.|\+|\()[12][09][0-9][0-9]', text, flags=re.I).group() ) #for future use
-    except:
-        movieYear=''
-    
-    #removing exact character combinations
-    ExactCutList = ['(\_|\-|\.|\+|\()[12][09][0-9][0-9](\_|\-|\.|\+|\))','^psig-','^[12][09][0-9]* [0-9][0-9]* - .* - ', '-[ ]*zwiastun']
-    for word in ExactCutList:
-        text = re.sub(word,'', text, flags=re.I) #assumtion is everything after garbage is garbadge too. ;)
-        
-    text = re.sub('(\_|\-|\.|\+)',' ', text, flags=re.I) #cleaning
-    text = re.sub('(  [ ]*)',' ', text, flags=re.I) #merge multiple (2+) spaces into one
-
-    return text, movieYear
-    
     
 
 ## JSON TASK
@@ -388,6 +407,10 @@ def jsconWalk(data,path):
             one=elems.get(e)
             if type(one) is str or type(one) is unicode:    # another json file
                 lista_katalogow.append( {'img':'','title':e,'url':"", "jsonfile" :one} )
+            elif type(one) is dict and one.has_key('jsonfile'): # another json file v2
+                one['title']=e  # dodaj tytul
+                one['url']='' 
+                lista_katalogow.append( one )
             else:
                 if isinstance(e, unicode):
                     e = e.encode('utf8')
@@ -395,7 +418,8 @@ def jsconWalk(data,path):
                     # Must be encoded in UTF-8
                     e.decode('utf8')
                 lista_katalogow.append( {'img':'','title':e,'url':path+'/'+e,'fanart':''} )
-    
+        if lista_katalogow:
+             lista_katalogow= sorted(lista_katalogow, key=lambda k: (k.get('idx',''),k.get('title','')))
     if type(elems) is list:
         print 'List items'
         for one in elems:

@@ -65,6 +65,11 @@
         <setting label="Wybierz lub ogranicz jakos video gdy video wysyła dodatek chrome/opera " type="lsep"/>
         <setting id="quality_remote" type="enum" label="Wybierz lub ogranicz (remote video)" values="Ręcznie|Najepsza|1080p|720p|480p|360p" default="0" />
     </category>
+    <category label="Moje cda.pl">
+        <setting type="sep"/>
+        <setting id="user"  type="text" label="Login" default="" />
+        <setting id="pass"  type="text" label="Hasło" option="hidden"  default="" />
+    </category>
 
 </settings>
 
