@@ -208,16 +208,18 @@ def getVideoUrlsQuality(url,quality=0):
         src = getVideoUrls(selected[1])
     return src
     
-
-def _scan_UserFolder(urlF,recursive=True,items=[],folders=[]):
-    content = getUrl(urlF)
+#url='http://www.cda.pl/Witold_Prochnicki/folder/805805/'
+def _scan_UserFolder(url,recursive=True,items=[],folders=[]):
+    content = getUrl(url)
     items = items
     folders = folders
     
-    match   = re.compile('<a href="(.*?)">(.*?)</a> <span class="hidden-viewTiles">(.*?)</span>').findall(content)
+    #match   = re.compile('<a href="(.*?)">(.*?)</a> <span class="hidden-viewTiles">(.*?)</span>').findall(content)
+    match   = re.compile('class="link-title-visit" href="(.*?)">(.*?)</a>').findall(content)
     matchT  = re.compile('class="time-thumb-fold">(.*?)</span>').findall(content)
     matchHD = re.compile('class="thumbnail-hd-ico">(.*?)</span>').findall(content)
     matchHD = [a.replace('<span class="hd-ico-elem">','') for a in matchHD]
+    # matchIM = re.compile('<img[ \t\n]+class="thumb thumb-bg thumb-size"[ \t\n]+alt="(.*?)"[ \t\n]+src="(.*?)">',re.DOTALL).findall(content)
     matchIM = re.compile('<img[ \t\n]+class="thumb thumb-bg thumb-size"[ \t\n]+alt="(.*?)"[ \t\n]+src="(.*?)">',re.DOTALL).findall(content)
     
     print 'Video #%d' %(len(match))
@@ -225,7 +227,8 @@ def _scan_UserFolder(urlF,recursive=True,items=[],folders=[]):
     for i in range(len(match)):
         url = BASEURL+ match[i][0]
         title = unicodePLchar(match[i][1])
-        duration =  sum([a*b for a,b in zip([3600,60,1], map(int,matchT[i].split(':')))])
+        duration_str = matchT[i] if matchT[i] else '0'
+        duration =  sum([a*b for a,b in zip([3600,60,1], map(int,duration_str.split(':')))])
         code = matchHD[i]
         plot = unicodePLchar(matchIM[i][0])
         img = matchIM[i][1]
@@ -301,12 +304,12 @@ def searchCDA(url):
     #label=labels[0]
     for label in labels:
         if label.find('premium')>0: 
-            pass
+            continue
         plot = re.compile('title="(.*)"').findall(label)
         image = re.compile('src="(.*)" ').findall(label)
         hd = re.compile('<span class="hd-ico-elem hd-elem-pos">(.*?)</span>').findall(label)
         duration = re.compile('<span class="timeElem">\s+(.*?)\s+</span>').findall(label)
-        title=re.compile('<a class="titleElem" href="(/video/.*?)">(.*?)<').findall(label)
+        title=re.compile('<a class=".*?" href="(/video/.*?)">(.*?)</a>').findall(label)
         nowosc = 'Nowość' if label.find('Nowość')>0 else ''
         if title:
             if len(title[0])==2:
@@ -323,6 +326,7 @@ def searchCDA(url):
 
 def print_toJson(items):
     for i in items:
+        print i.get('title')
         #print 'title':i.get('title'),'url':i.get('url'),'code':i.get('code')}
         print '{"title":"%s","url":"%s","code":"%s"}' % (i.get('title'),i.get('url'),i.get('code'))
 

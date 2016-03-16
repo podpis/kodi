@@ -22,7 +22,7 @@ LIVE_SEARCH_URL = "http://www.filmweb.pl/search/live?q=";
 LIVE_SEARCH_FIELD_SPACER = "\\c";	
 LIVE_SEARCH_ROW_SPACER = "\\a";
 IMG_POSTER_URL = "http://1.fwcdn.pl/po"
-TIMEOUT=5
+TIMEOUT=10
 
 def _getUrl(url):
     """
@@ -68,11 +68,13 @@ def _processResponse(response,_response_keys):
         j_data=json.loads(data)
         N=len(j_data)
         for k,v in _response_keys.iteritems():
-            if N>= k: out[v]=j_data[k]    #j_data is a list
+            if j_data[k]==None:
+                j_data[k]=''
+            if N>= k: out[v]=j_data[k]  #j_data is a list
     return out
 
 
-def getFilmInfoFull(filmID='628'):
+def getFilmInfoFull(filmID='185632'):
     method = 'getFilmInfoFull [' + filmID + ']'
     _response_keys ={
         0 :  'title',

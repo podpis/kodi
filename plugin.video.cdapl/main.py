@@ -14,10 +14,16 @@ base_url        = sys.argv[0]
 addon_handle    = int(sys.argv[1])
 args            = urlparse.parse_qs(sys.argv[2][1:])
 my_addon        = xbmcaddon.Addon()
+my_addon_id     = my_addon.getAddonInfo('id')
 
 PATH        = my_addon.getAddonInfo('path')
+DATAPATH    = xbmc.translatePath(my_addon.getAddonInfo('profile')).decode('utf-8')
 RESOURCES   = PATH+'/resources/'
 MEDIA       = RESOURCES+'/media/'
+
+# print '5'*5
+# dataPath = xbmc.translatePath(DATAPATH).decode('utf-8')
+# print dataPath
 
 
 ## COMMON Functions
@@ -47,6 +53,8 @@ def addLinkItem(name, url, mode, iconImage=None, infoLabels=False, IsPlayable=Fa
     liz.setProperty('mimetype', 'video/x-msvideo')
     contextMenuItems = []
     contextMenuItems.append(('Informacja', 'XBMC.Action(Info)'))
+    content=urllib.quote_plus(json.dumps(infoLabels))
+    contextMenuItems.append(('TEST', 'RunPlugin(plugin://%s?mode=TEST&ex_link=%s)'%(my_addon_id,content)))
     if infoLabels.has_key('trailer'):
         contextMenuItems.append(('Zwiastun', 'XBMC.PlayMedia(%s)'%infoLabels.get('trailer')))
         
@@ -166,8 +174,8 @@ def decodeVideo(ex_link):
     stream_url = cda.getVideoUrls(ex_link)
     quality = my_addon.getSetting('quality')
     stream_url = selectQuality(stream_url,int(quality))
-    print '$'*10
-    print stream_url
+    # print '$'*10
+    # print stream_url
     if stream_url:
         xbmcplugin.setResolvedUrl(addon_handle, True, xbmcgui.ListItem(path=stream_url))
 
@@ -297,12 +305,12 @@ def logincda():
     u = my_addon.getSetting('user')
     p = my_addon.getSetting('pass')
     if u and p:
-        if cda.CDA_login(u,p,RESOURCES+'cookie.cda'):
-            cda.COOKIEFILE=RESOURCES+'cookie.cda'
+        if cda.CDA_login(u,p,DATAPATH+'cookie.cda'):
+            cda.COOKIEFILE=DATAPATH+'cookie.cda'
             addDir('[B]Moje cda.pl[/B]',ex_link='', json_file='', mode='MojeCDA', iconImage='cdaMoje.png',infoLabels=False)
        
-if os.path.exists(RESOURCES+'cookie.cda'):
-    cda.COOKIEFILE=RESOURCES+'cookie.cda'
+if os.path.exists(DATAPATH+'cookie.cda'):
+    cda.COOKIEFILE=DATAPATH+'cookie.cda'
 
 ## MAIN LOOP 
    
@@ -321,7 +329,12 @@ if mode is None:
     addLinkItem('[COLOR gold]-=Opcje=-[/COLOR]','','Opcje',iconImage=MEDIA+'Opcje.png')
     
     xbmcplugin.endOfDirectory(addon_handle,succeeded=True) #,cacheToDisc=True)
-    
+
+# elif mode[0] == 'TEST':
+#     print 'TEST TEST'
+#     path = xbmc.getInfoLabel('ListItem')
+#     print ex_link
+#     xbmc.executebuiltin('Notification(Item, ' + path + ', 2)')
 
 elif mode[0]=='cdaSearch':
     use_filmweb=json_file if json_file else 'false'
@@ -336,7 +349,7 @@ elif mode[0]=='cdaSearch':
     if items:
         for item in items:
             item=updateMetadata(item,use_filmweb)
-            print item
+            # print item
             addLinkItem(name=item.get('title').encode("utf-8"), url=item.get('url'), mode='decodeVideo', iconImage=item.get('img'), infoLabels=item, IsPlayable=True,fanart=item.get('img'),totalItems=N_items)
         if nextpage:
             addDir('[COLOR gold]Następna strona >> [/COLOR] ',ex_link=nextpage, json_file=use_filmweb, mode='cdaSearch',iconImage='next.png')
