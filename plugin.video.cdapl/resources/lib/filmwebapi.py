@@ -224,6 +224,8 @@ def searchFilmweb(title='',year='',itemType='f'):
             found = out[0]
         else:
             for one in sorted(out, key=lambda k: k['year'],reverse=True):
+                if one.get('year','') in ['2017','2018','2019','2020']:
+                    continue
                 if one.get('type') == itemType:
                     found = one
                     break
@@ -237,7 +239,7 @@ if __name__=="__main__":
     # out = getFilmDescription('594357')
     # p = getFilmPersons(filmID='594357', t='directors')
     # title='Grawitacja (2013)'
-    # title='jestem bogiem  limitless '
+    # title='Jak Wytresowac Smoka: 2 '.encode('utf-8')
     # s = serachItem(title)
     # filminfo = searchFilmweb(title,itemType='f')
     # title='Potop '

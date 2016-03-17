@@ -20,10 +20,8 @@ PATH        = my_addon.getAddonInfo('path')
 DATAPATH    = xbmc.translatePath(my_addon.getAddonInfo('profile')).decode('utf-8')
 RESOURCES   = PATH+'/resources/'
 MEDIA       = RESOURCES+'/media/'
+FAVORITE    = os.path.join(DATAPATH,'favorites.json')
 
-# print '5'*5
-# dataPath = xbmc.translatePath(DATAPATH).decode('utf-8')
-# print dataPath
 
 
 ## COMMON Functions
@@ -35,15 +33,15 @@ def getUrl(url,data=None):
     response.close()
     return link
     
-def addLinkItem(name, url, mode, iconImage=None, infoLabels=False, IsPlayable=False,fanart=None,totalItems=1):
+def addLinkItem(name, url, mode, iconImage=None, infoLabels=False, contextO=['F_ADD'],IsPlayable=False,fanart=None,totalItems=1):
     u = build_url({'mode': mode, 'foldername': name, 'ex_link' : url})
     #u = urllib.urlencode(encoded_dict({'mode': mode, 'foldername': name, 'ex_link' : url}))
     if iconImage==None:
         iconImage='DefaultFolder.png'
-    liz = xbmcgui.ListItem(name, iconImage=iconImage, thumbnailImage=iconImage)
-    
     if not infoLabels:
         infoLabels={"title": name}
+    liz = xbmcgui.ListItem(name, iconImage=iconImage, thumbnailImage=iconImage)
+
     liz.setInfo(type="video", infoLabels=infoLabels)
     #liz.setContentLookup(False)
     if IsPlayable:
@@ -52,9 +50,15 @@ def addLinkItem(name, url, mode, iconImage=None, infoLabels=False, IsPlayable=Fa
         liz.setProperty('fanart_image',fanart)
     liz.setProperty('mimetype', 'video/x-msvideo')
     contextMenuItems = []
-    contextMenuItems.append(('Informacja', 'XBMC.Action(Info)'))
+    contextMenuItems.append(('[COLOR blue]Informacja[/COLOR]', 'XBMC.Action(Info)'))
+    
     content=urllib.quote_plus(json.dumps(infoLabels))
-    contextMenuItems.append(('TEST', 'RunPlugin(plugin://%s?mode=TEST&ex_link=%s)'%(my_addon_id,content)))
+    if 'F_ADD' in contextO:
+        contextMenuItems.append(('[COLOR green]Dodaj do Wybranych[/COLOR]', 'RunPlugin(plugin://%s?mode=favoritesADD&ex_link=%s)'%(my_addon_id,content)))
+    if 'F_REM' in contextO:
+        contextMenuItems.append(('[COLOR red]Usuń z Wybranych[/COLOR]', 'RunPlugin(plugin://%s?mode=favoritesREM&ex_link=%s)'%(my_addon_id,content)))
+    if 'F_DEL' in contextO:
+        contextMenuItems.append(('[COLOR red]Usuń Wszystko[/COLOR]', 'RunPlugin(plugin://%s?mode=favoritesREM&ex_link=all)'%(my_addon_id)))
     if infoLabels.has_key('trailer'):
         contextMenuItems.append(('Zwiastun', 'XBMC.PlayMedia(%s)'%infoLabels.get('trailer')))
         
@@ -128,18 +132,7 @@ def build_url(query):
     return base_url + '?' + urllib.urlencode(encoded_dict(query))
     
 
-def updateMetadata(item,use_filmweb=True):
-    if use_filmweb=='true':
-        title_org = item.get('title')
-        title,year,label=cda.cleanTitle(title_org)
-        data = fa.searchFilmweb(title.strip(),year.strip())
-        if data:
-            item.update(data)
-            item['OriginalTitle']=title_org
-            if label:
-                item['label']=label
-            item['title'] += item.get('label','')+ item.get('msg','')
-    return item
+
 
     
 
@@ -210,27 +203,10 @@ def userFolder(userF='K1'):
     enabled = my_addon.getSetting(userF)
     if enabled=='true':
         title = my_addon.getSetting(userF+'_filtr0')
-        
         list_of_special_chars = [
-        ('Ą', b'a'),
-        ('ą', b'a'),
-        ('Ę', b'e'),
-        ('ę', b'e'),
-        ('Ó', b'o'),
-        ('ó', b'o'),
-        ('Ć', b'c'),
-        ('ć', b'c'),
-        ('Ł', b'l'),
-        ('ł', b'l'),
-        ('Ń', b'n'),
-        ('ń', b'n'),
-        ('Ś', b's'),
-        ('ś', b's'),
-        ('Ź', b'z'),
-        ('ź', b'z'),
-        ('Ż', b'z'),
-        ('ż', b'z'),
-        (' ','_')]
+        ('Ą', b'a'),('ą', b'a'),('Ę', b'e'),('ę', b'e'),('Ó', b'o'),('ó', b'o'),('Ć', b'c'),
+        ('ć', b'c'),('Ł', b'l'),('ł', b'l'),('Ń', b'n'),('ń', b'n'),('Ś', b's'),('ś', b's'),
+        ('Ź', b'z'),('ź', b'z'),('Ż', b'z'),('ż', b'z'),(' ','_')]
         fraza = title
         for a,b in list_of_special_chars:
             fraza = fraza.replace(a,b)
@@ -269,9 +245,21 @@ def updateMetadata_filmwebID(item):
         item.update(data)    
     item['title'] += item.get('label','')+ item.get('msg','')       # dodatkowe info gdy zdefiniowane
     return item
-    
 
-def mainWalk(ex_link,json_file):
+def updateMetadata(item,use_filmweb=True):
+    if use_filmweb=='true':
+        title_org = item.get('title')
+        title,year,label=cda.cleanTitle(title_org)
+        data = fa.searchFilmweb(title.strip(),year.strip())
+        if data:
+            item.update(data)
+            item['OriginalTitle']=title_org
+            if label:
+                item['label']=label
+            item['title'] += item.get('label','')+ item.get('msg','')
+    return item    
+
+def mainWalk(ex_link,json_file,fname=''):
     items=[]
     folders=[]
     #print ex_link 
@@ -292,10 +280,16 @@ def mainWalk(ex_link,json_file):
         title = f.get('title') + f.get('count','') 
         f['plot'] = f.get('plot','') + '\n' + f.get('update','')
         addDir(title,ex_link=f.get('url'), json_file=tmp_json_file, mode='walk', iconImage=f.get('img',''),infoLabels=f,fanart=f.get('fanart',''),totalItems=N_folders)
-    N_items=len(items)
+    
+      
+    # Item optional context menu
+    contextO=['F_ADD']
+    if fname=='[COLOR khaki]Wybrane[/COLOR]':
+        contextO=['F_REM','F_DEL']
+    N_items=len(items)    
     for item in items:
         item=updateMetadata_filmwebID(item)
-        addLinkItem(name=item.get('title').encode("utf-8"), url=item.get('url'), mode='decodeVideo', iconImage=item.get('img'), infoLabels=item, IsPlayable=True,fanart=item.get('img'),totalItems=N_items)
+        addLinkItem(name=item.get('title').encode("utf-8"), url=item.get('url'), mode='decodeVideo',contextO=contextO, iconImage=item.get('img'), infoLabels=item, IsPlayable=True,fanart=item.get('img'),totalItems=N_items)
     
     setView()
     return 1
@@ -325,17 +319,49 @@ if mode is None:
     logincda()  # perform login
     mainWalk("",os.path.join(PATH,'root.json'))
     userFolderADD()
+    addDir('[COLOR khaki]Wybrane[/COLOR]',ex_link='', json_file=FAVORITE, mode='walk',  iconImage='cdaUlubione.png',infoLabels={'plot':'Lista wybranych pozycji. Szybki dostep, lokalna baza danych.'})
     addDir('[COLOR green]Szukaj[/COLOR]',ex_link='', mode='cdaSearch',iconImage='Szukaj_cda.png')
     addLinkItem('[COLOR gold]-=Opcje=-[/COLOR]','','Opcje',iconImage=MEDIA+'Opcje.png')
     
     xbmcplugin.endOfDirectory(addon_handle,succeeded=True) #,cacheToDisc=True)
 
-# elif mode[0] == 'TEST':
-#     print 'TEST TEST'
-#     path = xbmc.getInfoLabel('ListItem')
-#     print ex_link
-#     xbmc.executebuiltin('Notification(Item, ' + path + ', 2)')
+elif mode[0] == 'favoritesADD':
+    jdata = cda.ReadJsonFile(FAVORITE)
+    new_item=json.loads(ex_link)
+    # fix label/msg from title
+    new_item['title'] = new_item.get('title','').replace(new_item.get('label',''),'').replace(new_item.get('msg',''),'')
+    dodac = [x for x in jdata if new_item['title']== x.get('title','')]
+    if dodac:
+        xbmc.executebuiltin('Notification([COLOR pink]Już jest w Wybranych[/COLOR], ' + new_item.get('title','').encode('utf-8') + ', 200)')
+    else:
+        jdata.append(new_item)
+        with open(FAVORITE, 'w') as outfile:
+            json.dump(jdata, outfile, indent=2, sort_keys=True)
+            xbmc.executebuiltin('Notification(Dodano Do Wybranych, ' + new_item.get('title','').encode('utf-8') + ', 200)')
 
+elif mode[0] == 'favoritesREM':
+    if ex_link=='all':
+        yes = xbmcgui.Dialog().yesno("??","Usuń wszystkie filmy z Wybranych?")
+        if yes:
+            os.remove(FAVORITE)
+    else:
+        jdata = cda.ReadJsonFile(FAVORITE)
+        remItem=json.loads(ex_link)
+        to_remove=[] 
+        for i in xrange(len(jdata)):
+            if jdata[i].get('title') in remItem.get('title'):
+                to_remove.append(i)
+        if len(to_remove)>1:
+            yes = xbmcgui.Dialog().yesno("??",remItem.get('title'),"Usuń %d pozycji z Wybranych?" % len(to_remove))
+        else:
+            yes = True
+        if yes:
+            for i in reversed(to_remove):
+                jdata.pop(i)
+            with open(FAVORITE, 'w') as outfile:
+                json.dump(jdata, outfile, indent=2, sort_keys=True)
+    xbmc.executebuiltin('XBMC.Container.Refresh')        
+ 
 elif mode[0]=='cdaSearch':
     use_filmweb=json_file if json_file else 'false'
     if not ex_link:
@@ -375,17 +401,9 @@ elif mode[0] == 'Opcje':
     xbmc.executebuiltin('XBMC.Container.Refresh()')
 
 elif mode[0] == 'walk':
-    mainWalk(ex_link,json_file) 
+    mainWalk(ex_link,json_file,fname) 
     xbmcplugin.endOfDirectory(addon_handle,succeeded=True)
 
     
 elif mode[0] == 'folder':
     pass
-   
-
-# <category label="Jakość vioeo" >
-#     <setting label="nie działa" type="lsep"/>
-#     <setting id="auto_select" type="enum" label="Wybieraj jakość filmu" entries="0|1" values="ręcznie|automatycznie" default="0"/>
-#     <setting id="resolution" type="labelenum" label=" jakość filmu do:" subsetting="true" visible="eq(-1,1)" values="najlepsza|360p|480p|720p|1080p" default="najlepsza" />
-# </category>
- 

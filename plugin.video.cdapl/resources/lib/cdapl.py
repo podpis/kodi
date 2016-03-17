@@ -6,7 +6,7 @@ Created on Thu Feb 11 18:47:43 2016
 """
 import cookielib
 import urllib2,urllib
-import re
+import re,os
 import json as json
 
 #from collections import OrderedDict
@@ -377,11 +377,14 @@ def html_entity_decode(string):
     
 
 def ReadJsonFile(jfilename):
+    content = '[]'
     if jfilename.startswith('http'):
         content = getUrl(jfilename)
-    else: # local content
+    elif os.path.exists(jfilename):    # local content
         with open(jfilename,'r') as f:
-            content =  f.read()
+            content = f.read()
+            if not content:
+                content ='[]'
     data=json.loads(html_entity_decode(content))
     #data=json.loads(html_entity_decode(content), object_pairs_hook=OrderedDict)
     return data
