@@ -67,6 +67,39 @@ def addLinkItem(name, url, mode, iconImage=None, infoLabels=False, contextO=['F_
     xbmcplugin.addSortMethod(addon_handle, sortMethod=xbmcplugin.SORT_METHOD_UNSORTED, label2Mask = "%D, %P, %R")
     return ok
 
+def add_Item(name, url, mode, iconImage=None, infoLabels=False, contextO=['F_ADD'],IsPlayable=False,fanart=None,totalItems=1):
+    u = build_url({'mode': mode, 'foldername': name, 'ex_link' : url})
+    #u = urllib.urlencode(encoded_dict({'mode': mode, 'foldername': name, 'ex_link' : url}))
+    if iconImage==None:
+        iconImage='DefaultFolder.png'
+    if not infoLabels:
+        infoLabels={"title": name}
+    liz = xbmcgui.ListItem(name, iconImage=iconImage, thumbnailImage=iconImage)
+
+    liz.setInfo(type="video", infoLabels=infoLabels)
+    #liz.setContentLookup(False)
+    if IsPlayable:
+        liz.setProperty('IsPlayable', 'True')
+    if fanart:
+        liz.setProperty('fanart_image',fanart)
+    liz.setProperty('mimetype', 'video/x-msvideo')
+    contextMenuItems = []
+    contextMenuItems.append(('[COLOR blue]Informacja[/COLOR]', 'XBMC.Action(Info)'))
+    
+    content=urllib.quote_plus(json.dumps(infoLabels))
+    if 'F_ADD' in contextO:
+        contextMenuItems.append(('[COLOR green]Dodaj do Wybranych[/COLOR]', 'RunPlugin(plugin://%s?mode=favoritesADD&ex_link=%s)'%(my_addon_id,content)))
+    if 'F_REM' in contextO:
+        contextMenuItems.append(('[COLOR red]Usuń z Wybranych[/COLOR]', 'RunPlugin(plugin://%s?mode=favoritesREM&ex_link=%s)'%(my_addon_id,content)))
+    if 'F_DEL' in contextO:
+        contextMenuItems.append(('[COLOR red]Usuń Wszystko[/COLOR]', 'RunPlugin(plugin://%s?mode=favoritesREM&ex_link=all)'%(my_addon_id)))
+    if infoLabels.has_key('trailer'):
+        contextMenuItems.append(('Zwiastun', 'XBMC.PlayMedia(%s)'%infoLabels.get('trailer')))
+        
+    liz.addContextMenuItems(contextMenuItems, replaceItems=False)           
+
+    return (u, liz, False)
+
 def addDir(name,ex_link=None,json_file='', mode='walk',iconImage=None,fanart='',infoLabels=False,totalItems=1,contextmenu=None):
     url = build_url({'mode': mode, 'foldername': name, 'ex_link' : ex_link, 'json_file' : json_file})
     #li = xbmcgui.ListItem(name.encode("utf-8"), iconImage=iconImage)
@@ -174,6 +207,7 @@ def decodeVideo(ex_link):
 
 def playVideoRemote(ex_link):
     xbmcgui.Dialog().notification('Remote video requested', ex_link , xbmcgui.NOTIFICATION_INFO, 5000)
+    
     stream_url = cda.getVideoUrls(ex_link)
     
     quality = my_addon.getSetting('quality_remote')
@@ -181,9 +215,13 @@ def playVideoRemote(ex_link):
     
     if not stream_url:
         return False
-        
-    liz=xbmcgui.ListItem('Remote video')
-    liz.setInfo( type="Video", infoLabels={ "Title": 'Remote video', } )
+    
+    out = cda.grabInforFromLink(ex_link)
+    if not out:  
+        out['title']='Remote video'
+    
+    liz=xbmcgui.ListItem(out.get('title'), iconImage=out.get('img','DefaultVideo.png'))
+    liz.setInfo( type="Video", infoLabels=out)
     try:
         # videoList = xbmc.PlayList(xbmc.PLAYLIST_VIDEO)
         # videoList.clear()
@@ -287,9 +325,13 @@ def mainWalk(ex_link,json_file,fname=''):
     if fname=='[COLOR khaki]Wybrane[/COLOR]':
         contextO=['F_REM','F_DEL']
     N_items=len(items)    
+    list_of_items=[]
     for item in items:
         item=updateMetadata_filmwebID(item)
-        addLinkItem(name=item.get('title').encode("utf-8"), url=item.get('url'), mode='decodeVideo',contextO=contextO, iconImage=item.get('img'), infoLabels=item, IsPlayable=True,fanart=item.get('img'),totalItems=N_items)
+        #addLinkItem(name=item.get('title').encode("utf-8"), url=item.get('url'), mode='decodeVideo',contextO=contextO, iconImage=item.get('img'), infoLabels=item, IsPlayable=True,fanart=item.get('img'),totalItems=N_items)
+        list_of_items.append( add_Item(name=item.get('title').encode("utf-8"), url=item.get('url'), mode='decodeVideo',contextO=contextO, iconImage=item.get('img'), infoLabels=item, IsPlayable=True,fanart=item.get('img')) )
+    xbmcplugin.addDirectoryItems(handle=addon_handle, items = list_of_items ,totalItems=N_items)
+    xbmcplugin.addSortMethod(addon_handle, sortMethod=xbmcplugin.SORT_METHOD_UNSORTED, label2Mask = "%D, %P, %R")
     
     setView()
     return 1
@@ -387,7 +429,7 @@ elif mode[0] == 'MojeCDA':
     if u:
         addDir('Folder główny',ex_link='http://www.cda.pl/'+u+'/folder-glowny?type=pliki', json_file='', mode='walk', iconImage='cdaMoje.png')
         addDir('Ulubione',ex_link='http://www.cda.pl/'+u+'/ulubione/folder-glowny?type=pliki', json_file='', mode='walk', iconImage='cdaUlubione.png')
-        addDir('Obserwowani @użytkownicy',ex_link='http://www.cda.pl/'+u+'/obserwowani', json_file='', mode='walk', iconImage='cdaObserwowani.png') 
+        addDir('Obserwowani użytkownicy',ex_link='http://www.cda.pl/'+u+'/obserwowani', json_file='', mode='walk', iconImage='cdaObserwowani.png') 
     xbmcplugin.endOfDirectory(addon_handle,succeeded=True) #,cacheToDisc=True)
 
 elif mode[0] == 'decodeVideo':
@@ -402,7 +444,7 @@ elif mode[0] == 'Opcje':
 
 elif mode[0] == 'walk':
     mainWalk(ex_link,json_file,fname) 
-    xbmcplugin.endOfDirectory(addon_handle,succeeded=True)
+    xbmcplugin.endOfDirectory(addon_handle,succeeded=True,cacheToDisc=True)
 
     
 elif mode[0] == 'folder':

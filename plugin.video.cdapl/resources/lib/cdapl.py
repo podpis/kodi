@@ -352,8 +352,34 @@ def cleanTitle(title):
         title = title.replace(rm,'')
     return title.strip(), year, label.strip()
 
+# url='http://www.cda.pl/video/6080383d'
+# out=grabInforFromLink(url)
+def grabInforFromLink(url):
+    out={}
+    if not 'www.cda.pl/video/' in url:
+        return out
+    content = getUrl(url)
+    plot=re.compile('<meta property="og:description" content="(.*?)"/>').findall(content)    
+    title=re.compile('<meta property="og:title" content="(.*?)"/>').findall(content)   
+    image=re.compile('<meta property="og:image" content="(.*?)"/>').findall(content)   
+    video_id = url.split('?')[0].split('/')[-1]
+    quality=re.compile('href="/video/'+video_id+'\?wersja=(.*?)"').findall(content)
+    durationf = re.compile('<meta itemprop=[\'\"]duration[\'\"] content=[\'\"](.*?)[\'\"]/').findall(content)
+    if title:
+        title = unicodePLchar(title[0])
+        duration=''
+        if durationf:
+            tmp=re.compile('(\d)').findall(durationf[0])
+            while len(tmp)<3:
+                tmp.insert(0,'0')
+            duration =  sum([a*b for a,b in zip([3600,60,1], map(int,tmp))]) if tmp else ''
+        
+        code = quality[-1] if quality else ''
+        plot = unicodePLchar(plot[0]) if plot else ''
+        img = image[0] if image else ''
+        out={'url':url,'title':unicode(title,'utf-8'),'code':code,'plot':unicode(plot,'utf-8'),'img':img,'duration':duration}
+    return out
     
-
 ## JSON TASK
 
 import htmlentitydefs
