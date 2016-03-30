@@ -16,6 +16,7 @@ cache = StorageServer.StorageServer("cdaonline")
 
 import resources.lib.cdaonline as cdaonline
 import resources.lib.cdaresolver as cdaresolver
+import resources.lib.playernautresolver as playernautresolver
 
 base_url        = sys.argv[0]
 addon_handle    = int(sys.argv[1])
@@ -152,11 +153,24 @@ def getLinks(ex_link):
                     stream_url = cdaresolver.getVideoUrls(stream_url[selection][1])
                 else:
                     stream_url=''
+        elif 'playernaut' in h[selection]:
+            stream_url = playernautresolver.getVideoUrls(u[selection])
+            print 'playernaut'
+            print stream_url
+            if type(stream_url) is list:
+                qualityList = [x[0] for x in stream_url]
+                hrefs = [x[1] for x in stream_url]
+                selection = xbmcgui.Dialog().select("Quality [can be set default]", qualityList)
+                if selection>-1:
+                    stream_url=hrefs[selection]
+                else:
+                    stream_url=''
+                
         else: 
             #print 'urlresolver'
             stream_url = urlresolver.resolve(u[selection])
-    #print 'resolved'
-    #print stream_url
+    print 'resolved'
+    print stream_url
     if stream_url:
         xbmcplugin.setResolvedUrl(addon_handle, True, xbmcgui.ListItem(path=stream_url))
     else:

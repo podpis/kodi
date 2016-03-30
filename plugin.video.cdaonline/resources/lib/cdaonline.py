@@ -64,19 +64,23 @@ def _getOrginalURL(url,host=''):
     if url.startswith('http'):
         req = urllib2.Request(url)
         req.add_header('User-Agent', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.97 Safari/537.36')
-        response = urllib2.urlopen(req)
-        if response:
-            orginal_link=response.url
-            if orginal_link==url:
-                content=response.read()
-                links = re.compile('<a href="(.*)" class').findall(content)
-                for l in links:
-                    if host in l:
-                        orginal_link = l
-                        break
-            response.close()
+        try:
+            response = urllib2.urlopen(req)
+            if response:
+                orginal_link=response.url
+                if orginal_link==url:
+                    content=response.read()
+                    links = re.compile('<a href="(.*)" class').findall(content)
+                    for l in links:
+                        if host in l:
+                            orginal_link = l
+                            break
+                response.close()
+        except:
+            pass
     return orginal_link
 
+#url='http://cda-online.pl/carte-blanche/'
 def getVideoLinks(url):
     content = getUrl(url)
         
@@ -96,7 +100,13 @@ def getVideoLinks(url):
             q= jakosc.group(1) if jakosc else ''
             host = host.groups()[-1]
             href_go = 'http'+ href.group(1).split('http')[-1]
-            link = _getOrginalURL(href_go.replace('http://cda-online.pl?',''),host)
+            
+            print i,host,href.group(1),href_go,'\n'
+            
+            if host.startswith('openload'):
+                link=''
+            else:
+                link = _getOrginalURL(href_go.replace('http://cda-online.pl?',''),host)
             
             if link:
                 if 'openload' in host:
