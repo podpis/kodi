@@ -62,11 +62,11 @@ def addLinkItem(name, url, mode, iconimage=None, infoLabels={}, IsPlayable=True,
 def addFilmLinks(kat,wer,page,ex_link):
     pozycje= EK.skanuj_filmy(kat=kat,wer=wer, page=page,url=ex_link)
     if int(page)>1:
-        addLinkItem('<< Poprzednia Strona %d <<' %(int(page)-1), url=ex_link , mode='__page__', kat=kat,wer=wer,page= int(page)-1, IsPlayable=False)
+        addLinkItem('[COLOR gold]<< Poprzednia Strona %d <<[/COLOR]' %(int(page)-1), url=ex_link , mode='__page__', kat=kat,wer=wer,page= int(page)-1, IsPlayable=False)
     for p in pozycje:
         addLinkItem(name=p['title'],url=p['href'],mode='ChooseAndPlay',iconimage=p['img'],infoLabels=p,fanart=p['img'])
     
-    addLinkItem('>> Nastepna Strona %d >>' %(int(page)+1), url=ex_link , mode='__page__', kat=kat,wer=wer,page= int(page)+1, IsPlayable=False)
+    addLinkItem('[COLOR gold]>> Nastepna Strona %d >>[/COLOR]' %(int(page)+1), url=ex_link , mode='__page__', kat=kat,wer=wer,page= int(page)+1, IsPlayable=False)
 
 
 def testPlay(ex_link):
@@ -124,6 +124,7 @@ elif mode[0] == '__page__':
 elif mode[0] == 'testPlay':
     testPlay(ex_link)  
 elif mode[0] == 'ChooseAndPlay':
+    print ex_link
     ChooseAndPlay(ex_link)
 elif mode[0] == 'Opcje':
     my_addon.openSettings()
@@ -131,10 +132,11 @@ elif mode[0] == 'Opcje':
     xbmc.executebuiltin('XBMC.Container.Refresh(%s)'% url)
 
 elif mode[0] == 'folder':
-    if fname == 'Szukaj':
+    if 'Szukaj' in fname:
         dialog = xbmcgui.Dialog()
         d = dialog.input('Szukaj, Podaj tytul filmu', type=xbmcgui.INPUT_ALPHANUM)
         pozycje = EK.szukaj(d.replace(' ','%20'))
+        print len(pozycje)
         for p in pozycje:
             addLinkItem(p['title'],p['href'],'ChooseAndPlay',p['img'],p)
     elif fname=='Filmy [Kategoria]':

@@ -62,11 +62,12 @@ def _getData(content):
     des = re.compile('<div class="movieDesc">[\s\n]*(.*?)</div>').findall(content)
     rok = re.compile('<p class="cates">(.*) \|').findall(content)
     categorie = re.compile('<p class="cates">(.*) \| (<a href="/movie/cat/kategoria\[\d+\]">.*</a>[,]*)*</p>').findall(content)
-    #len(img) #len(title) #len(des)
+
+    foundItems=min(len(img),len(title),len(des),len(categorie))
     res=[]
-    
-    for i in range(len(title)):
+    for i in range(foundItems):
         out={}
+        #cat = dict(zip(range(len(_Links)),_Links))
         out['href'] = title[i][0]
         out['title'] = unicodePLchar(title[i][1].strip('\n '))
         out['year'] = categorie[i][0]
@@ -78,14 +79,32 @@ def _getData(content):
     return res
     
 
-
+# url='/movie/show/piraci-z-karaiboacutew-na-nieznanych-wodach-pirates-of-the-caribbean-on-stranger-tides-2011-lektor/3132'
+# url='/movie/show/igrzyska-smierci-kosoglos-czesc-2-lektor-pl-the-hunger-games-mockingjay-part-2-2015-lektor/13000'
 def get_sources(url='/movie/show/partyzant-napisy-pl-partisan-2015-napisy/7909'):
+    content  = getUrl(BASEURL+url)
+    iframes = re.compile('ShowPlayer\(\'(.*?)\',\'.*?\'\)').findall(content)
+    _Lables=[]
+    _Links=[]
+    one=iframes[0]
+    for one in iframes:
+        print one
+        if 'hosting=vshare' in one:
+            one='http://vshare.io/v/%s/width-640/height-400/'  % (one.split('=')[-1])
+        if one.startswith('http'):
+            _Links.append(one)
+            _Lables.append(one.split('/')[2])
+    return (_Lables,_Links)
+
+
+
+def _old_get_sources(url='/movie/show/partyzant-napisy-pl-partisan-2015-napisy/7909'):
     content  = getUrl(BASEURL+url)
     iframes = re.compile('<iframe(.*)></iframe>\n', re.DOTALL).findall(content)
     _Lables=[]
     _Links=[]
     for f in iframes:
-        links = re.compile('src="(.*?)"', re.DOTALL).findall(f)
+        links = re.compile('src="(.*?)"', re.DOTALL).findall(content)
         for one in links:
             if 'hosting=vshare' in one:
                 one='http://vshare.io/v/%s/width-640/height-400/'  % (one.split('=')[-1])
@@ -98,7 +117,7 @@ def get_sources(url='/movie/show/partyzant-napisy-pl-partisan-2015-napisy/7909')
                 _Links.append(one)
                 _Lables.append(one.split('/')[2])
     return (_Lables,_Links)
-   
+       
 def getCategories(url='http://ekino-tv.pl/movie/cat/'):
     content  = getUrl(url)   
     cats = re.compile('<li data-id="(\d+)">[\s\n]+<a href="/movie/cat/kategoria\[\d+\]">(.*?)</a>[\s\n]*</li>').findall(content)
@@ -106,13 +125,14 @@ def getCategories(url='http://ekino-tv.pl/movie/cat/'):
     opis = [x[1] for x in cats]
     return (opis,number)
     
-def szukaj(what='dom'):
+def szukaj(what='Piraci'):
     postdata = {'search_field': what}
     content = getUrl('http://ekino-tv.pl/search/', postdata)
     return _getData(content)
 
 # cat=getCategories()
 # s=szukaj('dom')
+#s=szukaj('Piraci z Karaibów')
 # len(s)
 #f=skanuj_filmy(kat='35',wer='',url='')
 # (_Lables,_Links)=get_sources(f[0]['href'])
