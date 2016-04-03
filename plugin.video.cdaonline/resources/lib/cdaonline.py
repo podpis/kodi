@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import urllib2
+import urllib2,urllib
 import re
  
 BASEURL=''
@@ -58,7 +58,22 @@ def scanMainpage(url,page=1):
         nextPage = page+1
     prevPage = page-1 if page>1 else False
     return (out, (prevPage,nextPage))
- 
+
+#url='http://ouo.io/zd1BL3' 
+#https://github.com/mirror/jdownloader/blob/8e0aada1b0e2fc7e7146136eb9cf993e1722f441/src/jd/plugins/decrypter/OuoIo.java
+#https://github.com/mirror/jdownloader/blob/master/src/org/jdownloader/captcha/v2/challenge/recaptcha/v2/CaptchaHelperCrawlerPluginRecaptchaV2.java
+
+def ouo(url):
+    content = getUrl(url)
+    token = re.search('name="_token" type="hidden" value="(.*?)">',content).group(1)
+    sitekey = re.search('sitekey: "(.*?)"',content).group(1)
+    params = {'_token':'MgZMB1Wf4UBGphYF1i63mO467wxG8S5k5ckp4MOj',
+            'g-recaptcha-response':'03AHJ_VuvwwkKF1I9LNhURRsPJsQO5_SlHqGqV9borBaUWqmnqNDfqH1pTIPymqUwLLkj4xh6nWgAmBnwVcZBVugmMJiVcpL6-T2cJGu5fDKmEsxaZs1OQGQxp8tOr2YpaVcAVpePetQlBV0yA8gTCQcpmnfYdOScQkxU9o_s5Q4sjP4Hov2QbbhGV9SI4O8a-VRAVXrUzpf6xyuevYsuX3HxHa_BsYQC9U7DX0jfjBJDmilJab6UDRdVCleG-jFw7RKp75UUhlzXALOFoh3IWaZW9jLe0F3mVemVTQ-13p0OAynwuoATZWFthEL8C0NKMUbdVg5d-_628k_BwD1R6Kd4XjuA9flQCEMgU5hzLm8R_K3FKaFkPpiuUS3mr-tXz7vstL9BIPXjQw68Y1umk_7rQvKJgIQA2Nfb5waTADF1gaCusYM4d14NH9F52kE4lrdbaY2US9uiNCqEfYhAczXyFgxxqBJ58B6PPz0k3M7-XqZStPzaMP4MDRFr4yuJ1An7don4im69cO8pC0yvgayWxsalM8JLCDiT7VmSka78GYd0BdwS_dC1TxTikhV8cH9adJXY5AtCJCI2ejtAccyY5iycie-zvNZejvaC8GYIfwKNeYA3Vi60gYNgIev2a5UMIQZfY4zWf_pjs8T7wDLqr08kRHtR7hybmmKsvYwGFkiDMveeqQx-vzVD4c9te79ZpOuRSmAN8ii2ArdYHWb_M69a0HffagzPtU8MCc6Lwu8T65w1xq7ILnQRoccppMwC9B8T8lzdIqS2yLCsgKxzcLFOeqpt_QAIdNgibyF3q7DZecl41r2hxNkHp6mT1kjkC8gwzCbgvJAoq7zuZUXvoQCuEEUNAucItHM9UcMDQ4iMYPwBWbsUfezABiOWne0F7QQcE_KVY4yE4RFSEntWl9nyyX9O2OY6hEi2e1G5BAeXD_1yiL9s-s68plikFF_lBrQY0vcaPnM69QSfnrUAnF5h7BGwlTkqBglw62uOw5Pn2ktygRP-BTTpgUxVa0fthxEjR_31VCUvBmD3nwviOOARBkNxwzNLvzB-LHQ4Iwt8RWVj1HD22QYAWjFTHUZNMYog3rFR11Xi2_7FUcUcOGFMzzkCmIofpX813lk5deDmHiVzoNXg2uRiaDJqdDgltT78AhMSFMZhoMimJUvHluuB09IFCkE0M_6dzPyi23gidZRjYod8pqV20G4Y1bC6ZzttlDbcRccDfKadcJu9EpGMcVLQnnBzseTS0CGm8N1NluDcjMhwnzm8teTJIegesipsH7QZ8UyfgcyFPd0-8cOkkmKgleEUDVXCtAkZSbYT03S-tUqKxikQ7QxJOEVrHM0Y5wVjLNTs0TWFUEDEo5iXv-6qw98zu6yiWiQ2pFb7SbxvfmXhK3qFWvkUClxjgBh7kVu5tkkDN011SB5ReoCJuLdfHLtOh2FqZ2w7PhGKBjevdAL2fCREhX1JtYN8yAUiPNjxkABtAbmyL7s-Kp2WbvvRqL4357tT6mNXCqg-fnM1iQ9oYAtPimJodvD8ZCKY5B9mc3aOuDIQzv6LT_opevVa97oF0lediU8gO63Euqm6gI5K0j5VPeVvpc0zyaYVXF9tx5QzFKtOEAC_KaTh-Su7UJnW4QbHUi9PlsggQP0JA56_ghTO8BjPY2u8K99HDh_dp4Eb1E0T9A1xtzrbX3ZgF05wCEJe5Lm2qX0UdZXy_AVuq7S3EM3MjhJIZ-Kbje7PofqlxGm09IhJxRcdE4jXZgrld7aPhv0BT1Q91DXrR8lLtY6NRBsZfkh9N'
+           }
+    data=urllib.urlencode(params) 
+    a=getUrl('http://ouo.io/go/Fkbcu',data)
+    print a
+    
 def _getOrginalURL(url,host=''):
     orginal_link=''
     if url.startswith('http'):
@@ -81,7 +96,28 @@ def _getOrginalURL(url,host=''):
     return orginal_link
 
 #url='http://cda-online.pl/carte-blanche/'
+#url='http://cda-online.pl/critters-2/'
+
 def getVideoLinks(url):
+    content = getUrl(url)
+    out  =[]
+    iframe = re.compile('<iframe (.*?)</iframe>',re.DOTALL).findall(content)
+
+    for frame in iframe:
+        href = re.compile('src="(.*?)"',re.DOTALL).search(frame)
+        if href:
+            href_go = 'http'+ href.group(1).split('http')[-1]
+            host = href_go.split('/')[2]
+
+            if href_go.startswith('http') and not 'youtube' in href_go:
+                one = {'url' : href_go,
+                    'title': "[%s]" %(host),
+                    'host': host    }
+                out.append(one)
+    return out
+    
+
+def getVideoLinks_odl(url):
     content = getUrl(url)
         
     ids = [(a.start(), a.end()) for a in re.finditer('<li class="elemento">', content)]

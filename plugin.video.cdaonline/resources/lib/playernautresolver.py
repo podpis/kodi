@@ -16,8 +16,11 @@ def getUrl(url,data=None,cookies=None):
         response.close()
     except:
         link=''
+
     return link
 
+# url='https://www.playernaut.com/embed/vS631dFkt'
+# url='https://www.playernaut.com/?v=V3bkB2bOH'
 def getVideoUrls(url):
     """    
     returns 
@@ -26,6 +29,8 @@ def getVideoUrls(url):
     """        
     #print url
     Cookie='|Cookie="PHPSESSID=1'
+    if '/embed/' in url:
+        url=url.replace('/embed/','/?v=')
     content = getUrl(url)
     src=[]
     quality_options = re.compile('<source src="(.*?)" type="(.*?)" data-res="(.*?)">').findall(content)

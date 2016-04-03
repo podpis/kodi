@@ -154,6 +154,8 @@ def getLinks(ex_link):
                 else:
                     stream_url=''
         elif 'playernaut' in h[selection]:
+            print 'playernaut'
+            print u[selection]
             stream_url = playernautresolver.getVideoUrls(u[selection])
             print 'playernaut'
             print stream_url
