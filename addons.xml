@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addons>
 <addon id="plugin.video.cdaonline"
-version="1.4.0"
+version="1.4.1"
 name="cda-online"
 provider-name="Michal">
 <requires>
@@ -16,6 +16,9 @@ provider-name="Michal">
   <summary lang="en">cda-online</summary>
   <description lang="en">Zasoby cda-online.pl</description>
   <disclaimer lang="en">private use</disclaimer>
+  <platform>all</platform>
+  <website>https://github.com/ramicspa/kodi</website>
+  <email>ramicspa@gmail.com</email>
 </extension>
 </addon>
 
