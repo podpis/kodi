@@ -5,13 +5,6 @@ Created on Fri Jan 01 15:26:07 2016
 @author: ramic
 """
 
-# -*- coding: utf-8 -*-
-"""
-Created on Fri Nov 06 10:12:31 2015
-
-@author: rakowski
-"""
-
 import urllib2,urllib
 import re
 import time
@@ -198,7 +191,8 @@ def build_m3u(out,fname='telewizjadatv.m3u'):
 
 
 if __name__ == "__main__":
-    out=get_root_telewizjada()
+    pass
+    #out=get_root_telewizjada()
     #decode_url(out[0].get('url'),out[0].get('id'))
     #get_epg_now_next(out[0]['epgname'])
     #out2=decode_all_urls(out)

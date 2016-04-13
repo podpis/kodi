@@ -6,8 +6,7 @@
     <setting label="Katalog"    type="folder" id="path" source="auto" option="writeable"/>
 				
     <setting label="źródła" type="lsep"/>
-    <setting label="Telewizjada" type="bool" id="src1" default="true"/>
-    <setting label="Looknij" type="bool" id="src2" default="false"/>
+    <setting label="Dostawca:" type="select" id="service" values="Telewizjada|Moje-Fimy|Looknij" default="Telewizjada"/>
 	
     <setting label="Akcja: (Utworz/odswierz liste i reaktywj Telewizje)" type="lsep"/>
     <setting type="action"
@@ -19,5 +18,9 @@
              label="Uaktualnij ustawienia [COLOR blue]PVR IPTV Simple Client[/COLOR] i (re)aktywuj Live TV" 
              option="close" />
     </category>
-
+    <category label="Program EPG">
+        <setting label="Przesuniecie czasowe przewodnika (godziny)" type="slider" id="epgTimeShift" default="0" range="-12,1,12" option="int" />
+         <setting id="epgUrl" type="select" label="Dostawca EPG" values="http://epg.iptvlive.org|http://api.moje-filmy.tk/epg.xml" default="http://epg.iptvlive.org" />
+    </category>
+    
 </settings>
