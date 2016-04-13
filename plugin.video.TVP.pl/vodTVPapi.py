@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 """
 Created on Fri May 29 22:10:54 2015
 
@@ -19,7 +20,7 @@ def getUrl(url):
     response.close()
     return link
 
-
+#parent_id=22672029
 def vodTVP_getApiQuery(parent_id,count=10):
     listing_url = 'http://www.api.v3.tvp.pl/shared/listing.php?dump=json'
     url = listing_url + '&direct=true&count=%d&parent_id=%s'% (count,parent_id)
@@ -65,11 +66,11 @@ def vodTVP_getImage(item,key):
 
 def vodTVP_root(parent_id='1785454'):
     #l1=vodTVPapi(parent_id,20)
-    ROOT=[{'id': 1649941, 'img': '', 'title': 'seriale'},
-          {'id': 1627183, 'img': '', 'title': 'filmy fabularne'},
-          {'id': 4190012, 'img': '', 'title': 'dokumenty'},
-          {'id': 4190017, 'img': '', 'title': 'archiwa'},
-          {'id': 4934948, 'img': '', 'title': 'audycje / programy'},
+    ROOT=[{'id': 1649941, 'img': '', 'title': 'Seriale'},
+          {'id': 1627183, 'img': '', 'title': 'Filmy Fabularne'},
+          {'id': 4190012, 'img': '', 'title': 'Dokumenty'},
+          {'id': 4190017, 'img': '', 'title': 'Archiwa'},
+          {'id': 4934948, 'img': '', 'title': 'Audycje / Programy'},
           {'id': 8525989, 'img': '', 'title': '-> [Rozrywka]'}]
     return ROOT
 
@@ -95,7 +96,8 @@ def vodTVPapi(parent_id,Count=150):
     return (lista_katalogow,lista_pozycji)
 
 # Rozrywka
-# a=vodTVPapi(8525989) 
+# a=vodTVPapi(22672029) 
 # Latajacy klub dwojki
-# a=vodTVPapi(19021815)
+# a=vodTVPapi(24413489)
 # vodTVP_GetStreamUrl(a[1][2]['filename'])
+# channel_id=a[1][2]['filename']

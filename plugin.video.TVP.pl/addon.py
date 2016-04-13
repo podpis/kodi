@@ -1,15 +1,16 @@
+# -*- coding: utf-8 -*-
+
 import sys,re
 import urllib,urllib2
 import urlparse
 import xbmc,xbmcgui,xbmcaddon
 import xbmcplugin
+
 #import urlresolver
 #import base64
 from bs4 import BeautifulSoup
 import vodTVPapi as vod
-# LOOKNIJ
-import looknijtv as ltv
-# LOOKNIJ
+
 
 base_url        = sys.argv[0]
 addon_handle    = int(sys.argv[1])
@@ -111,53 +112,7 @@ def scanTVPsource(ex_link='/1342039/top10/'):
         addLinkItem(title, href, '__tvp_kabarety_resolve_play', iconimage=img)
     return 1
 
-def scanDziekiBoguJuzWeekend(ex_link='/wideo/odcinki/'):
-    if ex_link=='':
-        return 0
-    ALL=[]
-    content = getUrl(DZIE_URL+ex_link)            
-    soup=BeautifulSoup(content,)
-    strony=soup.find('div',{'class':"pagination-numbers"}).find_all('li')
-    act=[x.get('class')[0] for x in strony]
-    hrf=[x.a.get('href') for x in strony]
-    act_p=act.index('active')
-    next_page= hrf[act_p+1] if act_p+1<len(hrf) else '#'
-    prev_page= hrf[act_p-1] if act_p>0 else '#'
-    last_page=strony[-1].a.get('href').split('-')[-1]
-    if not prev_page=='#':
-        addLinkItem('<< Poprzednia Strona <<' , prev_page, '__pageD__',IsPlayable=False)
-    if not next_page=='#':
-        addLinkItem('>> Nastepna Strona %s/%s >>' %(next_page.split('-')[-1],last_page), next_page, '__pageD__',IsPlayable=False)
-    
-    skecze = soup.find_all('a',{'class':"span4"})
-    for skecz in skecze:
-        href = skecz.get('href')
-        img =  skecz.img.get('src')
-        content = skecz.h5.text.strip().encode('utf-8')
-        title = skecz.h4.text.strip().encode('utf-8')
-        ALL.append({'href':href,'title':title,'img':img})
-        addLinkItem(title, href, '__tvp_dziekibogu_resolve_play', iconimage=img)
 
-
-def ResolveDziekiBoguPandPlay(ex_link='/wideo/skecze/leszcze-rozesmiana-15325863/'):
-    url_player=DZIE_URL+ex_link   
-    content = getUrl(url_player)
-    #src = re.compile("<iframe(.*?)src=\"(.+?)\"(.*?)</iframe>", re.DOTALL).findall(content[:])[0][1]
-    src = re.compile('src=\"(.+?)\"', re.DOTALL).findall(content[:])
-    for s in src:
-        if '/sess/tvplayer.php?' in s:
-            object_id=re.compile('object_id=(\d+)', re.DOTALL).findall(s)
-            if object_id:
-                print object_id
-                break
-    if object_id:
-       link_url='http://tvpstream.tvp.pl/sess/tvplayer.php?object_id=%s'
-       content = getUrl(link_url%object_id[0])
-       vido_link = re.compile("1:{src:\'(.+?)\'", re.DOTALL).findall(content)
-       if not vido_link:
-           vido_link = re.compile("0:{src:\'(.+?)\'", re.DOTALL).findall(content)
-       listitem = xbmcgui.ListItem(path=vido_link[0])
-       xbmcplugin.setResolvedUrl(addon_handle, True, listitem) 
 
 def ResolveTVPandPlay(ex_link='/1343773/tomson-baron-i-paranienormalni-tonight'):
     url_player=BASE_URL+ex_link   
@@ -192,27 +147,40 @@ def playLiveVido(ex_link='http://tvpstream.tvp.pl/sess/tvplayer.php?object_id=15
     if live_src:
         listitem = xbmcgui.ListItem(path=live_src[0])
         xbmcplugin.setResolvedUrl(addon_handle, True, listitem)  
-    
+
+
+def vodtvp_Informacje_Publicystyka():
+    addDir('Wiadomości',ex_link='22672029',mode='vodTVP',iconImage='https://s.tvp.pl/images/3/7/b/uid_37bb32af5d6a78eb11f0ceb85e2e6ac01447946809413_width_218_play_0_pos_0_gs_0.jpg')
+    addDir('Panorama',ex_link='22672017',mode='vodTVP',iconImage='https://s.tvp.pl/images/0/0/6/uid_006933b2d603550f0dc0e8b86bf604751448010129661_width_218_play_0_pos_0_gs_0.jpg')
+    addDir('Teleexpress',ex_link='22672041',mode='vodTVP',iconImage='https://s.tvp.pl/images/4/1/4/uid_414630010fdb28fba3a1dab5c13d31101448010259841_width_218_play_0_pos_0_gs_0.jpg')
+    addDir('Serwis Info',ex_link='22672079',mode='vodTVP',iconImage='https://s.tvp.pl/images/5/c/3/uid_5c38f1ddddbd576c0d3b3d0de33be6c41448010407181_width_218_play_0_pos_0_gs_0.png')
+    addDir('Agrobiznes',ex_link='22672105',mode='vodTVP',iconImage='https://s.tvp.pl/images/b/7/8/uid_b78d8b4658ba508758116242d49d6e6b1448010537460_width_218_play_0_pos_0_gs_0.jpg')
+    addDir('Minęła dwudziesta',ex_link='22673971',mode='vodTVP',iconImage='https://s.tvp.pl/images/f/9/1/uid_f91f32e961eb0309182f60146d0799d01448010719625_width_218_play_0_pos_0_gs_0.png')
+    addDir('AAA',ex_link='3994794',mode='vodTVP',iconImage='https://s.tvp.pl/images/f/9/1/uid_f91f32e961eb0309182f60146d0799d01448010719625_width_218_play_0_pos_0_gs_0.png')
+
+
 #-------------------------------------------	
-	
+
 xbmcplugin.setContent(addon_handle, 'movies')	
-	
+
 mode = args.get('mode', None)
 fname = args.get('foldername',[''])[0]
 ex_link = args.get('ex_link',[''])[0]
 
 
 if mode is None:
-    addDir('Wiadmosci','http://wiadomosci.tvp.pl/',mode='_news_',iconImage=RESOURCES+'wiadomosci.png')
+    addDir('Wiadomości','http://wiadomosci.tvp.pl/',mode='_news_',iconImage=RESOURCES+'wiadomosci.png')
     addDir('Teleexperss','http://teleexpress.tvp.pl/',mode='_news_',iconImage=RESOURCES+'teleexpress.png')
     addDir('Panorama','http://panorama.tvp.pl/',mode='_news_',iconImage=RESOURCES+'panorama.png')
     addDir('TVP info Live','http://tvpstream.tvp.pl',iconImage=RESOURCES+'tvp-info.png')    
     addDir('Kabarety TVP')
-    addDir('Dzieki Bogu Juz Weekend',iconImage=RESOURCES+'dbjw_logo.png')
-    addDir('vod.TVP.pl')
-# LOOKNIJ    
-    addDir('== Programy TV polskiej (live) ==')
-# LOOKNIJ
+    addDir('Dzięki Bogu już weekend',ex_link='10237279',mode='vodTVP',iconImage='http://s.tvp.pl/images/b/6/6/uid_b66006e90129a44f228baccebfa295241456936112117_width_218_play_0_pos_0_gs_0.jpg')
+    #addDir('Informacje i Publicystyka',ex_link='',mode='_infoP')
+    addDir('[COLOR blue]vod.TVP.pl[/COLOR]')
+
+
+elif mode[0] == '_infoP':
+    vodtvp_Informacje_Publicystyka()
     
 elif mode[0] == '_news_': 
     tvp_news(fname,ex_link)
@@ -227,14 +195,11 @@ elif mode[0] == '__pageD__':
     
 elif mode[0] == '__tvp_kabarety_resolve_play': 
     ResolveTVPandPlay(ex_link)
-elif mode[0] == '__tvp_dziekibogu_resolve_play':
-    ResolveDziekiBoguPandPlay(ex_link)
+
 elif mode[0] == 'palyLiveVideo':
     playLiveVido(ex_link)
 
-elif mode[0]=='update_DziekiBogu':
-    scanDziekiBoguJuzWeekend(ex_link)
-    
+
 elif mode[0] == '_sort_':
     #xbmcgui.Dialog().ok('Jestem w sortuje','fajnie')
     content = getUrl(BASE_URL+ex_link)            
@@ -254,7 +219,10 @@ elif mode[0] == '_sort_':
             xbmc.executebuiltin('XBMC.Container.Refresh(%s)'% url)
     
 elif mode[0]=='vodTVP_play':
+    print 'vodTVP_play'
+    print ex_link
     stream_url = vod.vodTVP_GetStreamUrl(ex_link)
+    print stream_url
     if stream_url:
         xbmcplugin.setResolvedUrl(addon_handle, True, xbmcgui.ListItem(path=stream_url))
     else:
@@ -269,12 +237,7 @@ elif mode[0]=='vodTVP':
     elif len(katalog):
         for one in katalog:
             addDir(one['title'].title(),ex_link=one['id'],mode='vodTVP',iconImage=one['img'])
-# LOOKNIJ
-elif mode[0]=='play_looknij':
-    stream_url = ltv.decode_url(ex_link)
-    if stream_url:
-        xbmcplugin.setResolvedUrl(addon_handle, True, xbmcgui.ListItem(path=stream_url))
-# LOOKNIJ    
+  
         
 elif mode[0] == 'folder':
     if fname=='Kabarety TVP':
@@ -287,20 +250,12 @@ elif mode[0] == 'folder':
         #xbmcgui.Dialog().ok('Jestem w Live',out[0]['title'].encode('utf-8'))
         for one in out:
            addLinkItem(one['title'].encode('utf-8'), one['url'], 'palyLiveVideo', iconimage=one['img'])
-    elif fname == 'Dzieki Bogu Juz Weekend':
-        addDir('Odcinki','/wideo/odcinki/',mode='update_DziekiBogu')
-        addDir('Skecze','/wideo/skecze/',mode='update_DziekiBogu')
-        addDir('Kulisy','/wideo/kulisy/',mode='update_DziekiBogu')        
-    elif fname == 'vod.TVP.pl':
+  
+    elif fname == '[COLOR blue]vod.TVP.pl[/COLOR]':
         Kategorie = vod.vodTVP_root()
         for k in Kategorie:
             addDir(k.get('title','').title().encode('utf-8'),str(k.get('id','')),mode='vodTVP')
-# LOOKNIJ
-    elif fname == '== Programy TV polskiej (live) ==':
-        content = ltv.get_root_looknji()
-        for one in content:
-            addLinkItem(one.get('title',''), one.get('url',''), 'play_looknij', iconimage=one.get('img'))
-# LOOKNIJ            
+        
     else:
         scanTVPsource(ex_link)
        
