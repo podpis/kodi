@@ -77,29 +77,38 @@ def ouo(url):
 def _getOrginalURL(url,host=''):
     orginal_link=''
     if url.startswith('http'):
-        req = urllib2.Request(url)
-        req.add_header('User-Agent', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.97 Safari/537.36')
-        try:
-            response = urllib2.urlopen(req)
-            if response:
-                orginal_link=response.url
-                if orginal_link==url:
-                    content=response.read()
-                    links = re.compile('<a href="(.*)" class').findall(content)
-                    for l in links:
-                        if host in l:
-                            orginal_link = l
-                            break
-                response.close()
-        except:
-            pass
+        
+        if 'linki.online' in url:
+            content = getUrl(url)
+            links = re.compile('top.location = [\'"](.*?)[\'"];').search(content)
+            if links:
+                orginal_link = links.group(1)
+        else:
+            req = urllib2.Request(url)
+            req.add_header('User-Agent', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.97 Safari/537.36')
+            try:
+                response = urllib2.urlopen(req)
+                if response:
+                    orginal_link=response.url
+                    if orginal_link==url:
+                        content=response.read()
+                        links = re.compile('<a href="(.*)" class').findall(content)
+                        for l in links:
+                            if host in l:
+                                orginal_link = l
+                                break
+                    response.close()
+            except:
+                pass
     return orginal_link
 
 #url='http://cda-online.pl/carte-blanche/'
 #url='http://cda-online.pl/critters-2/'
 
-def getVideoLinks(url):
-    content = getUrl(url)
+def getVideoLinks_iframes(url,content=None):
+    if not content:
+        content = getUrl(url)
+    
     out  =[]
     iframe = re.compile('<iframe (.*?)</iframe>',re.DOTALL).findall(content)
 
@@ -115,14 +124,15 @@ def getVideoLinks(url):
                     'host': host    }
                 out.append(one)
     return out
-    
 
-def getVideoLinks_odl(url):
+def getVideoLinks(url):
     content = getUrl(url)
         
     ids = [(a.start(), a.end()) for a in re.finditer('<li class="elemento">', content)]
     ids.append( (-1,-1) )
-    out=[]
+    
+    out=getVideoLinks_iframes(url,content)
+    
     for i in range(len(ids[:-1])):
         #print content[ ids[i][1]:ids[i+1][0] ]
         subset = content[ ids[i][1]:ids[i+1][0] ]
@@ -145,8 +155,6 @@ def getVideoLinks_odl(url):
                 link = _getOrginalURL(href_go.replace('http://cda-online.pl?',''),host)
             
             if link:
-                if 'openload' in host:
-                    continue
                 one = {'url' : link,
                     'title': "[%s] %s, %s" %(host,j,q),
                     'host': host    }
