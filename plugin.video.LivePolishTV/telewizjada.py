@@ -107,14 +107,17 @@ def get_mainchannel(cid=1):
     return json.loads(data)
 
 
-def get_root_telewizjada(addheader=False):     
+def get_root_telewizjada(addheader=True):     
     data=getUrl(BASEURL + 'get_channels.php')
-    result = json.loads(data)
+    try:
+        result = json.loads(data)
+    except:
+        result = {}
     out=[]
     if addheader:
         t='[COLOR yellow]Updated: %s (Telewizjada)[/COLOR]' %time.strftime("%d/%m/%Y: %H:%M:%S")
         out.append({'title':t,'tvid':'','img':'','url':'http://looknij.tv','group':'','urlepg':''})
-    for item in result['channels']:
+    for item in result.get('channels',[]):
         item.update(get_mainchannel(item.get('id')))
         one = { 'id': item.get('id'), 
                 'title': item.get('displayName').encode('utf-8') ,
@@ -129,6 +132,8 @@ def get_root_telewizjada(addheader=False):
         one_fix = fixForEPG(one)
         print one_fix.get('title')
         out.append(one_fix)
+    if addheader and len(out)==1:
+        out=[]
     return out
 
 #url=out[0].get('url')

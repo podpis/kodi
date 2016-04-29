@@ -62,8 +62,11 @@ def build_url(query):
     return base_url + '?' + urllib.urlencode(query)
 
 def m3u2list(url):
-    url='http://api.moje-filmy.tk/nowa1.m3u8?cid=e940f0f2f3bff1f8812038acbad38dad'
-    response = getUrl(url)
+    url = 'https://drive.google.com/uc?export=download&id=0B0PmlVIxygktR3dvSnByTTZtNFE'
+    # url='http://api.moje-filmy.tk/nowa1.m3u8?cid=e940f0f2f3bff1f8812038acbad38dad'
+    # url='http://api.moje-filmy.tk/nowa1.m3u8?cid=39ed77fae36199cac9dd68164ec6eba6'
+    # url='http://api.moje-filmy.tk/nowa1.m3u8?cid=601e11c9fdbc123cf956c392202e605a'
+    response = getUrl(getUrl(url))
     out = []
     matches=re.compile('^#EXTINF:-?[0-9]*(.*?),(.*?)\n(.*?)$',re.I+re.M+re.U+re.S).findall(response)
     
@@ -103,17 +106,21 @@ def playUrl(name, url, iconimage=None):
     listitem = xbmcgui.ListItem(path=url, thumbnailImage=iconimage)
     listitem.setInfo(type="Video", infoLabels={ "Title": name })
     xbmcplugin.setResolvedUrl(int(sys.argv[1]), True, listitem)
-    
+
+   
 def get_tvpLiveStreams(url):
     data=getUrl(url)
     livesrc="/sess/tvplayer.php?object_id=%s"
-    soup=BeautifulSoup(data)
+    
+    id_title=re.compile('data-video_id="(.*?)" title="(.*?)">').findall(data)
+    img_alt = re.compile('<span class="img"><img src="(.*?)" alt="(.*?)" />').findall(data)
+    len(id_title)
+    len(img_alt)
     out=[]
-    zrodla = soup.find_all('div',{"class":"button"})
-    for z in zrodla:
-        video_id = z.get('data-video_id')
-        title = z.img.get('alt') + ' : ' + z.get('title')
-        img = z.img.get('src')
+    for i in range(len(id_title)):
+        video_id = id_title[i][0]
+        title = img_alt[i][1].decode('utf-8') + ' : ' + id_title[i][1].decode('utf-8')
+        img = img_alt[i][0]
         out.append({'title':title,'img':img,
                     'url':url+livesrc % video_id})
     return out   

@@ -75,7 +75,7 @@ def decode_url(url='http://looknij.tv/?port=eleven'):
         urlpl = getUrl(url)
         m = re.compile('<div class="yendifplayer".*?src="([^"]+)".*?data-rtmp="([^"]+)"', re.DOTALL).findall(urlpl)
         if m:
-            vido_url = m[0][1]+' playpath='+m[0][0]+' swfUrl=http://looknij.tv/wp-content/plugins/yendif-player/public/assets/libraries/player.swf?1438149198120 pageUrl=http://looknij.tv live=1'
+            vido_url = m[0][1]+' playpath='+m[0][0]+' swfUrl=http://looknij.tv/wp-content/plugins/yendif-player/public/assets/libraries/player.swf?1438149198120 live=1 pageUrl=http://looknij.tv'
     return vido_url
 
 def decode_all_urls(out):
@@ -90,6 +90,7 @@ def decode_all_urls(out):
 
     
 #out=get_root_looknji(addheader=True)
+# decode_url(out[1].get('url'))
 #out2=decode_all_urls(out)    
 #decode_url()
 # tmplist=[]
