@@ -1,6 +1,6 @@
 1.4.3
 ==05MAY2016
-- url resolver rolled back 2.10 (testing)
+- url resolver
 
 1.4.2
 ==19APR2016

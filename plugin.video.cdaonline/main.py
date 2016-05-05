@@ -30,14 +30,7 @@ RESOURCES   = PATH+'/resources/'
 FANART=RESOURCES+'fanart.png'
 
 ## COMMON Functions
-def getUrl(url,data=None):
-    req = urllib2.Request(url,data)
-    req.add_header('User-Agent', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.97 Safari/537.36')
-    response = urllib2.urlopen(req)
-    link = response.read()
-    response.close()
-    return link
-    
+
 def addLinkItem(name, url, mode, page=1, iconimage=None, infoLabels=False, IsPlayable=True,fanart=FANART,itemcount=1):
     u = build_url({'mode': mode, 'foldername': name, 'ex_link' : url, 'page':page})
     
@@ -106,9 +99,11 @@ def build_url(query):
 
 def ListMovies(ex_link,page):
     filmy,pagination = cdaonline.scanMainpage(ex_link,int(page))
+    print '$$$$$$$$$$$$$$$$$$$$$$',filmy
     if pagination[0]:
         addLinkItem(name='[COLOR blue]<< poprzednia strona <<[/COLOR]', url=ex_link, mode='__page__M', page=pagination[1], IsPlayable=False)
     items=len(filmy)
+    
     for f in filmy:
         addLinkItem(name=f.get('title'), url=f.get('href'), mode='getLinks', iconimage=f.get('img'), infoLabels=f, IsPlayable=True,itemcount=items)
     if pagination[1]:
