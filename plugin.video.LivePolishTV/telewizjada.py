@@ -138,7 +138,7 @@ def get_root_telewizjada(addheader=True):
 
 #url=out[0].get('url')
 #_id=out[0].get('id')
-
+#url='http://l137.telewizjada.net:1935/tw/2014tvtvp1/playlist.m3u8'
 def decode_url(url,_id):
     cookies =  get_Cookies(BASEURL + 'set_cookie.php','url=%s' % url)
     msec = get_cookie_value(cookies,'msec')

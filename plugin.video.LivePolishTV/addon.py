@@ -82,7 +82,8 @@ def m3u2list(url):
             one[renTags.get(field.strip().lower(),'bad')] = value.strip()
         if not one.get('tvid'):
             one['tvid']=title
-        one['img'] = 'http://moje-filmy.tk/'+one['img']
+        if one.get('img'):
+            one['img'] = 'http://moje-filmy.tk/'+one.get('img','')
         one['urlepg']=''
         one = tel.fixForEPG(one)
         out.append(one)
