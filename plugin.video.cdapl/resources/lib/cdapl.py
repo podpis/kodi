@@ -18,7 +18,7 @@ TIMEOUT = 10
 COOKIEFILE = ''
 
 
-def getUrl(url,data=None,cookies=None):
+def getUrl(url,data=None,cookies=None,Refer=False):
     if COOKIEFILE:
         cj = cookielib.LWPCookieJar()
         cj.load(COOKIEFILE)
@@ -27,6 +27,8 @@ def getUrl(url,data=None,cookies=None):
     
     req = urllib2.Request(url,data)
     req.add_header('User-Agent', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.97 Safari/537.36')
+    if Refer:
+        req.add_header("Referer", url)
     if cookies:
         req.add_header("Cookie", cookies)
     try:
@@ -122,7 +124,7 @@ def _get_encoded(content):
             
             out={'server': '', 'e': '', 'file': '', 'st': ''}
             if len(cleanup)==4:
-                print 'Length OK'
+                #print 'Length OK'
                 for one in cleanup:
                     if one.isdigit():
                         out['e']=one
@@ -147,20 +149,20 @@ def scanforVideoLink(content):
     src1 = re.compile('file: [\'"](.+?)[\'"],',  re.DOTALL).search(content)
     src2 = re.compile('url: [\'"](.+?)[\'"],',  re.DOTALL).search(content)
     if src1:
-        print 'found RE [file:]'
+        #print 'found RE [file:]'
         video_link = src1.group(1)
     elif src2:
-        print 'found RE [url:]'
+        #print 'found RE [url:]'
         video_link = src2.group(1)
     else:
-        print 'encoded : unpacker'
+        #print 'encoded : unpacker'
         video_link = _get_encoded_unpaker(content)
         if not video_link:
-            print 'encoded : force '
+            #print 'encoded : force '
             video_link = _get_encoded(content)
     return video_link
 
-
+#url='http://www.cda.pl/video/64003949'
 #stream_url =getVideoUrls(url)
 def getVideoUrls(url,tryIT=4):
     """
@@ -172,12 +174,18 @@ def getVideoUrls(url,tryIT=4):
     # check if version is selecte
     playerSWF1='|Cookie="PHPSESSID=1&Referer=http://static.cda.pl/player5.9/player.swf'
     playerSWF='|Referer=http://static.cda.pl/player5.9/player.swf'
-    print url
+    #print url
     content = getUrl(url)
     src=[]
-    if not '?wersja' in url:
-         quality_options = re.compile('<a data-quality="(.*?)" (?P<H>.*?)>(?P<Q>.*?)</a>', re.DOTALL).findall(content)
-         for quality in quality_options:
+    
+    if content=='':
+        src.append(('Materiał został usunięty',''))
+    lic1 = content.find('To wideo jest niedostępne ')
+    if lic1>0:
+        src.append(('To wideo jest niedostępne w Twoim kraju','')) 
+    elif not '?wersja' in url:
+        quality_options = re.compile('<a data-quality="(.*?)" (?P<H>.*?)>(?P<Q>.*?)</a>', re.DOTALL).findall(content)
+        for quality in quality_options:
              link = re.search('href="(.*?)"',quality[1])
              hd = quality[2]
              src.insert(0,(hd,BASEURL+link.group(1)))
@@ -187,8 +195,8 @@ def getVideoUrls(url,tryIT=4):
             src+=playerSWF1+playerSWF
         else:
             for i in range(tryIT):
-                print 'Trying get link %d' %i
-                print url
+                #print 'Trying get link %d' %i
+                #print url
                 content = getUrl(url)
                 src = scanforVideoLink(content)
                 if src: 
@@ -204,7 +212,7 @@ def getVideoUrlsQuality(url,quality=0):
     src = getVideoUrls(url)
     if type(src)==list:
         selected=src[quality]
-        print 'Quality :',selected[0]
+        #print 'Quality :',selected[0]
         src = getVideoUrls(selected[1])
     return src
     
@@ -222,7 +230,7 @@ def _scan_UserFolder(url,recursive=True,items=[],folders=[]):
     # matchIM = re.compile('<img[ \t\n]+class="thumb thumb-bg thumb-size"[ \t\n]+alt="(.*?)"[ \t\n]+src="(.*?)">',re.DOTALL).findall(content)
     matchIM = re.compile('<img[ \t\n]+class="thumb thumb-bg thumb-size"[ \t\n]+alt="(.*?)"[ \t\n]+src="(.*?)">',re.DOTALL).findall(content)
     
-    print 'Video #%d' %(len(match))
+    #print 'Video #%d' %(len(match))
 
     for i in range(len(match)):
         url = BASEURL+ match[i][0]
@@ -241,12 +249,12 @@ def _scan_UserFolder(url,recursive=True,items=[],folders=[]):
         if len(folders_names) > len(folders_links): folders_names = folders_names[1:]   # remove parent folder is exists
         for i in range(len(folders_links)):
             folders.append( {'url':folders_links[i],'title': html_entity_decode(folders_names[i]) })
-    print 'Folder #%d ' %(len(folders_links))
+    # print 'Folder #%d ' %(len(folders_links))
     
     nextpage = re.compile('<div class="paginationControl">[ \t\n]+<a class="btn btn-primary block" href="(.*?)"',re.DOTALL).findall(content)
     
     if recursive and len(nextpage):
-        print 'Entering next page: ', nextpage[0]
+        # print 'Entering next page: ', nextpage[0]
         _scan_UserFolder(nextpage[0],recursive,items)
     
     return items,folders
@@ -479,6 +487,9 @@ def jsconWalk(data,path):
 
 
 def unicodePLchar(txt):
+    if type(txt) is not str:
+        txt=txt.encode('utf-8')
+        
     txt = txt.replace('#038;','')
     txt = txt.replace('&lt;br/&gt;',' ')
     txt = txt.replace('&#34;','"')
@@ -500,4 +511,103 @@ def unicodePLchar(txt):
     txt = txt.replace('\u017a','ź').replace('\u0179','Ź')
     txt = txt.replace('\u017c','ż').replace('\u017b','Ż')
     return txt
+
+
+## Permium
+
+# def getUrl(url,data=None,headers={},cookies=None):
+#     if headers:
+#         my_header=headers
+#     else:
+#         my_header = {'User-Agent':'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.97 Safari/537.36'}
+#     req = urllib2.Request(url,data,my_header)
+#     if cookies:
+#         req.add_header("Cookie", cookies)
+#     try:
+#         response = urllib2.urlopen(req,timeout=TIMEOUT)
+#         link =  response.read()
+#         response.close()
+#     except:
+#         link=''
+#     return link
+#     
+def premium_Katagorie():
+    url='http://www.cda.pl/premium'
+    content = getUrl(url)
+    genre = re.compile('<li><a href="(http://www.cda.pl/premium/.*?)">(.*?)</a></li>', re.DOTALL).findall(content)
+    out=[]
+    for one in genre:
+        out.append({'title':unicodePLchar(one[1]),'url':one[0]})
+    if out:
+        out.insert(0,{'title':'[B]Wszystkie filmy[/B]','url':'http://www.cda.pl/premium'})
+    return out
+
+#content=jtmp.get('html')
+def premium_readContent(content):
+    items = re.compile('<span class="cover-area">(.*?[\n\t ]*</span>)[\n\t ]*</span>\n</span>',re.DOTALL).findall(content)
+    out=[]
+    #print len(items)
+    #item=items[10]
+    for i,item in enumerate(items):
+        #print item
+
+        href_title = re.compile('<a href="(.*?)\?from=catalog" class="kino-title">(.*?)</a>').findall(item)[0]
+        img = re.compile('src="(http.*?)"').findall(item)[0]
+        quality = re.compile('"cloud-gray">(.*?p)<').findall(item)[-1]
+        out.append({
+            'title':unicodePLchar(href_title[1]),
+            'url':BASEURL+href_title[0],
+            'img':img,'code':quality
+            })
+    return out
+
+def premium_Sort():
+    return {'nowo dodane':'new',
+    'alfabetycznie':'alpha',
+    'najlepiej oceniane na Filmweb':'best',
+    'najczęściej oceniane na Filmweb':'popular',
+    'data premiery kinowej':'release',
+    'popularne w ciągu ostatnich 60 dni':'views',
+    'popularne w ciągu ostatnich 30 dni':'views30'}
     
+
+#url='http://www.cda.pl/premium/akcji?sort=alpha&d=2'
+#params='3_all_alpha'
+def premium_Content(url,params=''):
+    if len(params)==0:
+        content = getUrl(url)
+        out = premium_readContent(content)
+        match = re.compile('katalogLoadMore\(page,"(.*?)","(.*?)",').findall(content)
+        if match:
+            #params = [2,match[0][0],match[0][1],{}]
+            params = '%d_%s_%s' %(2,match[0][0],match[0][1])
+    else:
+        sp = params.split('_')
+        myparams = [int(sp[0]),sp[1],sp[2],{}]
+        payload = {"jsonrpc":"2.0","method":"katalogLoadMore","params":myparams,"id":2}
+        content = getUrl(url.split('?')[0]+'?d=2',data=json.dumps(payload),Refer=True)
+        jtmp=json.loads(content).get('result')
+        if jtmp.get('status') =='continue':
+            params = '%d_%s_%s' % (int(sp[0])+1,sp[1],sp[2])
+        else:
+            params = ''
+        out = premium_readContent(jtmp.get('html'))
+    return out,params
+
+# url='http://www.cda.pl/premium/muzyczne?sort=new&d=2'        
+# out,params=premium_Content(url)
+# print out[0].get('title')
+# print params
+# out,params=premium_Content('http://www.cda.pl/premium/horror?sort=new&d=2',params)
+
+# payload = {"jsonrpc":"2.0","method":"katalogLoadMore","params":[1,"10","new",{}],"id":2}
+# payload = {"jsonrpc":"2.0","method":"katalogLoadMore","params":[1,"all","best",{}],"id":2}
+# 
+# content = getUrl(url,data=json.dumps(payload))
+# a=json.loads(content)
+# r=a['result']
+# r['status']
+# content=r['html']
+
+
+

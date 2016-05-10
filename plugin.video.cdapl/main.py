@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+    
 import sys,re,os
 import urllib,urllib2
 import urlparse
@@ -67,8 +68,8 @@ def addLinkItem(name, url, mode, iconImage=None, infoLabels=False, contextO=['F_
     xbmcplugin.addSortMethod(addon_handle, sortMethod=xbmcplugin.SORT_METHOD_UNSORTED, label2Mask = "%D, %P, %R")
     return ok
 
-def add_Item(name, url, mode, iconImage=None, infoLabels=False, contextO=['F_ADD'],IsPlayable=False,fanart=None,totalItems=1):
-    u = build_url({'mode': mode, 'foldername': name, 'ex_link' : url})
+def add_Item(name, url, mode, iconImage=None, infoLabels=False, contextO=['F_ADD'],IsPlayable=False,fanart=None,totalItems=1,json_file=''):
+    u = build_url({'mode': mode, 'foldername': name, 'ex_link' : url, 'json_file' : json_file})
     #u = urllib.urlencode(encoded_dict({'mode': mode, 'foldername': name, 'ex_link' : url}))
     if iconImage==None:
         iconImage='DefaultFolder.png'
@@ -167,8 +168,6 @@ def build_url(query):
 
 
 
-    
-
 ## COMMON Functions
 
 def selectQuality(stream_url,quality):
@@ -185,10 +184,14 @@ def selectQuality(stream_url,quality):
             else:
                 msg = u'Problem z automatycznym wyborem ... wybierz jakosc'
             
-        if not stream_selected:    
+        if not stream_selected:
+            if len(stream_url)==1 and stream_url[0][1]=='':
+                msg='[COLOR red]Problem ...[/COLOR]'
             selection = xbmcgui.Dialog().select(msg, qualityList)
             if selection>-1:
                 stream_selected = cda.getVideoUrls(stream_url[selection][1],4)
+                if isinstance(stream_selected,list):
+                    stream_selected=''
             else:
                 stream_selected=''
     else:
@@ -204,7 +207,9 @@ def decodeVideo(ex_link):
     # print stream_url
     if stream_url:
         xbmcplugin.setResolvedUrl(addon_handle, True, xbmcgui.ListItem(path=stream_url))
-
+    else:
+        xbmcplugin.setResolvedUrl(addon_handle, False, xbmcgui.ListItem(path=stream_url))
+        
 def playVideoRemote(ex_link):
     xbmcgui.Dialog().notification('Remote video requested', ex_link , xbmcgui.NOTIFICATION_INFO, 5000)
     
@@ -360,6 +365,7 @@ json_file = args.get('json_file',[''])[0]
 if mode is None:
     logincda()  # perform login
     mainWalk("",os.path.join(PATH,'root.json'))
+    addDir('Filmy',ex_link='', mode='premiumKat',iconImage='MediaPremium.png')
     userFolderADD()
     addDir('[COLOR khaki]Wybrane[/COLOR]',ex_link='', json_file=FAVORITE, mode='walk',  iconImage='cdaUlubione.png',infoLabels={'plot':'Lista wybranych pozycji. Szybki dostep, lokalna baza danych.'})
     addDir('[COLOR green]Szukaj[/COLOR]',ex_link='', mode='cdaSearch',iconImage='Szukaj_cda.png')
@@ -367,6 +373,42 @@ if mode is None:
     
     xbmcplugin.endOfDirectory(addon_handle,succeeded=True) #,cacheToDisc=True)
 
+
+elif mode[0] == 'premiumKat':
+    folders=cda.premium_Katagorie()
+    sortuj_po = my_addon.getSetting('sortuj_po')
+    N_folders=len(folders)+1
+    addDir(' [COLOR white]== Sortuj po: [I]%s[/I] [/COLOR]'%sortuj_po, ex_link='', json_file='', mode='premiumSort', iconImage='',totalItems=N_folders)
+    for f in folders:
+        addDir(f.get('title'),ex_link=f.get('url'), json_file='', mode='premiumFilm', iconImage=f.get('img',''),infoLabels=f,fanart=f.get('fanart',''),totalItems=N_folders)
+    xbmcplugin.endOfDirectory(addon_handle,succeeded=True,cacheToDisc=False)
+
+elif mode[0] == 'premiumSort':
+    sortuj= cda.premium_Sort()
+    selection = xbmcgui.Dialog().select('Sortuj po:', sortuj.keys())
+    if selection>-1:
+        my_sort= sortuj.keys()[selection]
+        my_addon.setSetting('sortuj_po',my_sort)      
+        xbmc.executebuiltin('XBMC.Container.Refresh')  
+
+
+elif mode[0] == 'premiumFilm': 
+    sortuj_po = my_addon.getSetting('sortuj_po')
+    if '?' not in ex_link:
+        url = ex_link+'?sort='+cda.premium_Sort().get(sortuj_po,'')+'&d=2'
+    else:
+        url = ex_link
+    items,params=cda.premium_Content(url,json_file)
+    
+    print '$$$',url,params
+    for item in items:
+        name= cda.html_entity_decode(item.get('title',''))
+        print name
+        addLinkItem(name=name, url=item.get('url'), mode='decodeVideo',contextO=[], iconImage=item.get('img'), infoLabels=item, IsPlayable=True,fanart=item.get('img'),totalItems=len(items))
+    if params:
+        addDir('[COLOR gold]Następna strona >> [/COLOR] ',ex_link=url, json_file=params, mode='premiumFilm',iconImage='next.png')
+    xbmcplugin.endOfDirectory(addon_handle,succeeded=True,cacheToDisc=False)
+    
 elif mode[0] == 'favoritesADD':
     jdata = cda.ReadJsonFile(FAVORITE)
     new_item=json.loads(ex_link)
@@ -444,7 +486,7 @@ elif mode[0] == 'Opcje':
 
 elif mode[0] == 'walk':
     mainWalk(ex_link,json_file,fname) 
-    xbmcplugin.endOfDirectory(addon_handle,succeeded=True,cacheToDisc=True)
+    xbmcplugin.endOfDirectory(addon_handle,succeeded=True,cacheToDisc=False)
 
     
 elif mode[0] == 'folder':

@@ -27,7 +27,7 @@ provider-name="Michal">
 </addon>
 
 <addon id="plugin.video.cdapl"
-    version="1.6.1"
+    version="1.7.0"
     name="CDAPL"
     provider-name="Michal">
 
@@ -76,7 +76,7 @@ provider-name="Michal">
 <addon
 	id="plugin.video.LivePolishTV"
 	name="LivePolishTV"
-	version="1.2.0"
+	version="1.2.1"
 	provider-name="Michal">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
