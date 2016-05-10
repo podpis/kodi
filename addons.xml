@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addons>
 <addon id="plugin.video.cdaonline"
-version="1.4.2"
+version="1.4.3"
 name="cda-online"
 provider-name="Michal">
 <requires>
   <import addon="xbmc.python" version="2.1.0"/>
-  <import addon="script.module.urlresolver" version="3.0.0"/>
+  <import addon="script.module.urlresolver" version="2.10.0"/>
   <import addon="script.common.plugin.cache" version="2.5.5"/>
 </requires>
 <extension point="xbmc.python.pluginsource" library="main.py">
@@ -50,11 +50,11 @@ provider-name="Michal">
 <addon
 	id="plugin.video.ekinotv"
 	name="Ekino-tv"
-	version="1.2"
+	version="1.3"
 	provider-name="Michal">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
-	<import addon="script.module.urlresolver" version="3.0.0"/>
+	<import addon="script.module.urlresolver" version="2.10.0"/>
   </requires>
   <extension point="xbmc.python.pluginsource" library="addon.py">
     <provides>video</provides>
@@ -76,7 +76,7 @@ provider-name="Michal">
 <addon
 	id="plugin.video.LivePolishTV"
 	name="LivePolishTV"
-	version="1.2.1"
+	version="1.2.2"
 	provider-name="Michal">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>

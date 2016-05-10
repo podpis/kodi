@@ -4,7 +4,7 @@ import urllib2,urllib
 import re
  
 BASEURL=''
-TIMEOUT = 5
+TIMEOUT = 10
  
 def getUrl(url,data=None,cookies=None):
     req = urllib2.Request(url,data)
@@ -18,6 +18,8 @@ def getUrl(url,data=None,cookies=None):
     except:
         link=''
     return link
+    
+url='http://cda-online.pl/filmy-online'
 
 def scanMainpage(url,page=1):
     url += '/' if url[-1] != '/' else ''
@@ -226,27 +228,27 @@ def unicodePLchar(txt):
     return txt
     
 
-if __name__=="dupa":
-    url='http://cda-online.pl/filmy-online/'
-    url='http://cda-online.pl/seriale-rok/2016'
-    url='http://cda-online.pl/rok/2015/'
-    url='http://cda-online.pl/seriale/'
-    url='http://cda-online.pl/rok/2016/'
-    out,pagination = scanMainpage(url,1)
-    out[0].get('img')
-    ## get vidoe sources
-    url = out[0].get('href')
-    links = getVideoLinks(url)
-
-    ## get tv show episodes
-    url='http://cda-online.pl/seriale/breaking-bad/'
-    out = scanTVshow(url)
-    url = out[0].get('href')
-    links = getVideoLinks(url)
-    
-    url='http://cda-online.pl/igrzyska-smierci-kosoglos-czesc-2/'
-    links = getVideoLinks(url)
-    _getOrginalURL('http://go.cda-online.pl/Juv6D')
-    data=getGatunekRok(rodzaj='film',typ='gatunek')
+# if __name__=="dupa":
+#     url='http://cda-online.pl/filmy-online'
+#     url='http://cda-online.pl/seriale-rok/2016'
+#     url='http://cda-online.pl/rok/2015/'
+#     url='http://cda-online.pl/seriale/'
+#     url='http://cda-online.pl/rok/2016/'
+#     out,pagination = scanMainpage(url,1)
+#     out[0].get('img')
+#     ## get vidoe sources
+#     url = out[0].get('href')
+#     links = getVideoLinks(url)
+# 
+#     ## get tv show episodes
+#     url='http://cda-online.pl/seriale/breaking-bad/'
+#     out = scanTVshow(url)
+#     url = out[0].get('href')
+#     links = getVideoLinks(url)
+#     
+#     url='http://cda-online.pl/igrzyska-smierci-kosoglos-czesc-2/'
+#     links = getVideoLinks(url)
+#     _getOrginalURL('http://go.cda-online.pl/Juv6D')
+#     data=getGatunekRok(rodzaj='film',typ='gatunek')
  
     
