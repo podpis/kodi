@@ -162,7 +162,7 @@ def scanforVideoLink(content):
             video_link = _get_encoded(content)
     return video_link
 
-#url='http://www.cda.pl/video/64003949'
+#url='http://www.cda.pl/video/5393794a'
 #stream_url =getVideoUrls(url)
 def getVideoUrls(url,tryIT=4):
     """

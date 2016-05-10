@@ -177,13 +177,12 @@ def selectQuality(stream_url,quality):
         qualityList = [x[0] for x in stream_url]
         if quality > 0:
             user_selection = ['','Najlepsza','1080p','720p','480p','360p'][quality]
-            if user_selection=='Najlepsza':
+            if user_selection=='Najlepsza' and stream_url[0][1]:
                 stream_selected = cda.getVideoUrls(stream_url[0][1],4)  # najepsza - pierwszy link
             elif user_selection in qualityList:
                 stream_selected = cda.getVideoUrls(stream_url[qualityList.index(user_selection)][1],4)
             else:
                 msg = u'Problem z automatycznym wyborem ... wybierz jakosc'
-            
         if not stream_selected:
             if len(stream_url)==1 and stream_url[0][1]=='':
                 msg='[COLOR red]Problem ...[/COLOR]'
