@@ -68,6 +68,8 @@ def addFilmLinks(kat,wer,page,ex_link):
     
     addLinkItem('[COLOR gold]>> Nastepna Strona %d >>[/COLOR]' %(int(page)+1), url=ex_link , mode='__page__', kat=kat,wer=wer,page= int(page)+1, IsPlayable=False)
 
+    # xbmcplugin.addSortMethod( handle=addon_handle, sortMethod=xbmcplugin.SORT_METHOD_UNSORTED )
+    xbmcplugin.addSortMethod( handle=addon_handle, sortMethod=xbmcplugin.SORT_METHOD_GENRE )
 
 def testPlay(ex_link):
     if 'openload.co/stream' in ex_link:

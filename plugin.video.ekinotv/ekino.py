@@ -57,7 +57,7 @@ def skanuj_filmy(kat='',wer='', page='1', url='http://ekino-tv.pl/movie/cat/kate
     return _getData(content)
     
 def _getData(content):
-    img = re.compile('<img src="(/static/thumb/.*.jpg)" alt="" />').findall(content)
+    img = re.compile('<img src="(/static/thumb/.*.jpg)" alt=').findall(content)
     title = re.compile('<div class="title">[\s]*<a href="(.*?)">(.*?)</a><br>').findall(content)
     des = re.compile('<div class="movieDesc">[\s\n]*(.*?)</div>').findall(content)
     rok = re.compile('<p class="cates">(.*) \|').findall(content)
@@ -71,7 +71,7 @@ def _getData(content):
         out['href'] = title[i][0]
         out['title'] = unicodePLchar(title[i][1].strip('\n '))
         out['year'] = categorie[i][0]
-        out['genre'] = ''.join(re.compile('>(.*?)<').findall(categorie[0][1]))
+        out['genre'] = ''.join(re.compile('>(.*?)<').findall(categorie[i][1]))
         out['code'] = 'HD' if 'HD' in out['genre'] else ''
         out['plot'] = unicodePLchar(des[i].strip('\n '))
         out['img'] = BASEURL+img[i].replace('/thumb/','/normal/')
