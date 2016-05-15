@@ -11,7 +11,7 @@ import json as json
 
 
 BASEURL='http://vider.pl'
-TIMEOUT = 5
+TIMEOUT = 30
 
 def getUrl(url,data=None,headers={},cookies=None):
     if headers:
@@ -74,7 +74,7 @@ def _get_clearfixtype(clearfix):
                    image =  BASEURL + image
 
             one = {'href'  : BASEURL+href_title[0][0],
-                   'title' : unicodePLchar(href_title[0][1]).strip() if href_title else '',
+                   'title' : unicodePLchar(href_title[0][1]).strip().replace('\u2654','') if href_title else '',
                    'img' : image,
                    'folder': folder,
                    'duration': duration[0] if duration else '',
@@ -85,11 +85,12 @@ def _get_clearfixtype(clearfix):
             out.append(one)
     return out
             
-url='http://vider.pl/ranking/month'
-url='http://vider.pl/ziomek72'
-url='http://vider.pl/Queen-1/poczekalnia+dn5mvs'
-url='http://vider.pl/search/all/2015/1'
-url='http://vider.pl/search/all/tangled%20ever%20after'
+# url='http://vider.pl/ranking/month'
+# url='http://vider.pl/ziomek72'
+# url='http://vider.pl/Queen-1/poczekalnia+dn5mvs'
+# url='http://vider.pl/search/all/2015/1'
+# url='http://vider.pl/search/all/tangled%20ever%20after'
+# url='http://vider.pl/Queen-1/sezon-01+dnxsne'
 def scanUser(url):
     # url='http://vider.pl/Queen-1/'
     # url='http://vider.pl/'
@@ -135,7 +136,7 @@ def search(txt='tangled ever after'):
         for item in resp_data_data:
             #item = resp_data_data[0]
             one = {'href'  : 'http://vider.pl/embed/video/'+item.get('id_url',''),
-                   'title' : item.get('name',''),
+                   'title' : item.get('name','').replace('',''),
                    'img' : '',
                    'folder': '',
                    'duration': item.get('duration',''),
@@ -217,6 +218,7 @@ def getVideoUrls(url):
     
 
 def unicodePLchar(txt):
+    txt = txt.decode("utf-8").replace(u"\u2654", "").encode("utf-8")
     txt = txt.replace('#038;','')
     txt = txt.replace('&lt;br/&gt;',' ')
     txt = txt.replace('&#34;','"')

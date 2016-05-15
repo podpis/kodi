@@ -5,6 +5,7 @@ import urllib,urllib2
 import urlparse
 import xbmc,xbmcgui,xbmcaddon
 import xbmcplugin
+import json, htmlentitydefs
 
 try:
    import StorageServer
@@ -20,11 +21,16 @@ base_url        = sys.argv[0]
 addon_handle    = int(sys.argv[1])
 args            = urlparse.parse_qs(sys.argv[2][1:])
 my_addon        = xbmcaddon.Addon()
+my_addon_id     = my_addon.getAddonInfo('id')
 addonName       = my_addon.getAddonInfo('name')
 
 PATH        = my_addon.getAddonInfo('path')
+DATAPATH    = xbmc.translatePath(my_addon.getAddonInfo('profile')).decode('utf-8')
 RESOURCES   = PATH+'/resources/'
 FANART      = None
+
+FAVORITE    = os.path.join(DATAPATH,'favorites.json')
+
 
 ## COMMON Functions
 def getUrl(url,data=None):
@@ -35,7 +41,7 @@ def getUrl(url,data=None):
     response.close()
     return link
     
-def addLinkItem(name, url, mode, page=1, iconimage=None, infoLabels=False, IsPlayable=True,fanart=FANART,itemcount=1):
+def addLinkItem(name, url, mode, page=1, iconimage=None, infoLabels=False, contextO=['F_ADD'], IsPlayable=True,fanart=FANART,itemcount=1):
     u = build_url({'mode': mode, 'foldername': name, 'ex_link' : url, 'page':page})
     
     if iconimage==None:
@@ -51,12 +57,21 @@ def addLinkItem(name, url, mode, page=1, iconimage=None, infoLabels=False, IsPla
         liz.setProperty('fanart_image',fanart)
     contextMenuItems = []
     contextMenuItems.append(('Informacja', 'XBMC.Action(Info)'))
+    
+    content=urllib.quote_plus(json.dumps(infoLabels))
+    if 'F_ADD' in contextO:
+        contextMenuItems.append(('[COLOR green]Dodaj do Wybranych[/COLOR]', 'RunPlugin(plugin://%s?mode=favoritesADD&ex_link=%s)'%(my_addon_id,content)))
+    if 'F_REM' in contextO:
+        contextMenuItems.append(('[COLOR red]Usuń z Wybranych[/COLOR]', 'RunPlugin(plugin://%s?mode=favoritesREM&ex_link=%s)'%(my_addon_id,content)))
+    if 'F_DEL' in contextO:
+        contextMenuItems.append(('[COLOR red]Usuń Wszystko[/COLOR]', 'RunPlugin(plugin://%s?mode=favoritesREM&ex_link=all)'%(my_addon_id)))
+    
     liz.addContextMenuItems(contextMenuItems, replaceItems=False)        
     ok = xbmcplugin.addDirectoryItem(handle=addon_handle, url=u, listitem=liz,isFolder=False,totalItems=itemcount)
     xbmcplugin.addSortMethod(addon_handle, sortMethod=xbmcplugin.SORT_METHOD_NONE, label2Mask = "%R, %Y, %P")
     return ok
 
-def addDir(name,ex_link=None, page=1, mode='folder',iconImage='DefaultFolder.png', infoLabels=None, fanart=FANART,contextmenu=None):
+def addDir(name,ex_link=None, page=1, mode='folder',iconImage='DefaultFolder.png', infoLabels=None, fanart=FANART, contextO=['F_ADD'], contextmenu=None):
     url = build_url({'mode': mode, 'foldername': name, 'ex_link' : ex_link, 'page' : page})
     #li = xbmcgui.ListItem(name.encode("utf-8"), iconImage=iconImage)
     li = xbmcgui.ListItem(name, iconImage=iconImage, thumbnailImage=iconImage)
@@ -70,6 +85,15 @@ def addDir(name,ex_link=None, page=1, mode='folder',iconImage='DefaultFolder.png
     else:
         contextMenuItems = []
         contextMenuItems.append(('Informacja', 'XBMC.Action(Info)'),)
+        
+        content=urllib.quote_plus(json.dumps(infoLabels))
+        if 'F_ADD' in contextO:
+            contextMenuItems.append(('[COLOR green]Dodaj do Wybranych[/COLOR]', 'RunPlugin(plugin://%s?mode=favoritesADD&ex_link=%s)'%(my_addon_id,content)))
+        if 'F_REM' in contextO:
+            contextMenuItems.append(('[COLOR red]Usuń z Wybranych[/COLOR]', 'RunPlugin(plugin://%s?mode=favoritesREM&ex_link=%s)'%(my_addon_id,content)))
+        if 'F_DEL' in contextO:
+            contextMenuItems.append(('[COLOR red]Usuń Wszystko[/COLOR]', 'RunPlugin(plugin://%s?mode=favoritesREM&ex_link=all)'%(my_addon_id)))
+        
         li.addContextMenuItems(contextMenuItems, replaceItems=False)  
           
     xbmcplugin.addDirectoryItem(handle=addon_handle, url=url,listitem=li, isFolder=True)
@@ -89,20 +113,58 @@ def encoded_dict(in_dict):
 def build_url(query):
     return base_url + '?' + urllib.urlencode(encoded_dict(query))
 
+
+
+def html_entity_decode_char(m):
+    ent = m.group(1)
+    if ent.startswith('x'):
+        return unichr(int(ent[1:],16))
+    try:
+        return unichr(int(ent))
+    except Exception, exception:
+        if ent in htmlentitydefs.name2codepoint:
+            return unichr(htmlentitydefs.name2codepoint[ent])
+        else:
+            return ent
+
+def html_entity_decode(string):
+    string = string.decode('UTF-8')
+    s = re.compile("&#?(\w+?);").sub(html_entity_decode_char, string)
+    return s.encode('UTF-8')
+    
+def ReadJsonFile(jfilename):
+    content = '[]'
+    if os.path.exists(jfilename):    # local content
+        with open(jfilename,'r') as f:
+            content = f.read()
+            if not content:
+                content ='[]'
+    data=json.loads(html_entity_decode(content))
+
+    return data
+
 ## sub functions
     
 
 def ListMovies(ex_link):
-    if ex_link.startswith('search'):
+    if ex_link=='FAVORITE':
+        items = ReadJsonFile(FAVORITE)
+    elif ex_link.startswith('search'):
         items=vider.search(ex_link.split('|')[-1].strip())
     else:
+        print '$$$$$$$$$$$$$$$$$$$$$$$$$',ex_link
         items = vider.scanUser(ex_link)
-        
+   
+    contextO=['F_ADD']
+    if fname=='[COLOR khaki]Wybrane[/COLOR]':
+        contextO=['F_REM','F_DEL']
+
+            
     for item in items:
         if item.get('folder'):
-            addDir(name=item.get('title',''),ex_link=item.get('href'), mode='ListMovies',iconImage=item.get('img'))
+            addDir(name=item.get('title',''),ex_link=item.get('href'), mode='ListMovies',iconImage=item.get('img'),infoLabels=item,contextO=contextO)
         else:
-            addLinkItem(name=item.get('title'), url=item.get('href'), mode='getLinks', iconimage=item.get('img'), infoLabels=item, IsPlayable=True)
+            addLinkItem(name=item.get('title'), url=item.get('href'), mode='getLinks', iconimage=item.get('img'), infoLabels=item, contextO=contextO, IsPlayable=True)
     
 
 def getLinks(ex_link):
@@ -152,6 +214,7 @@ page = args.get('page',[1])[0]
 if mode is None:
     addDir(name="[COLOR blue]Strona Główna[/COLOR]",ex_link='http://vider.pl', mode='ListMovies',iconImage='DefaultFolder.png',fanart=FANART)
     addDir(name="[COLOR blue]Ranking Vider.pl (30dni)[/COLOR]",ex_link='http://vider.pl/ranking/month', mode='ListMovies',iconImage='DefaultFolder.png',fanart=FANART)
+    addDir('[COLOR khaki]Wybrane[/COLOR]',ex_link='FAVORITE', mode='ListMovies',  iconImage='DefaultFolder.png',fanart=FANART)
     addDir('[COLOR green]Szukaj[/COLOR]','',mode='Szukaj')
 
 
@@ -188,6 +251,46 @@ elif mode[0] == 'GatunekRok':
 
 elif mode[0] == 'Opcje':
     my_addon.openSettings()   
+
+
+elif mode[0] == 'favoritesADD':
+    jdata = ReadJsonFile(FAVORITE)
+    new_item=json.loads(ex_link)
+    # fix label/msg from title
+    new_item['title'] = new_item.get('title','').replace(new_item.get('label',''),'').replace(new_item.get('msg',''),'')
+    dodac = [x for x in jdata if new_item['title']== x.get('title','')]
+    if dodac:
+        xbmc.executebuiltin('Notification([COLOR pink]Już jest w Wybranych[/COLOR], ' + new_item.get('title','').encode('utf-8') + ', 200)')
+    else:
+        jdata.append(new_item)
+        if not os.path.exists(FAVORITE):
+            os.makedirs(os.path.dirname(FAVORITE))
+        with open(FAVORITE, 'w') as outfile:
+            json.dump(jdata, outfile, indent=2, sort_keys=True)
+            xbmc.executebuiltin('Notification(Dodano Do Wybranych, ' + new_item.get('title','').encode('utf-8') + ', 200)')
+
+elif mode[0] == 'favoritesREM':
+    if ex_link=='all':
+        yes = xbmcgui.Dialog().yesno("??","Usuń wszystkie filmy z Wybranych?")
+        if yes:
+            os.remove(FAVORITE)
+    else:
+        jdata = ReadJsonFile(FAVORITE)
+        remItem=json.loads(ex_link)
+        to_remove=[] 
+        for i in xrange(len(jdata)):
+            if jdata[i].get('title') in remItem.get('title'):
+                to_remove.append(i)
+        if len(to_remove)>1:
+            yes = xbmcgui.Dialog().yesno("??",remItem.get('title'),"Usuń %d pozycji z Wybranych?" % len(to_remove))
+        else:
+            yes = True
+        if yes:
+            for i in reversed(to_remove):
+                jdata.pop(i)
+            with open(FAVORITE, 'w') as outfile:
+                json.dump(jdata, outfile, indent=2, sort_keys=True)
+    xbmc.executebuiltin('XBMC.Container.Refresh')  
 
 elif mode[0] =='Szukaj':
     addDir('[COLOR green]Nowe Szukanie[/COLOR]','',mode='SzukajNowe')
