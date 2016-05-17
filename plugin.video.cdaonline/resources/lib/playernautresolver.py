@@ -8,6 +8,8 @@ TIMEOUT=10
 def getUrl(url,data=None,cookies=None):
     req = urllib2.Request(url,data)
     req.add_header('User-Agent', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.97 Safari/537.36')
+    req.add_header('Host', 'www.playernaut.com')
+    req.add_header('Upgrade-Insecure-Requests', '1')
     if cookies:
         req.add_header("Cookie", cookies)
     try:
@@ -21,6 +23,7 @@ def getUrl(url,data=None,cookies=None):
 
 # url='https://www.playernaut.com/embed/vS631dFkt'
 # url='https://www.playernaut.com/?v=V3bkB2bOH'
+# url='https://www.playernaut.com/?v=SWtq1LcnP'
 def getVideoUrls(url):
     """    
     returns 

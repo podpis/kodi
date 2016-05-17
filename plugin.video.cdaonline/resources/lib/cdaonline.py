@@ -2,7 +2,7 @@
 
 import urllib2,urllib
 import re
- 
+
 BASEURL=''
 TIMEOUT = 10
  
@@ -118,15 +118,16 @@ def getVideoLinks_iframes(url,content=None):
         href = re.compile('src="(.*?)"',re.DOTALL).search(frame)
         if href:
             href_go = 'http'+ href.group(1).split('http')[-1]
-            host = href_go.split('/')[2]
-
-            if href_go.startswith('http') and not 'youtube' in href_go:
+             
+            if href_go.startswith('http') and not 'youtube' in href_go and not 'facebook' in href_go:
+                host = href_go.split('/')[2]
                 one = {'url' : href_go,
                     'title': "[%s]" %(host),
                     'host': host    }
                 out.append(one)
     return out
 
+#url='https://cda-online.pl/carte-blanche/'
 def getVideoLinks(url):
     content = getUrl(url)
         
@@ -151,10 +152,7 @@ def getVideoLinks(url):
             
             print i,host,href.group(1),href_go,'\n'
             
-            if host.startswith('openload'):
-                link=''
-            else:
-                link = _getOrginalURL(href_go.replace('http://cda-online.pl?',''),host)
+            link = _getOrginalURL(href_go.replace('http://cda-online.pl?',''),host)
             
             if link:
                 one = {'url' : link,
@@ -189,12 +187,13 @@ def getGatunekRok(rodzaj='film',typ='gatunek'):
     selected = []
     if rodzaj=='film':
         if typ=='gatunek':
-            selected = re.compile('<a href="(http://cda-online.pl/kategoria/.*?/)" >(.*?)</a> <span>(\d+)</span>').findall(content)
+            #selected = re.compile('<a href="(http://cda-online.pl/kategoria/.*?/)" >(.*?)</a> <span>(\d+)</span>').findall(content)
+            selected = re.compile('<a href="(.*//cda-online.pl/kategoria/.*?/)" title=".*?">(.*?)</a>').findall(content)
         else:
             selected = re.compile('<a href="(http://cda-online.pl/rok/\d{4}/)">(\d{4})</a>').findall(content)
     elif rodzaj=='serial':
         if typ=='gatunek':
-            selected = re.compile('<a href="(http://cda-online.pl/seriale-gatunek/.*?/)" >(.*?)</a> <span>(\d+)</span>').findall(content)
+            selected = re.compile('<a href="(http://cda-online.pl/seriale-gatunek/.*?/)">(.*?)</a>').findall(content)
         else:
             selected = re.compile('<a href="(http://cda-online.pl/seriale-rok/\d{4}/)">(\d{4})</a>').findall(content)
     if selected:

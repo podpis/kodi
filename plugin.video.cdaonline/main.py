@@ -17,6 +17,8 @@ cache = StorageServer.StorageServer("cdaonline")
 import resources.lib.cdaonline as cdaonline
 import resources.lib.cdaresolver as cdaresolver
 import resources.lib.playernautresolver as playernautresolver
+import resources.lib.unshorten as unshorten
+
 
 base_url        = sys.argv[0]
 addon_handle    = int(sys.argv[1])
@@ -138,9 +140,13 @@ def getLinks(ex_link):
     h = [ x.get('host') for x in links]
     selection = xbmcgui.Dialog().select("Sources", t)
     if selection>-1:
+        link=u[selection]
+        if 'sh.st/' in link:
+            link = unshorten._unshorten_shst(link)
+            print link
         if 'cda' in h[selection]:
             print 'CDA'
-            stream_url = cdaresolver.getVideoUrls(u[selection])
+            stream_url = cdaresolver.getVideoUrls(link)
             if type(stream_url) is list:
                 qualityList = [x[0] for x in stream_url]
                 selection = xbmcgui.Dialog().select("Quality [can be set default]", qualityList)
@@ -148,25 +154,31 @@ def getLinks(ex_link):
                     stream_url = cdaresolver.getVideoUrls(stream_url[selection][1])
                 else:
                     stream_url=''
-        elif 'playernaut' in h[selection]:
-            print 'playernaut'
-            print u[selection]
-            stream_url = playernautresolver.getVideoUrls(u[selection])
-            print 'playernaut'
-            print stream_url
-            if type(stream_url) is list:
-                qualityList = [x[0] for x in stream_url]
-                hrefs = [x[1] for x in stream_url]
-                selection = xbmcgui.Dialog().select("Quality [can be set default]", qualityList)
-                if selection>-1:
-                    stream_url=hrefs[selection]
-                else:
-                    stream_url=''
+        # elif 'playernaut' in h[selection]:
+        #     print 'playernaut'
+        #     print link
+        #     stream_url = playernautresolver.getVideoUrls(link)
+        #     print 'playernaut'
+        #     print stream_url
+        #     if type(stream_url) is list:
+        #         qualityList = [x[0] for x in stream_url]
+        #         hrefs = [x[1] for x in stream_url]
+        #         selection = xbmcgui.Dialog().select("Quality [can be set default]", qualityList)
+        #         if selection>-1:
+        #             stream_url=hrefs[selection]
+        #         else:
+        #             stream_url=''
                 
         else: 
-            #print 'urlresolver'
-            stream_url = urlresolver.resolve(u[selection])
-    print 'resolved'
+            print '!!!urlresolver'
+            print link
+            stream_url = urlresolver.resolve(link)
+            if stream_url:
+                pass
+            else:
+                stream_url=''
+                xbmcgui.Dialog().ok('[COLOR red] Problem [/COLOR]', 'Może inny link będzie działał?')
+    
     print stream_url
     if stream_url:
         xbmcplugin.setResolvedUrl(addon_handle, True, xbmcgui.ListItem(path=stream_url))
