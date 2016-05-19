@@ -154,20 +154,20 @@ def getLinks(ex_link):
                     stream_url = cdaresolver.getVideoUrls(stream_url[selection][1])
                 else:
                     stream_url=''
-        # elif 'playernaut' in h[selection]:
-        #     print 'playernaut'
-        #     print link
-        #     stream_url = playernautresolver.getVideoUrls(link)
-        #     print 'playernaut'
-        #     print stream_url
-        #     if type(stream_url) is list:
-        #         qualityList = [x[0] for x in stream_url]
-        #         hrefs = [x[1] for x in stream_url]
-        #         selection = xbmcgui.Dialog().select("Quality [can be set default]", qualityList)
-        #         if selection>-1:
-        #             stream_url=hrefs[selection]
-        #         else:
-        #             stream_url=''
+        elif 'playernaut' in h[selection]:
+            print 'playernaut'
+            print link
+            stream_url = playernautresolver.getVideoUrls(link)
+            print 'playernaut'
+            print stream_url
+            if type(stream_url) is list:
+                qualityList = [x[0] for x in stream_url]
+                hrefs = [x[1] for x in stream_url]
+                selection = xbmcgui.Dialog().select("Quality [can be set default]", qualityList)
+                if selection>-1:
+                    stream_url=hrefs[selection]
+                else:
+                    stream_url=''
                 
         else: 
             print '!!!urlresolver'

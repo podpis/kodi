@@ -2,6 +2,7 @@
 
 import urllib2
 import re
+import aadecode
 
 TIMEOUT=10
 
@@ -23,7 +24,7 @@ def getUrl(url,data=None,cookies=None):
 
 # url='https://www.playernaut.com/embed/vS631dFkt'
 # url='https://www.playernaut.com/?v=V3bkB2bOH'
-# url='https://www.playernaut.com/?v=SWtq1LcnP'
+# url='https://www.playernaut.com/?v=V3bkB2bOH'
 def getVideoUrls(url):
     """    
     returns 
@@ -35,11 +36,15 @@ def getVideoUrls(url):
     if '/embed/' in url:
         url=url.replace('/embed/','/?v=')
     content = getUrl(url)
+    idx=content.find('home_video')
+    script = re.compile('<script>(.*?)</script>',re.DOTALL).findall(content[idx:])
+    aa=aadecode.AADecoder(script[0])
+    content = aa.decode()
     src=[]
-    quality_options = re.compile('<source src="(.*?)" type="(.*?)" data-res="(.*?)">').findall(content)
+    quality_options = re.compile('"file":"(.*?)","label":"(.*?)"').findall(content)
     for quality in  quality_options:
-        link = quality[0]
-        hd = quality[2].split('"')[0]
+        link = quality[0].replace('\\','')
+        hd = quality[1].split('"')[0]
         src.append((hd,link+Cookie))  
     return src    
     
