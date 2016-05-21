@@ -4,8 +4,8 @@ import time
 import json
 import urllib2
 
-_headers = { 'User-Agent': 'Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.69 Safari/537.36'}
 
+_headers = { 'User-Agent': 'Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.69 Safari/537.36'}
 _timeout = 10
 
 def getUrl(url,data={},headers={}):
@@ -18,6 +18,28 @@ def getUrl(url,data={},headers={}):
         link=''
     return link
 
+
+def unshorten(url):
+    if 'sh.st/' in url:
+        url = unshorten._unshorten_shst(url)
+    elif 'safelinking.net' in url:
+        url = _safelinking(url)
+    return url
+
+#url = 'https://safelinking.net/p/FpEBxtg'
+def _safelinking(url):
+    hash = url.split('/')[-1]
+    post_data = {'hash': hash}
+    headers = { "Accept": "application/json, text/plain, */*",
+                "Content-Type": 'application/json'}
+    response = getUrl('http://safelinking.net/v1/protected',data=post_data,headers=headers)
+    jr = json.loads( response)   
+    if jr:
+        links=jr.get('links',[])
+        if len(links):
+            url=links[0].get('url','')
+    return url
+    
 #uri='http://sh.st/Pm6Vf'
 def _unshorten_shst(uri):
     urlo=''

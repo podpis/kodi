@@ -140,10 +140,10 @@ def getLinks(ex_link):
     h = [ x.get('host') for x in links]
     selection = xbmcgui.Dialog().select("Sources", t)
     if selection>-1:
-        link=u[selection]
-        if 'sh.st/' in link:
-            link = unshorten._unshorten_shst(link)
-            print link
+        print '^^S unshorten.unshorten'
+        link = unshorten.unshorten(u[selection])
+        print link
+        print '^^E unshorten.unshorten'
         if 'cda' in h[selection]:
             print 'CDA'
             stream_url = cdaresolver.getVideoUrls(link)
