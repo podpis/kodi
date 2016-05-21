@@ -6,11 +6,9 @@ import urlparse
 import xbmc,xbmcgui,xbmcaddon
 import xbmcplugin
 import json 
+from copy import deepcopy
 
 # THIS CODE CAN BE USED ONLY FOR NON-COMMERCIAL PURPOSE!
-
-import looknijtv as ltv
-import telewizjada as tel
 
 
 base_url        = sys.argv[0]
@@ -20,6 +18,14 @@ my_addon        = xbmcaddon.Addon()
 
 PATH        = my_addon.getAddonInfo('path')
 RESOURCES   = PATH+'/resources/'
+sys.path.append( os.path.join( PATH, "lib" ) )
+
+
+import looknijtv as ltv
+import telewizjada as tel
+import matchsport as ms
+import iklub
+import ihtv
 
 # ____________________________
 def getUrl(url,data=None):
@@ -63,9 +69,6 @@ def build_url(query):
 
 def m3u2list(url):
     url = 'https://drive.google.com/uc?export=download&id=0B0PmlVIxygktR3dvSnByTTZtNFE'
-    # url='http://api.moje-filmy.tk/nowa1.m3u8?cid=e940f0f2f3bff1f8812038acbad38dad'
-    # url='http://api.moje-filmy.tk/nowa1.m3u8?cid=39ed77fae36199cac9dd68164ec6eba6'
-    # url='http://api.moje-filmy.tk/nowa1.m3u8?cid=601e11c9fdbc123cf956c392202e605a'
     response = getUrl(getUrl(url))
     out = []
     matches=re.compile('^#EXTINF:-?[0-9]*(.*?),(.*?)\n(.*?)$',re.I+re.M+re.U+re.S).findall(response)
@@ -82,8 +85,7 @@ def m3u2list(url):
             one[renTags.get(field.strip().lower(),'bad')] = value.strip()
         if not one.get('tvid'):
             one['tvid']=title
-        if one.get('img'):
-            one['img'] = 'http://moje-filmy.tk/'+one.get('img','')
+        one['img'] = 'http://moje-filmy.tk/'+one['img']
         one['urlepg']=''
         one = tel.fixForEPG(one)
         out.append(one)
@@ -217,15 +219,23 @@ ex_link = args.get('ex_link',[''])[0]
 
 
 if mode is None:
-    addDir('LIVE TV: looknij',iconImage=RESOURCES+'logo-looknij.png')
-    addDir('LIVE TV: telewizjada',iconImage=RESOURCES+'logo_telewizjada.png')
+    #addDir('LIVE TV: looknij',iconImage=RESOURCES+'logo-looknij.png')
+    #addDir('LIVE TV: telewizjada',iconImage=RESOURCES+'logo_telewizjada.png')
     addDir('LIVE TV: tvp.info','http://tvpstream.tvp.pl',iconImage=RESOURCES+'tvp-info.png')    
     addDir('LIVE TV: moje-filmy.tk',iconImage=RESOURCES+'moje-filmy.png')
+    addDir('LIVE TV: iklub.net',iconImage='')
+    addDir('LIVE TV: match-sport',iconImage='')
+    addDir('LIVE TV: ihtv',iconImage='')
+    
     url = build_url({'mode': 'Opcje'})
     li = xbmcgui.ListItem(label = '[COLOR blue]-> aktywuj PVR Live TV[/COLOR]', iconImage='DefaultScript.png')
     xbmcplugin.addDirectoryItem(handle=addon_handle, url=url,listitem=li)
 
 elif mode[0] == 'Opcje':
+    path =  my_addon.getSetting('path')
+    if not path:
+        DATAPATH    = xbmc.translatePath(my_addon.getAddonInfo('profile')).decode('utf-8')
+        my_addon.setSetting('path',DATAPATH)
     my_addon.openSettings()   
 
 elif mode[0] == 'palyLiveVideo':
@@ -241,12 +251,48 @@ elif mode[0]=='play_looknij':
     stream_url = ltv.decode_url(ex_link)
     if stream_url:
         xbmcplugin.setResolvedUrl(addon_handle, True, xbmcgui.ListItem(path=stream_url))
+    else:
+        xbmcplugin.setResolvedUrl(addon_handle, False, xbmcgui.ListItem(path=stream_url))
+
+elif mode[0]=='play_ihtv':
+    stream_url = ihtv.decode_url(ex_link)
+    print '###play_ihtv',stream_url
+    if stream_url:
+        xbmcplugin.setResolvedUrl(addon_handle, True, xbmcgui.ListItem(path=stream_url))
+    else:
+        xbmcplugin.setResolvedUrl(addon_handle, False, xbmcgui.ListItem(path=stream_url)) 
+        
+elif mode[0]=='play_iklub':
+    stream_url=''
+    links = iklub.decode_url(ex_link)
+    print 'play_iklub',links
+    if len(links)==1:
+        stream_url = links[0]
+    elif len(links)>1:
+        t = ['Link %d'%(i+1) for i in range(len(links))]
+        s = xbmcgui.Dialog().select("Sources", t)
+        if s>-1:
+            stream_url=links[s]
+    if stream_url:       
+        xbmcplugin.setResolvedUrl(addon_handle, True, xbmcgui.ListItem(path=stream_url))
+    else:
+        xbmcplugin.setResolvedUrl(addon_handle, False, xbmcgui.ListItem(path=stream_url))
+        
+elif mode[0]=='play_match-sport':
+    stream_url = ms.decode_url(ex_link)
+    print 'play_match-sport',stream_url
+    if stream_url:
+        xbmcplugin.setResolvedUrl(addon_handle, True, xbmcgui.ListItem(path=stream_url))
+    else:
+        xbmcplugin.setResolvedUrl(addon_handle, False, xbmcgui.ListItem(path=stream_url)) 
 elif mode[0]=='play_telewizjada':
     video_link,_id = ex_link.split('|')
     print PATH
     stream_url = tel.decode_url(video_link,int(_id))
     if stream_url:
         xbmcplugin.setResolvedUrl(addon_handle, True, xbmcgui.ListItem(path=stream_url))
+    else:
+        xbmcplugin.setResolvedUrl(addon_handle, False, xbmcgui.ListItem(path=stream_url))
 elif mode[0]=='TELEWIZJADA_EPG':
     print ex_link
     programTV=tel.get_epg(ex_link)
@@ -293,7 +339,6 @@ elif mode[0] == 'UPDATE_IPTV':
         xbmcgui.Dialog().notification('ERROR', '[COLOR red[Lista m3u jeszcze nie istnieje![/COLOR]', xbmcgui.NOTIFICATION_ERROR, 3000)    
 
 
-    
 elif mode[0] == 'BUID_M3U':
     #http://192.168.1.3/jsonrpc?request={%22jsonrpc%22:%222.0%22,%22method%22:%22Addons.ExecuteAddon%22,%22params%22:{%22addonid%22:%22plugin.video.LivePolishTV%22,%22params%22:[%22mode=BUID_M3U%22]},%22id%22:1}
     
@@ -322,19 +367,17 @@ elif mode[0] == 'BUID_M3U':
         pDialog.create('Tworze liste programow TV [%s]'%(fname), 'Uzyj z [COLOR blue]PVR IPTV Simple Client[/COLOR]')
         
         out_all = []
+        pDialog.update(0,message='Szukam: [%s]'%service)
         if  service=='Telewizjada':
-            pDialog.update(0,message='Szukam: [telewizjada]')
             out_all = tel.get_root_telewizjada(addheader=True)
         elif service=='Moje-Fimy':
-            pDialog.update(0,message='Szukam: [Moje-Fimy]')
             out_all =  m3u2list('')
         elif service=='Looknij':
-            pDialog.update(0,message='Szukam: [Looknij]')
             out_all = ltv.get_root_looknji(addheader=True)
-
-        
-        
-        
+        elif service=='iklub':
+            out_all = iklub.get_root(addheader=True)            
+        elif service=='ihtv':
+            out_all = ihtv.get_root(addheader=True)    
         N=len(out_all)
         out_sum=[]
         pDialog.update(0,message= 'Znalazlem!  %d' % N  )
@@ -345,14 +388,26 @@ elif mode[0] == 'BUID_M3U':
             pDialog.update(progress, message=message)
             #print "%d\t%s" % (progress,message)
             try:
-                if 'telewizjada' in one.get('img',''):
+                if service=='Telewizjada':
                     one['url'] = tel.decode_url(one.get('url',''),one.get('id',''))
-                if 'looknij' in one.get('img',''):
+                if service=='Looknij':
                     one['url'] = ltv.decode_url(one.get('url',''))
-                if 'moje-filmy' in one.get('img',''):
-                    pass 
-                    # no modification is needed
-                out_sum.append(one)
+                if service=='Moje-Fimy':
+                    pass # no modification is needed
+                if service=='iklub':
+                    one['url'] = iklub.decode_url(one.get('url',''))
+                if service=='ihtv':
+                    one['url'] = ihtv.decode_url(one.get('url',''))
+                    
+                if one['url']:
+                    if isinstance(one['url'],list):
+                        for url in one['url']:
+                            print url
+                            one_n=deepcopy(one)
+                            one_n['url'] = url 
+                            out_sum.append(one_n)
+                    else:
+                        out_sum.append(one)
             except:
                 pass
         if out_sum:
@@ -385,5 +440,18 @@ elif mode[0] == 'folder':
         content = m3u2list('')
         for one in content:
             addLinkItem(one.get('title',''),  one['url'], 'playUrl', one.get('epgname',None),iconimage=one.get('img'))
+    elif fname == 'LIVE TV: iklub.net':
+        content = iklub.get_root()
+        for one in content:
+            addLinkItem(one.get('title',''),  one['url'], 'play_iklub', one.get('epgname',None),iconimage=one.get('img'))
+    elif fname == 'LIVE TV: match-sport':
+        content = ms.get_root()
+        for one in content:
+            addLinkItem(one.get('title',''),  one['url'], 'play_match-sport', one.get('epgname',None),iconimage=one.get('img'))
+    elif fname == 'LIVE TV: ihtv':
+        content = ihtv.get_root()
+        for one in content:
+            addLinkItem(one.get('title',''),  one['url'], 'play_ihtv', one.get('epgname',None),iconimage=one.get('img'))
+         
                
 xbmcplugin.endOfDirectory(addon_handle)

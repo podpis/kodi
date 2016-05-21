@@ -107,7 +107,7 @@ def get_mainchannel(cid=1):
     return json.loads(data)
 
 
-def get_root_telewizjada(addheader=True):     
+def get_root_telewizjada(addheader=False):     
     data=getUrl(BASEURL + 'get_channels.php')
     try:
         result = json.loads(data)
@@ -149,7 +149,7 @@ def decode_url(url,_id):
     href = getUrl(BASEURL + 'get_channel_url.php','cid=%d' % _id,cookies)    
     if not href.startswith('http'):
         href = json.loads(href).get('url','')
-    return href+cookie_ref
+    return href+cookie_ref 
 
 def get_epg_now_next(channelname='polsat'):
     epg=getUrl('http://www.telewizjada.net/get_epg.php','channelname=%s&offset=60'%channelname)
