@@ -45,8 +45,8 @@ def getUrl(url,post_data=None):
     return link
 
 #url='http://nasze-kino.eu/gatunek/18/-bajki-/6'
-
-def get_movie_relative(url,page='6'):
+#url='http://nasze-kino.eu/gatunek/46/-filmy-/'
+def get_movie_relative(url,page='1'):
     url_split=url.split('/')
     if url_split[-1] == '': # current page
         myurl=url+'%s'%page
@@ -55,7 +55,7 @@ def get_movie_relative(url,page='6'):
         myurl = '/'.join(url_split)
     content=getUrl(myurl)
     out=[]
-    items = re.compile('<div class="movie relative">(.*?</a></span></div>)',re.DOTALL).findall(content)
+    items = re.compile('<div class="movie relative">(.*?</span></div>)',re.DOTALL).findall(content)
     pages = re.compile('<div class="pages">(.*?)<div class="clear">',re.DOTALL).findall(content)
     len(items)
     #item=items[0]
