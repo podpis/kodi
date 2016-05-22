@@ -23,7 +23,7 @@ sys.path.append( os.path.join( PATH, "lib" ) )
 
 import looknijtv as ltv
 import telewizjada as tel
-import matchsport as ms
+#import matchsport as ms
 import iklub
 import ihtv
 import itivi
@@ -225,7 +225,7 @@ if mode is None:
     addDir('LIVE TV: tvp.info','http://tvpstream.tvp.pl',iconImage=RESOURCES+'tvp-info.png')    
     addDir('LIVE TV: moje-filmy.tk',iconImage=RESOURCES+'moje-filmy.png')
     addDir('LIVE TV: iklub.net',iconImage='')
-    addDir('LIVE TV: match-sport',iconImage='')
+    #addDir('LIVE TV: match-sport',iconImage='')
     addDir('LIVE TV: ihtv',iconImage='')
     addDir('LIVE TV: itivi',iconImage='')
     
@@ -290,13 +290,13 @@ elif mode[0]=='play_iklub':
     else:
         xbmcplugin.setResolvedUrl(addon_handle, False, xbmcgui.ListItem(path=stream_url))
         
-elif mode[0]=='play_match-sport':
-    stream_url = ms.decode_url(ex_link)
-    print 'play_match-sport',stream_url
-    if stream_url:
-        xbmcplugin.setResolvedUrl(addon_handle, True, xbmcgui.ListItem(path=stream_url))
-    else:
-        xbmcplugin.setResolvedUrl(addon_handle, False, xbmcgui.ListItem(path=stream_url)) 
+# elif mode[0]=='play_match-sport':
+#     stream_url = ms.decode_url(ex_link)
+#     print 'play_match-sport',stream_url
+#     if stream_url:
+#         xbmcplugin.setResolvedUrl(addon_handle, True, xbmcgui.ListItem(path=stream_url))
+#     else:
+#         xbmcplugin.setResolvedUrl(addon_handle, False, xbmcgui.ListItem(path=stream_url)) 
 elif mode[0]=='play_telewizjada':
     video_link,_id = ex_link.split('|')
     print PATH
@@ -456,10 +456,10 @@ elif mode[0] == 'folder':
         content = iklub.get_root()
         for one in content:
             addLinkItem(one.get('title',''),  one['url'], 'play_iklub', one.get('epgname',None),iconimage=one.get('img'))
-    elif fname == 'LIVE TV: match-sport':
-        content = ms.get_root()
-        for one in content:
-            addLinkItem(one.get('title',''),  one['url'], 'play_match-sport', one.get('epgname',None),iconimage=one.get('img'))
+    # elif fname == 'LIVE TV: match-sport':
+    #     content = ms.get_root()
+    #     for one in content:
+    #         addLinkItem(one.get('title',''),  one['url'], 'play_match-sport', one.get('epgname',None),iconimage=one.get('img'))
     elif fname == 'LIVE TV: ihtv':
         content = ihtv.get_root()
         for one in content:
