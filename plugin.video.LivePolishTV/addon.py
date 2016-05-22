@@ -26,6 +26,7 @@ import telewizjada as tel
 import matchsport as ms
 import iklub
 import ihtv
+import itivi
 
 # ____________________________
 def getUrl(url,data=None):
@@ -226,6 +227,7 @@ if mode is None:
     addDir('LIVE TV: iklub.net',iconImage='')
     addDir('LIVE TV: match-sport',iconImage='')
     addDir('LIVE TV: ihtv',iconImage='')
+    addDir('LIVE TV: itivi',iconImage='')
     
     url = build_url({'mode': 'Opcje'})
     li = xbmcgui.ListItem(label = '[COLOR blue]-> aktywuj PVR Live TV[/COLOR]', iconImage='DefaultScript.png')
@@ -242,6 +244,8 @@ elif mode[0] == 'palyLiveVideo':
     playLiveVido(ex_link)
 
 elif mode[0] == 'playUrl':
+    if ex_link.startswith('http'):
+        ex_link = ex_link.split(' ')[0]
     playUrl(fname,ex_link)
 
         
@@ -261,6 +265,14 @@ elif mode[0]=='play_ihtv':
         xbmcplugin.setResolvedUrl(addon_handle, True, xbmcgui.ListItem(path=stream_url))
     else:
         xbmcplugin.setResolvedUrl(addon_handle, False, xbmcgui.ListItem(path=stream_url)) 
+  
+# elif mode[0]== 'play_itivi':
+#     stream_url = itivi.decode_url(ex_link)
+#     print '###play_itivi',stream_url
+#     if stream_url:
+#         xbmcplugin.setResolvedUrl(addon_handle, True, xbmcgui.ListItem(path=stream_url))
+#     else:
+#         xbmcplugin.setResolvedUrl(addon_handle, False, xbmcgui.ListItem(path=stream_url))   
         
 elif mode[0]=='play_iklub':
     stream_url=''
@@ -452,6 +464,10 @@ elif mode[0] == 'folder':
         content = ihtv.get_root()
         for one in content:
             addLinkItem(one.get('title',''),  one['url'], 'play_ihtv', one.get('epgname',None),iconimage=one.get('img'))
-         
+    elif fname == 'LIVE TV: itivi':
+        content = itivi.get_root()
+        for one in content: # 'play_itivi'
+            addLinkItem(one.get('title',''),  one['url'], 'playUrl', one.get('epgname',None),iconimage=one.get('img'))
+        
                
 xbmcplugin.endOfDirectory(addon_handle)
