@@ -3,7 +3,6 @@
 import urllib2,urllib
 import re
 import time
-import execjs
 import mydecode
 
 

@@ -43,7 +43,7 @@ def getUrl(url,data=None,header={},cookies=None):
         header = {'User-Agent':UA}
     req = urllib2.Request(url,data,headers=header)
     try:
-        response = urllib2.urlopen(req, timeout=15)
+        response = urllib2.urlopen(req, timeout=10)
         if cookies=='':
             cookies=response.info()['Set-Cookie']
         link = response.read()
@@ -141,7 +141,8 @@ def decode_all_urls(out,):
     out_hrefs=[]   
     out_d = {} 
     for one in out:
-        print one.get('title'),': ',one.get('url','')
+        #print one.get('title')
+        print one.get('url','')
         m=one.get('url','').split('/')[-1]
         vido_url = decode_url2(one.get('url',''))
         if vido_url:
@@ -170,7 +171,7 @@ def build_m3u(out,fname=r'D:\itivi.m3u'):
 
     
 ##
-# out=get_root()    
+# out=get_root_old()    
 # out2=decode_all_urls(out)
 
 # for h in out_hrefs:

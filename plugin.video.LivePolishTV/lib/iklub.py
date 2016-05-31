@@ -3,7 +3,10 @@
 import urllib2,urllib
 import re
 import time
-import execjs
+try:
+    import execjs
+except:
+    pass
 
 
 
@@ -70,9 +73,11 @@ def decode_url(url='http://iklub.net/tvp2/'):
                     fun_name = re.search('function (.*?)\(',fun).group(1)
                     
                     code = re.search('\+ \'(.*?)\' \+',content).group(1)
-                    
-                    ctx = execjs.compile(fun)
-                    decoded = ctx.call(fun_name, code)
+                    try:
+                        ctx = execjs.compile(fun)
+                        decoded = ctx.call(fun_name, code)
+                    except:
+                        decoded=''
                 else:
                     fun_hex = re.compile('write\(\'(.*?)\'\);').findall(content)
                     if fun_hex:
