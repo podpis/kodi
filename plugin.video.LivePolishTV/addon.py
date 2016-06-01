@@ -28,6 +28,7 @@ import iklub
 import ihtv
 import itivi
 import yoytv
+import looknijin
 #import wizjatv as wt
 
 # ____________________________
@@ -222,15 +223,16 @@ ex_link = args.get('ex_link',[''])[0]
 
 
 if mode is None:
-    #addDir('LIVE TV: looknij',iconImage=RESOURCES+'logo-looknij.png')
-    #addDir('LIVE TV: telewizjada',iconImage=RESOURCES+'logo_telewizjada.png')
+    #addDir('LIVE TV: looknij',iconImage=RESOURCES+'logo-looknij.png') offline
+    #addDir('LIVE TV: telewizjada',iconImage=RESOURCES+'logo_telewizjada.png') offline
     addDir('LIVE TV: tvp.info','http://tvpstream.tvp.pl',iconImage=RESOURCES+'tvp-info.png')    
     addDir('LIVE TV: moje-filmy.tk',iconImage=RESOURCES+'moje-filmy.png')
     addDir('LIVE TV: iklub.net',iconImage='')
-    #addDir('LIVE TV: match-sport',iconImage='')
+    #addDir('LIVE TV: match-sport',iconImage='')    offline
     addDir('LIVE TV: ihtv',iconImage='')
     addDir('LIVE TV: itivi',iconImage='')
     addDir('LIVE TV: yoy.tv',iconImage='')
+    addDir('LIVE TV: looknij.in',iconImage='')
     #addDir('LIVE TV: wizja',iconImage='')
     
     url = build_url({'mode': 'Opcje'})
@@ -278,6 +280,14 @@ elif mode[0]=='play_ihtv':
     else:
         xbmcplugin.setResolvedUrl(addon_handle, False, xbmcgui.ListItem(path=stream_url)) 
 
+elif mode[0]=='play_looknijin':
+    stream_url = looknijin.decode_url(ex_link)
+    print '###play_looknijin',stream_url
+    if stream_url:
+        xbmcplugin.setResolvedUrl(addon_handle, True, xbmcgui.ListItem(path=stream_url))
+    else:
+        xbmcplugin.setResolvedUrl(addon_handle, False, xbmcgui.ListItem(path=stream_url)) 
+        
 elif mode[0]== 'play_yoytv':
     stream_url = yoytv.decode_url(ex_link)
     #xbmcgui.Dialog().ok('',stream_url)
@@ -285,16 +295,16 @@ elif mode[0]== 'play_yoytv':
     if stream_url:
         xbmcplugin.setResolvedUrl(addon_handle, True, xbmcgui.ListItem(path=stream_url))
     else:
+        xbmcgui.Dialog().ok("[COLOR red]Brak linku[/COLOR]",'Utwórz listę m3u i użyj PVR client by ominąć LIMITOWANY OKRES CZASU OGLĄDANIA gdy tylko [B]źródla będą znów dostępne!![/B]' )
         xbmcplugin.setResolvedUrl(addon_handle, False, xbmcgui.ListItem(path=stream_url))   
         
-          
-# elif mode[0]== 'play_itivi':
-#     stream_url = itivi.decode_url(ex_link)
-#     print '###play_itivi',stream_url
-#     if stream_url:
-#         xbmcplugin.setResolvedUrl(addon_handle, True, xbmcgui.ListItem(path=stream_url))
-#     else:
-#         xbmcplugin.setResolvedUrl(addon_handle, False, xbmcgui.ListItem(path=stream_url))   
+elif mode[0]== 'play_itivi':
+    stream_url = itivi.decode_url(ex_link)
+    print '###play_itivi',stream_url
+    if stream_url:
+        xbmcplugin.setResolvedUrl(addon_handle, True, xbmcgui.ListItem(path=stream_url))
+    else:
+        xbmcplugin.setResolvedUrl(addon_handle, False, xbmcgui.ListItem(path=stream_url))   
         
 elif mode[0]=='play_iklub':
     stream_url=''
@@ -411,9 +421,14 @@ elif mode[0] == 'BUID_M3U':
         elif service=='iklub':
             out_all = iklub.get_root(addheader=True)            
         elif service=='ihtv':
-            out_all = ihtv.get_root(addheader=True)    
+            out_all = ihtv.get_root(addheader=True)   
+        elif service=='itivi':
+            out_all = itivi.get_root(addheader=True)                 
         elif service=='yoy':
-            out_all = yoytv.get_root(addheader=True)               
+            out_all = yoytv.get_root(addheader=True)            
+        elif service=='looknij.in':
+            out_all = looknijin.get_root(addheader=True)  
+  
         N=len(out_all)
         out_sum=[]
         pDialog.update(0,message= 'Znalazlem!  %d' % N  )
@@ -434,8 +449,12 @@ elif mode[0] == 'BUID_M3U':
                     one['url'] = iklub.decode_url(one.get('url',''))
                 if service=='ihtv':
                     one['url'] = ihtv.decode_url(one.get('url',''))
+                if service=='itivi':
+                    one['url'] = itivi.decode_url(one.get('url',''))
                 if service=='yoy':
-                    one['url'] = yoytv.decode_url(one.get('url',''))                    
+                    one['url'] = yoytv.decode_url(one.get('url',''))
+                if service=='looknij.in':
+                    one['url'] = looknijin.decode_url(one.get('url',''))   
                     
                 if one['url']:
                     if isinstance(one['url'],list):
@@ -482,7 +501,7 @@ elif mode[0] == 'folder':
         content = iklub.get_root()
         for one in content:
             addLinkItem(one.get('title',''),  one['url'], 'play_iklub', one.get('epgname',None),iconimage=one.get('img'))
-    # elif fname == 'LIVE TV: match-sport':
+    # elif fname == 'LIVE TV: match-sport': went offline
     #     content = ms.get_root()
     #     for one in content:
     #         addLinkItem(one.get('title',''),  one['url'], 'play_match-sport', one.get('epgname',None),iconimage=one.get('img'))
@@ -493,15 +512,19 @@ elif mode[0] == 'folder':
     elif fname == 'LIVE TV: itivi':
         content = itivi.get_root()
         for one in content: # 'play_itivi'
-            addLinkItem(one.get('title',''),  one['url'], 'playUrl', one.get('epgname',None),iconimage=one.get('img'))
+            addLinkItem(one.get('title',''),  one['url'], 'play_itivi', one.get('epgname',None),iconimage=one.get('img'))
     
     elif fname == 'LIVE TV: yoy.tv':
         content = yoytv.get_root()
         for one in content: # 'play_yoytv'
             addLinkItem(one.get('title',''),  one['url'], 'play_yoytv', one.get('epgname',None),iconimage=one.get('img'))
+    elif fname == 'LIVE TV: looknij.in':
+        content = looknijin.get_root()
+        for one in content: # 'play_yoytv'
+            addLinkItem(one.get('title',''),  one['url'], 'play_looknijin', one.get('epgname',None),iconimage=one.get('img'))
     # elif fname == 'LIVE TV: wizja':
     #     content = wt.get_root()
-    #     for one in content: # 'play_itivi'
+    #     for one in content: # 
     #         addLinkItem(one.get('title',''),  one['url'], 'play_wizja', one.get('epgname',None),iconimage=one.get('img'))
         
                

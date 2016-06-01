@@ -3,6 +3,7 @@
 import re
 import urllib2,urllib
 import base64
+import time
 
 UA='Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'
 
@@ -52,7 +53,7 @@ def getUrl(url,data=None,header={},cookies=None):
         link=''
     return link
 
-def get_root_old(addheader=False):
+def get_root(addheader=False):
     url='http://itivi.pl/'
     content = getUrl(url)
 
@@ -70,11 +71,12 @@ def get_root_old(addheader=False):
         out.append(fixForEPG({'title':t,'tvid':t,'img':i,'url':h,'group':'','urlepg':''}))
     return out
 
-def get_root(addheader=False):
+def get_root_old(addheader=False):
     return m3u2list()
 
 def m3u2list():
     url = 'https://drive.google.com/uc?export=download&id=0B0PmlVIxygktN2FXaXYwWnNzcGc'
+    
     response = getUrl(url)
     out = []
     matches=re.compile('^#EXTINF:-?[0-9]*(.*?),(.*?)\n(.*?)$',re.I+re.M+re.U+re.S).findall(response)
@@ -101,9 +103,9 @@ def m3u2list():
     return out
        
 #url='http://itivi.pl/program-telewizyjny/Discovery_Channel'    
-def decode_url(url):
-    vido_urls=''
-    data = ReadJsonFile('itivi.json')
+# def decode_url(url):
+#     vido_urls=''
+#     data = ReadJsonFile('itivi.json')
     
     
 def decode_url_old(url):
@@ -121,9 +123,9 @@ def decode_url_old(url):
         #     vido_urls = link[0] + ' swfUrl='+swfUrl + ' swfVfy=1 live=1 timeout=13 pageUrl='+url
     return vido_urls
 
-url='http://itivi.pl/program-telewizyjny/ESKA_TV'
-url='http://itivi.pl/program-telewizyjny/Fenix'
-def decode_url2(url):
+# url='http://itivi.pl/program-telewizyjny/TVP_1_HD'
+# url='http://itivi.pl/program-telewizyjny/Fenix'
+def decode_url(url):
     vido_urls=''
     #rtmp://app.itivi.pl/live/<playpath>DISCOVERYHD <swfUrl>http://itivi.pl/js/jwplayer-7.0.3/jwplayer.flash.swf <pageUrl>http://itivi.pl/program-telewizyjny/Discovery_Channel
     if 'itivi.pl' in url: 
@@ -135,6 +137,7 @@ def decode_url2(url):
                 vido_urls = link[0]
             else:
                 vido_urls = link[0] + ' swfUrl='+swfUrl + ' swfVfy=1 live=1 timeout=13 pageUrl='+url
+    print '###itivi.pl',vido_urls
     return vido_urls 
     
 def decode_all_urls(out,):

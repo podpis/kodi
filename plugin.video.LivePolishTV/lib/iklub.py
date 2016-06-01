@@ -6,8 +6,7 @@ import time
 try:
     import execjs
 except:
-    pass
-
+    import js2py
 
 
 def fixForEPG(one):
@@ -77,7 +76,9 @@ def decode_url(url='http://iklub.net/tvp2/'):
                         ctx = execjs.compile(fun)
                         decoded = ctx.call(fun_name, code)
                     except:
-                        decoded=''
+                        context = js2py.EvalJs() 
+                        context.execute('pyimport urllib;'+fun.replace('\t','').replace('\n','').replace('unescape(','urllib.unquote(') )
+                        decoded = getattr(context,fun_name)(code)
                 else:
                     fun_hex = re.compile('write\(\'(.*?)\'\);').findall(content)
                     if fun_hex:

@@ -165,5 +165,6 @@ def decode_url(url):
 
 ##    
 # out=get_root(live='1',country='140',addheader=False)
+# decode_url(out[0]['url'])
 # for o in out:
 #     print o.get('title')

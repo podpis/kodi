@@ -6,7 +6,7 @@
     <setting label="Katalog"    type="folder" id="path" source="auto" option="writeable"/>
 				
     <setting label="źródła" type="lsep"/>
-    <setting label="Dostawca:" type="select" id="service" values="Moje-Fimy|iklub|ihtv|yoy" default="ihtv"/>
+    <setting label="Dostawca:" type="select" id="service" values="Moje-Fimy|iklub|ihtv|itivi|yoy|looknij.in" default="ihtv"/>
 	
     <setting label="Akcja: (Utworz/odswierz liste i reaktywj Telewizje)" type="lsep"/>
     <setting type="action"
