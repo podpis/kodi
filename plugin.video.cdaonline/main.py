@@ -109,7 +109,7 @@ def ListMovies(ex_link,page):
     for f in filmy:
         addLinkItem(name=f.get('title'), url=f.get('href'), mode='getLinks', iconimage=f.get('img'), infoLabels=f, IsPlayable=True,itemcount=items)
     if pagination[1]:
-        addLinkItem(name='[COLOR blue]>> nastepna strona >>[/COLOR]', url=ex_link, mode='__page__M', page=pagination[1], IsPlayable=False)
+        addLinkItem(name='[COLOR blue]>> następna strona >>[/COLOR]', url=ex_link, mode='__page__M', page=pagination[1], IsPlayable=False)
 
 
 def ListSeriale(ex_link,page):
@@ -227,6 +227,7 @@ if mode is None:
     addDir(name="Filmy HD",ex_link='http://cda-online.pl/jakosc/hd/',page=1, mode='ListMovies',iconImage='DefaultFolder.png',fanart=FANART)
     addDir(name=" => [Gatunek]",ex_link='film|gatunek',page=1, mode='GatunekRok',iconImage='DefaultFolder.png',fanart=FANART)
     addDir(name=" => [Rok]",ex_link='film|rok',page=1, mode='GatunekRok',iconImage='DefaultFolder.png',fanart=FANART)
+    addDir(name=" => [Jakość]",ex_link='film|jakosc',page=1, mode='GatunekRok',iconImage='DefaultFolder.png',fanart=FANART)
     
     addDir(name="[COLOR blue]Seriale[/COLOR]",ex_link='http://cda-online.pl/seriale/',page=1, mode='ListSeriale',iconImage='DefaultFolder.png',fanart=FANART)
     addDir(name=" => [Gatunek]",ex_link='serial|gatunek',page=1, mode='GatunekRok',iconImage='DefaultFolder.png',fanart=FANART)

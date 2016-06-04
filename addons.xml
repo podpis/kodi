@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addons>
 <addon id="plugin.video.cdaonline"
-version="1.5.2"
+version="1.6.0"
 name="cda-online"
 provider-name="Michal">
 <requires>
@@ -221,7 +221,7 @@ provider-name="Michal">
 	</extension>
 </addon>
 
-<addon id="script.module.urlresolver" name="URLResolver" version="3.0.5" provider-name="Eldorado">
+<addon id="script.module.urlresolver" name="URLResolver" version="3.0.11" provider-name="Eldorado">
 <requires>
 <import addon="xbmc.python" version="2.1.0"/>
 </requires>

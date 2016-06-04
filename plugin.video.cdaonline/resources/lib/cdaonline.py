@@ -19,14 +19,23 @@ def getUrl(url,data=None,cookies=None):
         link=''
     return link
     
-url='http://cda-online.pl/filmy-online'
-
+# url='https://cda-online.pl/filmy-online'
+# url='https://cda-online.pl/?s=dom'
 def scanMainpage(url,page=1):
-    url += '/' if url[-1] != '/' else ''
-    content = getUrl(url + 'page/%d/' %page)
-    nextpage=False
-    if content.find(url + 'page/%d/' %(page+1))>0:
-        nextpage = page+1
+    if '?s=' in url:
+        url = url.replace('?s=','page/%d/?s=' %page)
+    else:
+        url += '/' if url[-1] != '/' else ''
+        url = url + 'page/%d/' %page
+    
+    content = getUrl(url)
+    
+    nextPage=False
+    next_url=url.replace('page/%d/'%page,'page/%d/' %(page+1))
+    if content.find(next_url.split('//')[-1])>-1:
+        nextPage = page+1
+    # if content.find(url + 'page/%d/' %(page+1))>0:
+    #     nextpage = page+1
         
     ids = [(a.start(), a.end()) for a in re.finditer('<div id=\"mt.*\" class=\"item\">', content)]
     ids.append( (-1,-1) )
@@ -35,7 +44,8 @@ def scanMainpage(url,page=1):
         #print content[ ids[i][1]:ids[i+1][0] ]
         subset = content[ ids[i][1]:ids[i+1][0] ]
         href = re.compile('<div class="boxinfo">[\s\n]+<a href="(.*?)">',re.DOTALL).search(subset)
-        title = re.compile('<span class="tt">(.*?)</span>',re.DOTALL).search(subset)
+        title = re.compile('<span class="tt">(.*?)<',re.DOTALL).search(subset)
+        #title = re.compile('<span class="tt">(.*?)</span>',re.DOTALL).search(subset)
         plot = re.compile('<span class="ttx">\n(.*?)(?:<div class="degradado"></div>){0,1}[\s\n]*</span>[\s\n]*',re.DOTALL).search(subset)
         img = re.compile('<div class="image">[\s\n]+<img src="(.*?)"',re.DOTALL).search(subset)
         imdb = re.compile('<span class="imdbs">(.*?)</span>',re.DOTALL).search(subset)
@@ -55,9 +65,9 @@ def scanMainpage(url,page=1):
                 'code'  : quality.group(1) if quality else '?',
                     }
             out.append(one)
-    nextPage=False
-    if content.find(url + 'page/%d/' %(page+1))>0:
-        nextPage = page+1
+    # nextPage=False
+    # if content.find(url + 'page/%d/' %(page+1))>0:
+    #     nextPage = page+1
     prevPage = page-1 if page>1 else False
     return (out, (prevPage,nextPage))
 
@@ -85,6 +95,8 @@ def _getOrginalURL(url,host=''):
             links = re.compile('top.location = [\'"](.*?)[\'"];').search(content)
             if links:
                 orginal_link = links.group(1)
+        if 'ouo.io' in url:
+            orginal_link = url
         else:
             req = urllib2.Request(url)
             req.add_header('User-Agent', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.97 Safari/537.36')
@@ -106,14 +118,14 @@ def _getOrginalURL(url,host=''):
 
 #url='http://cda-online.pl/carte-blanche/'
 #url='http://cda-online.pl/critters-2/'
-
+#url='https://cda-online.pl/robin-hood-ksiaze-zlodziei/'
 def getVideoLinks_iframes(url,content=None):
     if not content:
         content = getUrl(url)
     
     out  =[]
     iframe = re.compile('<iframe (.*?)</iframe>',re.DOTALL).findall(content)
-
+    names = re.compile('<li>[\n\t ]*<a href="#div.*?".*?>(.*?)</a',re.DOTALL).findall(content)
     for frame in iframe:
         href = re.compile('src="(.*?)"',re.DOTALL).search(frame)
         if href:
@@ -125,9 +137,14 @@ def getVideoLinks_iframes(url,content=None):
                     'title': "[%s]" %(host),
                     'host': host    }
                 out.append(one)
+    if len(names)==len(out): # merge with names
+        for one,name in zip(out,names):
+            one['title'] += ' %s'%name.strip()
     return out
 
 #url='https://cda-online.pl/carte-blanche/'
+# url='https://cda-online.pl/kingsman-tajne-sluzby/'
+# out=getVideoLinks(url)
 def getVideoLinks(url):
     content = getUrl(url)
         
@@ -155,8 +172,11 @@ def getVideoLinks(url):
             link = _getOrginalURL(href_go.replace('http://cda-online.pl?',''),host)
             
             if link:
+                msg =''
+                if 'ouo.io' in link:
+                    msg = '[COLOR red] ouo.io not supported[/COLOR]'
                 one = {'url' : link,
-                    'title': "[%s] %s, %s" %(host,j,q),
+                    'title': "[%s] %s, %s %s" %(host,j,q,msg),
                     'host': host    }
                 out.append(one)
     return out
@@ -181,21 +201,26 @@ def scanTVshow(url):
             out.append(one)
     return out
 
-
+#rodzaj='serial'
+#rodzaj='film'
+# typ='gatunek'
+# typ='rok'
 def getGatunekRok(rodzaj='film',typ='gatunek'):
     content = getUrl('http://cda-online.pl/')
     selected = []
     if rodzaj=='film':
         if typ=='gatunek':
             #selected = re.compile('<a href="(http://cda-online.pl/kategoria/.*?/)" >(.*?)</a> <span>(\d+)</span>').findall(content)
-            selected = re.compile('<a href="(.*//cda-online.pl/kategoria/.*?/)" title=".*?">(.*?)</a>').findall(content)
-        else:
-            selected = re.compile('<a href="(http://cda-online.pl/rok/\d{4}/)">(\d{4})</a>').findall(content)
+            selected = re.compile('<a href="(http[s]://cda-online.pl/kategoria/.*?/)" title=".*?">(.*?)</a>').findall(content)
+        elif typ=='rok':
+            selected = re.compile('<a href="(http[s]://cda-online.pl/rok/\d{4}/)">(\d{4})</a>').findall(content)
+        elif typ=='jakosc':
+            selected = re.compile('<a href="(http[s]://cda-online.pl/jakosc/.*?)">(.*?)</a>').findall(content)
     elif rodzaj=='serial':
         if typ=='gatunek':
-            selected = re.compile('<a href="(http://cda-online.pl/seriale-gatunek/.*?/)">(.*?)</a>').findall(content)
-        else:
-            selected = re.compile('<a href="(http://cda-online.pl/seriale-rok/\d{4}/)">(\d{4})</a>').findall(content)
+            selected = re.compile('<a href="(http[s]://cda-online.pl/seriale-gatunek/.*?)"[\t\n ]*>(.*?)</a>').findall(content)
+        elif typ=='rok':
+            selected = re.compile('<a href="(http[s]://cda-online.pl/seriale-rok/\d{4}/)">(\d{4})</a>').findall(content)
     if selected:
         url_list = [x[0] for x in selected]
         display = [' '.join(x[1:]) for x in selected]
