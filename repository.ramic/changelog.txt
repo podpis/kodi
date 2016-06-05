@@ -1,5 +1,6 @@
-[B]1.0.1[/B]
-Initial release
+[B]1.1.0[/B]
+- repository
+- urlresolver
 
-[B]1.0.1[/B]
+[B]1.0.0[/B]
 Repository Kodi

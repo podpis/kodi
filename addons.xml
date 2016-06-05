@@ -204,7 +204,7 @@ provider-name="Michal">
 </extension>
 </addon>
 
-<addon id="repository.ramicspa" name="Ramic Kodi Add-ons" version="1.0.0" provider-name="Michal">
+<addon id="repository.ramicspa" name="Ramic Kodi Add-ons" version="1.1.0" provider-name="Michal">
 	<extension point="xbmc.addon.repository" name="Ramic Kodi Add-ons Repository">
 		<info compressed="false">http://raw.github.com/ramicspa/kodi/master/addons.xml</info>
 		<checksum>http://raw.github.com/ramicspa/kodi/master/addons.xml.md5</checksum>
@@ -212,7 +212,7 @@ provider-name="Michal">
 	</extension>
 	<extension point="xbmc.addon.metadata">
 		<summary>Ramic Kodi Add-ons</summary>
-		<summary lang="pl">Wtyczki dla Kodi helix</summary>
+		<summary lang="pl">Wtyczki dla Kodi</summary>
 		<description>Unofficial, private Addons repository.</description>
 		<description lang="pl"> </description>
 		<disclaimer>Repository has non-comercial nature.</disclaimer>
