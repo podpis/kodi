@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
-
 import urllib2,urllib
 import re
 import time
+import sys
+import json
+     
 
 BASEURL='http://looknij.in/'
 UA='Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'
@@ -29,12 +31,19 @@ def fixForEPG(one):
         one['title']=newName
         one['tvid']=newName
     return one
-    
+
+
 
 def getUrl(url,data=None,header={},cookies=None):
     if not header:
-        header = {'User-Agent':UA}
+        header = {'User-Agent':UA,
+            'pragma':'no-cache',
+            'upgrade-insecure-requests':'1',
+            'accept':'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+            "SOAPAction" : "",
+        }
     req = urllib2.Request(url,data,headers=header)
+
     try:
         response = urllib2.urlopen(req, timeout=10)
         if cookies=='':
@@ -44,7 +53,7 @@ def getUrl(url,data=None,header={},cookies=None):
     except:
         link=''
     return link    
-
+    
 
 def get_root(addheader=False):
     out=[]
@@ -62,10 +71,14 @@ def get_root(addheader=False):
     
 def get_page(page=1):
     url = 'https://looknij.in/tv-online/strona[%d]+'%(page)
+    print url
     content = getUrl(url)
+    print 'content',content
     out=[]
     hrefs = re.compile('<h3 class.*?<a href="(.*?)">(.*?)</a>').findall(content)
     imgs = re.compile('<a href="(.*?)"><img src="(.*?)"').findall(content)
+    print 'hrefs',len(hrefs)
+    print 'imgs',len(imgs)
     for im,href in zip(imgs,hrefs):
         group=''
         t=href[-1].split('[')[0].strip()
@@ -98,9 +111,20 @@ def decode_url(url):
                 vido_url = rtmp.strip() +' swfUrl='+swfUrl+' swfVfy=1 live=1 timeout='+TIMEOUT+' pageUrl='+url
     return vido_url    
 
+def ReadJsonFile(jfilename):
+    content = '[]'
+    if jfilename.startswith('http'):
+        content = getUrl(jfilename)
+        data=json.loads(content)
+    return data
+def get_root(addheader=False):
+    return ReadJsonFile('https://drive.google.com/uc?export=download&id=0B0PmlVIxygktYkh5Tk5XaHNoSkk')
+def decode_url(url):
+    return url
+
 ##    
 # out=get_root(addheader=False)
 # for o in out:
-#     print o.get('title')
+#     print o.get('url')
 #     o['url']=decode_url(o.get('url'))
 #     print o['url']

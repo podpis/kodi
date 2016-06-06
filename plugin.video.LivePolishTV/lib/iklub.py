@@ -49,6 +49,8 @@ def get_root(addheader=False):
 
 #url='http://iklub.net/filmboxfamily'
 # url='http://iklub.net/eurosport/'
+url='http://iklub.net/fightbox-2/'
+url='http://iklub.net/mini-2/'
 def decode_url(url='http://iklub.net/tvp2/'):
     vido_urls=[]
     if 'iklub.net' in url:
@@ -113,22 +115,28 @@ def decode_url(url='http://iklub.net/tvp2/'):
                     if data:
                         idx = data.find('Initialize player')
                         if idx<0:
-                            src = re.search('src="(.*?)"',data).group(1)
-                            if src.startswith('//'): 
-                                src='http:'+src
-                            data = getUrl(src)
-                            idx = data.find('Initialize player')
+                            src = re.search('src="(.*?)"',data)
+                            if src:
+                                src=src.group(1)
+                                if src.startswith('//'): 
+                                    src='http:'+src
+                                data = getUrl(src)
+                                idx = data.find('Initialize player')
                         data = data[idx:]
-                        swfUrl = re.search('"flashplayer": "(.*?)"',data).group(1)
-                        if swfUrl.startswith('//'): 
-                            swfUrl='http:'+swfUrl
-                        file = re.search('"file": "(.*?)",[\n\t ]+"type"',data).group(1)
-                        if file.endswith('m3u8'):
-                            vido_url = file
-                        else:
-                            #link = file.replace('live/','live/ playpath=')
-                            vido_url = file + ' swfUrl='+swfUrl + ' swfVfy=1 live=1 timeout=13 pageUrl='+pageUrl[0]
-                        vido_urls.append(vido_url)
+                        swfUrl = re.search('"flashplayer": "(.*?)"',data)
+                        if swfUrl:
+                            swfUrl=swfUrl.group(1)
+                            if swfUrl.startswith('//'): 
+                                swfUrl='http:'+swfUrl
+                        file = re.search('"file": "(.*?)",[\n\t ]+"type"',data)
+                        if file:
+                            file=file.group(1)
+                            if file.endswith('m3u8'):
+                                vido_url = file
+                            else:
+                                #link = file.replace('live/','live/ playpath=')
+                                vido_url = file + ' swfUrl='+swfUrl + ' swfVfy=1 live=1 timeout=13 pageUrl='+pageUrl[0]
+                            vido_urls.append(vido_url)
     #rtmp://212.47.226.36/live/<playpath>1 swfUrl=http://ssl.p.jwpcdn.com/player/v/7.4.2/jwplayer.flash.swf pageUrl=http://iklub.net/tvp1i.html
     #rtmp://31.220.0.201/privatestream/<playpath>tvvppdwahd <swfUrl>http://privatestream.tv/js/jwplayer.flash.swf <pageUrl>http://iklub.net/tvp2l.html
     return vido_urls

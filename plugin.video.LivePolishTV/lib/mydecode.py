@@ -3,6 +3,12 @@
 import re
 import urllib2,urllib
 import base64
+import urlparse
+try:
+    import execjs
+except:
+    import js2py
+
 
 UA='Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'
 
@@ -22,37 +28,135 @@ def getUrl(url,data=None,header={},cookies=None):
     
 
 def decode(url,data):
-    query=re.search('src=["\'](http.*?)["\']',data)
-    if query:
-        query=query.group(1)
+    #query=re.search('src=["\'](http.*?)["\']',data)
+    # if query:
+    #     query=query.group(1)
+    #     
+    srcs=re.compile('src=["\'](http.*?)["\']').findall(data)
+    #query = srcs[1]
     ## MAIN CASE
-    if 'dotstream.tv' in query:
-        print '@@dotstream'
-        return _dotstream(query,data,url)  
-    elif 'static.bro.adca.st' in query:
-        print '@@jstatic.bro.adca.st'
-        return _static_bro_adca_st(url,data)
-    elif 'jwpsrv.com' in query:
-        print '@@jwpsrv'
-        return _jwpsrv(query,data)
-    elif 'aliez.me' in query:
-        print '@@aliez'
-        return _aliez(query,data)
-    elif 'ustream' in query:
-         print '@@ustream'
-         return _ustream(query,data)
-    elif 'castto.me' in query:
-        print '@@castto'
-        return _static_castto_me(url,data)
-    elif 'privatestream' in query:
-        print '@@privatestream'
-        return _privatestream(query,data)
+    for query in srcs:
+        if 'livecounter' in query:
+            pass
+        
+        elif 'myfreshinfo' in query:
+            print '@@myfreshinfo'
+            return _myfreshinfo(query,data,url)
+        elif 'cinema-tv.xyz' in query:
+            print '@@cinema-tv.xyz'
+            return _cinematvxyz(query,data,url) 
+        elif 'flowplayer' in query:
+            print '@@flowplayer'
+            return _flowplayer(query,data,url)            
+        elif 'shidurlive' in query:   #TODO
+            print '@@shidurlive'
+            return _shidurlive(query,data,url) 
+        elif 'freedocast' in query:
+            print '@@freedocast'
+            return _freedocast(query,data,url) 
+        elif 'tvope' in query:
+            print '@@tvope'
+            return _tvope(query,data,url) 
+        elif 'dotstream.tv' in query:
+            print '@@dotstream'
+            return _dotstream(query,data,url)  
+        elif 'static.bro.adca.st' in query:
+            print '@@jstatic.bro.adca.st'
+            return _static_bro_adca_st(url,data)
+        elif 'jwpsrv.com' in query:
+            print '@@jwpsrv'
+            return _jwpsrv(query,data)
+        elif 'jwpcdn.com' in query:
+            print '@@jwpcdn'
+            return _jwpcdn(query,data,url)
+        elif 'aliez.me' in query:
+            print '@@aliez'
+            return _aliez(query,data)
+        elif 'ustream' in query:
+            print '@@ustream'
+            return _ustream(query,data)
+        elif 'castto.me' in query:
+            print '@@castto'
+            return _static_castto_me(url,data)
+        elif 'privatestream' in query:
+            print '@@privatestream'
+            return _privatestream(query,data)
+    print srcs
+    return None
+
+##
+def _myfreshinfo(query,data,url):
+    vido_url=''
+    data2=getUrl(query)
+    s_hex = re.compile('unescape\(["\'](.*?)["\']\)').findall(data2)
+    s_hex0 = s_hex[0].replace('%','').decode('hex')
+    f_name = re.compile('function (.*?)\(').findall(s_hex0)[0]
+    s_hex1 = s_hex[1].replace('%','').decode('hex')
+    encrypted = re.compile('<SCRIPT LANGUAGE="JavaScript">%s\("(.*?)"\);</SCRIPT>'%f_name,re.DOTALL).findall(data2)
+    if encrypted:
+        code = encrypted[0]
+        #code = code.encode('utf-8')
+        code =''+code.strip('\\n')+''
+        try:
+            fun = s_hex0.replace('document.write(tttmmm)','return tttmmm')
+            ctx = execjs.compile(fun)
+            decoded = ctx.call(f_name, code)
+        except:
+            context = js2py.EvalJs() 
+            context.execute(fun)
+            decoded = getattr(context,f_name)(code)
+    return vido_url    
+##
+def _flowplayer(query,data,url):
+    vido_url=''
+    rtmp = re.compile('\'(rtmp://.*?)\'').findall(data)
+    swfUrl = re.compile('src:\'(http://.*?swf)\'').findall(data)
+    if rtmp and swfUrl:
+        vido_url = rtmp[0] + ' swfUrl='+swfUrl[0] + ' swfVfy=1 live=1 timeout=13  pageUrl='+url
+    return vido_url    
+
+def _cinematvxyz(query,data,url):
+    #rtmp://stream.smcloud.net/live/<playpath>polotv <swfUrl>http://cinema-tv.xyz/floplayer/flowplayer-3.2.18.swf <pageUrl>http://cinema-tv.xyz/streams/muzyczne/polotv.php
+    vido_url=''
+    file = re.compile('url: \'(.*?)\'').findall(data)
+    rtmp = re.compile('\'(rtmp://.*?)\'').findall(data)
+    swfUrl = re.search('"player", "(.*?.swf)"',data)
+    if file and rtmp and swfUrl:
+        vido_url = rtmp[0] + ' playpath='+file[0].strip() +' swfUrl='+swfUrl.group(1) + ' swfVfy=1 live=1 timeout=13  pageUrl='+url
+    return vido_url
+##
+def _shidurlive(query,data,url):
+    #TODO need working example
+    vido_url='TODO'
+    return vido_url
     
-    else:
-        print query
-        return None
-
-
+##
+def _freedocast(query,data,url):
+    vido_url=''
+    #rtmp://live.looknij.in/live/<playpath>FILMBOX <swfUrl>http://cdn.freedocast.com/hdflvplayer/hdplayer.swf <pageUrl>http://cinema-tv.xyz/streams/filmowe/filmboxextra.php
+    link = re.compile('"streamer=(.*?)"').findall(data)
+    if link:
+        data2=link[0].split('&amp;')
+        vido_url = data2[0] +' playpath='+data2[1].split('=')[-1] +' swfUrl='+query+ ' swfVfy=1 live=1 timeout=13  pageUrl='+url
+    return vido_url  
+##
+def _tvope(query,data,url):
+    vido_url=''
+    #rtmp://play5.tvope.com/tvope<playpath>stream_tvn24 <swfUrl>http://i.tvope.com/swf/player5.4.swf <pageUrl>http://tvope.com/emb/player.php?c=tvn24&w=640&h=480&jw&d=match-sport.com
+    feed = re.compile('c="(.*?)"; w=(.*?); h=(.*?);').findall(data)
+    query = 'http://tvope.com/emb/player.php?c=%s&w=%s&h=%s&jw&d='%feed[0]
+    query +=query+urlparse.urlparse(url).hostname
+    header = {'User-Agent':UA,
+                'Referer': url,
+                'Host':'tvope.com'}
+    decoded = getUrl(query,header=header)
+    swfUrl = re.compile('SWFObject\(\'(.*?)\'').findall(decoded)
+    stream = re.compile('\'streamer\',\'(.*?)\'\);').findall(decoded)
+    file   = re.compile('\'file\',\'(.*?)\'\);').findall(decoded)
+    if swfUrl and stream and file:
+        vido_url = stream[0] +' playpath='+file[0] + ' swfUrl='+swfUrl[0] + ' swfVfy=1 live=1 timeout=13  pageUrl='+query
+    return vido_url  
+    
 ##
 def _dotstream(query,data,urlref):
     vido_url=''
@@ -131,7 +235,19 @@ def _static_bro_adca_st(query,data):
             vido_url = link + token.group(1) + h+'&User-Agent='+UA+'&Referer=http://cdn.ebookterritory.pw/jwplayer.flash.swf'
 
     return vido_url
-    
+
+def _jwpcdn(query,data,url):
+    vido_url=''
+    file   = re.compile('[\']*file[\']*[:, ]*[\'"](.*?)[\'"]').findall(data)
+    if file:
+        file = file[0]
+        if file.endswith('m3u8'):
+            vido_url = file
+        else:
+            swfUrl='http://p.jwpcdn.com/6/12/jwplayer.flash.swf'
+            vido_url = file + ' swfUrl='+swfUrl + ' live=1 timeout=13  pageUrl='+url  
+    return vido_url
+        
 def _jwpsrv(query,data):
     vido_url=''
     file   = re.compile('[\']*file[\']*[:, ]*[\'"](.*?)[\'"]').findall(data)
@@ -141,7 +257,7 @@ def _jwpsrv(query,data):
             vido_url = file
         else:
             swfUrl='http://p.jwpcdn.com/6/12/jwplayer.flash.swf'
-            vido_url = file[0] + ' swfUrl='+swfUrl + ' live=1 timeout=13  pageUrl='+query  
+            vido_url = file + ' swfUrl='+swfUrl + ' live=1 timeout=13  pageUrl='+query  
     return vido_url
     
 def _aliez(query,data):

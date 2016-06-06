@@ -51,6 +51,7 @@ def get_root(addheader=False):
 # url ='http://match-sport.com/stream23.php' #http://www.soccerjumbotv.me/ch-1.html
 # url='http://match-sport.com/tvnstyle1.php'
 # url='http://match-sport.com/stream3.php'
+url = 'http://cinema-tv.xyz/ogolne/tvp1hd/'
 def decode_url(url='http://match-sport.com/stream12.php'):
     vido_url=''
     content = getUrl(url)

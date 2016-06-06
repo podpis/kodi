@@ -8,6 +8,7 @@ import xbmcplugin
 import json 
 from copy import deepcopy
 
+
 # THIS CODE CAN BE USED ONLY FOR NON-COMMERCIAL PURPOSE!
 
 
@@ -29,6 +30,8 @@ import ihtv
 import itivi
 import yoytv
 import looknijin
+import cinematv
+import polxtv
 #import wizjatv as wt
 
 # ____________________________
@@ -72,8 +75,14 @@ def build_url(query):
     return base_url + '?' + urllib.urlencode(query)
 
 def m3u2list(url):
-    url = 'https://drive.google.com/uc?export=download&id=0B0PmlVIxygktR3dvSnByTTZtNFE'
-    response = getUrl(getUrl(url))
+    url = 'https://drive.google.com/uc?export=download&id=0B0PmlVIxygktYW5RUVdHS2c3VE0'
+    for u in getUrl(url).split('\n'):
+        response = getUrl(u)
+        if len(response)>500 :
+            break
+        else:
+            response=''
+    
     out = []
     matches=re.compile('^#EXTINF:-?[0-9]*(.*?),(.*?)\n(.*?)$',re.I+re.M+re.U+re.S).findall(response)
     
@@ -233,6 +242,9 @@ if mode is None:
     addDir('LIVE TV: itivi',iconImage='')
     addDir('LIVE TV: yoy.tv',iconImage='')
     addDir('LIVE TV: looknij.in',iconImage='')
+    addDir('LIVE TV: cinematv',iconImage='')
+    addDir('LIVE TV: polxtv',iconImage='')
+    
     #addDir('LIVE TV: wizja',iconImage='')
     
     url = build_url({'mode': 'Opcje'})
@@ -245,6 +257,7 @@ elif mode[0] == 'Opcje':
         DATAPATH    = xbmc.translatePath(my_addon.getAddonInfo('profile')).decode('utf-8')
         my_addon.setSetting('path',DATAPATH)
     my_addon.openSettings()   
+
 
 elif mode[0] == 'palyLiveVideo':
     playLiveVido(ex_link)
@@ -272,6 +285,17 @@ elif mode[0]=='play_looknij':
 #     else:
 #         xbmcplugin.setResolvedUrl(addon_handle, False, xbmcgui.ListItem(path=stream_url)) 
 
+elif mode[0]=='play_cinematv':
+    #xbmcgui.Dialog().ok('',ex_link)
+    stream_url = cinematv.decode_url(ex_link)
+    
+    print '###play_cinematv',stream_url
+    if stream_url:
+        xbmcplugin.setResolvedUrl(addon_handle, True, xbmcgui.ListItem(path=stream_url))
+    else:
+        xbmcgui.Dialog().ok('[COLOR red] Sorry [/COLOR]','Kanał zabezpieczony hasłem','... albo nie znalazłem linku')
+        xbmcplugin.setResolvedUrl(addon_handle, False, xbmcgui.ListItem(path=stream_url)) 
+        
 elif mode[0]=='play_ihtv':
     stream_url = ihtv.decode_url(ex_link)
     print '###play_ihtv',stream_url
@@ -288,6 +312,16 @@ elif mode[0]=='play_looknijin':
     else:
         xbmcplugin.setResolvedUrl(addon_handle, False, xbmcgui.ListItem(path=stream_url)) 
         
+elif mode[0]== 'play_polxtv':
+    stream_url = polxtv.decode_url(ex_link)
+    
+    print '###play_polxtv',stream_url
+    if stream_url:
+        xbmcplugin.setResolvedUrl(addon_handle, True, xbmcgui.ListItem(path=stream_url))
+    else:
+        xbmcgui.Dialog().ok('[COLOR red] Sorry [/COLOR]','Nie znalazłem linku - nobody is perfect ;)')
+        xbmcplugin.setResolvedUrl(addon_handle, False, xbmcgui.ListItem(path=stream_url))   
+
 elif mode[0]== 'play_yoytv':
     stream_url = yoytv.decode_url(ex_link)
     #xbmcgui.Dialog().ok('',stream_url)
@@ -519,9 +553,18 @@ elif mode[0] == 'folder':
         for one in content: # 'play_yoytv'
             addLinkItem(one.get('title',''),  one['url'], 'play_yoytv', one.get('epgname',None),iconimage=one.get('img'))
     elif fname == 'LIVE TV: looknij.in':
-        content = looknijin.get_root()
-        for one in content: # 'play_yoytv'
+        content = looknijin.get_root(addheader=False)
+        for one in content: # 'play_looknijin'
             addLinkItem(one.get('title',''),  one['url'], 'play_looknijin', one.get('epgname',None),iconimage=one.get('img'))
+    elif fname == 'LIVE TV: cinematv':
+        content = cinematv.get_root()
+        for one in content: # 'play_cinematv'
+            addLinkItem(one.get('title',''),  one['url'], 'play_cinematv', one.get('epgname',None),iconimage=one.get('img'))
+    elif fname == 'LIVE TV: polxtv':
+        content = polxtv.get_root()
+        for one in content: # 'play_cinematv'
+            addLinkItem(one.get('title',''),  one['url'], 'play_polxtv', one.get('epgname',None),iconimage=one.get('img'))
+
     # elif fname == 'LIVE TV: wizja':
     #     content = wt.get_root()
     #     for one in content: # 
