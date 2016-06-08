@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+    
+    <category label="AutoView" >
+        <setting id="auto-view" type="bool" label="Widok" default="false" enable=/>
+        <setting id="view_mode" type="enum" label="Movies View" values="List|Big List|Thumbnails|Poster Wrap|Fanart|Media info|Media info 2|Media info 3" enable="!eq(-1,false)+!eq(-2,false)"/>
+    </category>  
+       
+    <category label="Metadata (filmweb)">
+        <setting label="Szukać informacji o video na filmweb?" type="lsep"/>
+        <setting id="filmweb_f" label="Filmy"   type="bool"  default="false"/>
+        <setting id="filmweb_s" label="Seriale" type="bool"  default="false"/>
+    </category>
+    
+
+</settings>
+
+
