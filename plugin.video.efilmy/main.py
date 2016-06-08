@@ -113,7 +113,7 @@ def updateMetadata(item,use_filmweb='true',itemType='f'):
         title= item.get('title','')
         year = item.get('year','')
         print title,year
-        data = fa.searchFilmweb(title.strip(),year.strip(),itemType)
+        data = fa.searchFilmweb(title.decode('utf-8'),year.strip(),itemType)
         if data:
             item.update(data)
     item['title'] += item.get('audio','')
