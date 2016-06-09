@@ -25,6 +25,16 @@ def getUrl(url,data=None,cookies=None):
 # url='https://www.playernaut.com/embed/vS631dFkt'
 # url='https://www.playernaut.com/?v=V3bkB2bOH'
 # url='https://www.playernaut.com/?v=V3bkB2bOH'
+# url='https://www.playernaut.com/embed/zi8QWW4rr'
+
+def _getstuff(content,Cookie):
+    src=[]
+    quality_options = re.compile('"file":"(.*?)","label":"(.*?)"').findall(content)
+    for quality in  quality_options:
+        link = quality[0].replace('\\','')
+        hd = quality[1].split('"')[0]
+        src.append((hd,link+Cookie))
+    return src
 
 def getVideoUrls(url):
     """    
@@ -37,17 +47,16 @@ def getVideoUrls(url):
     if '/embed/' in url:
         url=url.replace('/embed/','/?v=')
     content = getUrl(url)
-    script = re.compile('<script>(.*?)</script>',re.DOTALL).findall(content)
-    for s in script:
-        if s.find("ﾟωﾟﾉ=")>-1:
-            aa=aadecode.AADecoder(s)
-            content = aa.decode()
-            src=[]
-            quality_options = re.compile('"file":"(.*?)","label":"(.*?)"').findall(content)
-            for quality in  quality_options:
-                link = quality[0].replace('\\','')
-                hd = quality[1].split('"')[0]
-                src.append((hd,link+Cookie))
-            break
+    src = _getstuff(content,Cookie)
+    if not src:
+        script = re.compile('<script>(.*?)</script>',re.DOTALL).findall(content)
+        # len(script)
+        src=[]
+        for s in script:
+            if s.find("ﾟωﾟﾉ=")>-1:
+                aa=aadecode.AADecoder(s)
+                content = aa.decode()
+                src = _getstuff(content,Cookie)
+                break
     return src    
     
