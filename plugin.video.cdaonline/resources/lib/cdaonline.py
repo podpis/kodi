@@ -1,14 +1,18 @@
 # -*- coding: utf-8 -*-
 
 import urllib2,urllib
-import re
+import re,os
+import cfcookie,cookielib
 
-BASEURL=''
+BASEURL='https://cda-online.pl/'
 TIMEOUT = 10
+UA='Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.97 Safari/537.36'
+
+COOKIEFILE=r'c:\users\ramic\appdata\roaming\kodi\addons\plugin.video.efilmy\1.cookie'
  
-def getUrl(url,data=None,cookies=None):
+def _getUrl(url,data=None,cookies=None):
     req = urllib2.Request(url,data)
-    req.add_header('User-Agent', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.97 Safari/537.36')
+    req.add_header('User-Agent', UA)
     if cookies:
         req.add_header("Cookie", cookies)
     try:
@@ -18,6 +22,25 @@ def getUrl(url,data=None,cookies=None):
     except:
         link=''
     return link
+
+def getUrl(url,data=None):
+    cookies=cfcookie.cookieString(COOKIEFILE)
+    content=_getUrl(url,data,cookies)
+    if not content:
+        cf_setCookies(url,COOKIEFILE)
+        cookies=cfcookie.cookieString(COOKIEFILE)
+        content=_getUrl(url,data,cookies)
+    return content
+
+def cf_setCookies(link,cfile):
+    cj = cookielib.LWPCookieJar()
+    cookieJar = cfcookie.createCookie(BASEURL,cj,UA)
+    dataPath=os.path.dirname(cfile)
+    if not os.path.exists(dataPath):
+        os.makedirs(dataPath)
+    if cookieJar:
+        cookieJar.save(cfile, ignore_discard = True) 
+    return cj
     
 # url='https://cda-online.pl/filmy-online'
 # url='https://cda-online.pl/?s=dom'

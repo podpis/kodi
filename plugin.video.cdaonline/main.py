@@ -27,9 +27,11 @@ my_addon        = xbmcaddon.Addon()
 addonName       = my_addon.getAddonInfo('name')
 
 PATH        = my_addon.getAddonInfo('path')
+DATAPATH    = xbmc.translatePath(my_addon.getAddonInfo('profile')).decode('utf-8')
 RESOURCES   = PATH+'/resources/'
 
 FANART=RESOURCES+'fanart.png'
+cdaonline.COOKIEFILE=os.path.join(DATAPATH,'cdaonline.cookie')
 
 ## COMMON Functions
 
