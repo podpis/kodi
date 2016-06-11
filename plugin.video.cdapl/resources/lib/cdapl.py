@@ -515,22 +515,7 @@ def unicodePLchar(txt):
 
 ## Permium
 
-# def getUrl(url,data=None,headers={},cookies=None):
-#     if headers:
-#         my_header=headers
-#     else:
-#         my_header = {'User-Agent':'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.97 Safari/537.36'}
-#     req = urllib2.Request(url,data,my_header)
-#     if cookies:
-#         req.add_header("Cookie", cookies)
-#     try:
-#         response = urllib2.urlopen(req,timeout=TIMEOUT)
-#         link =  response.read()
-#         response.close()
-#     except:
-#         link=''
-#     return link
-#     
+     
 def premium_Katagorie():
     url='http://www.cda.pl/premium'
     content = getUrl(url)
@@ -544,13 +529,12 @@ def premium_Katagorie():
 
 #content=jtmp.get('html')
 def premium_readContent(content):
-    items = re.compile('<span class="cover-area">(.*?[\n\t ]*</span>)[\n\t ]*</span>\n</span>',re.DOTALL).findall(content)
+    ids = [(a.start(), a.end()) for a in re.finditer('<span class="cover-area">', content)]
+    ids.append( (-1,-1) )
     out=[]
-    #print len(items)
-    #item=items[10]
-    for i,item in enumerate(items):
-        #print item
-
+    for i in range(len(ids[:-1])):
+        #print content[ ids[i][1]:ids[i+1][0] ]
+        item = content[ ids[i][1]:ids[i+1][0] ]
         href_title = re.compile('<a href="(.*?)\?from=catalog" class="kino-title">(.*?)</a>').findall(item)[0]
         img = re.compile('src="(http.*?)"').findall(item)[0]
         quality = re.compile('"cloud-gray">(.*?p)<').findall(item)[-1]
@@ -560,6 +544,24 @@ def premium_readContent(content):
             'img':img,'code':quality
             })
     return out
+
+# def premium_readContent(content):
+#     items = re.compile('<span class="cover-area">(.*?[\n\t ]*</span>)[\n\t ]*</span>\n</span>',re.DOTALL).findall(content)
+#     out=[]
+#     #print len(items)
+#     #item=items[0]
+#     for i,item in enumerate(items):
+#         #print item
+# 
+#         href_title = re.compile('<a href="(.*?)\?from=catalog" class="kino-title">(.*?)</a>').findall(item)[0]
+#         img = re.compile('src="(http.*?)"').findall(item)[0]
+#         quality = re.compile('"cloud-gray">(.*?p)<').findall(item)[-1]
+#         out.append({
+#             'title':unicodePLchar(href_title[1]),
+#             'url':BASEURL+href_title[0],
+#             'img':img,'code':quality
+#             })
+#     return out
 
 def premium_Sort():
     return {'nowo dodane':'new',
