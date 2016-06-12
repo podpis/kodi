@@ -33,6 +33,7 @@ import looknijin
 import cinematv
 import polxtv
 #import wizjatv as wt
+import sport365
 
 # ____________________________
 def getUrl(url,data=None):
@@ -61,6 +62,7 @@ def addLinkItem(name, url, mode, epgname=None, iconimage=None, infoLabels=False,
     if fanart:
         liz.setProperty('fanart_image',fanart)
     ok = xbmcplugin.addDirectoryItem(handle=addon_handle, url=u, listitem=liz)
+    xbmcplugin.addSortMethod(addon_handle, sortMethod=xbmcplugin.SORT_METHOD_NONE, label2Mask = "%P")
     return ok
 
 
@@ -70,6 +72,7 @@ def addDir(name,ex_link=None,mode='folder',iconImage='DefaultFolder.png',fanart=
     if fanart:
         li.setProperty('fanart_image', fanart )
     xbmcplugin.addDirectoryItem(handle=addon_handle, url=url,listitem=li, isFolder=True)
+
 
 def build_url(query):
     return base_url + '?' + urllib.urlencode(query)
@@ -244,7 +247,7 @@ if mode is None:
     addDir('LIVE TV: looknij.in',iconImage='')
     addDir('LIVE TV: cinematv',iconImage='')
     addDir('LIVE TV: polxtv',iconImage='')
-    
+    addDir('LIVE TV: sport365',iconImage='')
     #addDir('LIVE TV: wizja',iconImage='')
     
     url = build_url({'mode': 'Opcje'})
@@ -267,8 +270,22 @@ elif mode[0] == 'playUrl':
         ex_link = ex_link.split(' ')[0]
     playUrl(fname,ex_link)
 
-        
-    
+elif mode[0] == 'play_sport365':
+    print 'play_sport365'
+    stream_url=''
+    streams = sport365.get_streams(ex_link,'')
+    if streams:
+        t = ['Link %d'%(i+1) for i in range(len(streams))]
+        s = xbmcgui.Dialog().select("Sources", t)
+        if s>-1:
+            stream_url = sport365.get_link(streams[s])
+            
+        if stream_url:       
+            xbmcplugin.setResolvedUrl(addon_handle, True, xbmcgui.ListItem(path=stream_url))
+        else:
+            xbmcplugin.setResolvedUrl(addon_handle, False, xbmcgui.ListItem(path=stream_url))
+    else:
+        xbmcgui.Dialog().ok("Problem", 'Źródła nie są jeszcze dostępne')         
 # LOOKNIJ
 elif mode[0]=='play_looknij':
     stream_url = ltv.decode_url(ex_link)
@@ -564,11 +581,14 @@ elif mode[0] == 'folder':
         content = polxtv.get_root()
         for one in content: # 'play_cinematv'
             addLinkItem(one.get('title',''),  one['url'], 'play_polxtv', one.get('epgname',None),iconimage=one.get('img'))
-
+    elif fname == 'LIVE TV: sport365':
+        content = sport365.get_root()
+        for one in content: # 'play_sport365'
+            addLinkItem(one.get('title',''),  one['url'], 'play_sport365', infoLabels=one, IsPlayable=True)
     # elif fname == 'LIVE TV: wizja':
     #     content = wt.get_root()
     #     for one in content: # 
     #         addLinkItem(one.get('title',''),  one['url'], 'play_wizja', one.get('epgname',None),iconimage=one.get('img'))
-        
+    #     
                
 xbmcplugin.endOfDirectory(addon_handle)

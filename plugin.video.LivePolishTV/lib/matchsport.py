@@ -24,6 +24,7 @@ def getUrl(url,data=None,header={}):
     
 def get_root(addheader=False):
     url='http://match-sport.com/'
+    url='http://www.typertv.com.pl/'
     content = getUrl(url)
     match=re.compile('<li><a href="(.*?)">(.*?)</a></li>').findall(content)
 

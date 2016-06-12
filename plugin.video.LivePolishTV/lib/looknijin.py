@@ -73,7 +73,6 @@ def get_page(page=1):
     url = 'https://looknij.in/tv-online/strona[%d]+'%(page)
     print url
     content = getUrl(url)
-    print 'content',content
     out=[]
     hrefs = re.compile('<h3 class.*?<a href="(.*?)">(.*?)</a>').findall(content)
     imgs = re.compile('<a href="(.*?)"><img src="(.*?)"').findall(content)

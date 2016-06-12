@@ -2,12 +2,14 @@
 <addon 
 	id="plugin.video.LivePolishTV" 
 	name="LivePolishTV" 
-	version="1.6.0" 
+	version="1.7.0" 
 	provider-name="Michal">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
+    <import addon="script.module.livestreamer" />
 </requires>
   <extension point="xbmc.python.pluginsource" library="addon.py">
+  
  <provides>video</provides>
   </extension>
   <extension point="xbmc.addon.metadata">
