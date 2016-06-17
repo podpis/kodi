@@ -8,7 +8,7 @@ BASEURL='https://cda-online.pl/'
 TIMEOUT = 10
 UA='Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.97 Safari/537.36'
 
-COOKIEFILE=r'c:\users\ramic\appdata\roaming\kodi\addons\plugin.video.efilmy\1.cookie'
+COOKIEFILE=''
  
 def _getUrl(url,data=None,cookies=None):
     req = urllib2.Request(url,data)
@@ -148,7 +148,12 @@ def getVideoLinks_iframes(url,content=None):
     
     out  =[]
     iframe = re.compile('<iframe (.*?)</iframe>',re.DOTALL).findall(content)
-    names = re.compile('<li>[\n\t ]*<a href="#div.*?".*?>(.*?)</a',re.DOTALL).findall(content)
+    #names = re.compile('<li>[\n\t ]*<a href="#div.*?".*?>(.*?)</a',re.DOTALL).findall(content)
+    names = re.compile('<ul class="idTabs">(.*?)</ul>',re.DOTALL).findall(content)
+    if names:
+        names = [x.strip() for x in re.compile('>(.*?)<').findall(names[0]) if x]
+    else:
+        names=[]
     for frame in iframe:
         href = re.compile('src="(.*?)"',re.DOTALL).search(frame)
         if href:
@@ -162,11 +167,12 @@ def getVideoLinks_iframes(url,content=None):
                 out.append(one)
     if len(names)==len(out): # merge with names
         for one,name in zip(out,names):
-            one['title'] += ' %s'%name.strip()
+            one['title'] += ' %s'%name
     return out
 
 #url='https://cda-online.pl/carte-blanche/'
 # url='https://cda-online.pl/kingsman-tajne-sluzby/'
+#url='https://cda-online.pl/ave-cezar/'
 # out=getVideoLinks(url)
 def getVideoLinks(url):
     content = getUrl(url)

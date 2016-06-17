@@ -174,12 +174,11 @@ def getLinks(ex_link):
         else: 
             print '!!!urlresolver'
             print link
-            stream_url = urlresolver.resolve(link)
-            if stream_url:
-                pass
-            else:
+            try:
+                stream_url = urlresolver.resolve(link)
+            except Exception,e:
                 stream_url=''
-                xbmcgui.Dialog().ok('[COLOR red] Problem [/COLOR]', 'Może inny link będzie działał?')
+                s = xbmcgui.Dialog().ok('[COLOR red]Problem[/COLOR]','Może inny link będzie działał?','ERROR: %s'%str(e))
     
     print stream_url
     if stream_url:
