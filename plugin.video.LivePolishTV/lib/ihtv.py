@@ -75,11 +75,6 @@ def get_root(addheader=False):
     groups=re.compile('<li><a href="(.*?)">(.*?)</a></li>').findall(content)
     for href,group in groups:
         #print href
-        # url='http://i-htv.net/ogolne.html'
-        # url='http://i-htv.net/informacyjne.html'
-        # url='http://i-htv.net/filmowe.html'
-        #url='http://i-htv.net/sportowe.html'
-        #url='http://i-htv.net/muzczyne.html'
         content = getUrl(BASEURL+href)
         channels=re.compile('<a href="(.*?)" class="link"><img src="(.*?)"').findall(content)
         
@@ -107,25 +102,10 @@ def decode_url(url='http://i-htv.net/tvp1.html'):
                 data=getUrl(pageUrl[0])
                 vido_url = mydecode.decode(pageUrl[0],data)
                 print '@@@@@',vido_url
-               
-        # header={'User-Agent':UA,
-        #         'Host':'wizja.tv',
-        #         'Referer':url,
-        #         'Upgrade-Insecure-Requests':'1',
-        #         'Cookie':'PHPSESSID=1'}
+
     return vido_url    
     
 ##
-# reload(mydecode)
-##
-# out=get_root()
-# 
-# for o in out:
-#     # print 'url="%s"'%o.get('url')
-#     print '"%s"'%o.get('title')
-#
-# url=out[0].get('url')
-# 
 # url="http://i-htv.net/tvp1.html"
 # url="http://i-htv.net/tvp2.html"
 # url="http://i-htv.net/tvphd.html"

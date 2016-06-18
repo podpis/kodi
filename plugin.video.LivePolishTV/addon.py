@@ -152,13 +152,142 @@ def playLiveVido(ex_link='http://tvpstream.tvp.pl/sess/tvplayer.php?object_id=15
         xbmcplugin.setResolvedUrl(addon_handle, True, listitem)  
     
         
+def update_iptv():       
+    fname = my_addon.getSetting('fname')
+    path =  my_addon.getSetting('path')
+    epgTimeShift = my_addon.getSetting('epgTimeShift')
+    epgUrl = my_addon.getSetting('epgUrl')
+    m3uPath = os.path.join(path,fname) 
+    if os.path.exists(m3uPath):
+        xbmc.executebuiltin('StopPVRManager')
+        xbmc.executebuiltin('PVR.StopManager')
+        new_settings={'m3uPath': m3uPath,'m3uPathType':'0','epgUrl':epgUrl,'epgTimeShift':epgTimeShift,'epgPathType':'1','logoFromEpg':'2'}
+        msg=addon_enable_and_set(addonid='pvr.iptvsimple',settings=new_settings)
+        
+        xbmcgui.Dialog().notification('', msg, xbmcgui.NOTIFICATION_INFO, 1000)
+  
+        version = int(xbmc.getInfoLabel("System.BuildVersion" )[0:2])
+        print 'Kodi version: %d, checking if PVR is active' % version
+        json_response = xbmc.executeJSONRPC('{"jsonrpc":"2.0","method":"Settings.GetSettingValue","params":{"setting":"pvrmanager.enabled"},"id":9}')
+        decoded_data = json.loads(json_response)
+        pvrmanager = decoded_data['result']['value']
+    
+        if not pvrmanager:
+            xbmcgui.Dialog().ok('[COLOR red]Telewizja nie jest aktywna![/COLOR] ','Telewizja PVR nie jest aktywaowana', 'Aktywuj i uruchom ponownie jak Telewizja sie nie pojawi')
+            # http://kodi.wiki/view/Window_IDs
+            xbmc.executebuiltin('ActivateWindow(10021)')
+        
+        json_response = xbmc.executeJSONRPC('{"jsonrpc":"2.0","method":"Settings.GetSettingValue","params":{"setting":"pvrmanager.enabled"},"id":9}')
+        decoded_data = json.loads(json_response)
+        pvrmanager = decoded_data['result']['value']
+        if pvrmanager:
+            xbmc.executebuiltin('StartPVRManager')
+            xbmc.executebuiltin('PVR.StartManager')
+            xbmc.executebuiltin('PVR.SearchMissingChannelIcons')
+            xbmc.executebuiltin('Notification(PVR Manager, PVR Manager (re)started, 5000)')
+            xbmc.sleep(1000)
+        xbmc.executebuiltin('Container.Refresh')
+
+    else:
+        xbmcgui.Dialog().notification('ERROR', '[COLOR red[Lista m3u jeszcze nie istnieje![/COLOR]', xbmcgui.NOTIFICATION_ERROR, 3000)    
+
+def build_m3u():
+    #http://192.168.1.3/jsonrpc?request={%22jsonrpc%22:%222.0%22,%22method%22:%22Addons.ExecuteAddon%22,%22params%22:{%22addonid%22:%22plugin.video.LivePolishTV%22,%22params%22:[%22mode=BUID_M3U%22]},%22id%22:1}
+    fname = my_addon.getSetting('fname')
+    path =  my_addon.getSetting('path')
+    service = my_addon.getSetting('service')
+    #print '$$$$$$$$ service', service
+
+    error_msg=""
+    if not fname:
+        error_msg +="Podaj nazwe pliku "
+    if not path:
+        error_msg +="Podaj katalog docelowy "
+    if not service:
+         error_msg +="Wybierz jakies source"
+        
+    if error_msg:
+        xbmcgui.Dialog().notification('[COLOR red]ERROR[/COLOR]', error_msg, xbmcgui.NOTIFICATION_ERROR, 1000)
+        pvr_path=  xbmc.translatePath(os.path.join('special://userdata/','addon_data','pvr.iptvsimple'))
+        #print pvr_path
+        if os.path.exists(os.path.join(pvr_path,'settings.xml')):
+            print 'settings.xml exists'
+    else:
+        outfilename = os.path.join(path,fname)     
+        pDialog = xbmcgui.DialogProgressBG()
+        pDialog.create('Tworze liste programow TV [%s]'%(fname), 'Uzyj z [COLOR blue]PVR IPTV Simple Client[/COLOR]')
+        
+        out_all = []
+        pDialog.update(0,message='Szukam: [%s]'%service)
+        if  service=='Telewizjada':
+            out_all = tel.get_root_telewizjada(addheader=True)
+        elif service=='Moje-Fimy':
+            out_all =  m3u2list('')
+        elif service=='Looknij':
+            out_all = ltv.get_root_looknji(addheader=True)
+        elif service=='iklub':
+            out_all = iklub.get_root(addheader=True)            
+        elif service=='ihtv':
+            out_all = ihtv.get_root(addheader=True)   
+        elif service=='itivi':
+            out_all = itivi.get_root(addheader=True)                 
+        elif service=='yoy':
+            out_all = yoytv.get_root(addheader=True)            
+        elif service=='looknij.in':
+            out_all = looknijin.get_root(addheader=True)  
+  
+        N=len(out_all)
+        out_sum=[]
+        pDialog.update(0,message= 'Znalazlem!  %d' % N  )
+        
+        for i,one in enumerate(out_all):
+            progress = int((i)*100.0/N)
+            message = '%d/%d %s'%(i,N-1,one.get('title','')) 
+            pDialog.update(progress, message=message)
+            #print "%d\t%s" % (progress,message)
+            try:
+                if service=='Telewizjada':
+                    one['url'] = tel.decode_url(one.get('url',''),one.get('id',''))
+                if service=='Looknij':
+                    one['url'] = ltv.decode_url(one.get('url',''))
+                if service=='Moje-Fimy':
+                    pass # no modification is needed
+                if service=='iklub':
+                    one['url'] = iklub.decode_url(one.get('url',''))
+                if service=='ihtv':
+                    one['url'] = ihtv.decode_url(one.get('url',''))
+                if service=='itivi':
+                    one['url'] = itivi.decode_url(one.get('url',''))
+                if service=='yoy':
+                    one['url'] = yoytv.decode_url(one.get('url',''))
+                if service=='looknij.in':
+                    one['url'] = looknijin.decode_url(one.get('url',''))   
+                    
+                if one['url']:
+                    if isinstance(one['url'],list):
+                        for url in one['url']:
+                            print url
+                            one_n=deepcopy(one)
+                            one_n['url'] = url 
+                            out_sum.append(one_n)
+                    else:
+                        out_sum.append(one)
+            except:
+                pass
+        if out_sum:
+            tel.build_m3u(out_sum,outfilename)
+            pDialog.update(progress, message=outfilename)
+            xbmcgui.Dialog().notification('Lista zapisana', outfilename, xbmcgui.NOTIFICATION_INFO, 10000)
+            xbmcgui.Dialog().ok('[COLOR green]Lista zapisana[/COLOR] ','[COLOR blue]'+outfilename+'[/COLOR]','Uaktualnij ustawienia [COLOR blue]PVR IPTV Simple Client[/COLOR] i (re)aktywuj Live TV')
+            
+        pDialog.close()
         
 #-------------------------------------------	
 #
 #
 # settings_replace = lambda k,v,z: re.sub(r'(?P<id>id="%s") value="(.*)"'%k ,'\g<id> value="%s"'%v, z)
-def __update_file(settings_file,new_path):
-    pass
+# def __update_file(settings_file,new_path):
+#     pass
 #    tree = et.parse(settings_file)        
 #    tree.find('setting/[@id="m3uPath"]').attrib["value"]=new_path
 #    tree.find('setting/[@id="m3uPathType"]').attrib["value"]='0'
@@ -167,46 +296,46 @@ def __update_file(settings_file,new_path):
 #    tree.find('setting/[@id="logoFromEpg"]').attrib["value"]='2'
 #    tree.write(settings_file)
     
-def update_prv_simpleiptv(pvr_path,m3uPath):
-    #pvr_path='C:/Users\\ramic/AppData/Roaming/Kodi/userdata/addon_data/pvr.iptvsimple'
-    settings_file=os.path.join(pvr_path,'settings.xml')
-    if os.path.exists(settings_file):
-        print 'updating settings.xml file'
-        __update_file(settings_file,m3uPath)
-        return 'Updated %s' %(settings_file)
-    else:
-        print 'creating settings file'
-        xmlcontent="""
-<settings>
-    <setting id="epgCache" value="true" />
-    <setting id="epgPath" value="" />
-    <setting id="epgPathType" value="1" />
-    <setting id="epgTSOverride" value="true" />
-    <setting id="epgTimeShift" value="0.000000" />
-    <setting id="epgUrl" value="" />
-    <setting id="logoBaseUrl" value="" />
-    <setting id="logoFromEpg" value="2" />
-    <setting id="logoPath" value="" />
-    <setting id="logoPathType" value="1" />
-    <setting id="m3uCache" value="true" />
-    <setting id="m3uPath" value="" />
-    <setting id="m3uPathType" value="0" />
-    <setting id="m3uUrl" value="" />
-    <setting id="sep1" value="" />
-    <setting id="sep2" value="" />
-    <setting id="sep3" value="" />
-    <setting id="startNum" value="1" />
-</settings>
-"""
-        try:
-            os.makedirs(pvr_path)
-            with open(settings_file,'w') as f:
-                f.write(xmlcontent)
-            __update_file(settings_file,m3uPath)
-            return 'Created %s' %(settings_file)
-        except:
-            return 'Problem z uworzeniem settings.xml'
- 
+# def update_prv_simpleiptv(pvr_path,m3uPath):
+#     #pvr_path='C:/Users\\ramic/AppData/Roaming/Kodi/userdata/addon_data/pvr.iptvsimple'
+#     settings_file=os.path.join(pvr_path,'settings.xml')
+#     if os.path.exists(settings_file):
+#         print 'updating settings.xml file'
+#         __update_file(settings_file,m3uPath)
+#         return 'Updated %s' %(settings_file)
+#     else:
+#         print 'creating settings file'
+#         xmlcontent="""
+# <settings>
+#     <setting id="epgCache" value="true" />
+#     <setting id="epgPath" value="" />
+#     <setting id="epgPathType" value="1" />
+#     <setting id="epgTSOverride" value="true" />
+#     <setting id="epgTimeShift" value="0.000000" />
+#     <setting id="epgUrl" value="" />
+#     <setting id="logoBaseUrl" value="" />
+#     <setting id="logoFromEpg" value="2" />
+#     <setting id="logoPath" value="" />
+#     <setting id="logoPathType" value="1" />
+#     <setting id="m3uCache" value="true" />
+#     <setting id="m3uPath" value="" />
+#     <setting id="m3uPathType" value="0" />
+#     <setting id="m3uUrl" value="" />
+#     <setting id="sep1" value="" />
+#     <setting id="sep2" value="" />
+#     <setting id="sep3" value="" />
+#     <setting id="startNum" value="1" />
+# </settings>
+# """
+#         try:
+#             os.makedirs(pvr_path)
+#             with open(settings_file,'w') as f:
+#                 f.write(xmlcontent)
+#             __update_file(settings_file,m3uPath)
+#             return 'Created %s' %(settings_file)
+#         except:
+#             return 'Problem z uworzeniem settings.xml'
+#  
 #
 #
 #
@@ -239,15 +368,15 @@ if mode is None:
     #addDir('LIVE TV: telewizjada',iconImage=RESOURCES+'logo_telewizjada.png') offline
     addDir('LIVE TV: tvp.info','http://tvpstream.tvp.pl',iconImage=RESOURCES+'tvp-info.png')    
     addDir('LIVE TV: moje-filmy.tk',iconImage=RESOURCES+'moje-filmy.png')
-    addDir('LIVE TV: iklub.net',iconImage='')
+    addDir('LIVE TV: iklub.net',iconImage=RESOURCES+'iklub.png')
     #addDir('LIVE TV: match-sport',iconImage='')    offline
-    addDir('LIVE TV: ihtv',iconImage='')
-    addDir('LIVE TV: itivi',iconImage='')
-    addDir('LIVE TV: yoy.tv',iconImage='')
-    addDir('LIVE TV: looknij.in',iconImage='')
-    addDir('LIVE TV: cinematv',iconImage='')
-    addDir('LIVE TV: polxtv',iconImage='')
-    addDir('LIVE TV: sport365',iconImage='')
+    addDir('LIVE TV: ihtv',iconImage=RESOURCES+'ihtv.png')
+    addDir('LIVE TV: itivi',iconImage=RESOURCES+'itivi.png')
+    addDir('LIVE TV: yoy.tv',iconImage=RESOURCES+'yoytv.png')
+    addDir('LIVE TV: looknij.in',iconImage=RESOURCES+'looknijin.png')
+    addDir('LIVE TV: cinematv',iconImage=RESOURCES+'cinematv.png')
+    addDir('LIVE TV: polxtv',iconImage=RESOURCES+'polxtv.png')
+    addDir('LIVE TV: sport365',iconImage=RESOURCES+'sport365.png')
     #addDir('LIVE TV: wizja',iconImage='')
     
     url = build_url({'mode': 'Opcje'})
@@ -260,7 +389,6 @@ elif mode[0] == 'Opcje':
         DATAPATH    = xbmc.translatePath(my_addon.getAddonInfo('profile')).decode('utf-8')
         my_addon.setSetting('path',DATAPATH)
     my_addon.openSettings()   
-
 
 elif mode[0] == 'palyLiveVideo':
     playLiveVido(ex_link)
@@ -286,7 +414,7 @@ elif mode[0] == 'play_sport365':
             xbmcplugin.setResolvedUrl(addon_handle, False, xbmcgui.ListItem(path=stream_url))
     else:
         xbmcgui.Dialog().ok("Problem", 'Źródła nie są jeszcze dostępne')         
-# LOOKNIJ
+
 elif mode[0]=='play_looknij':
     stream_url = ltv.decode_url(ex_link)
     if stream_url:
@@ -380,6 +508,7 @@ elif mode[0]=='play_iklub':
 #         xbmcplugin.setResolvedUrl(addon_handle, True, xbmcgui.ListItem(path=stream_url))
 #     else:
 #         xbmcplugin.setResolvedUrl(addon_handle, False, xbmcgui.ListItem(path=stream_url)) 
+
 elif mode[0]=='play_telewizjada':
     video_link,_id = ex_link.split('|')
     print PATH
@@ -394,151 +523,23 @@ elif mode[0]=='TELEWIZJADA_EPG':
     if programTV:
         ret = xbmcgui.Dialog().select('Program', programTV.split('\n'))
 
+
 elif mode[0] == 'UPDATE_IPTV':
-    fname = my_addon.getSetting('fname')
-    path =  my_addon.getSetting('path')
-    epgTimeShift = my_addon.getSetting('epgTimeShift')
-    epgUrl = my_addon.getSetting('epgUrl')
-    m3uPath = os.path.join(path,fname) 
-    if os.path.exists(m3uPath):
-        xbmc.executebuiltin('StopPVRManager')
-        xbmc.executebuiltin('PVR.StopManager')
-        new_settings={'m3uPath': m3uPath,'m3uPathType':'0','epgUrl':epgUrl,'epgTimeShift':epgTimeShift,'epgPathType':'1','logoFromEpg':'2'}
-        msg=addon_enable_and_set(addonid='pvr.iptvsimple',settings=new_settings)
-        
-        xbmcgui.Dialog().notification('', msg, xbmcgui.NOTIFICATION_INFO, 1000)
-  
-        version = int(xbmc.getInfoLabel("System.BuildVersion" )[0:2])
-        print 'Kodi version: %d, checking if PVR is active' % version
-        json_response = xbmc.executeJSONRPC('{"jsonrpc":"2.0","method":"Settings.GetSettingValue","params":{"setting":"pvrmanager.enabled"},"id":9}')
-        decoded_data = json.loads(json_response)
-        pvrmanager = decoded_data['result']['value']
-    
-        if not pvrmanager:
-            xbmcgui.Dialog().ok('[COLOR red]Telewizja nie jest aktywna![/COLOR] ','Telewizja PVR nie jest aktywaowana', 'Aktywuj i uruchom ponownie jak Telewizja sie nie pojawi')
-            # http://kodi.wiki/view/Window_IDs
-            xbmc.executebuiltin('ActivateWindow(10021)')
-        
-        json_response = xbmc.executeJSONRPC('{"jsonrpc":"2.0","method":"Settings.GetSettingValue","params":{"setting":"pvrmanager.enabled"},"id":9}')
-        decoded_data = json.loads(json_response)
-        pvrmanager = decoded_data['result']['value']
-        if pvrmanager:
-            xbmc.executebuiltin('StartPVRManager')
-            xbmc.executebuiltin('PVR.StartManager')
-            xbmc.executebuiltin('PVR.SearchMissingChannelIcons')
-            xbmc.executebuiltin('Notification(PVR Manager, PVR Manager (re)started, 5000)')
-            xbmc.sleep(1000)
-        xbmc.executebuiltin('Container.Refresh')
-
-    else:
-        xbmcgui.Dialog().notification('ERROR', '[COLOR red[Lista m3u jeszcze nie istnieje![/COLOR]', xbmcgui.NOTIFICATION_ERROR, 3000)    
-
+    update_iptv()
 
 elif mode[0] == 'BUID_M3U':
-    #http://192.168.1.3/jsonrpc?request={%22jsonrpc%22:%222.0%22,%22method%22:%22Addons.ExecuteAddon%22,%22params%22:{%22addonid%22:%22plugin.video.LivePolishTV%22,%22params%22:[%22mode=BUID_M3U%22]},%22id%22:1}
-    
-    fname = my_addon.getSetting('fname')
-    path =  my_addon.getSetting('path')
-    service = my_addon.getSetting('service')
-    #print '$$$$$$$$ service', service
-
-    error_msg=""
-    if not fname:
-        error_msg +="Podaj nazwe pliku "
-    if not path:
-        error_msg +="Podaj katalog docelowy "
-    if not service:
-         error_msg +="Wybierz jakies source"
-        
-    if error_msg:
-        xbmcgui.Dialog().notification('[COLOR red]ERROR[/COLOR]', error_msg, xbmcgui.NOTIFICATION_ERROR, 1000)
-        pvr_path=  xbmc.translatePath(os.path.join('special://userdata/','addon_data','pvr.iptvsimple'))
-        #print pvr_path
-        if os.path.exists(os.path.join(pvr_path,'settings.xml')):
-            print 'settings.xml exists'
-    else:
-        outfilename = os.path.join(path,fname)     
-        pDialog = xbmcgui.DialogProgressBG()
-        pDialog.create('Tworze liste programow TV [%s]'%(fname), 'Uzyj z [COLOR blue]PVR IPTV Simple Client[/COLOR]')
-        
-        out_all = []
-        pDialog.update(0,message='Szukam: [%s]'%service)
-        if  service=='Telewizjada':
-            out_all = tel.get_root_telewizjada(addheader=True)
-        elif service=='Moje-Fimy':
-            out_all =  m3u2list('')
-        elif service=='Looknij':
-            out_all = ltv.get_root_looknji(addheader=True)
-        elif service=='iklub':
-            out_all = iklub.get_root(addheader=True)            
-        elif service=='ihtv':
-            out_all = ihtv.get_root(addheader=True)   
-        elif service=='itivi':
-            out_all = itivi.get_root(addheader=True)                 
-        elif service=='yoy':
-            out_all = yoytv.get_root(addheader=True)            
-        elif service=='looknij.in':
-            out_all = looknijin.get_root(addheader=True)  
-  
-        N=len(out_all)
-        out_sum=[]
-        pDialog.update(0,message= 'Znalazlem!  %d' % N  )
-        
-        for i,one in enumerate(out_all):
-            progress = int((i)*100.0/N)
-            message = '%d/%d %s'%(i,N-1,one.get('title','')) 
-            pDialog.update(progress, message=message)
-            #print "%d\t%s" % (progress,message)
-            try:
-                if service=='Telewizjada':
-                    one['url'] = tel.decode_url(one.get('url',''),one.get('id',''))
-                if service=='Looknij':
-                    one['url'] = ltv.decode_url(one.get('url',''))
-                if service=='Moje-Fimy':
-                    pass # no modification is needed
-                if service=='iklub':
-                    one['url'] = iklub.decode_url(one.get('url',''))
-                if service=='ihtv':
-                    one['url'] = ihtv.decode_url(one.get('url',''))
-                if service=='itivi':
-                    one['url'] = itivi.decode_url(one.get('url',''))
-                if service=='yoy':
-                    one['url'] = yoytv.decode_url(one.get('url',''))
-                if service=='looknij.in':
-                    one['url'] = looknijin.decode_url(one.get('url',''))   
-                    
-                if one['url']:
-                    if isinstance(one['url'],list):
-                        for url in one['url']:
-                            print url
-                            one_n=deepcopy(one)
-                            one_n['url'] = url 
-                            out_sum.append(one_n)
-                    else:
-                        out_sum.append(one)
-            except:
-                pass
-        if out_sum:
-            tel.build_m3u(out_sum,outfilename)
-            pDialog.update(progress, message=outfilename)
-            xbmcgui.Dialog().notification('Lista zapisana', outfilename, xbmcgui.NOTIFICATION_INFO, 10000)
-            xbmcgui.Dialog().ok('[COLOR green]Lista zapisana[/COLOR] ','[COLOR blue]'+outfilename+'[/COLOR]','Uaktualnij ustawienia [COLOR blue]PVR IPTV Simple Client[/COLOR] i (re)aktywuj Live TV')
-            
-        pDialog.close()
+    build_m3u()
     my_addon.openSettings()      
 
 elif mode[0] == 'folder':
     if fname == 'LIVE TV: tvp.info':
         out = get_tvpLiveStreams(ex_link)
-        #xbmcgui.Dialog().ok('Jestem w Live',out[0]['title'].encode('utf-8'))
         for one in out:
            addLinkItem(one['title'].encode('utf-8'), one['url'], 'palyLiveVideo', iconimage=one['img'])
-
     elif fname == 'LIVE TV: looknij':
         content = ltv.get_root_looknji()
         for one in content:
             addLinkItem(one.get('title',''), one.get('url',''), 'play_looknij', iconimage=one.get('img'))
-
     elif fname == 'LIVE TV: telewizjada':
         content = tel.get_root_telewizjada()
         for one in content:
@@ -564,13 +565,12 @@ elif mode[0] == 'folder':
         content = itivi.get_root()
         for one in content: # 'play_itivi'
             addLinkItem(one.get('title',''),  one['url'], 'play_itivi', one.get('epgname',None),iconimage=one.get('img'))
-    
     elif fname == 'LIVE TV: yoy.tv':
         content = yoytv.get_root()
         for one in content: # 'play_yoytv'
             addLinkItem(one.get('title',''),  one['url'], 'play_yoytv', one.get('epgname',None),iconimage=one.get('img'))
     elif fname == 'LIVE TV: looknij.in':
-        content = looknijin.get_root(addheader=False)
+        content = looknijin.get_root()
         for one in content: # 'play_looknijin'
             addLinkItem(one.get('title',''),  one['url'], 'play_looknijin', one.get('epgname',None),iconimage=one.get('img'))
     elif fname == 'LIVE TV: cinematv':
