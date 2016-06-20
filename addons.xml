@@ -13,7 +13,7 @@ provider-name="Michal">
   <provides>video</provides>
 </extension>
 <extension point="xbmc.addon.metadata">
-  <summary lang="en">cda-online</summary>
+  <summary lang="en">alltube.tv</summary>
   <description lang="en">Zasoby alltube.tv</description>
   <disclaimer lang="en">private use</disclaimer>
   <language></language>
