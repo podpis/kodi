@@ -27,7 +27,7 @@ provider-name="Michal">
 </addon>
 
 <addon id="plugin.video.cdaonline"
-version="1.6.3"
+version="1.6.4"
 name="cda-online"
 provider-name="Michal">
 <requires>

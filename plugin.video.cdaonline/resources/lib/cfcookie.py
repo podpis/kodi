@@ -31,9 +31,11 @@ def createCookie(url,cj=cj,agent=UA):
             response.close()
         except urllib2.HTTPError as e:
             result=urlData = e.read()
-
-#        print result
-#        print response.headers
+        
+        
+        print result
+        print response.headers
+        return cj
         jschl = re.compile('name="jschl_vc" value="(.+?)"/>').findall(result)[0]
 
         init = re.compile('setTimeout\(function\(\){\s*.*?.*:(.*?)};').findall(result)[0]

@@ -21,7 +21,7 @@ def getUrl(url,data={},headers={}):
 
 def unshorten(url):
     if 'sh.st/' in url:
-        url = unshorten._unshorten_shst(url)
+        url = _unshorten_shst(url)
     elif 'safelinking.net' in url:
         url = _safelinking(url)
     return url
