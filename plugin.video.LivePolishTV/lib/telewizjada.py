@@ -185,7 +185,7 @@ def decode_all_urls(out,):
 
 
 def build_m3u(out,fname='telewizjadatv.m3u'):    
-    entry='#EXTINF:-1 tvg-id="{tvid}" tvg-logo="{img}" url-epg="{urlepg}" group-title="{group}",{title}\n{url}\n\n'
+    entry='#EXTINF:-1 tvg-id="{tvid}" group-title="Popularny" tvg-logo="{img}" url-epg="{urlepg}" group-title="{group}",{title}\n{url}\n\n'
     OUTxmu='#EXTM3U\n'
     #OUTxmu=OUTxmu+'\n#EXTINF:-1, [COLOR yellow]Update: %s [/COLOR]\nhttp://www.youtube.com/\n\n' %(time.strftime("%d/%m/%Y: %H:%M:%S"))
     for one in out:

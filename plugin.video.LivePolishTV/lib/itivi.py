@@ -4,6 +4,7 @@ import re
 import urllib2,urllib
 import base64
 import time
+import cookielib
 
 UA='Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'
 
@@ -53,6 +54,20 @@ def getUrl(url,data=None,header={},cookies=None):
         link=''
     return link
 
+def getUrl(url, cj=None,post=None, headers=None,timeout=20):
+    cookie_handler = urllib2.HTTPCookieProcessor(cj)
+    opener = urllib2.build_opener(cookie_handler, urllib2.HTTPBasicAuthHandler(), urllib2.HTTPHandler())
+    req = urllib2.Request(url)
+    req.add_header('User-Agent','Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.154 Safari/537.36')
+    if headers:
+        for h,hv in headers:
+            req.add_header(h,hv)
+
+    response = opener.open(req,post,timeout=timeout)
+    link=response.read()
+    response.close()
+    return link;    
+
 def get_root(addheader=False):
     url='http://itivi.pl/'
     content = getUrl(url)
@@ -71,8 +86,8 @@ def get_root(addheader=False):
         out.append(fixForEPG({'title':t,'tvid':t,'img':i,'url':h,'group':'','urlepg':''}))
     return out
 
-def get_root_old(addheader=False):
-    return m3u2list()
+# def get_root_old(addheader=False):
+#     return m3u2list()
 
 def m3u2list():
     url = 'https://drive.google.com/uc?export=download&id=0B0PmlVIxygktN2FXaXYwWnNzcGc'
@@ -127,9 +142,10 @@ def decode_url_old(url):
 # url='http://itivi.pl/program-telewizyjny/Fenix'
 def decode_url(url):
     vido_urls=''
+    cj=cookielib.LWPCookieJar()
     #rtmp://app.itivi.pl/live/<playpath>DISCOVERYHD <swfUrl>http://itivi.pl/js/jwplayer-7.0.3/jwplayer.flash.swf <pageUrl>http://itivi.pl/program-telewizyjny/Discovery_Channel
     if 'itivi.pl' in url: 
-        content = getUrl(url)
+        content = getUrl(url,cj)
         swfUrl='http://itivi.pl/js/jwplayer-7.0.3/jwplayer.flash.swf'
         link = re.compile('{file: \'(.*?)\'').findall(content)    #link=['rtmp://app.itivi.pl/live/ playpath=TVP1HD']
         if link:
@@ -143,11 +159,12 @@ def decode_url(url):
 def decode_all_urls(out,):
     out_hrefs=[]   
     out_d = {} 
+    one=out[0]
     for one in out:
         #print one.get('title')
         print one.get('url','')
         m=one.get('url','').split('/')[-1]
-        vido_url = decode_url2(one.get('url',''))
+        vido_url = decode_url(one.get('url',''))
         if vido_url:
             print'\t',vido_url
             one['url']=vido_url
@@ -157,7 +174,7 @@ def decode_all_urls(out,):
     
     return out_hrefs     
     
-def build_m3u(out,fname=r'D:\itivi.m3u'):    
+def build_m3u(out,fname=r'C:\Users\ramic\Google Drive\lptv\itivi.m3u'):    
     entry='#EXTINF:-1 tvg-id="{tvid}" tvg-logo="{img}" url-epg="{urlepg}" group-title="{group}",{title}\n{url}\n\n'
     OUTxmu='#EXTM3U\n'
     #OUTxmu=OUTxmu+'\n#EXTINF:-1, [COLOR yellow]Update: %s [/COLOR]\nhttp://www.youtube.com/\n\n' %(time.strftime("%d/%m/%Y: %H:%M:%S"))
@@ -174,7 +191,7 @@ def build_m3u(out,fname=r'D:\itivi.m3u'):
 
     
 ##
-# out=get_root_old()    
+# out=get_root()    
 # out2=decode_all_urls(out)
 
 # for h in out_hrefs:

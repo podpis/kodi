@@ -85,8 +85,10 @@ def test(out):
         else:
             print 'NO','\t',o['url']
 ##
-# out = get_root()
-# for o in out:
-#     print o['url']
-#     decode_url( o['url']) 
-#     print '\n'
+def go():
+    out = get_root()
+    o=out[1]
+    for o in out:
+        print o['url']
+        decode_url( o['url']) 
+        print '\n'

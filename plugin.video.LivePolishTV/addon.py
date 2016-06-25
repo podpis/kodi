@@ -34,6 +34,7 @@ import cinematv
 import polxtv
 #import wizjatv as wt
 import sport365
+import sporttvp
 
 # ____________________________
 def getUrl(url,data=None):
@@ -103,7 +104,7 @@ def m3u2list(url):
             one['tvid']=title
         one['img'] = 'http://moje-filmy.tk/'+one['img']
         one['urlepg']=''
-        one = tel.fixForEPG(one)
+        #one = tel.fixForEPG(one)
         out.append(one)
     
     pol = [ o for o in out if o.get('audio-track') == 'pol']
@@ -377,6 +378,7 @@ if mode is None:
     addDir('LIVE TV: cinematv',iconImage=RESOURCES+'cinematv.png')
     addDir('LIVE TV: polxtv',iconImage=RESOURCES+'polxtv.png')
     addDir('LIVE TV: sport365',iconImage=RESOURCES+'sport365.png')
+    addDir('LIVE TV: sport.tvp',iconImage=RESOURCES+'sporttvp.png')
     #addDir('LIVE TV: wizja',iconImage='')
     
     url = build_url({'mode': 'Opcje'})
@@ -415,6 +417,30 @@ elif mode[0] == 'play_sport365':
     else:
         xbmcgui.Dialog().ok("Problem", 'Źródła nie są jeszcze dostępne')         
 
+
+
+elif mode[0]=='play_sporttvp':
+    stream_url = sporttvp.decode_url(ex_link)
+    print 'play_sporttvp',stream_url
+    if 'material_niedostepny' in stream_url:
+        y=xbmcgui.Dialog().yesno("Ograniczenia Licencyjne", stream_url,'Użyć proxy ?')
+        if y:
+            proxies=sporttvp.getProxies()
+            dialog  = xbmcgui.DialogProgress()
+            dialog.create('Znalazłem %d serwerów proxy'%len(proxies))
+            for i,proxy in enumerate(proxies):
+                dialog.update(int((i)/len(proxies))*100,'Sprawdzam : %s'%proxy.values()[0])
+                stream_url = sporttvp.decode_url(ex_link,proxy,timeout=10)
+                if stream_url and not 'material_niedostepny' in stream_url:
+                    break
+            dialog.close()
+            
+    if stream_url:
+        xbmcplugin.setResolvedUrl(addon_handle, True, xbmcgui.ListItem(path=stream_url))
+    else:
+        xbmcgui.Dialog().ok("Problem", 'Materiał (jeszcze) nie dostępny')    
+        xbmcplugin.setResolvedUrl(addon_handle, False, xbmcgui.ListItem(path=''))
+        
 elif mode[0]=='play_looknij':
     stream_url = ltv.decode_url(ex_link)
     if stream_url:
@@ -585,6 +611,12 @@ elif mode[0] == 'folder':
         content = sport365.get_root()
         for one in content: # 'play_sport365'
             addLinkItem(one.get('title',''),  one['url'], 'play_sport365', infoLabels=one, IsPlayable=True)
+    elif fname == 'LIVE TV: sport.tvp':
+        content = sporttvp.get_root()
+        for one in content: # 'play_sport365'
+            addLinkItem(one.get('title',''),  one['url'], 'play_sporttvp', infoLabels=one, IsPlayable=True)
+            
+            
     # elif fname == 'LIVE TV: wizja':
     #     content = wt.get_root()
     #     for one in content: # 
