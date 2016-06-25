@@ -417,19 +417,17 @@ elif mode[0] == 'play_sport365':
     else:
         xbmcgui.Dialog().ok("Problem", 'Źródła nie są jeszcze dostępne')         
 
-
-
 elif mode[0]=='play_sporttvp':
     stream_url = sporttvp.decode_url(ex_link)
     print 'play_sporttvp',stream_url
     if 'material_niedostepny' in stream_url:
-        y=xbmcgui.Dialog().yesno("Ograniczenia Licencyjne", stream_url,'Użyć proxy ?')
+        y=xbmcgui.Dialog().yesno("[COLOR orange]Problem[/COLOR]", '[B]Ograniczenia Licencyjne, material jest niedostępny[/B]','Spróbowac użyć serwera proxy ??')
         if y:
             proxies=sporttvp.getProxies()
             dialog  = xbmcgui.DialogProgress()
             dialog.create('Znalazłem %d serwerów proxy'%len(proxies))
             for i,proxy in enumerate(proxies):
-                dialog.update(int((i)/len(proxies))*100,'Sprawdzam : %s'%proxy.values()[0])
+                dialog.update(int(1.0*i/len(proxies)*100),'Sprawdzam : %s'%proxy.values()[0])
                 stream_url = sporttvp.decode_url(ex_link,proxy,timeout=10)
                 if stream_url and not 'material_niedostepny' in stream_url:
                     break
@@ -438,7 +436,7 @@ elif mode[0]=='play_sporttvp':
     if stream_url:
         xbmcplugin.setResolvedUrl(addon_handle, True, xbmcgui.ListItem(path=stream_url))
     else:
-        xbmcgui.Dialog().ok("Problem", 'Materiał (jeszcze) nie dostępny')    
+        xbmcgui.Dialog().ok("Problem", 'Materiał niedostępny')    
         xbmcplugin.setResolvedUrl(addon_handle, False, xbmcgui.ListItem(path=''))
         
 elif mode[0]=='play_looknij':

@@ -154,7 +154,7 @@ provider-name="Michal">
 <addon
 	id="plugin.video.LivePolishTV"
 	name="LivePolishTV"
-	version="1.7.2"
+	version="1.7.3"
 	provider-name="Michal">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>

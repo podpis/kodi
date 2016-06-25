@@ -36,33 +36,39 @@ def get_root():
     for i in range(len(ids[:-1])): 
         #print content[ ids[i][1]:ids[i+1][0] ]
         subset = content[ ids[i][1]:ids[i+1][0] ]
-        dzis = re.compile('<span>DZI.*</span>').findall(subset)
+        dzis = re.compile('<span>(DZI.*)</span>').findall(subset)
         if dzis:
-            idi = [(a.start(), a.end()) for a in re.finditer('<div class="item-time live">', subset)]
-            idi.append( (-1,-1) )
-            j=0
-            j=1
-            for j in range(len(idi[:-1])):
-                item = subset[ idi[j][1]:idi[j+1][0] ]
-                print item
-                href=[]
-                time = re.compile('<span class="time">(.*?)</span>').findall(item)
-                title= re.compile('<div class="item-title">([^<]+)</div>',re.DOTALL).findall(item)
-                if not title:
-                    title_href = re.compile('<div class="item-title">(.*?)</div>',re.DOTALL).findall(item)
-                    title_href = title_href[0] if title_href else ''
-                    href  = re.compile('<a href="(.*?)"').findall(title_href)
-                    title = re.compile('>(.*?)<').findall(title_href)
-                if title and time:
-                    t = '%s: [COLOR blue]%s[/COLOR]'%(time[0],title[0].strip())
-                    code='LIVE' if href else ''
-                    href = getTvpStrem(href[0]) if href else ''
-                    out.append({'title':t,'tvid':'','img':'','url':href,'group':'','urlepg':'','code':code})
+            when=''
+        else:
+            when=re.compile('<span>(.*?)</span>').findall(subset)
+            when = when[0]+' ' if when else ''
+        idi = [(a.start(), a.end()) for a in re.finditer('<div class="item-time live">', subset)]
+        idi.append( (-1,-1) )
+        for j in range(len(idi[:-1])):
+            item = subset[ idi[j][1]:idi[j+1][0] ]
+            print item
+            href=[]
+            time = re.compile('<span class="time">(.*?)</span>').findall(item)
+            title= re.compile('<div class="item-title">([^<]+)</div>',re.DOTALL).findall(item)
+            if not title:
+                title_href = re.compile('<div class="item-title">(.*?)</div>',re.DOTALL).findall(item)
+                title_href = title_href[0] if title_href else ''
+                href  = re.compile('<a href="(.*?)"').findall(title_href)
+                title = re.compile('>(.*?)<').findall(title_href)
+            if title and time:
+                t = '%s%s: [COLOR blue]%s[/COLOR]'%(when,time[0],title[0].strip())
+                code='[B][COLOR lightgreen]Live[/COLOR][/B]' if href else ''
+                href = getTvpStrem(href[0]) if href else ''
+                out.append({'title':t,'tvid':'','img':'','url':href,'group':'','urlepg':'','code':code})
     return out
 
 def getProxies():
-    content=getUrl('http://www.idcloak.com/proxylist/free-proxy-list-poland.html')    
+    content=getUrl('http://www.idcloak.com/proxylist/free-proxy-list-poland.html')
+    speed = re.compile('<div style="width:\d+%" title="(\d+)%"></div>').findall(content)
     trs = re.compile('<td>(http[s]*)</td><td>(\d+)</td><td>(.*?)</td>',re.DOTALL).findall(content)
+    if len(speed) == len(trs):
+       speed = [int(x) for x in speed] 
+       trs = [x for (y,x) in sorted(zip(speed,trs),reverse=True)]
     proxies=[{x[0]: '%s:%s'%(x[2],x[1])} for x in trs]
     return proxies
 
