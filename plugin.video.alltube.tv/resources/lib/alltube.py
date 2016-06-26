@@ -28,7 +28,7 @@ def scanMainpage(url,page=1):
         url = url + 'strona[%d]+'%page
     
     content = getUrl(url)
-    ids = [(a.start(), a.end()) for a in re.finditer('<div class="border-box clearfix">', content)]
+    ids = [(a.start(), a.end()) for a in re.finditer('<div class="item-block clearfix">', content)]
     if not ids:
         ids = [(a.start(), a.end()) for a in re.finditer('<div class="cartoon">', content)]
     ids.append( (-1,-1) )
@@ -38,22 +38,26 @@ def scanMainpage(url,page=1):
         subset = content[ ids[i][1]:ids[i+1][0] ]
         href = re.compile('<a href="(.*?)"',re.DOTALL).search(subset)
         title = re.compile('<h3>(.*?)</h3>',re.DOTALL).search(subset)
-        plot = re.compile('<p>(.*?)</p>',re.DOTALL).search(subset)
+        title2= re.compile('<div class="second-title">(.*?)</div>').search(subset)
+        plot = re.compile('<p[^>]>(.*?)</p>',re.DOTALL).search(subset)
         img = re.compile('<img src="(.*?)"',re.DOTALL).search(subset)
-        year = ''
-        if title:
-            year =  re.compile('\((\d{4})\)',re.DOTALL).search(title.group(1))
-            title = re.sub('\((\d{4})\)','',title.group(1)).strip()
+        year = re.compile('<div class="item-details">(.*?)<',re.DOTALL).search(subset)
+        lang = re.compile('aria-hidden="true"></i>(.*?)<').search(subset)
+        if year:
+            year =  re.compile('(\d{4})',re.DOTALL).search(year.group(1))
+        
+        lang = lang.group(1).replace('&nbsp;','').strip() if lang else ''
         
 
         if href and title:
             img = img.group(1) if img else ''
             
             one = {'href'   : href.group(1),
-                'title'  : unicodePLchar(title),
+                'title'  : unicodePLchar(title.group(1)),
                 'plot'   : unicodePLchar(plot.group(1)) if plot else '',
                 'img'    : img,
                 'year'   : year.group(1) if year else '?',
+                'code'   : lang,
                     }
             out.append(one)
 
@@ -65,36 +69,36 @@ def scanMainpage(url,page=1):
     return (out, (prevPage,nextPage))
 
 #url='http://alltube.tv/seriale-online/'
+#url='http://alltube.tv/seriale-online/filter=popular'
 
-def scanTVshows(url,page=1):
+def scanTVshows(data=None,page=1):
+    url='http://alltube.tv/seriale-online/'
     urlpage = url + '%d'%page
-    content = getUrl(urlpage)
+    content = getUrl(urlpage,data)
 
-    ids = [(a.start(), a.end()) for a in re.finditer('<div class="series">', content)]
+    ids = [(a.start(), a.end()) for a in re.finditer('  <div class="item-block clearfix">', content)]
     ids.append( (-1,-1) )
     out=[]
     for i in range(len(ids[:-1])):
         #print content[ ids[i][1]:ids[i+1][0] ]
         subset = content[ ids[i][1]:ids[i+1][0] ]
+        
         href = re.compile('<a href="(.*?)"',re.DOTALL).search(subset)
         img = re.compile('<img src="(.*?)"',re.DOTALL).search(subset)
-        title = re.compile('<h3>(.*?)</h3>',re.DOTALL).search(subset)
-        plot = re.compile('<p>(.*?)</p>',re.DOTALL).search(subset)
-        
-        year = ''
-        if title:
-            year =  re.compile('\((\d{4})\)',re.DOTALL).search(title.group(1))
-            title = re.sub('\((\d{4})\)','',title.group(1)).strip()
-        
+        #title = re.compile('<h3>(.*?)</h3>',re.DOTALL).search(subset)
+        #plot = re.compile('<p>(.*?)</p>',re.DOTALL).search(subset)
+        title_1 = re.compile('<div class="top-belt">(.*?)<').search(subset)
+        title_2 = re.compile('<div class="bottom-belt">(.*?)<').search(subset)
 
-        if href and title:
-            img = img.group(1) if img else ''
-            
+        if href and title_1:
+            title = unicodePLchar(title_1.group(1))
+            if title_2:
+               title = unicodePLchar(title_2.group(1)) +', ' + title 
             one = {'href'   : href.group(1),
-                'title'  : unicodePLchar(title),
-                'plot'   : unicodePLchar(plot.group(1)) if plot else '',
-                'img'    : img,
-                'year'   : year.group(1) if year else '?',
+                'title'  : title,
+                #'plot'   : unicodePLchar(plot.group(1)) if plot else '',
+                'img'    : img.group(1) if img else '',
+                #'year'   : year.group(1) if year else '?',
                     }
             out.append(one)
 
@@ -155,7 +159,7 @@ def getVideoLinks(url):
         subset = tbody[ ids[i][1]:ids[i+1][0] ]
         
         href = re.compile('data-iframe="(.*?)"').search(subset)
-        jezyk = re.compile('data-version="(.*?)"',re.DOTALL).search(subset)
+        jezyk = re.compile('class="text-center">(.*?)<',re.DOTALL).search(subset)
         host = re.compile('<img src=".*?"\s*alt=".*?">(.*?)<').search(subset)
         rate =re.compile('class="rate">(.*?)</div>',re.DOTALL).search(subset)
         
@@ -199,18 +203,21 @@ def getPlaylist():
     ids = [(a.start(), a.end()) for a in re.finditer('<div class="playlist-item', content)]
     ids.append( (-1,-1) )
     out=[]
-    i=0
+   
     for i in range(len(ids[:-1])):
         #print content[ ids[i][1]:ids[i+1][0] ]
-        subset = content[ ids[i][1]:ids[i+1][0] ]
+        offset=200
+        subset = content[ ids[i][1]-offset:ids[i+1][0] ]
         
         href = re.compile('<a href="(http://alltube.tv/playlista.*?)"').search(subset)
-        title = re.compile('<h2>(.*?)</h2>').search(subset)
-        inside = re.compile('<div class="info">(.*?)</div>').search(subset)
-
+        title = re.compile('<h3>(.*?)</h3>').search(subset)
+        inside = re.compile('<div class="col-sm-6 text-right">(.*?)</div>',re.DOTALL).search(subset)
+        
+        inside = inside.group(1).replace('&nbsp;','').strip().replace('  ',' ') if inside else ''
+        
         if href and title:
             title= unicodePLchar(title.group(1)) if title else ''
-            inside = unicodePLchar(inside.group(1)) if inside else ''
+            inside = unicodePLchar(inside)
             href_url = href.group(1)
             print title,inside
             one = {'href' : href_url,
@@ -220,83 +227,67 @@ def getPlaylist():
     return out
     
 #url='http://alltube.tv/playlista/gwiezdne-wojny-star-wars/100/1'
+#url='http://alltube.tv/playlista/filmy-i-seriale-o-wampirach/38/1'
+
 def getPlaylistContent(url):
     out_f=[]
     out_s=[]
     content=getUrl(url)
-    filmy = re.compile('<ul id="playlist-movie">(.*?)</ul>',re.DOTALL).findall(content)
-    seriale = re.compile('<ul id="playlist-series">(.*?)</ul>',re.DOTALL).findall(content)
-    if filmy:
-        items = re.compile('<li class="clearfix">(.*?)</li>',re.DOTALL).findall(filmy[0])
-        for item in items:
-            href = re.compile('<a href="(.*?)"').search(item)
-            img = re.compile('<img src="(.*?)"').search(item)
-            title = re.compile('class="title">(.*?)<').search(item)
-            if href and title:
-                one = {'href' : href.group(1),
-                      'title': unicodePLchar(title.group(1)),
-                      'img' :  img.group(1) if img else ''
-                        }
-            out_f.append(one)
-    if seriale:
-        items = re.compile('<li class="clearfix">(.*?)</li>',re.DOTALL).findall(seriale[0])
-        for item in items:
-            href = re.compile('<a href="(.*?)"').search(item)
-            img = re.compile('<img src="(.*?)"').search(item)
-            title = re.compile('class="title">(.*?)<').search(item)
-            if href and title:
-                one = {'href' : href.group(1),
-                      'title': unicodePLchar(title.group(1)),
-                      'img' :  img.group(1) if img else ''
-                        }
-            out_s.append(one)
+    ids = [(a.start(), a.end()) for a in re.finditer('<div class="item-block clearfix">', content)]
+    ids.append( (-1,-1) )
+    for i in range(len(ids[:-1])):
+        #print content[ ids[i][1]:ids[i+1][0] ]
+        subset = content[ ids[i][1]:ids[i+1][0] ]
+        href = re.compile('<a href="(.*?)"',re.DOTALL).search(subset)
+        title = re.compile('<h3>(.*?)</h3>',re.DOTALL).search(subset)
+        title2= re.compile('<div class="second-title">(.*?)</div>').search(subset)
+        plot = re.compile('<p[^>]>(.*?)</p>',re.DOTALL).search(subset)
+        img = re.compile('<img src="(.*?)"',re.DOTALL).search(subset)
+        year = re.compile('<div class="item-details">(.*?)<',re.DOTALL).search(subset)
+        if year:
+            year =  re.compile('(\d{4})',re.DOTALL).search(year.group(1))
+        
+        #lang = re.compile('aria-hidden="true"></i>(.*?)<').search(subset)
+        #lang = lang.group(1).replace('&nbsp;','').strip() if lang else ''
+        
+
+        if href and title:
+            img = img.group(1) if img else ''
+            
+            one = {'href'   : href.group(1),
+                'title'  : unicodePLchar(title.group(1)),
+                'plot'   : unicodePLchar(plot.group(1)) if plot else '',
+                'img'    : img,
+                'year'   : year.group(1) if year else '?',
+                #'code'   : lang,
+                    }
+            if '/film/' in one.get('href'):
+                out_f.append(one)
+            else:
+                out_s.append(one)
     return (out_f,out_s)
 
+
 ## Filter Category/Version/Year
+#filter('gatunek')
+#filter('rok')
+#filter('jezyk')
 def filter(what):
     content = getUrl('http://alltube.tv/filmy-online/')
     if   what == 'gatunek':
-        filter = re.compile('<ul id="filter-category">(.*?)</ul>',re.DOTALL).findall(content)
+        filter = re.compile('<ul class="filter-list filter-category">(.*?)</ul>',re.DOTALL).findall(content)
         pattern = 'kategoria[%s]+'
     elif what =='rok':
-        filter = re.compile('<ul id="filter-year">(.*?)</ul>',re.DOTALL).findall(content)
+        filter = re.compile('<ul class="filter-list" id="filter-year">(.*?)</ul>',re.DOTALL).findall(content)
         pattern = 'rok[%s]+'
     elif what =='jezyk': 
-        filter = re.compile('<ul id="filter-version">(.*?)</ul>',re.DOTALL).findall(content)
+        filter = re.compile('<ul class="filter-list" id="filter-version">(.*?)</ul>',re.DOTALL).findall(content)
         pattern = 'wersja[%s]+'
     else:
         filter = []
     if filter:
-        items = re.compile('<li data-id="(.*?)">(.*?)</li>',re.DOTALL).findall(filter[0])
+        items = re.compile('<li data-id="(.*?)"[^>]*>(.*?)</li>',re.DOTALL).findall(filter[0])
         kat = [pattern%x[0] for x in items]
-        display = [x[1] for x in items]
-        return (display,kat)
-    return (None,None)
-
-def filter_category(content):
-    filter = re.compile('<ul id="filter-category">(.*?)</ul>',re.DOTALL).findall(content)
-    if filter:
-        items = re.compile('<li data-id="(.*?)">(.*?)</li>',re.DOTALL).findall(filter[0])
-        kat = [x[0] for x in items]
-        display = [x[1] for x in items]
-        return (display,kat)
-    return (None,None)
-
-def filter_version(content):
-    filter = re.compile('<ul id="filter-version">(.*?)</ul>',re.DOTALL).findall(content)
-    if filter:
-        items = re.compile('<li data-id="(.*?)">(.*?)</li>',re.DOTALL).findall(filter[0])
-        kat = [x[0] for x in items]
-        display = [x[1] for x in items]
-        return (display,kat)
-    return (None,None)
-
-def filter_year(content):
-
-    filter = re.compile('<ul id="filter-year">(.*?)</ul>',re.DOTALL).findall(content)
-    if filter:
-        items = re.compile('<li data-id="(.*?)">(.*?)</li>',re.DOTALL).findall(filter[0])
-        kat = [x[0] for x in items]
         display = [x[1] for x in items]
         return (display,kat)
     return (None,None)

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addon id="plugin.video.alltube.tv"
-version="1.0"
+version="1.1"
 name="alltube.tv"
 provider-name="Michal">
 <requires>
@@ -12,7 +12,7 @@ provider-name="Michal">
   <provides>video</provides>
 </extension>
 <extension point="xbmc.addon.metadata">
-  <summary lang="en">alltube.tv</summary>
+  <summary lang="en">cda-online</summary>
   <description lang="en">Zasoby alltube.tv</description>
   <disclaimer lang="en">private use</disclaimer>
   <language></language>

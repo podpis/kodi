@@ -119,7 +119,7 @@ def ListSeriale(ex_link,page):
     for f in filmy:
         addDir(name=f.get('title'), ex_link=f.get('href'), mode='getEpisodes', iconImage=f.get('img'), infoLabels=f, fanart=f.get('img'))
     if pagination[1]:
-        addLinkItem(name='[COLOR blue]>> nastepna strona >>[/COLOR]', url=ex_link, mode='__page__S', page=pagination[1], IsPlayable=False)
+        addLinkItem(name='[COLOR blue]>> następna strona >>[/COLOR]', url=ex_link, mode='__page__S', page=pagination[1], IsPlayable=False)
 
         
 
@@ -238,13 +238,16 @@ if mode is None:
     addDir(name=" => [Rok]",ex_link='rok',page=1, mode='GatunekRok',iconImage='DefaultFolder.png',fanart=FANART)
     addDir(name=" => [Język]",ex_link='jezyk',page=1, mode='GatunekRok',iconImage='DefaultFolder.png',fanart=FANART)
 
-    addDir(name="[COLOR blue]Seriale[/COLOR]",ex_link='http://alltube.tv/seriale-online/',page=1, mode='ListSeriale',iconImage='DefaultFolder.png')
+    addDir(name="[COLOR blue]Seriale - nowe odcinki[/COLOR]",ex_link=None,page=1, mode='ListSeriale',iconImage='DefaultFolder.png')
+    addDir(name="Najpopularniejsze",ex_link='filter=popular',page=1, mode='ListSeriale',iconImage='DefaultFolder.png')
+    addDir(name="Najwyżej oceniane",ex_link='filter=rate',page=1, mode='ListSeriale',iconImage='DefaultFolder.png')
+    
     addDir(name="[COLOR yellow]D[COLOR blue]L[COLOR red]A [COLOR lightgreen]D[COLOR purple]Z[COLOR gold]I[COLOR blue]E[COLOR red]C[COLOR lightgreen]I[/COLOR]",ex_link='http://alltube.tv/filmy-online/kategoria[5]+wersja[Lektor,Dubbing,PL]+', mode='ListMovies',iconImage='DefaultFolder.png')
     
     addDir(name="Playlisty",ex_link='', mode='Playlist',iconImage='DefaultFolder.png')
     
     
-    addDir('[COLOR green]Szukaj[/COLOR]','',mode='Szukaj')
+    #addDir('[COLOR green]Szukaj[/COLOR]','',mode='Szukaj')
 
 
 elif mode[0] == '__page__M':
