@@ -32,7 +32,7 @@ import yoytv
 import looknijin
 import cinematv
 import polxtv
-#import wizjatv as wt
+import wizjatv as wt
 import sport365
 import sporttvp
 
@@ -81,8 +81,10 @@ def build_url(query):
 def m3u2list(url):
     url = 'https://drive.google.com/uc?export=download&id=0B0PmlVIxygktYW5RUVdHS2c3VE0'
     for u in getUrl(url).split('\n'):
-        response = getUrl(u)
-        if len(response)>500 :
+        print u
+        response = getUrl(u.strip())
+        matches=re.compile('^#EXTINF:-?[0-9]*(.*?),(.*?)\n(.*?)$',re.I+re.M+re.U+re.S).findall(response)
+        if len(matches)>0:
             break
         else:
             response=''
@@ -94,32 +96,32 @@ def m3u2list(url):
              'audio-track':'audio-track',
              'group-title':'group',
              'tvg-logo':'img'}
-                 
-    for params, title, url in matches:
-        one  = {"title": title, "url": url}
-        match_params =re.compile(' (.+?)="(.*?)"',re.I+re.M+re.U+re.S).findall(params)
-        for field, value in match_params:
-            one[renTags.get(field.strip().lower(),'bad')] = value.strip()
-        if not one.get('tvid'):
-            one['tvid']=title
-        one['img'] = 'http://moje-filmy.tk/'+one['img']
-        one['urlepg']=''
-        #one = tel.fixForEPG(one)
-        out.append(one)
-    
-    pol = [ o for o in out if o.get('audio-track') == 'pol']
-    out = pol
-    s=[]
-    gourps = set([ o['group'] for o in out])
-    order_groups = ['Popularny', 'Informacje', 'Dla Dzieci','Film', 'Dokument',  'Dla Kobiet',  'Sport', 'Muzyka', 'XXX']
-    for g in order_groups:
-        print '!!!',g
-        tmp = [ o for o in out if o.get('group') == g]
-        #tmp = sorted(tmp, key=lambda k: k['title'],reverse=True) 
-        #for a in tmp:
-        #    print a.get('title')
-        s.extend(tmp)
-    out=s
+    if matches:             
+        for params, title, url in matches:
+            one  = {"title": title.strip(), "url": url.strip()}
+            match_params =re.compile(' (.+?)="(.*?)"',re.I+re.M+re.U+re.S).findall(params)
+            for field, value in match_params:
+                one[renTags.get(field.strip().lower(),'bad')] = value.strip()
+            if not one.get('tvid'):
+                one['tvid']=title
+            one['img'] = one['img']
+            one['urlepg']=''
+            #one = tel.fixForEPG(one)
+            out.append(one)
+        
+        pol = [ o for o in out if o.get('audio-track') == 'pol']
+        out = pol
+        s=[]
+        gourps = set([ o['group'] for o in out])
+        order_groups = ['Popularny', 'Informacje', 'Dla Dzieci','Film', 'Dokument',  'Dla Kobiet',  'Sport', 'Muzyka', 'XXX']
+        for g in order_groups:
+            print '!!!',g
+            tmp = [ o for o in out if o.get('group') == g]
+            #tmp = sorted(tmp, key=lambda k: k['title'],reverse=True) 
+            #for a in tmp:
+            #    print a.get('title')
+            s.extend(tmp)
+        out=s
     return out
 
 def playUrl(name, url, iconimage=None):
@@ -375,11 +377,12 @@ if mode is None:
     addDir('LIVE TV: itivi',iconImage=RESOURCES+'itivi.png')
     addDir('LIVE TV: yoy.tv',iconImage=RESOURCES+'yoytv.png')
     addDir('LIVE TV: looknij.in',iconImage=RESOURCES+'looknijin.png')
-    addDir('LIVE TV: cinematv',iconImage=RESOURCES+'cinematv.png')
+    #addDir('LIVE TV: cinematv',iconImage=RESOURCES+'cinematv.png')
+    addDir('LIVE TV: wizja',iconImage=RESOURCES+'wizjatv.png')
     addDir('LIVE TV: polxtv',iconImage=RESOURCES+'polxtv.png')
     addDir('LIVE TV: sport365',iconImage=RESOURCES+'sport365.png')
     addDir('LIVE TV: sport.tvp',iconImage=RESOURCES+'sporttvp.png')
-    #addDir('LIVE TV: wizja',iconImage='')
+    
     
     url = build_url({'mode': 'Opcje'})
     li = xbmcgui.ListItem(label = '[COLOR blue]-> aktywuj PVR Live TV[/COLOR]', iconImage='DefaultScript.png')
@@ -446,13 +449,14 @@ elif mode[0]=='play_looknij':
     else:
         xbmcplugin.setResolvedUrl(addon_handle, False, xbmcgui.ListItem(path=stream_url))
 
-# elif mode[0]=='play_wizja':
-#     stream_url = wt.decode_url(ex_link)
-#     print '###play_wizja',stream_url
-#     if stream_url:
-#         xbmcplugin.setResolvedUrl(addon_handle, True, xbmcgui.ListItem(path=stream_url))
-#     else:
-#         xbmcplugin.setResolvedUrl(addon_handle, False, xbmcgui.ListItem(path=stream_url)) 
+elif mode[0]=='play_wizja':
+    stream_url = wt.decode_url(ex_link)
+    print '###play_wizja',stream_url
+    if stream_url:
+        xbmcplugin.setResolvedUrl(addon_handle, True, xbmcgui.ListItem(path=stream_url))
+    else:
+        xbmcgui.Dialog().ok("Brak wolnych miejsc!", 'Ze względu na duża ilość oglądających osób - dostęp tylko dla użytkowników Premium.')  
+        xbmcplugin.setResolvedUrl(addon_handle, False, xbmcgui.ListItem(path=stream_url)) 
 
 elif mode[0]=='play_cinematv':
     #xbmcgui.Dialog().ok('',ex_link)
@@ -488,7 +492,7 @@ elif mode[0]== 'play_polxtv':
     if stream_url:
         xbmcplugin.setResolvedUrl(addon_handle, True, xbmcgui.ListItem(path=stream_url))
     else:
-        xbmcgui.Dialog().ok('[COLOR red] Sorry [/COLOR]','Nie znalazłem linku - nobody is perfect ;)')
+        xbmcgui.Dialog().ok('[COLOR red] Sorry [/COLOR]','Nie znalazłem linku')
         xbmcplugin.setResolvedUrl(addon_handle, False, xbmcgui.ListItem(path=stream_url))   
 
 elif mode[0]== 'play_yoytv':
@@ -507,6 +511,7 @@ elif mode[0]== 'play_itivi':
     if stream_url:
         xbmcplugin.setResolvedUrl(addon_handle, True, xbmcgui.ListItem(path=stream_url))
     else:
+        xbmcgui.Dialog().ok("Brak wolnych miejsc!", 'Zbyt wielu darmowych użytkowników korzysta z portalu!.')  
         xbmcplugin.setResolvedUrl(addon_handle, False, xbmcgui.ListItem(path=stream_url))   
         
 elif mode[0]=='play_iklub':
@@ -615,10 +620,10 @@ elif mode[0] == 'folder':
             addLinkItem(one.get('title',''),  one['url'], 'play_sporttvp', infoLabels=one, IsPlayable=True)
             
             
-    # elif fname == 'LIVE TV: wizja':
-    #     content = wt.get_root()
-    #     for one in content: # 
-    #         addLinkItem(one.get('title',''),  one['url'], 'play_wizja', one.get('epgname',None),iconimage=one.get('img'))
-    #     
+    elif fname == 'LIVE TV: wizja':
+        content = wt.get_root()
+        for one in content: # 
+            addLinkItem(one.get('title',''),  one['url'], 'play_wizja', one.get('epgname',None),iconimage=one.get('img'))
+       
                
 xbmcplugin.endOfDirectory(addon_handle)

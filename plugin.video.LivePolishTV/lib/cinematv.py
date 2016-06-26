@@ -70,7 +70,7 @@ def decode_url(url='http://cinema-tv.xyz/muzyczne/polotv/'):
 
         elif 'src' in content:
             vido_url = mydecode.decode(url,data) 
-        print '@@@@@',vido_url
+
     return vido_url  
 
 def test(out):

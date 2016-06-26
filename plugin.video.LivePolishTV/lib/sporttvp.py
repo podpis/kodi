@@ -71,7 +71,7 @@ def getProxies():
        trs = [x for (y,x) in sorted(zip(speed,trs),reverse=True)]
     proxies=[{x[0]: '%s:%s'%(x[2],x[1])} for x in trs]
     return proxies
-
+    
 def getTvpStrem(url):
     vido_link=''
     if url=='':
