@@ -98,11 +98,12 @@ def build_url(query):
 
 ## sub functions
     
-
+ex_link='http://alltube.tv/filmy-online/'
 def ListMovies(ex_link,page):
-    filmy,pagination = alltube.scanMainpage(ex_link,int(page))
+    url,data = ex_link.split('?') if '?'in ex_link else (ex_link,None)
+    filmy,pagination = alltube.scanMainpage(url,int(page),data)
     if pagination[0]:
-        addLinkItem(name='[COLOR blue]<< poprzednia strona <<[/COLOR]', url=ex_link, mode='__page__M', page=pagination[1], IsPlayable=False)
+        addLinkItem(name='[COLOR blue]<< poprzednia strona <<[/COLOR]', url=ex_link, mode='__page__M', page=pagination[0], IsPlayable=False)
     items=len(filmy)
     
     for f in filmy:
@@ -114,7 +115,7 @@ def ListMovies(ex_link,page):
 def ListSeriale(ex_link,page):
     filmy,pagination = alltube.scanTVshows(ex_link,int(page))
     if pagination[0]:
-        addLinkItem(name='[COLOR blue]<< poprzednia strona <<[/COLOR]', url=ex_link, mode='__page__S', page=pagination[1], IsPlayable=False)
+        addLinkItem(name='[COLOR blue]<< poprzednia strona <<[/COLOR]', url=ex_link, mode='__page__S', page=pagination[0], IsPlayable=False)
     items=len(filmy)
     for f in filmy:
         addDir(name=f.get('title'), ex_link=f.get('href'), mode='getEpisodes', iconImage=f.get('img'), infoLabels=f, fanart=f.get('img'))
@@ -128,19 +129,28 @@ def ListEpisodes(ex_link):
     for f in episodes:
         addLinkItem(name=f.get('title'), url=f.get('href'), mode='getLinks', iconimage=f.get('img'), infoLabels=f, IsPlayable=True,fanart=f.get('img'))
 
-def FSLinks(ex_link,tryb='search'):
+def FSLinks(ex_link,tryb='search',page=1):
+    pagination=(None,None)
     if   tryb=='search':
         filmy,seriale = alltube.Search(ex_link)
     elif tryb=='playlist':
-        filmy,seriale = alltube.getPlaylistContent(ex_link)
+        out, pagination = alltube.getPlaylistContent(ex_link,page)
+        filmy,seriale = out
     else:
         filmy = seriale = []
+    
+    if pagination[0]:
+        addLinkItem(name='[COLOR blue]<< poprzednia strona <<[/COLOR]', url=ex_link, mode='__page__P', page=pagination[0], IsPlayable=False)
+        
     for f in filmy:
         f['title']='[COLOR orange](F)[/COLOR] '+f.get('title')
         addLinkItem(name=f.get('title'), url=f.get('href'), mode='getLinks', iconimage=f.get('img'), infoLabels=f, IsPlayable=True,fanart=f.get('img'))
     for f in seriale:
         f['title']='[COLOR purple](S)[/COLOR] '+f.get('title')
         addDir(name=f.get('title'), ex_link=f.get('href'), mode='getEpisodes', iconImage=f.get('img'), infoLabels=f, fanart=f.get('img'))
+    
+    if pagination[1]:
+        addLinkItem(name='[COLOR blue]>> następna strona >>[/COLOR]', url=ex_link, mode='__page__P', page=pagination[1], IsPlayable=False)
 
 
     
@@ -233,21 +243,22 @@ page = args.get('page',[1])[0]
 
 if mode is None:
     addDir(name="[COLOR blue]Filmy[/COLOR]",ex_link='http://alltube.tv/filmy-online/',page=1, mode='ListMovies',iconImage='DefaultFolder.png')
-    addDir(name="Filmy (Lektor,Dubbing,Polskie)",ex_link='http://alltube.tv/filmy-online/wersja[Lektor,Dubbing,PL]+',page=1, mode='ListMovies',iconImage='DefaultFolder.png')
+    #addDir(name="Filmy (Lektor,Dubbing,Polskie)",ex_link='http://alltube.tv/filmy-online/wersja[Lektor,Dubbing,PL]+',page=1, mode='ListMovies',iconImage='DefaultFolder.png')
+    addDir(name=" Popularne",ex_link='http://alltube.tv/filmy-online/?filter=popular',page=1, mode='ListMovies',iconImage='DefaultFolder.png')
+    addDir(name=" Najwyżej oceniane",ex_link='http://alltube.tv/filmy-online/?filter=rate',page=1, mode='ListMovies',iconImage='DefaultFolder.png')
     addDir(name=" => [Gatunek]",ex_link='gatunek',page=1, mode='GatunekRok',iconImage='DefaultFolder.png',fanart=FANART)
     addDir(name=" => [Rok]",ex_link='rok',page=1, mode='GatunekRok',iconImage='DefaultFolder.png',fanart=FANART)
     addDir(name=" => [Język]",ex_link='jezyk',page=1, mode='GatunekRok',iconImage='DefaultFolder.png',fanart=FANART)
 
     addDir(name="[COLOR blue]Seriale - nowe odcinki[/COLOR]",ex_link=None,page=1, mode='ListSeriale',iconImage='DefaultFolder.png')
-    addDir(name="Najpopularniejsze",ex_link='filter=popular',page=1, mode='ListSeriale',iconImage='DefaultFolder.png')
-    addDir(name="Najwyżej oceniane",ex_link='filter=rate',page=1, mode='ListSeriale',iconImage='DefaultFolder.png')
+    addDir(name=" Popularne",ex_link='filter=popular',page=1, mode='ListSeriale',iconImage='DefaultFolder.png')
+    addDir(name=" Najwyżej oceniane",ex_link='filter=rate',page=1, mode='ListSeriale',iconImage='DefaultFolder.png')
     
     addDir(name="[COLOR yellow]D[COLOR blue]L[COLOR red]A [COLOR lightgreen]D[COLOR purple]Z[COLOR gold]I[COLOR blue]E[COLOR red]C[COLOR lightgreen]I[/COLOR]",ex_link='http://alltube.tv/filmy-online/kategoria[5]+wersja[Lektor,Dubbing,PL]+', mode='ListMovies',iconImage='DefaultFolder.png')
     
     addDir(name="Playlisty",ex_link='', mode='Playlist',iconImage='DefaultFolder.png')
     
-    
-    #addDir('[COLOR green]Szukaj[/COLOR]','',mode='Szukaj')
+    addDir('[COLOR green]Szukaj[/COLOR]','',mode='Szukaj')
 
 
 elif mode[0] == '__page__M':
@@ -256,6 +267,10 @@ elif mode[0] == '__page__M':
     
 elif mode[0] == '__page__S':
     url = build_url({'mode': 'ListSeriale', 'foldername': '', 'ex_link' : ex_link, 'page': page})
+    xbmc.executebuiltin('XBMC.Container.Refresh(%s)'% url)
+
+elif mode[0] == '__page__P':
+    url = build_url({'mode': 'PlaylistLinks', 'foldername': '', 'ex_link' : ex_link, 'page': page})
     xbmc.executebuiltin('XBMC.Container.Refresh(%s)'% url)
     
 elif mode[0] == 'getEpisodes':
@@ -267,7 +282,7 @@ elif mode[0] == 'Playlist':
         addDir(name=f.get('title'), ex_link=f.get('href'), mode='PlaylistLinks', iconImage=f.get('img'), infoLabels=f, fanart=f.get('img'))
 
 elif mode[0] == 'PlaylistLinks':
-    FSLinks(ex_link,tryb='playlist')
+    FSLinks(ex_link,tryb='playlist',page=page)
 
 elif mode[0] == 'ListMovies':
     ListMovies(ex_link,page)

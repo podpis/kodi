@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addons>
 <addon id="plugin.video.alltube.tv"
-version="1.1"
+version="1.2"
 name="alltube.tv"
 provider-name="Michal">
 <requires>
@@ -13,7 +13,7 @@ provider-name="Michal">
   <provides>video</provides>
 </extension>
 <extension point="xbmc.addon.metadata">
-  <summary lang="en">cda-online</summary>
+  <summary lang="en">alltube.tv</summary>
   <description lang="en">Zasoby alltube.tv</description>
   <disclaimer lang="en">private use</disclaimer>
   <language></language>
@@ -298,7 +298,7 @@ provider-name="Michal">
 	</extension>
 </addon>
 
-<addon id="script.module.urlresolver" name="URLResolver" version="3.0.13" provider-name="Eldorado">
+<addon id="script.module.urlresolver" name="URLResolver" version="3.0.14" provider-name="Eldorado">
 <requires>
 <import addon="xbmc.python" version="2.1.0"/>
 </requires>

@@ -2,7 +2,7 @@
 
 import urllib2,urllib
 import re,os
-import base64
+import base64,json
 
 BASEURL='http://alltube.tv'
 TIMEOUT = 10
@@ -20,14 +20,14 @@ def getUrl(url,data=None):
 # url='http://alltube.tv/filmy-online/kategoria[1]+wersja[Lektor,Dubbing]+strona[2]+'
 # filmy,pagination=scanMainpage(url,page=1)
 
-def scanMainpage(url,page=1):
+def scanMainpage(url,page=1,data=None):
    
     if 'strona' in url:
         url = re.sub(r'strona\[\d+\]','strona[%d]'%page,url)
     else:
         url = url + 'strona[%d]+'%page
     
-    content = getUrl(url)
+    content = getUrl(url,data)
     ids = [(a.start(), a.end()) for a in re.finditer('<div class="item-block clearfix">', content)]
     if not ids:
         ids = [(a.start(), a.end()) for a in re.finditer('<div class="cartoon">', content)]
@@ -188,14 +188,18 @@ def getVideoLinks(url):
 def Search(txt='futurama'):
     out_f=[]
     out_s=[]
-    post='search=%s'%urllib.quote_plus(txt)
-    content= getUrl('http://alltube.tv/szukaj',post)
-    items = re.compile('<a href="(.*?)">(.*?)</a>').findall(content)
-    for h,t in items:
-        if 'serial' in h:
-            out_s.append({'title':unicodePLchar(t),'href':h})
-        else:
-            out_f.append({'title':unicodePLchar(t),'href':h})
+
+    url='http://alltube.tv/index.php?url=search/autocomplete/&phrase=%s'%urllib.quote_plus(txt)
+    content= getUrl(url)
+    if content:
+        items=json.loads(content)
+        for item in items.get('suggestions',[]):
+            href  = unicodePLchar(item.get('data',''))
+            title = item.get('value','')
+            if 'serial' in href:
+                out_s.append({'title':title,'href':href})
+            else:
+                out_f.append({'title':title,'href':href})
     return (out_f,out_s)
 
 def getPlaylist():
@@ -227,11 +231,13 @@ def getPlaylist():
     return out
     
 #url='http://alltube.tv/playlista/gwiezdne-wojny-star-wars/100/1'
-#url='http://alltube.tv/playlista/filmy-i-seriale-o-wampirach/38/1'
+#url='http://alltube.tv/playlista/o-diable/468/1'
 
-def getPlaylistContent(url):
+def getPlaylistContent(url,page=1):
+    page = int(page)
     out_f=[]
     out_s=[]
+    url = re.sub('/\d+$','/%d'%page,url)
     content=getUrl(url)
     ids = [(a.start(), a.end()) for a in re.finditer('<div class="item-block clearfix">', content)]
     ids.append( (-1,-1) )
@@ -265,8 +271,14 @@ def getPlaylistContent(url):
                 out_f.append(one)
             else:
                 out_s.append(one)
-    return (out_f,out_s)
-
+    nextPage=False
+    
+    if content.find('strona" href="%d"'%(page+1))>-1:
+        nextPage = page+1
+        
+    prevPage = page-1 if page>1 else False
+    return ((out_f,out_s), (prevPage,nextPage))
+    
 
 ## Filter Category/Version/Year
 #filter('gatunek')
