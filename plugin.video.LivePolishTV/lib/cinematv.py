@@ -4,7 +4,7 @@ import urllib2,urllib
 import re
 import time
 import mydecode
-
+import urlparse
 
 BASEURL='http://cinema-tv.xyz/'
 UA='Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'
@@ -48,8 +48,12 @@ def get_root(addheader=False):
         out.insert(0,{'title':t,'tvid':'','img':'','url':BASEURL,'group':'','urlepg':''})
       
     return out
-url='http://cinema-tv.xyz/ogolne/tvp1hd'
-url='http://cinema-tv.xyz/naukowe/discovery-channel/'
+# url='http://cinema-tv.xyz/ogolne/tvp1hd'
+# url='http://cinema-tv.xyz/naukowe/discovery-channel/'
+# url='http://cinema-tv.xyz/ogolne/tvnhd/'
+# url='http://cinema-tv.xyz/filmowe/kinopolska/'
+# url='http://cinema-tv.xyz/filmowe/axnhd/'
+# url='http://cinema-tv.xyz/naukowe/animalplanet/'
 def decode_url(url='http://cinema-tv.xyz/muzyczne/polotv/'):
     vido_url=''
     if 'cinema-tv' in url:
@@ -66,12 +70,44 @@ def decode_url(url='http://cinema-tv.xyz/muzyczne/polotv/'):
             if pageUrl:
                 pageUrl=pageUrl[0].replace(' ','%20')
                 data=getUrl(pageUrl)
-                vido_url = mydecode.decode(pageUrl,data)
+                vido_url = new_decode(pageUrl,data)
+                if vido_url=='':
+                    vido_url = mydecode.decode(pageUrl,data)
 
         elif 'src' in content:
             vido_url = mydecode.decode(url,data) 
 
     return vido_url  
+
+
+
+def new_decode(pageUrl,data):
+    jwplayer = re.compile('<script type="text/javascript" src="(http.*?jwplayer.*?)"></script>').findall(data)
+    jwplayer = [x for x in jwplayer if 'livecounter' not in x]
+    vido_url=''
+    host=''
+    if jwplayer:
+        host = urlparse.urlparse(jwplayer[0]).netloc
+    
+    swfUrl={'dotstream.tv':'http://dotstream.tv/jwp/jwplayer.flash.swf',
+            'privatestream.tv':'http://privatestream.tv/js/jwplayer.flash.swf',
+            'p.jwpcdn.com':'http://p.jwpcdn.com/6/12/jwplayer.flash.swf',
+            'api.peer5.com':'http://api.peer5.com/jwplayer6/assets/flashls.provider.swf'
+            }
+    
+    if re.search('a = ([0-9]+)',data):
+        a=int(re.search('a = ([0-9]+)',data).group(1))
+        b=int(re.search('b = ([0-9]+)',data).group(1))
+        c=int(re.search('c = ([0-9]+)',data).group(1))
+        d=int(re.search('d = ([0-9]+)',data).group(1))
+        f=int(re.search('f = ([0-9]+)',data).group(1))
+        v_part = re.search('v_part = \'(.*?)\';',data).group(1)
+        link = 'rtmp://%d.%d.%d.%d/'%(a/f,b/f,c/f,d/f) + v_part.split('/')[1]+'/'+' playpath='+v_part.split('/')[-1]
+    
+        vido_url = link + ' swfUrl='+swfUrl.get(host,'http://dotstream.tv/jwp/jwplayer.flash.swf') + ' swfVfy=1 live=1 timeout=13 pageUrl='+pageUrl
+    return vido_url
+
+
 
 def test(out):
     o=out[0]

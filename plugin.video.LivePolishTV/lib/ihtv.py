@@ -90,7 +90,7 @@ def get_root(addheader=False):
       
     return out
 
-   
+url='http://i-htv.net/tvpseriale.html'
 def decode_url(url='http://i-htv.net/tvp1.html'):
     vido_url=''
     if 'i-htv.net' in url:
@@ -147,3 +147,13 @@ def decode_url(url='http://i-htv.net/tvp1.html'):
 
 # link=decode_url(url)
 # print link
+
+def test():
+    out = get_root()
+    #one=out[-4]
+    for one in out:
+        url=one.get('url')
+        print url
+        link=decode_url(url)
+        print link,'\n'
+    

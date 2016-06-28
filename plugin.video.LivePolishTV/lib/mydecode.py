@@ -4,6 +4,7 @@ import re
 import urllib2,urllib
 import base64
 import urlparse
+
 try:
     import execjs
 except:
@@ -26,19 +27,21 @@ def getUrl(url,data=None,header={},cookies=None):
         link=''
     return link
     
-
+#url=pageUrl[0]
 def decode(url,data):
     #query=re.search('src=["\'](http.*?)["\']',data)
     # if query:
     #     query=query.group(1)
     #     
     srcs=re.compile('src=["\'](http.*?)["\']').findall(data)
-    #query = srcs[1]
+    #query = srcs[0]
     ## MAIN CASE
     for query in srcs:
         if 'livecounter' in query:
             pass
-        
+        elif 'pxstream.tv' in query:
+            print '@@pxstream'
+            return _pxstream(query,data,url)
         elif 'myfreshinfo' in query:
             print '@@myfreshinfo'
             return _myfreshinfo(query,data,url)
@@ -61,8 +64,8 @@ def decode(url,data):
             print '@@dotstream'
             return _dotstream(query,data,url)  
         elif 'static.bro.adca.st' in query:
-            print '@@jstatic.bro.adca.st'
-            return _static_bro_adca_st(url,data)
+            print '@@static.bro.adca.st'
+            return _static_bro_adca_st(query,data,url)
         elif 'jwpsrv.com' in query:
             print '@@jwpsrv'
             return _jwpsrv(query,data)
@@ -84,6 +87,33 @@ def decode(url,data):
     print srcs
     return None
 
+
+##
+def _pxstream(query,data,url):
+    vido_url=''
+    feed = re.compile('file=[\'"](.*?)[\'"]; width=[\'"](.*?)[\'"]; height=[\'"](.*?)[\'"];').findall(data)
+    if feed:
+        #link=getUrl(query)
+        myfeed=list(feed[0])
+        myfeed.insert(1,url)
+        src2='http://pxstream.tv/embed.php?file=%s&referrer=%s&width=%s&height=%s&jwplayer=flash'%tuple(myfeed)
+        
+        header = {'User-Agent':UA,
+                    'Referer': url,
+                    'Host':'pxstream.tv'}
+        decoded = getUrl(src2,header=header)
+        file = re.compile('file:\s*[\'"](.*?)[\'"]').findall(decoded)
+        provider = re.compile('provider:\s*[\'"](.*?)[\'"]').findall(decoded)
+        if provider:
+            provider = provider[0]
+            provider = 'http:' + provider if provider.startswith('//') else provider
+        else:
+            provider = 'http://api.peer5.com/jwplayer6/assets/flashls.provider.swf'
+        if file:
+            vido_url = file[0]+'|Referer='+src2+'&User-Agent=' + UA #+ '&X-Requested-With=' + '1' #constants.get_shockwave()
+
+    return vido_url
+  
 ##
 def _myfreshinfo(query,data,url):
     vido_url=''
@@ -195,19 +225,26 @@ def get_cookie_value(cookies='',value='sesssid'):
     return cookies[idx1:idx2]    
 ## Sub routines
 
-def _static_bro_adca_st(query,data):
+
+def _static_bro_adca_st(query,data,url):
     vido_url=''
     #http://jar2.musicterritory.xyz/swf/2682.m3u8?sf=NTczZGY3NzMxNjVjZA==&token=uqEYnMwC2ydIRr5v4_mzqw
-    print 'DATA'
-    print data
+    #print 'DATA'
+    #print data
     feed = re.compile('id=[\'"](.*?)[\'"]; width=[\'"](.*?)[\'"]; height=[\'"](.*?)[\'"];').findall(data)
-    print 'FEED'
-    print feed
+    #print 'FEED'
+    #print feed
     if feed:
-        src2='http://ebookterritory.pw/stream.php?id=%s&width=%s&height=%s&stretching=uniform'%feed[0]
+        qlink=getUrl(query)
+        src2=re.compile('src="(.*?)"').findall(qlink)
+        src2=src2[0] if src2 else 'brocast.tech'
+        host = urlparse.urlparse(src2).netloc
+        #src2='http://ebookterritory.pw/stream.php?id=%s&width=%s&height=%s&stretching=uniform'%feed[0]
+        src2='http://'+host+'/stream.php?id=%s&&width=%s&height=%s&stretching=uniform'%feed[0]
+        
         header = {'User-Agent':UA,
-                'Referer': query,
-                'Host':'ebookterritory.pw',
+                'Referer': url,
+                'Host':host,#'ebookterritory.pw',
                  }
         
         cookies=''
@@ -216,9 +253,10 @@ def _static_bro_adca_st(query,data):
         
         header = {'User-Agent':UA,
                 'Referer': src2,
-                'Host':'ebookterritory.pw',
+                'Host':host,#'ebookterritory.pw',
                 'X-Requested-With':'XMLHttpRequest'}
-        url_t='http://ebookterritory.pw/getToken.php'
+        #url_t='http://ebookterritory.pw/getToken.php'
+        url_t='http://'+host+'/getToken.php'
         decoded2 = getUrl(url_t,header=header)   
         token = re.search('"token":"(.*?)"',decoded2)
 

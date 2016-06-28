@@ -374,10 +374,10 @@ if mode is None:
     addDir('LIVE TV: iklub.net',iconImage=RESOURCES+'iklub.png')
     #addDir('LIVE TV: match-sport',iconImage='')    offline
     addDir('LIVE TV: ihtv',iconImage=RESOURCES+'ihtv.png')
-    addDir('LIVE TV: itivi',iconImage=RESOURCES+'itivi.png')
+    #addDir('LIVE TV: itivi',iconImage=RESOURCES+'itivi.png')
     addDir('LIVE TV: yoy.tv',iconImage=RESOURCES+'yoytv.png')
     addDir('LIVE TV: looknij.in',iconImage=RESOURCES+'looknijin.png')
-    #addDir('LIVE TV: cinematv',iconImage=RESOURCES+'cinematv.png')
+    addDir('LIVE TV: cinematv',iconImage=RESOURCES+'cinematv.png')
     addDir('LIVE TV: wizja',iconImage=RESOURCES+'wizjatv.png')
     addDir('LIVE TV: polxtv',iconImage=RESOURCES+'polxtv.png')
     addDir('LIVE TV: sport365',iconImage=RESOURCES+'sport365.png')
@@ -466,7 +466,7 @@ elif mode[0]=='play_cinematv':
     if stream_url:
         xbmcplugin.setResolvedUrl(addon_handle, True, xbmcgui.ListItem(path=stream_url))
     else:
-        xbmcgui.Dialog().ok('[COLOR red] Sorry [/COLOR]','Kanał zabezpieczony hasłem','... albo nie znalazłem linku')
+        xbmcgui.Dialog().ok('[COLOR orange] Problem [/COLOR]','Kanał zabezpieczony hasłem','... albo nie znalazłem linku')
         xbmcplugin.setResolvedUrl(addon_handle, False, xbmcgui.ListItem(path=stream_url)) 
         
 elif mode[0]=='play_ihtv':
@@ -492,7 +492,7 @@ elif mode[0]== 'play_polxtv':
     if stream_url:
         xbmcplugin.setResolvedUrl(addon_handle, True, xbmcgui.ListItem(path=stream_url))
     else:
-        xbmcgui.Dialog().ok('[COLOR red] Sorry [/COLOR]','Nie znalazłem linku')
+        xbmcgui.Dialog().ok('[COLOR orange] Problem [/COLOR]','Nie znalazłem linku')
         xbmcplugin.setResolvedUrl(addon_handle, False, xbmcgui.ListItem(path=stream_url))   
 
 elif mode[0]== 'play_yoytv':
@@ -581,7 +581,7 @@ elif mode[0] == 'folder':
     elif fname == 'LIVE TV: iklub.net':
         content = iklub.get_root()
         for one in content:
-            addLinkItem(one.get('title',''),  one['url'], 'play_iklub', one.get('epgname',None),iconimage=one.get('img'))
+            addLinkItem(one.get('title',''),  one['url'], 'play_iklub', one.get('epgname',None),infoLabels=one, iconimage=one.get('img'))
     # elif fname == 'LIVE TV: match-sport': went offline
     #     content = ms.get_root()
     #     for one in content:

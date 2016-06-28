@@ -24,33 +24,41 @@ def getUrl(url,data=None):
     return link
     
 def get_root(addheader=False):
-    url='http://iklub.net/all/'
-    content = getUrl(url)
-    idx1=content.find('class="entry-content"')
-    idx2=content[idx1:].find('.entry-content')
-    content = content[idx1:idx1+idx2]    
-    #match=re.compile('<a href="(http://iklub.net/.*?)"><img alt="(.*?)" src="(.*?)" style').findall(content)
-    
-    href=re.compile('<a href="(http://iklub.net/.*?)"').findall(content)
-    title = re.compile('alt="(.*?)"').findall(content)
-    img = re.compile('src="(.*?)"').findall(content)
-    # print len(title),len(href),len(img)
     out=[]
-    if addheader:
+    urls=['http://iklub.net/all/']
+    urls=['http://iklub.net/info/','http://iklub.net/rozrywka/',
+            'http://iklub.net/film/','http://iklub.net/muza/',
+            'http://iklub.net/sports/']
+    for url in urls:
+        content = getUrl(url)
+        code=url[:-1].split('/')[-1]
+        idx1=content.find('class="entry-content"')
+        idx2=content[idx1:].find('.entry-content')
+        content = content[idx1:idx1+idx2]    
+        #match=re.compile('<a href="(http://iklub.net/.*?)"><img alt="(.*?)" src="(.*?)" style').findall(content)
+        
+        href=re.compile('<a href="(http://iklub.net/.*?)"').findall(content)
+        title = re.compile('alt="(.*?)"').findall(content)
+        img = re.compile('src="(.*?)"').findall(content)
+        # print len(title),len(href),len(img)
+        
+        #one=match[0]
+        for h,t,i in zip(href,title,img):
+            #print h,t,i
+            t = t.replace('Telewizja online - ','').replace('_',' ')
+            out.append(fixForEPG({'title':t,'tvid':t,'img':i,'url':h,'group':'','urlepg':'','code':code}))
+        #return sorted(out, key=lambda k: k['title'],reverse=True)    
+    
+    if addheader and len(out):
         t='[COLOR yellow]Updated: %s (iklub)[/COLOR]' %time.strftime("%d/%m/%Y: %H:%M:%S")
-        out.append({'title':t,'tvid':'','img':'','url':'http://iklub.net','group':'','urlepg':''})
-    #one=match[0]
-    for h,t,i in zip(href,title,img):
-        #print h,t,i
-        t = t.replace('Telewizja online - ','').replace('_',' ')
-        out.append(fixForEPG({'title':t,'tvid':t,'img':i,'url':h,'group':'','urlepg':''}))
-    #return sorted(out, key=lambda k: k['title'],reverse=True)    
+        out.insert(0,{'title':t,'tvid':'','img':'','url':'http://iklub.net','group':'','urlepg':''})
     return out
 
 #url='http://iklub.net/filmboxfamily'
 # url='http://iklub.net/eurosport/'
 url='http://iklub.net/fightbox-2/'
 url='http://iklub.net/mini-2/'
+url='http://iklub.net/1tvn/'
 def decode_url(url='http://iklub.net/tvp2/'):
     vido_urls=[]
     if 'iklub.net' in url:

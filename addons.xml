@@ -154,7 +154,7 @@ provider-name="Michal">
 <addon
 	id="plugin.video.LivePolishTV"
 	name="LivePolishTV"
-	version="1.7.4"
+	version="1.7.5"
 	provider-name="Michal">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
@@ -174,31 +174,6 @@ provider-name="Michal">
     <website>https://github.com/ramicspa/kodi</website>
     <email>ramicspa@gmail.com</email>
   </extension>
-</addon>
-
-<addon id="plugin.video.mojefilmyTK"
-version="1.0"
-name="moje-filmy.tk"
-provider-name="Michal">
-<requires>
-  <import addon="xbmc.python" version="2.1.0"/>
-  <import addon="script.common.plugin.cache" version="2.5.5"/>
-</requires>
-<extension point="xbmc.python.pluginsource" library="main.py">
-  <provides>video</provides>
-</extension>
-<extension point="xbmc.addon.metadata">
-  <summary lang="en">moje-filmy</summary>
-  <description lang="en">Zasoby moje-filmy.tk</description>
-  <disclaimer lang="en">private use</disclaimer>
-  <language></language>
-  <platform>all</platform>
-  <license></license>
-  <forum></forum>
-  <website>https://github.com/ramicspa/kodi</website>
-  <email>ramicspa@gmail.com</email>
-  <source></source>
-</extension>
 </addon>
 
 <addon
