@@ -8,7 +8,7 @@ BASEURL='https://cda-online.pl/'
 TIMEOUT = 10
 UA='Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.97 Safari/537.36'
 
-COOKIEFILE=''
+COOKIEFILE=r'D:\cookie.cda'
  
 def _getUrl(url,data=None,cookies=None):
     req = urllib2.Request(url,data)
@@ -27,7 +27,7 @@ def getUrl(url,data=None):
     cookies=cfcookie.cookieString(COOKIEFILE)
     content=_getUrl(url,data,cookies)
     if not content:
-        cf_setCookies(url,COOKIEFILE)
+        cj=cf_setCookies(url,COOKIEFILE)
         cookies=cfcookie.cookieString(COOKIEFILE)
         content=_getUrl(url,data,cookies)
     return content
