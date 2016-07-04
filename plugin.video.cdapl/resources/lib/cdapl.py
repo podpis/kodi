@@ -535,14 +535,27 @@ def premium_readContent(content):
     for i in range(len(ids[:-1])):
         #print content[ ids[i][1]:ids[i+1][0] ]
         item = content[ ids[i][1]:ids[i+1][0] ]
-        href_title = re.compile('<a href="(.*?)\?from=catalog" class="kino-title">(.*?)</a>').findall(item)[0]
-        img = re.compile('src="(http.*?)"').findall(item)[0]
-        quality = re.compile('"cloud-gray">(.*?p)<').findall(item)[-1]
-        out.append({
-            'title':unicodePLchar(href_title[1]),
-            'url':BASEURL+href_title[0],
-            'img':img,'code':quality
-            })
+        #href_title = re.compile('<a href="(.*?)\?from=catalog" class="kino-title">(.*?)</a>').findall(item)[0]
+        
+        href = re.compile('<a href="(.*?)"').findall(item)
+        title= re.compile('class="kino-title">(.*?)<').findall(item)
+        img = re.compile('src="(http.*?)"').findall(item)
+        quality = re.compile('"cloud-gray">(.*?p)<').findall(item)
+        rate = re.compile('<span class="marker">(.*?)<').findall(item)
+
+        if title and href:
+            try:
+                rating = float(rate[0]) if rate else ''
+            except:
+                rating = ''
+
+            out.append({
+                'title':unicodePLchar(title[0]),
+                'url':BASEURL+href[0],
+                'img':img[0] if img else '',
+                'code':quality[-1] if quality else '',
+                'rating':rating
+                })
     return out
 
 # def premium_readContent(content):

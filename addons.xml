@@ -53,7 +53,7 @@ provider-name="Michal">
 </addon>
 
 <addon id="plugin.video.cdapl"
-    version="1.7.2"
+    version="1.7.3"
     name="CDAPL"
     provider-name="Michal">
 
