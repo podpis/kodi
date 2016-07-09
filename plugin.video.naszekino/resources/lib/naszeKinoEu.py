@@ -94,19 +94,25 @@ def natural_keys(text):
 
 # url='http://nasze-kino.eu/film/limitless-2015-sezon-1-napisy-pl/2589'
 # url='http://nasze-kino.eu/film/w-samym-sercu-morza-in-the-heart-of-the-sea-2015-lektor-pl/5062'
-url='http://nasze-kino.eu/film/msciciel-z-wall-street-assault-on-wall-street-2013-lektor-pl/5091'
+#url='http://nasze-kino.eu/film/msciciel-z-wall-street-assault-on-wall-street-2013-lektor-pl/5091'
+url='http://nasze-kino.eu/film/dzieciaki-mojej-siostry-na-tropie-zlota-my-canadian-adventure-quest-for-the-lost-gold-2015-lektor-pl/6719'
+url='http://nasze-kino.eu/film/zielona-latarnia-green-lantern-2011-lektor-pl/6732'
+url='http://nasze-kino.eu/film/godzilla-milleniumpowrot-godzilli-1999-lektor-pl/6718'
 def get_movie_links(url):
     content=getUrl(url)
     out={}
-    items = re.compile('<a href="(.*?)" target="_blank">(.*?)</a>').findall(content)
+    #items = re.compile('<a href="(.*?)" target="\s*_blank">(.*?)</a>').findall(content)
+    items = re.compile('<a href="([^"]*)" target="\s*_blank">(.*?)</a>').findall(content)
     for href,title in items:
         #print title
+        if 'FORUM' in title:
+            continue
         if not 'http://nasze-kino' in href:
             title = title.decode('utf-8')
             if not out.has_key(title):
                 out[title]=[]
             out[title].append(href)
-    print sorted(out.keys(),key=natural_keys)
+    #print sorted(out.keys(),key=natural_keys)
     return out
 
 #linklist = ['http://videomega.tv/?ref=GqxDr09yL00Ly90rDxqG', 'http://streamin.to/39poh03bpa1h', 'http://vidto.me/phs8u1cezeoz.html', 'https://openload.co/f/UBNf7D2-nC8/M%C5%9Bciciel_z_Wall_Street_Assault_on_Wall_Street_%282013%29_PL.720p.BLURAY.x264.AC3-MX.mkv', 'http://www.cda.pl/video/61788937', 'http://videomega.tv/?ref=50Ki8ltOSttSOtl8iK05']
