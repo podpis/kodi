@@ -81,7 +81,7 @@ def get_root(addheader=False):
     #m=match[0]
     for m in match:
         h = m[0]
-        t = m[1].replace('Telewizja online - ','').replace('_',' ')
+        t = m[1].replace('Telewizja online - ','').replace('_',' ').strip()
         i = m[2]
         out.append(fixForEPG({'title':t,'tvid':t,'img':i,'url':h,'group':'','urlepg':''}))
     return out
@@ -140,6 +140,7 @@ def decode_url_old(url):
 
 # url='http://itivi.pl/program-telewizyjny/TVP_1_HD'
 # url='http://itivi.pl/program-telewizyjny/Fenix'
+#url='http://itivi.pl/program-telewizyjny/HBO_HD'
 def decode_url(url):
     vido_urls=''
     cj=cookielib.LWPCookieJar()
@@ -152,7 +153,7 @@ def decode_url(url):
             if link[0].startswith('http'):
                 vido_urls = link[0]
             else:
-                vido_urls = link[0] + ' swfUrl='+swfUrl + ' swfVfy=1 live=1 timeout=13 pageUrl='+url
+                vido_urls = link[0].replace('flv:','') + ' swfUrl='+swfUrl + ' swfVfy=1 live=1 timeout=10 pageUrl='+url
     print '###itivi.pl',vido_urls
     return vido_urls 
     

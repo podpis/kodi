@@ -66,9 +66,9 @@ def getProxies():
     content=getUrl('http://www.idcloak.com/proxylist/free-proxy-list-poland.html')
     speed = re.compile('<div style="width:\d+%" title="(\d+)%"></div>').findall(content)
     trs = re.compile('<td>(http[s]*)</td><td>(\d+)</td><td>(.*?)</td>',re.DOTALL).findall(content)
-    if len(speed) == len(trs):
-       speed = [int(x) for x in speed] 
-       trs = [x for (y,x) in sorted(zip(speed,trs),reverse=True)]
+    # if len(speed) == len(trs):
+    #    speed = [int(x) for x in speed] 
+    #    trs = [x for (y,x) in sorted(zip(speed,trs),reverse=True)]
     proxies=[{x[0]: '%s:%s'%(x[2],x[1])} for x in trs]
     return proxies
     

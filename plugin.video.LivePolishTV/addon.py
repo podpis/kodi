@@ -8,6 +8,9 @@ import xbmcplugin
 import json 
 from copy import deepcopy
 
+import Queue
+import threading
+
 
 # THIS CODE CAN BE USED ONLY FOR NON-COMMERCIAL PURPOSE!
 
@@ -35,6 +38,8 @@ import polxtv
 import wizjatv as wt
 import sport365
 import sporttvp
+import iptvsatlinks
+import sitemtv
 
 # ____________________________
 def getUrl(url,data=None):
@@ -373,15 +378,17 @@ if mode is None:
     addDir('LIVE TV: moje-filmy.tk',iconImage=RESOURCES+'moje-filmy.png')
     addDir('LIVE TV: iklub.net',iconImage=RESOURCES+'iklub.png')
     #addDir('LIVE TV: match-sport',iconImage='')    offline
-    addDir('LIVE TV: ihtv',iconImage=RESOURCES+'ihtv.png')
-    #addDir('LIVE TV: itivi',iconImage=RESOURCES+'itivi.png')
+    #addDir('LIVE TV: ihtv',iconImage=RESOURCES+'ihtv.png')
+    addDir('LIVE TV: itivi',iconImage=RESOURCES+'itivi.png')
     addDir('LIVE TV: yoy.tv',iconImage=RESOURCES+'yoytv.png')
     addDir('LIVE TV: looknij.in',iconImage=RESOURCES+'looknijin.png')
-    addDir('LIVE TV: cinematv',iconImage=RESOURCES+'cinematv.png')
+    #addDir('LIVE TV: cinematv',iconImage=RESOURCES+'cinematv.png')
     addDir('LIVE TV: wizja',iconImage=RESOURCES+'wizjatv.png')
     addDir('LIVE TV: polxtv',iconImage=RESOURCES+'polxtv.png')
     addDir('LIVE TV: sport365',iconImage=RESOURCES+'sport365.png')
     addDir('LIVE TV: sport.tvp',iconImage=RESOURCES+'sporttvp.png')
+    addDir('LIVE TV: sitemtv',iconImage=RESOURCES+'.png')
+    #addDir('LIVE TV: iptvsatlinks ()',iconImage=RESOURCES+'iptvsatlinks.jpg')
     
     
     url = build_url({'mode': 'Opcje'})
@@ -401,7 +408,17 @@ elif mode[0] == 'palyLiveVideo':
 elif mode[0] == 'playUrl':
     if ex_link.startswith('http'):
         ex_link = ex_link.split(' ')[0]
+    # print a
+    # print '#### %s'%ex_link
     playUrl(fname,ex_link)
+
+elif mode[0] == 'play_iptvsatlinks':
+    if '.ts' in ex_link:
+        finalUrl='plugin://plugin.video.f4mTester/?name=%s&url=%s&streamtype=TSDOWNLOADER'%(fname,urllib.quote_plus(ex_link))
+        xbmc.executebuiltin('XBMC.RunPlugin('+finalUrl+')')
+        xbmcplugin.setResolvedUrl(addon_handle, True, xbmcgui.ListItem(path=finalUrl))
+    else:
+        playUrl(fname,ex_link)
 
 elif mode[0] == 'play_sport365':
     print 'play_sport365'
@@ -422,6 +439,7 @@ elif mode[0] == 'play_sport365':
 
 elif mode[0]=='play_sporttvp':
     stream_url = sporttvp.decode_url(ex_link)
+    print ex_link
     print 'play_sporttvp',stream_url
     if 'material_niedostepny' in stream_url:
         y=xbmcgui.Dialog().yesno("[COLOR orange]Problem[/COLOR]", '[B]Ograniczenia Licencyjne, material jest niedostępny[/B]','Spróbowac użyć serwera proxy ??')
@@ -430,7 +448,7 @@ elif mode[0]=='play_sporttvp':
             dialog  = xbmcgui.DialogProgress()
             dialog.create('Znalazłem %d serwerów proxy'%len(proxies))
             for i,proxy in enumerate(proxies):
-                dialog.update(int(1.0*i/len(proxies)*100),'Sprawdzam : %s'%proxy.values()[0])
+                dialog.update(int(1.0*i/len(proxies)*100),'(%s) Sprawdzam: %s'%(i+1,proxy.values()[0]))
                 stream_url = sporttvp.decode_url(ex_link,proxy,timeout=10)
                 if stream_url and not 'material_niedostepny' in stream_url:
                     break
@@ -513,6 +531,15 @@ elif mode[0]== 'play_itivi':
     else:
         xbmcgui.Dialog().ok("Brak wolnych miejsc!", 'Zbyt wielu darmowych użytkowników korzysta z portalu!.')  
         xbmcplugin.setResolvedUrl(addon_handle, False, xbmcgui.ListItem(path=stream_url))   
+
+elif mode[0]== 'play_sitemtv':
+    stream_url = sitemtv.decode_url(ex_link)
+    print '###play_sitemtv',stream_url
+    if stream_url:
+        xbmcplugin.setResolvedUrl(addon_handle, True, xbmcgui.ListItem(path=stream_url))
+    else:
+        xbmcplugin.setResolvedUrl(addon_handle, False, xbmcgui.ListItem(path=stream_url))   
+
         
 elif mode[0]=='play_iklub':
     stream_url=''
@@ -552,6 +579,10 @@ elif mode[0]=='TELEWIZJADA_EPG':
     if programTV:
         ret = xbmcgui.Dialog().select('Program', programTV.split('\n'))
 
+elif mode[0]=='iptvsatlinks_content':
+    m3u_items = iptvsatlinks.m3u2list(ex_link)
+    for one in m3u_items:
+        addLinkItem(one.get('title',''),  one['url'], 'play_iptvsatlinks', one.get('epgname',None),IsPlayable=True,infoLabels=one, iconimage=one.get('img')) 
 
 elif mode[0] == 'UPDATE_IPTV':
     update_iptv()
@@ -624,6 +655,16 @@ elif mode[0] == 'folder':
         content = wt.get_root()
         for one in content: # 
             addLinkItem(one.get('title',''),  one['url'], 'play_wizja', one.get('epgname',None),iconimage=one.get('img'))
-       
-               
+    elif fname == 'LIVE TV: sitemtv':
+        content = sitemtv.get_root()
+        for one in content: # 
+            addLinkItem(one.get('title',''),  one['url'], 'play_sitemtv', one.get('epgname',None),iconimage=one.get('img'))
+   
+    
+    
+    elif fname == 'LIVE TV: iptvsatlinks ()':
+        content = iptvsatlinks.get_playlist()
+        for one in content: # 
+            addDir(one.get('title',''),  one['url'], 'iptvsatlinks_content')      
+              
 xbmcplugin.endOfDirectory(addon_handle)

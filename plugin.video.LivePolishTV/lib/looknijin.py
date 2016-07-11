@@ -260,11 +260,12 @@ def decode_url(url):
     return url.replace(' swfUrl','?token=69e26d6dcc80e355c2cfe7cc12b6c834 swfUrl')
        
 ##    
-# out=get_root(addheader=False)
-# for o in out:
-#     url= o.get('url')
-#     print url
-#     o['url']=decode_url(o.get('url'))
-#     print o['url']
-# with open('looknij.json', 'w') as outfile:
-#     json.dump(out, outfile, indent=2, sort_keys=True)
+def test():
+    out=get_root(addheader=False)
+    for o in out:
+        url= o.get('url')
+        print url
+        o['url']=decode_url(o.get('url'))
+        print o['url']
+    with open('looknij.json', 'w') as outfile:
+        json.dump(out, outfile, indent=2, sort_keys=True)
