@@ -32,6 +32,10 @@ RESOURCES   = PATH+'/resources/'
 
 FANART=RESOURCES+'fanart.png'
 cdaonline.COOKIEFILE=os.path.join(DATAPATH,'cdaonline.cookie')
+cdaonline.BRAMKA = ''
+if my_addon.getSetting('bramka')=='true':
+    cdaonline.BRAMKA = 'http://www.bramka.proxy.net.pl/index.php?q='
+
 
 ## COMMON Functions
 
@@ -235,7 +239,10 @@ if mode is None:
     addDir(name=" => [Rok]",ex_link='serial|rok',page=1, mode='GatunekRok',iconImage='DefaultFolder.png',fanart=FANART)
     
     addDir('[COLOR green]Szukaj[/COLOR]','',mode='Szukaj')
+    addLinkItem('[COLOR gold]-=Opcje=-[/COLOR]','','Opcje')
 
+elif mode[0] == 'Opcje':
+    my_addon.openSettings()   
 
 elif mode[0] == '__page__M':
     url = build_url({'mode': 'ListMovies', 'foldername': '', 'ex_link' : ex_link, 'page': page})

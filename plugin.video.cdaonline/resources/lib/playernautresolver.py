@@ -3,12 +3,14 @@
 import urllib2
 import re
 import aadecode
+import cookielib
 
 TIMEOUT=10
+UA = 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.97 Safari/537.36'
 
 def getUrl(url,data=None,cookies=None):
     req = urllib2.Request(url,data)
-    req.add_header('User-Agent', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.97 Safari/537.36')
+    req.add_header('User-Agent', UA)
     req.add_header('Host', 'www.playernaut.com')
     req.add_header('Upgrade-Insecure-Requests', '1')
     if cookies:
@@ -24,8 +26,10 @@ def getUrl(url,data=None,cookies=None):
 
 # url='https://www.playernaut.com/embed/vS631dFkt'
 # url='https://www.playernaut.com/?v=V3bkB2bOH'
-# url='https://www.playernaut.com/?v=V3bkB2bOH'
-# url='https://www.playernaut.com/embed/zi8QWW4rr'
+# url='https://www.playernaut.com/embed/pNstOfMVi'
+
+
+# url='https://www.playernaut.com/embed/pNstOfMVi'
 
 def _getstuff(content,Cookie):
     src=[]
@@ -36,6 +40,13 @@ def _getstuff(content,Cookie):
         src.append((hd,link+Cookie))
     return src
 
+def get_cj(url):
+    cj = cookielib.LWPCookieJar()
+    opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cj))
+    opener.addheaders = [('User-Agent', UA)]
+    response = opener.open(url)
+    return ''.join(['%s=%s;'%(c.name, c.value) for c in cj])
+
 def getVideoUrls(url):
     """    
     returns 
@@ -43,10 +54,14 @@ def getVideoUrls(url):
         - or list of [('720p', 'http://...'),...]
     """        
     #print url
+    
     Cookie='|Cookie="PHPSESSID=1'
-    if '/embed/' in url:
-        url=url.replace('/embed/','/?v=')
-    content = getUrl(url)
+
+    # if '/embed/' in url:
+    #     url=url.replace('/embed/','/?v=')
+    if '/?v=' in url:
+        url=url.replace('/?v=','/embed/')
+    content = getUrl(url,'confirm.x=0&confirm.y=0&block=1')#,cookies=get_cj(url))
     src = _getstuff(content,Cookie)
     if not src:
         script = re.compile('<script>(.*?)</script>',re.DOTALL).findall(content)

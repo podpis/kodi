@@ -3,14 +3,18 @@
 import urllib2,urllib
 import re,os
 import cfcookie,cookielib
+from urlparse import urlparse
 
 BASEURL='https://cda-online.pl/'
 TIMEOUT = 10
 UA='Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.97 Safari/537.36'
 
 COOKIEFILE=r'D:\cookie.cda'
+BRAMKA = 'http://www.bramka.proxy.net.pl/index.php?q='
  
 def _getUrl(url,data=None,cookies=None):
+    #url = 'http://www.bramka.proxy.net.pl/index.php?q='+urllib.quote(url)
+    #url = 'http://www.bramka.proxy.net.pl/index.php?q='+url
     req = urllib2.Request(url,data)
     req.add_header('User-Agent', UA)
     if cookies:
@@ -30,6 +34,8 @@ def getUrl(url,data=None):
         cj=cf_setCookies(url,COOKIEFILE)
         cookies=cfcookie.cookieString(COOKIEFILE)
         content=_getUrl(url,data,cookies)
+        if not content:
+            content=_getUrl(BRAMKA+url,data,cookies)
     return content
 
 def cf_setCookies(link,cfile):
@@ -154,13 +160,15 @@ def getVideoLinks_iframes(url,content=None):
         names = [x.strip() for x in re.compile('>(.*?)<').findall(names[0]) if x]
     else:
         names=[]
+    frame = iframe[0]
     for frame in iframe:
         href = re.compile('src="(.*?)"',re.DOTALL).search(frame)
         if href:
-            href_go = 'http'+ href.group(1).split('http')[-1]
+            href_go = 'http'+ urllib.unquote(href.group(1)).split('http')[-1]
              
             if href_go.startswith('http') and not 'youtube' in href_go and not 'facebook' in href_go:
-                host = href_go.split('/')[2]
+                #host = href_go.split('/')[2]
+                host = urlparse(href_go).netloc
                 one = {'url' : href_go,
                     'title': "[%s]" %(host),
                     'host': host    }
@@ -194,9 +202,9 @@ def getVideoLinks(url):
             j= jezyk.group(1) if jezyk else ''
             q= jakosc.group(1) if jakosc else ''
             host = host.groups()[-1]
-            href_go = 'http'+ href.group(1).split('http')[-1]
+            href_go = 'http'+ urllib.unquote(href.group(1)).split('http')[-1]
             
-            print i,host,href.group(1),href_go,'\n'
+            print i,host,href_go,'\n'
             
             link = _getOrginalURL(href_go.replace('http://cda-online.pl?',''),host)
             
@@ -204,7 +212,7 @@ def getVideoLinks(url):
                 msg =''
                 if 'ouo.io' in link:
                     msg = '[COLOR red] ouo.io not supported[/COLOR]'
-                one = {'url' : link,
+                one = {'url' : urllib.unquote(link),
                     'title': "[%s] %s, %s %s" %(host,j,q,msg),
                     'host': host    }
                 out.append(one)
@@ -234,8 +242,16 @@ def scanTVshow(url):
 #rodzaj='film'
 # typ='gatunek'
 # typ='rok'
+
+def my_replace(m):
+    return 'href="'+urllib.unquote(m.group(1))
+
 def getGatunekRok(rodzaj='film',typ='gatunek'):
     content = getUrl('http://cda-online.pl/')
+    if BRAMKA:
+        content=content.replace(BRAMKA,'')
+        content=re.sub(r'href=[\'"]?([^\'" >]+)',my_replace,content)
+        #re.findall(r'href=[\'"]?([^\'" >]+)', content)
     selected = []
     if rodzaj=='film':
         if typ=='gatunek':
