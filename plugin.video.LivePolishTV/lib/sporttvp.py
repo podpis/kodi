@@ -46,7 +46,7 @@ def get_root():
         idi.append( (-1,-1) )
         for j in range(len(idi[:-1])):
             item = subset[ idi[j][1]:idi[j+1][0] ]
-            print item
+            #print item
             href=[]
             time = re.compile('<span class="time">(.*?)</span>').findall(item)
             title= re.compile('<div class="item-title">([^<]+)</div>',re.DOTALL).findall(item)
@@ -71,12 +71,15 @@ def getProxies():
     #    trs = [x for (y,x) in sorted(zip(speed,trs),reverse=True)]
     proxies=[{x[0]: '%s:%s'%(x[2],x[1])} for x in trs]
     return proxies
-    
+ 
 def getTvpStrem(url):
     vido_link=''
     if url=='':
         return vido_link
-    content = getUrl(BASEURL+url)
+    if url.startswith('http://sport.tvp.pl'):
+        content = getUrl(url)
+    else:
+        content = getUrl(BASEURL+url)
     iframe = re.compile("<iframe(.*?)</iframe>", re.DOTALL).findall(content)
     for frame in iframe:
         src = re.compile('src="(.*?)"', re.DOTALL).findall(frame)
@@ -115,3 +118,6 @@ def decode_url_old(ex_link):
     
     vido_link = vido_link[0] if vido_link else ''
     return vido_link          
+
+def test():
+    out=get_root()

@@ -362,6 +362,23 @@ def addon_enable_and_set(addonid='pvr.iptvsimple',settings={'m3uPath': 'dupa'}):
     except:
         msg='[COLOR red]ERROR[/COLOR] PVR nie uaktualniony, zrob to recznie'
     return msg
+
+
+def settings_getProxy():
+    protocol =  my_addon.getSetting('protocol')
+    ipaddress = my_addon.getSetting('ipaddress')
+    ipport = my_addon.getSetting('ipport')
+    if 'http' in protocol and ipport and ipaddress:
+        return {protocol: '%s:%s'%(ipaddress,ipport)}
+    else:
+        return {}
+
+def settings_setProxy(proxy={'http':'10.10.10.10:50'}):
+    protocol = proxy.keys()[0]
+    ipaddress,ipport = proxy[protocol].split(':') 
+    my_addon.setSetting('protocol',protocol)
+    my_addon.setSetting('ipaddress',ipaddress)
+    my_addon.setSetting('ipport',ipport)
     
    
 xbmcplugin.setContent(addon_handle, 'movies')	
@@ -384,10 +401,10 @@ if mode is None:
     addDir('LIVE TV: looknij.in',iconImage=RESOURCES+'looknijin.png')
     #addDir('LIVE TV: cinematv',iconImage=RESOURCES+'cinematv.png')
     addDir('LIVE TV: wizja',iconImage=RESOURCES+'wizjatv.png')
-    addDir('LIVE TV: polxtv',iconImage=RESOURCES+'polxtv.png')
+    #addDir('LIVE TV: polxtv',iconImage=RESOURCES+'polxtv.png')
     addDir('LIVE TV: sport365',iconImage=RESOURCES+'sport365.png')
     addDir('LIVE TV: sport.tvp',iconImage=RESOURCES+'sporttvp.png')
-    addDir('LIVE TV: sitemtv',iconImage=RESOURCES+'.png')
+    #addDir('LIVE TV: sitemtv',iconImage=RESOURCES+'.png')
     #addDir('LIVE TV: iptvsatlinks ()',iconImage=RESOURCES+'iptvsatlinks.jpg')
     
     
@@ -444,20 +461,46 @@ elif mode[0]=='play_sporttvp':
     if 'material_niedostepny' in stream_url:
         y=xbmcgui.Dialog().yesno("[COLOR orange]Problem[/COLOR]", '[B]Ograniczenia Licencyjne, material jest niedostępny[/B]','Spróbowac użyć serwera proxy ??')
         if y:
-            proxies=sporttvp.getProxies()
+            stream_url=''
             dialog  = xbmcgui.DialogProgress()
-            dialog.create('Znalazłem %d serwerów proxy'%len(proxies))
-            for i,proxy in enumerate(proxies):
-                dialog.update(int(1.0*i/len(proxies)*100),'(%s) Sprawdzam: %s'%(i+1,proxy.values()[0]))
-                stream_url = sporttvp.decode_url(ex_link,proxy,timeout=10)
+            proxy = settings_getProxy()
+            timeout = int( my_addon.getSetting('timeout') )
+            if proxy:
+                dialog.create('Ustawiony serwer proxy','Sprawdzam: %s'%(proxy.values()[0]))
+                stream_url = sporttvp.decode_url(ex_link,proxy,timeout=timeout)
                 if stream_url and not 'material_niedostepny' in stream_url:
-                    break
+                    pass
+                else:
+                    stream_url=''
+            if len(stream_url)==0:
+                dialog.create('Szukam darmowych serwerów proxy','')
+                proxies=sporttvp.getProxies()
+                dialog.create('Znalazłem %d serwerów proxy'%len(proxies))
+                for i,proxy in enumerate(proxies):
+                    dialog.update(int(1.0*i/len(proxies)*100),'(%s) Sprawdzam: %s'%(i+1,proxy.values()[0]))
+                    stream_url = sporttvp.decode_url(ex_link,proxy,timeout=timeout)
+                    if stream_url and not 'material_niedostepny' in stream_url: 
+                        settings_setProxy(proxy)
+                        break
             dialog.close()
+            print 'AFTER PROXY'
+            print stream_url
+            # if y:
+        #     proxies=sporttvp.getProxies()
+        #     dialog  = xbmcgui.DialogProgress()
+        #     dialog.create('Znalazłem %d serwerów proxy'%len(proxies))
+        #     for i,proxy in enumerate(proxies):
+        #         dialog.update(int(1.0*i/len(proxies)*100),'(%s) Sprawdzam: %s'%(i+1,proxy.values()[0]))
+        #         stream_url = sporttvp.decode_url(ex_link,proxy,timeout=10)
+        #         if stream_url and not 'material_niedostepny' in stream_url:
+        #             break
+        #     dialog.close()
             
     if stream_url:
-        xbmcplugin.setResolvedUrl(addon_handle, True, xbmcgui.ListItem(path=stream_url))
+        ok = xbmcplugin.setResolvedUrl(addon_handle, True, xbmcgui.ListItem(path=stream_url))
     else:
-        xbmcgui.Dialog().ok("Problem", 'Materiał niedostępny')    
+        xbmcgui.Dialog().ok("Problem", 'Materiał niedostępny')
+        settings_setProxy({'None':'0.0.0.0:0'}) 
         xbmcplugin.setResolvedUrl(addon_handle, False, xbmcgui.ListItem(path=''))
         
 elif mode[0]=='play_looknij':

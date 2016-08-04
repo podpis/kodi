@@ -4,10 +4,10 @@
     <setting label="Lista m3u (Nazwa Pliku oraz Katalog Docelowy)" type="lsep"/>
     <setting label="Nazwa"      type="text"   id="fname" default="iptv.m3u" />
     <setting label="Katalog"    type="folder" id="path" source="auto" option="writeable"/>
-				
+            
     <setting label="źródła" type="lsep"/>
-    <setting label="Dostawca:" type="select" id="service" values="Moje-Fimy|iklub|ihtv|itivi|yoy|looknij.in" default="ihtv"/>
-	
+    <setting label="Dostawca:" type="select" id="service" values="Moje-Fimy|iklub|itivi|yoy|looknij.in" default="yoy"/>
+
     <setting label="Akcja: (Utworz/odswierz liste i reaktywj Telewizje)" type="lsep"/>
     <setting type="action"
              action="RunPlugin(plugin://plugin.video.LivePolishTV?mode=BUID_M3U)"
@@ -21,6 +21,13 @@
     <category label="Program EPG">
         <setting label="Przesuniecie czasowe przewodnika (godziny)" type="slider" id="epgTimeShift" default="0" range="-12,1,12" option="int" />
          <setting id="epgUrl" type="select" label="Dostawca EPG" values="http://epg.iptvlive.org|http://api.moje-filmy.tk/epg.xml" default="http://epg.iptvlive.org" />
+    </category>
+    <category label="Ustawienia Proxy">
+        <setting type="sep" />
+        <setting id="protocol" type="labelenum" label="Protokół"  values="None|http|https" default="None"/>
+        <setting id="ipaddress" type="ipaddress" label="Adres IP" default="0.0.0.0" />
+        <setting id="ipport" type="number" label="Port" default="0"/>
+        <setting id="timeout" type="number" label="Timeout (s)" default="10"/>
     </category>
     
 </settings>
