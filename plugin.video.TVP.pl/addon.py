@@ -1,14 +1,12 @@
 # -*- coding: utf-8 -*-
 
-import sys,re
+import os,sys
 import urllib,urllib2
+import re,json
 import urlparse
 import xbmc,xbmcgui,xbmcaddon
 import xbmcplugin
 
-#import urlresolver
-#import base64
-from bs4 import BeautifulSoup
 import vodTVPapi as vod
 
 
@@ -16,30 +14,12 @@ base_url        = sys.argv[0]
 addon_handle    = int(sys.argv[1])
 args            = urlparse.parse_qs(sys.argv[2][1:])
 my_addon        = xbmcaddon.Addon()
+my_addon_id     = my_addon.getAddonInfo('id')
 
-BASE_URL    = 'http://kabarety.tvp.pl' 
-DZIE_URL    = 'http://dziekibogu.tvp.pl'
 PATH        = my_addon.getAddonInfo('path')
+DATAPATH    = xbmc.translatePath(my_addon.getAddonInfo('profile')).decode('utf-8')
 RESOURCES   = PATH+'/resources/'
-
-# --- wiadomosci
-def tvp_news(name,URL):
-    content = getUrl(URL)
-    vido_id = re.compile('data-video-id="(.+?)"', re.DOTALL).findall(content)[0]
-    url_player='http://wiadomosci.tvp.pl/sess/tvplayer.php?&object_id=' + vido_id
-    content = getUrl(url_player)
-    poster_link = re.compile("poster:'(.+?)\'", re.DOTALL).findall(content)[0]
-    title_link = re.compile('title: "(.+?)",', re.DOTALL).findall(content)[0]    
-    vido_link = re.compile("1:{src:\'(.+?)\'", re.DOTALL).findall(content)
-    if not vido_link:
-        vido_link = re.compile("0:{src:\'(.+?)\'", re.DOTALL).findall(content)
-        title_link += ' (Live)'
-    li = xbmcgui.ListItem(name +' ' + title_link, iconImage='DefaultVideo.png')
-    li.setThumbnailImage(poster_link)
-    xbmcplugin.addDirectoryItem(handle=addon_handle, url=vido_link[0], listitem=li)
-
-
-# ____________________________
+FAVORITE    = os.path.join(DATAPATH,'favorites.json')
 
 def getUrl(url):
     req = urllib2.Request(url)
@@ -65,81 +45,55 @@ def addLinkItem(name, url, mode, iconimage=None, infoLabels=False, IsPlayable=Tr
     return ok
 
 
-def addDir(name,ex_link=None,mode='folder',iconImage='DefaultFolder.png',fanart=''):
+def addDir(name,ex_link=None,mode='folder',contextO=['F_ADD'],iconImage='DefaultFolder.png',fanart=''):
     url = build_url({'mode': mode, 'foldername': name, 'ex_link' : ex_link})
     li = xbmcgui.ListItem(name, iconImage=iconImage)
     if fanart:
         li.setProperty('fanart_image', fanart )
+    content=urllib.quote_plus(json.dumps({'title':name,'id':ex_link,'img':iconImage}))
+    contextMenuItems=[]
+    if 'F_ADD' in contextO:
+        contextMenuItems.append(('[COLOR green]Dodaj do Wybranych[/COLOR]', 'RunPlugin(plugin://%s?mode=favoritesADD&ex_link=%s)'%(my_addon_id,content)))
+    if 'F_REM' in contextO:
+        contextMenuItems.append(('[COLOR red]Usuń z Wybranych[/COLOR]', 'RunPlugin(plugin://%s?mode=favoritesREM&ex_link=%s)'%(my_addon_id,content)))
+    if 'F_DEL' in contextO:
+        contextMenuItems.append(('[COLOR red]Usuń Wszystko[/COLOR]', 'RunPlugin(plugin://%s?mode=favoritesREM&ex_link=all)'%(my_addon_id)))
+    li.addContextMenuItems(contextMenuItems, replaceItems=False)     
     xbmcplugin.addDirectoryItem(handle=addon_handle, url=url,listitem=li, isFolder=True)
+
 
 def build_url(query):
     return base_url + '?' + urllib.urlencode(query)
 
-
-def scanTVPsource(ex_link='/1342039/top10/'):
-    if ex_link=='':
-        return 0
-    ALL=[]
-    content = getUrl(BASE_URL+ex_link)            
-    soup=BeautifulSoup(content,)
-    
-    # parse the search page using SoupStrainer and lxml
-    #strainer = SoupStrainer('div', attrs={'class': 'pagination'})
-    #soup = BeautifulSoup(content, parse_only=strainer)    
-    
-    strony=soup.find('div',{'class':"pagination"})
-    if strony:
-        strony = strony.find_all('li')
-        prev_page=strony[0].a.get('href')
-        next_page=strony[-1].a.get('href')
-        last_page=strony[-2].a.get('href').split('-')[-1]
-        if not next_page=='#':  
-            addLinkItem('== Sortuj ==',ex_link, '_sort_',IsPlayable=False)
-        if not prev_page=='#':
-            addLinkItem('<< Poprzednia Strona <<' , prev_page, '__page__',IsPlayable=False)
-        if not next_page=='#':
-            addLinkItem('>> Nastepna Strona %s/%s >>' %(next_page.split('-')[-1],last_page), next_page, '__page__',IsPlayable=False)
-        #strainer = SoupStrainer('div', attrs={'class': 'item block'})
-        #soup = BeautifulSoup(content, parse_only=strainer)  
-        
-    skecze = soup.find_all('div',{'class':"item block"})
-    for skecz in skecze:
-        img = skecz.img.get('src')   
-        content = skecz.find('div',{'class':"itemContent"})
-        title = content.text.strip().encode('utf-8')
-        href = content.a.get('href')
-        ALL.append({'href':href,'title':title,'img':img})
-        addLinkItem(title, href, '__tvp_kabarety_resolve_play', iconimage=img)
-    return 1
-
-
-
-def ResolveTVPandPlay(ex_link='/1343773/tomson-baron-i-paranienormalni-tonight'):
-    url_player=BASE_URL+ex_link   
+def tvp_news(name,URL):
+    content = getUrl(URL)
+    vido_id = re.compile('data-video-id="(.+?)"', re.DOTALL).findall(content)[0]
+    url_player='http://wiadomosci.tvp.pl/sess/tvplayer.php?&object_id=' + vido_id
     content = getUrl(url_player)
-    #src = re.compile("<iframe(.*?)src=\"(.+?)\"(.*?)</iframe>", re.DOTALL).findall(content[:])[0][1]
-    soup=BeautifulSoup(content,)
-    src=soup.find('iframe',{'class':'tvplayer'}).get('src')
-    content = getUrl('http://tvpstream.tvp.pl'+src)
+    poster_link = re.compile("poster:'(.+?)\'", re.DOTALL).findall(content)[0]
+    title_link = re.compile('title: "(.+?)",', re.DOTALL).findall(content)[0]    
     vido_link = re.compile("1:{src:\'(.+?)\'", re.DOTALL).findall(content)
     if not vido_link:
         vido_link = re.compile("0:{src:\'(.+?)\'", re.DOTALL).findall(content)
-    listitem = xbmcgui.ListItem(path=vido_link[0])
-    xbmcplugin.setResolvedUrl(addon_handle, True, listitem)      
-    
-def get_tvpLiveStreams(url):
+        title_link += ' (Live)'
+    li = xbmcgui.ListItem(name +' ' + title_link, iconImage='DefaultVideo.png')
+    li.setThumbnailImage(poster_link)
+    xbmcplugin.addDirectoryItem(handle=addon_handle, url=vido_link[0], listitem=li)
+
+def get_tvpLiveStreams(url='http://tvpstream.tvp.pl'):
     data=getUrl(url)
     livesrc="/sess/tvplayer.php?object_id=%s"
-    soup=BeautifulSoup(data)
+    id_title = re.compile('data-video_id="(.*?)" title="(.*?)"').findall(data)
+    img = re.compile('<img src="(.*?)" alt="(.*?)"').findall(data) 
     out=[]
-    zrodla = soup.find_all('div',{"class":"button"})
-    for z in zrodla:
-        video_id = z.get('data-video_id')
-        title = z.img.get('alt') + ' : ' + z.get('title')
-        img = z.img.get('src')
-        out.append({'title':title,'img':img,
+    for idtitle,imgalt in zip(id_title,img):
+        print idtitle,imgalt
+        video_id = idtitle[0]
+        title = imgalt[1].title() + ': ' + idtitle[1]
+        img = imgalt[0] 
+        out.append({'title':title.decode('utf-8'),'img':img,
                     'url':url+livesrc % video_id})
-    return out   
+    return out
 
 def playLiveVido(ex_link='http://tvpstream.tvp.pl/sess/tvplayer.php?object_id=15349841'):
     data=getUrl(ex_link)
@@ -148,7 +102,6 @@ def playLiveVido(ex_link='http://tvpstream.tvp.pl/sess/tvplayer.php?object_id=15
         listitem = xbmcgui.ListItem(path=live_src[0])
         xbmcplugin.setResolvedUrl(addon_handle, True, listitem)  
 
-
 def vodtvp_Informacje_Publicystyka():
     addDir('Wiadomości',ex_link='22672029',mode='vodTVP',iconImage='https://s.tvp.pl/images/3/7/b/uid_37bb32af5d6a78eb11f0ceb85e2e6ac01447946809413_width_218_play_0_pos_0_gs_0.jpg')
     addDir('Panorama',ex_link='22672017',mode='vodTVP',iconImage='https://s.tvp.pl/images/0/0/6/uid_006933b2d603550f0dc0e8b86bf604751448010129661_width_218_play_0_pos_0_gs_0.jpg')
@@ -156,8 +109,46 @@ def vodtvp_Informacje_Publicystyka():
     addDir('Serwis Info',ex_link='22672079',mode='vodTVP',iconImage='https://s.tvp.pl/images/5/c/3/uid_5c38f1ddddbd576c0d3b3d0de33be6c41448010407181_width_218_play_0_pos_0_gs_0.png')
     addDir('Agrobiznes',ex_link='22672105',mode='vodTVP',iconImage='https://s.tvp.pl/images/b/7/8/uid_b78d8b4658ba508758116242d49d6e6b1448010537460_width_218_play_0_pos_0_gs_0.jpg')
     addDir('Minęła dwudziesta',ex_link='22673971',mode='vodTVP',iconImage='https://s.tvp.pl/images/f/9/1/uid_f91f32e961eb0309182f60146d0799d01448010719625_width_218_play_0_pos_0_gs_0.png')
-    addDir('AAA',ex_link='3994794',mode='vodTVP',iconImage='https://s.tvp.pl/images/f/9/1/uid_f91f32e961eb0309182f60146d0799d01448010719625_width_218_play_0_pos_0_gs_0.png')
+    addDir('Po prostu. Program Tomasza Sekielskiego',ex_link='9525905',mode='vodTVP',iconImage='')
+    addDir('Polityka przy kawie',ex_link='2625476',mode='vodTVP',iconImage='http://s.tvp.pl/images/2/1/7/uid_217cbf307a79ac55e7b5c48389a59b6b1286463046834_width_218_play_0_pos_0_gs_0.jpg')
+    addDir('Publicystyka Najnowsze',ex_link='8306415',mode='vodTVP',iconImage='')
 
+def vodtvp_Kabarety_TVP():
+    addDir('TOP 10',ex_link='1342039',mode='vodTVP')
+    addDir('Skecze',ex_link='883',mode='vodTVP')
+    addDir('Festiwale',ex_link='4982024',mode='vodTVP')
+    addDir('Teraz Ogladane',ex_link='5264287',mode='vodTVP')
+    addDir('Kabaretowy Klub Dwójki',ex_link='4066916',mode='vodTVP')
+    addDir('Dzięki Bogu już weekend',ex_link='10237279',mode='vodTVP',iconImage='http://s.tvp.pl/images/b/6/6/uid_b66006e90129a44f228baccebfa295241456936112117_width_218_play_0_pos_0_gs_0.jpg')
+    addDir('N jak Neonówka',ex_link='5775029',mode='vodTVP')
+    addDir('Kabaretożercy',ex_link='2625743',mode='vodTVP')
+
+def settings_getProxy():
+    protocol =  my_addon.getSetting('protocol')
+    ipaddress = my_addon.getSetting('ipaddress')
+    ipport = my_addon.getSetting('ipport')
+    if 'http' in protocol and ipport and ipaddress:
+        return {protocol: '%s:%s'%(ipaddress,ipport)}
+    else:
+        return {}
+
+def settings_setProxy(proxy={'http':'10.10.10.10:50'}):
+    protocol = proxy.keys()[0]
+    ipaddress,ipport = proxy[protocol].split(':') 
+    my_addon.setSetting('protocol',protocol)
+    my_addon.setSetting('ipaddress',ipaddress)
+    my_addon.setSetting('ipport',ipport)
+   
+def ReadJsonFile(jfilename):
+    if os.path.exists(jfilename):
+        with open(jfilename,'r') as f:
+            content = f.read()
+            if not content:
+                content ='[]'
+    else:
+        content = '[]'
+    data=json.loads(content)
+    return data
 
 #-------------------------------------------	
 
@@ -167,66 +158,119 @@ mode = args.get('mode', None)
 fname = args.get('foldername',[''])[0]
 ex_link = args.get('ex_link',[''])[0]
 
-
 if mode is None:
-    addDir('Wiadomości','http://wiadomosci.tvp.pl/',mode='_news_',iconImage=RESOURCES+'wiadomosci.png')
-    addDir('Teleexperss','http://teleexpress.tvp.pl/',mode='_news_',iconImage=RESOURCES+'teleexpress.png')
-    addDir('Panorama','http://panorama.tvp.pl/',mode='_news_',iconImage=RESOURCES+'panorama.png')
-    addDir('TVP info Live','http://tvpstream.tvp.pl',iconImage=RESOURCES+'tvp-info.png')    
-    addDir('Kabarety TVP')
-    addDir('Dzięki Bogu już weekend',ex_link='10237279',mode='vodTVP',iconImage='http://s.tvp.pl/images/b/6/6/uid_b66006e90129a44f228baccebfa295241456936112117_width_218_play_0_pos_0_gs_0.jpg')
-    #addDir('Informacje i Publicystyka',ex_link='',mode='_infoP')
-    addDir('[COLOR blue]vod.TVP.pl[/COLOR]')
+    addDir('Wiadomości','http://wiadomosci.tvp.pl/',mode='_news_',contextO=[],iconImage=RESOURCES+'wiadomosci.png')
+    addDir('Teleexperss','http://teleexpress.tvp.pl/',mode='_news_',contextO=[],iconImage=RESOURCES+'teleexpress.png')
+    addDir('Panorama','http://panorama.tvp.pl/',mode='_news_',contextO=[],iconImage=RESOURCES+'panorama.png')
+    addDir('TVP info Live','http://tvpstream.tvp.pl',contextO=[],iconImage=RESOURCES+'tvp-info.png')    
+    addDir('Kabarety TVP',ex_link='',mode='_Kabarety',contextO=[])
+    addDir('Informacje i Publicystyka',ex_link='',mode='_infoP',contextO=[])
+    addDir('[COLOR blue]vod.TVP.pl[/COLOR]',contextO=[])
+    addDir('[COLOR lightblue]vod.Wybrane[/COLOR]',ex_link=FAVORITE, mode='favorites',contextO=[])
 
 
-elif mode[0] == '_infoP':
-    vodtvp_Informacje_Publicystyka()
-    
+
 elif mode[0] == '_news_': 
     tvp_news(fname,ex_link)
-
-elif mode[0] == '__page__':
-    url = build_url({'mode': 'folder', 'foldername': '', 'ex_link' : ex_link})
-    xbmc.executebuiltin('XBMC.Container.Refresh(%s)'% url)
-    
-elif mode[0] == '__pageD__':
-    url = build_url({'mode': 'update_DziekiBogu', 'foldername': '', 'ex_link' : ex_link})
-    xbmc.executebuiltin('XBMC.Container.Refresh(%s)'% url)
-    
-elif mode[0] == '__tvp_kabarety_resolve_play': 
-    ResolveTVPandPlay(ex_link)
+elif mode[0] == '_infoP':
+    vodtvp_Informacje_Publicystyka()
+elif mode[0] == '_Kabarety':
+    vodtvp_Kabarety_TVP()
 
 elif mode[0] == 'palyLiveVideo':
     playLiveVido(ex_link)
 
+elif mode[0] == 'favorites':
+    jdata = ReadJsonFile(FAVORITE)
+    for k in jdata:
+        addDir(k.get('title','').title().encode('utf-8'),str(k.get('id','')),mode='vodTVP',contextO=['F_REM','F_DEL'],iconImage=k.get('img',''))
+        
+elif mode[0] == 'favoritesADD':
+    print ex_link
+    jdata = ReadJsonFile(FAVORITE)
+    new_item=json.loads(ex_link)
+    dodac = [x for x in jdata if new_item['title']== x.get('title','')]
+    if dodac:
+        xbmc.executebuiltin('Notification([COLOR pink]Już jest w Wybranych[/COLOR], ' + new_item.get('title','').encode('utf-8') + ', 200)')
+    else:
+        jdata.append(new_item)
+        with open(FAVORITE, 'w') as outfile:
+            json.dump(jdata, outfile, indent=2, sort_keys=True)
+            xbmc.executebuiltin('Notification(Dodano Do Wybranych, ' + new_item.get('title','').encode('utf-8') + ', 200)')
 
-elif mode[0] == '_sort_':
-    #xbmcgui.Dialog().ok('Jestem w sortuje','fajnie')
-    content = getUrl(BASE_URL+ex_link)            
-    soup=BeautifulSoup(content)    
-    sort = soup.find_all('select',{'onchange':"getComboA(this)"})
-    labels=[]
-    hrefs=[]
-    for one in sort:
-        opcje = one.find_all('option')
-        for o in opcje:
-            labels.append(o.get_text())
-            hrefs.append(o.get('value'))
-    if labels and hrefs:
-        ret = xbmcgui.Dialog().select('Sortuj', labels)
-        if ret>-1:
-            url = build_url({'mode': 'folder', 'foldername': '', 'ex_link' : hrefs[ret]})
-            xbmc.executebuiltin('XBMC.Container.Refresh(%s)'% url)
+elif mode[0] == 'favoritesREM':
+    if ex_link=='all':
+        yes = xbmcgui.Dialog().yesno("??","Usuń wszystkie filmy z Wybranych?")
+        if yes:
+            os.remove(FAVORITE)
+    else:
+        print 'favoritesREM'
+        jdata = ReadJsonFile(FAVORITE)
+        remItem=json.loads(ex_link)
+        to_remove=[] 
+        for i in xrange(len(jdata)):
+            if int(jdata[i].get('id')) == int(remItem.get('id')):
+                to_remove.append(i)
+        if len(to_remove)>1:
+            yes = xbmcgui.Dialog().yesno("??",remItem.get('title'),"Usuń %d pozycji z Wybranych?" % len(to_remove))
+        else:
+            yes = True
+        if yes:
+            for i in reversed(to_remove):
+                jdata.pop(i)
+            with open(FAVORITE, 'w') as outfile:
+                json.dump(jdata, outfile, indent=2, sort_keys=True)
+    xbmc.executebuiltin('XBMC.Container.Refresh')        
+     
     
 elif mode[0]=='vodTVP_play':
     print 'vodTVP_play'
     print ex_link
     stream_url = vod.vodTVP_GetStreamUrl(ex_link)
     print stream_url
+    # Proxy
+    if 'material_niedostepny' in stream_url:
+        y=xbmcgui.Dialog().yesno("[COLOR orange]Problem[/COLOR]", '[B]Ograniczenia Licencyjne, material jest niedostępny[/B]','Spróbowac użyć serwera proxy ??')
+        if y:
+            stream_url=''
+            timeout=  my_addon.getSetting('timeout')
+            dialog  = xbmcgui.DialogProgress()
+            proxy = settings_getProxy()
+            if proxy:
+                dialog.create('Ustawiony serwer proxy','Sprawdzam: %s'%(proxy.values()[0]))
+                stream_url = vod.vodTVP_GetStreamUrl(ex_link,proxy,timeout=timeout) 
+                if isinstance(stream_url,list) or (stream_url and not 'material_niedostepny' in stream_url): 
+                    pass
+                else:
+                    stream_url=''
+            if len(stream_url)==0:
+                dialog.create('Szukam darmowych serwerów proxy ...')
+                proxies=vod.getProxies()
+                dialog.create('Znalazłem %d serwerów proxy'%len(proxies))
+                for i,proxy in enumerate(proxies):
+                    dialog.update(int(1.0*i/len(proxies)*100),'(%s) Sprawdzam: %s'%(i+1,proxy.values()[0]))
+                    stream_url = vod.vodTVP_GetStreamUrl(ex_link,proxy,timeout=timeout)
+                    if isinstance(stream_url,list) or (stream_url and not 'material_niedostepny' in stream_url): 
+                        settings_setProxy(proxy)
+                        break
+                    
+            dialog.close()
+            # print 'AFTER PROXY'
+            # print stream_url
+    
+    if isinstance(stream_url,list):
+        label= [x.get('title') for x in stream_url]
+        if len(label)>1:
+            s = xbmcgui.Dialog().select('Wybierz', label)
+            stream_url = stream_url[s].get('url')
+        else:
+            stream_url = stream_url[0].get('url')
+                    
     if stream_url:
         xbmcplugin.setResolvedUrl(addon_handle, True, xbmcgui.ListItem(path=stream_url))
     else:
         xbmcgui.Dialog().ok('ERROR','URL jest niedostepny')
+        settings_setProxy({'None':'0.0.0.0:0'}) 
         
 elif mode[0]=='vodTVP':
     (katalog,episodes) = vod.vodTVPapi(ex_link)
@@ -236,18 +280,12 @@ elif mode[0]=='vodTVP':
                         infoLabels=e,iconimage=e.get('img',None),fanart=e.get('fanart',None))
     elif len(katalog):
         for one in katalog:
-            addDir(one['title'].title(),ex_link=one['id'],mode='vodTVP',iconImage=one['img'])
+            addDir(one['title'],ex_link=one['id'],mode='vodTVP',iconImage=one['img'])
   
         
 elif mode[0] == 'folder':
-    if fname=='Kabarety TVP':
-        addDir('TOP 10','/1342039/top10/')
-        addDir('Skecze','/883/wideo/skecze/')
-        addDir('Festiwale','/4982024/wideo/festiwale/')
-        addDir('Teraz Ogladane','/5264287/teraz-ogladane/')
-    elif fname == 'TVP info Live':
+    if fname == 'TVP info Live':
         out = get_tvpLiveStreams(ex_link)
-        #xbmcgui.Dialog().ok('Jestem w Live',out[0]['title'].encode('utf-8'))
         for one in out:
            addLinkItem(one['title'].encode('utf-8'), one['url'], 'palyLiveVideo', iconimage=one['img'])
   
@@ -258,6 +296,6 @@ elif mode[0] == 'folder':
         
     else:
         scanTVPsource(ex_link)
+      
        
-        
 xbmcplugin.endOfDirectory(addon_handle)
