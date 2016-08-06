@@ -54,10 +54,13 @@ def _getPlayable(episode):
     E['filename'] = str(episode.get('_id',''))
     if 'video/mp4' in (episode.get('videoFormatMimes') or []):
         E['filename'] = E['filename']+'&mime_type=video/mp4'
-    E['fanart'] = vodTVP_getImage(episode,'image_16x9')
-    E['img'] = vodTVP_getImage(episode,'image')
+    E['fanart'] = vodTVP_getImage(episode,['image_16x9','image'])
+    E['img'] = vodTVP_getImage(episode,['image'])
     E['tvshowtitle'] =  episode.get('website_title','').encode('utf-8')
-    E['title'] =  episode.get('website_title','').encode('utf-8') +', ' +episode.get('title','').encode('utf-8')
+    E['title']=''
+    if episode.get('website_title',''):
+        E['title'] =  episode.get('website_title','').encode('utf-8') + ', ' 
+    E['title'] += episode.get('title','').encode('utf-8')
     E['plot'] =  episode.get('description_root','').encode('utf-8')
     E['aired'] =  episode.get('publication_start_dt','').encode('utf-8')
     release_date = episode.get('release_date','')
@@ -71,13 +74,15 @@ def _getPlayable(episode):
 channel_id='26221210&mime_type=video/mp4'
 VIDEO_LINK='http://www.tvp.pl/pub/stat/videofileinfo?video_id='
 TOKENIZER_URL = 'http://www.tvp.pl/shared/cdn/tokenizer_v2.php?object_id='
+BRAMKA='http://www.bramka.proxy.net.pl/index.php?q='
 
-def vodTVP_GetStreamTokenizer(channel_id,proxy={},timeout=TIMEOUT):
+def vodTVP_GetStreamTokenizer(channel_id,proxy={},timeout=TIMEOUT,bramka=False):
     video_url=''
     # videofileinfo = urllib2.urlopen( TOKENIZER_URL+ channel_id)
     # js = json.loads(videofileinfo.read())
     # videofileinfo.close()
-    js = json.loads(getUrl(TOKENIZER_URL+ channel_id,proxy,timeout))
+    BP = BRAMKA if bramka else ''
+    js = json.loads(getUrl(BP+TOKENIZER_URL+ channel_id,proxy,timeout))
     if js.has_key('formats'):
         formats = js.get('formats')
         if isinstance(formats,list):
@@ -112,11 +117,11 @@ def vodTVP_GetStreamTokenizer(channel_id,proxy={},timeout=TIMEOUT):
         #     return formats.get('url') 
     return video_url
         
-def vodTVP_GetStreamUrl(channel_id,proxy={},timeout=TIMEOUT):
-    # videofileinfo = urllib2.urlopen( VIDEO_LINK+ channel_id)
+def vodTVP_GetStreamUrl(channel_id='26403971',proxy={},timeout=TIMEOUT,bramka=False):
+    # videofileinfo = urllib2.urlopen(VIDEO_LINK+ channel_id)
     # js = json.loads(videofileinfo.read())
     # videofileinfo.close()
-    video_url = vodTVP_GetStreamTokenizer(channel_id,proxy,timeout)
+    video_url = vodTVP_GetStreamTokenizer(channel_id,proxy,timeout,bramka)
     if len(video_url)>0:
         return video_url
     js = json.loads(getUrl(VIDEO_LINK+ channel_id,proxy,timeout))
@@ -126,7 +131,8 @@ def vodTVP_GetStreamUrl(channel_id,proxy={},timeout=TIMEOUT):
         # videofileinfo = urllib2.urlopen(VIDEO_LINK + channel_id.split('&')[0])
         # js = json.loads(videofileinfo.read())
         # videofileinfo.close()
-        js = json.loads(getUrl(VIDEO_LINK+ channel_id.split('&')[0],proxy,timeout))
+        BP = BRAMKA if bramka else ''
+        js = json.loads(getUrl(BP+VIDEO_LINK+ channel_id.split('&')[0],proxy,timeout))
         if js.has_key('copy_of_object_id'):
             channel_id = js.get('copy_of_object_id') + '&mime_type'+ js.get('mime_type','video/mp4')
             video_url = vodTVP_GetStreamTokenizer(channel_id,proxy,timeout)
@@ -135,13 +141,15 @@ def vodTVP_GetStreamUrl(channel_id,proxy={},timeout=TIMEOUT):
             return js.get('video_url')
     return ''
 
-def vodTVP_getImage(item,key):
+def vodTVP_getImage(item,img_keys):
     urlImage = 'http://s.v3.tvp.pl/images/%s/%s/%s/uid_%s_width_%d_gs_0.jpg'
     iconUrl=''
-    if key in item:
-        iconFile = item[key][0]['file_name']
-        iconWidth = item[key][0]['width']
-        iconUrl = urlImage %(iconFile[0],iconFile[1],iconFile[2],iconFile[:-4],iconWidth)
+    for key in img_keys:
+        if key in item:
+            iconFile = item[key][0]['file_name']
+            iconWidth = item[key][0]['width']
+            iconUrl = urlImage %(iconFile[0],iconFile[1],iconFile[2],iconFile[:-4],iconWidth)
+            break
     return iconUrl
 
 def vodTVP_root(parent_id='1785454'):
@@ -155,7 +163,7 @@ def vodTVP_root(parent_id='1785454'):
     return ROOT
 
 
-def vodTVPapi(parent_id=22672029,Count=150):
+def vodTVPapi(parent_id=26389937,Count=150):
     js=vodTVP_getApiQuery(parent_id,Count)
     items = js.pop('items')
     lista_pozycji = []
@@ -166,8 +174,13 @@ def vodTVPapi(parent_id=22672029,Count=150):
                 playable=_getPlayable(item)
                 if playable.get('filename',''):
                     lista_pozycji.append(playable)
+            elif item.get('playable',False):
+                playable=_getPlayable(item)
+                if playable.get('filename',''):
+                    playable['filename']=str(item.get('asset_id',''))
+                    lista_pozycji.append(playable)                    
             else:
-                img= vodTVP_getImage(item,'image_4x3')      
+                img= vodTVP_getImage(item,['image','image_4x3'])      
                 title= item.get('title','').encode('utf-8')
                 _id=item.get('_id','')
                 if item['url'].startswith('http'):
@@ -175,13 +188,14 @@ def vodTVPapi(parent_id=22672029,Count=150):
     if len(lista_katalogow)==1 and lista_katalogow[0].get('title')=='wideo':
         (lista_katalogow,lista_pozycji) = vodTVPapi(lista_katalogow[0].get('id'),Count)
     return (lista_katalogow,lista_pozycji)
-# a=vodTVPapi(882)
-# a=vodTVPapi(22672029)
-# a=vodTVPapi(26221226)
+# a=vodTVPapi(24035157)
+# a=vodTVPapi(24035163)
+# a=vodTVPapi(26389937)
 #a=vodTVPapi()
 # Rozrywka
 # a=vodTVPapi(22672029) 
 # Latajacy klub dwojki
 # a=vodTVPapi(24413489)
 # vodTVP_GetStreamUrl(a[1][0]['filename'])
+# vodTVP_GetStreamUrl('26401493')
 # channel_id=a[1][1]['filename']

@@ -6,5 +6,6 @@
         <setting id="ipaddress" type="ipaddress" label="Adres IP" default="0.0.0.0" />
         <setting id="ipport" type="number" label="Port" default="0"/>
         <setting id="timeout" type="number" label="Timeout (s)" default="10"/>
+        <setting id="set" value="on" />
     </category>
 </settings>
