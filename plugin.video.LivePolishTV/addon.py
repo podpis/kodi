@@ -404,6 +404,7 @@ if mode is None:
     #addDir('LIVE TV: polxtv',iconImage=RESOURCES+'polxtv.png')
     addDir('LIVE TV: sport365',iconImage=RESOURCES+'sport365.png')
     addDir('LIVE TV: sport.tvp',iconImage=RESOURCES+'sporttvp.png')
+    addDir('LIVE TV: sport.tvp/rio',iconImage=RESOURCES+'rio-tvp-logo.png')
     #addDir('LIVE TV: sitemtv',iconImage=RESOURCES+'.png')
     #addDir('LIVE TV: iptvsatlinks ()',iconImage=RESOURCES+'iptvsatlinks.jpg')
     
@@ -455,6 +456,7 @@ elif mode[0] == 'play_sport365':
         xbmcgui.Dialog().ok("Problem", 'Źródła nie są jeszcze dostępne')         
 
 elif mode[0]=='play_sporttvp':
+    print '$$$',ex_link
     stream_url = sporttvp.decode_url(ex_link)
     print ex_link
     print 'play_sporttvp',stream_url
@@ -690,9 +692,12 @@ elif mode[0] == 'folder':
             addLinkItem(one.get('title',''),  one['url'], 'play_sport365', infoLabels=one, IsPlayable=True)
     elif fname == 'LIVE TV: sport.tvp':
         content = sporttvp.get_root()
-        for one in content: # 'play_sport365'
+        for one in content: # 'play_sporttvp'
             addLinkItem(one.get('title',''),  one['url'], 'play_sporttvp', infoLabels=one, IsPlayable=True)
-            
+    elif fname == 'LIVE TV: sport.tvp/rio':
+        content = sporttvp.rio_program()
+        for one in content: # 'play_sporttvp'
+            addLinkItem(one.get('title',''),  one['url'], 'play_sporttvp', infoLabels=one, IsPlayable=True)
             
     elif fname == 'LIVE TV: wizja':
         content = wt.get_root()

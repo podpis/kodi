@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import urllib2
+import urllib2,urllib
 import cookielib
 import re
 
@@ -7,7 +7,7 @@ BASEURL='http://sport.tvp.pl'
 proxy={'http': '95.215.52.150:8080'}
 #proxy={'http': '109.207.61.169:8090'}
 #proxy={}
-TIMEOUT = 20
+TIMEOUT = 10
 
 def getUrl(url,proxy={},timeout=TIMEOUT):
     if proxy:
@@ -87,25 +87,31 @@ def getTvpStrem(url):
             vido_link='http://tvpstream.tvp.pl'+src[0]
     return vido_link
 
-def decode_url(ex_link,proxy={},timeout=TIMEOUT):
+BRAMKA='http://www.bramka.proxy.net.pl/index.php?q='
+ex_link='http://tvpstream.tvp.pl/sess/tvplayer.php?object_id=26283354'
+def decode_url(ex_link,proxy={},timeout=TIMEOUT,bramka=False):
     vido_link=''
     if ex_link=='':
         return vido_link
-
-    data = getUrl(ex_link,proxy,timeout=timeout)
+    if bramka:
+        data = getUrl(BRAMKA+ex_link+'&hl=280')
+    else:
+        data = getUrl(ex_link,proxy,timeout=timeout)
     vido_link = re.compile("1:{src:\'(.+?)\'", re.DOTALL).findall(data)
     if not vido_link:
         vido_link = re.compile("0:{src:\'(.+?)\'", re.DOTALL).findall(data)
     
     vido_link = vido_link[0] if vido_link else ''
+
     return vido_link  
     
 #ex_link='/25844901/jezdziectwo-wkkw-puchar-swiata-w-strzegomiu-cross'
+
 def decode_url_old(ex_link):
     vido_link=''
     if ex_link=='':
         return vido_link
-
+    
     content = getUrl(BASEURL+ex_link)
     iframe = re.compile("<iframe(.*?)</iframe>", re.DOTALL).findall(content)
     for frame in iframe:
@@ -118,6 +124,25 @@ def decode_url_old(ex_link):
     
     vido_link = vido_link[0] if vido_link else ''
     return vido_link          
+
+def rio_program():
+    content = getUrl('http://sport.tvp.pl/rio/25851771/program')
+    itemdata = re.compile('<span class="epg-item(.*?)\n\t\t\t</span>',re.DOTALL).findall(content)
+    out=[]
+    for item in itemdata:
+        if item.find('video-icon'):
+            dataid=re.compile('data-id="(.*?)"').findall(item)
+            dataredir=re.compile('data-redir="(.*?)"').findall(item)
+            times=re.compile('"time">(.*?)<').findall(item)
+            title=re.compile('class="title">(.*?)<').findall(item)
+            category=re.compile('class="category">(.*?)<').findall(item)
+            if dataredir and times and title and category:
+                id = re.compile('/(\d+)/').findall(dataredir[0]) if dataredir else ''
+                t = '%s: [COLOR blue]%s, %s[/COLOR]'%(times[0],title[0].strip(),category[0].strip())
+                href = 'http://tvpstream.tvp.pl/sess/tvplayer.php?object_id='+id[0] if id else ''
+                code='[B][COLOR lightgreen]Live[/COLOR][/B]' if href else ''
+                out.append({'title':t,'tvid':'','img':'','url':href,'group':'','urlepg':'','code':code})
+    return out
 
 def test():
     out=get_root()
