@@ -2,6 +2,7 @@
 import urllib2,urllib
 import cookielib
 import re
+import time
 
 BASEURL='http://sport.tvp.pl'
 proxy={'http': '95.215.52.150:8080'}
@@ -125,24 +126,74 @@ def decode_url_old(ex_link):
     vido_link = vido_link[0] if vido_link else ''
     return vido_link          
 
+# def rio_program():
+#     content = getUrl('http://sport.tvp.pl/rio/25851771/program')
+#     itemdata = re.compile('<span class="epg-item(.*?)\n\t\t\t</span>',re.DOTALL).findall(content)
+#     out=[]
+#     for item in itemdata:
+#         if item.find('video-icon'):
+#             dataid=re.compile('data-id="(.*?)"').findall(item)
+#             dataredir=re.compile('data-redir="(.*?)"').findall(item)
+#             times=re.compile('"time">(.*?)<').findall(item)
+#             title=re.compile('class="title">(.*?)<').findall(item)
+#             category=re.compile('class="category">(.*?)<').findall(item)
+#             if dataredir and times and title and category:
+#                 print dataredir
+#                 # break
+#                 id = re.compile('/(\d+)/').findall(dataredir[0]) if dataredir else ''
+#                 start=re.compile('data-broadcast-start="(.*?)"').findall(item)
+#                 end=re.compile('data-broadcast-end="(.*?)"').findall(item)
+#                 start = int(start[0]) if start else -1
+#                 end = int(end[0]) if end else -1
+#                 t = '%s: [COLOR blue]%s, %s[/COLOR]'%(times[0],title[0].strip(),category[0].strip())
+#                 href = 'http://tvpstream.tvp.pl/sess/tvplayer.php?object_id='+id[0] if id else ''
+#                 code='[B][COLOR green]video[/COLOR][/B]' if href else ''
+#                 if start<= time.time() <=end:
+#                     code='[B][COLOR lightgreen]Live[/COLOR][/B]'
+#                     
+#                 out.append({'title':t,'tvid':'','img':'','url':href,'group':'','urlepg':'','code':code})
+#     return out
+
 def rio_program():
     content = getUrl('http://sport.tvp.pl/rio/25851771/program')
     itemdata = re.compile('<span class="epg-item(.*?)\n\t\t\t</span>',re.DOTALL).findall(content)
     out=[]
     for item in itemdata:
-        if item.find('video-icon'):
-            dataid=re.compile('data-id="(.*?)"').findall(item)
-            dataredir=re.compile('data-redir="(.*?)"').findall(item)
-            times=re.compile('"time">(.*?)<').findall(item)
-            title=re.compile('class="title">(.*?)<').findall(item)
-            category=re.compile('class="category">(.*?)<').findall(item)
-            if dataredir and times and title and category:
-                id = re.compile('/(\d+)/').findall(dataredir[0]) if dataredir else ''
-                t = '%s: [COLOR blue]%s, %s[/COLOR]'%(times[0],title[0].strip(),category[0].strip())
-                href = 'http://tvpstream.tvp.pl/sess/tvplayer.php?object_id='+id[0] if id else ''
-                code='[B][COLOR lightgreen]Live[/COLOR][/B]' if href else ''
-                out.append({'title':t,'tvid':'','img':'','url':href,'group':'','urlepg':'','code':code})
+        #if item.find('video-icon'):
+        dataid=re.compile('data-id="(.*?)"').findall(item)
+        dataredir=re.compile('data-redir="(.*?)"').findall(item)
+        times=re.compile('"time">(.*?)<').findall(item)
+        title=re.compile('class="title">(.*?)<').findall(item)
+        category=re.compile('class="category">(.*?)<').findall(item)
+        bstart=re.compile('data-broadcast-start="(.*?)"').findall(item)
+        bstart = float(bstart[0])/1000 if bstart else 0
+        bstop=re.compile('data-broadcast-end="(.*?)"').findall(item)
+        bstop = float(bstop[0])/1000 if bstop else 0
+        if item.find('video-icon') and dataredir and times and title and category:
+            print time.localtime().tm_yday
+            #time.strftime("%a %H:%M", time.localtime(bstart))
+            #Time
+            if time.localtime().tm_yday==time.localtime(bstart).tm_yday:
+                print 'TODAY'
+                times = [time.strftime("%a %H:%M", time.localtime(bstart))]
+            else:
+                times = [time.strftime("%a %H:%M", time.localtime(bstart))]
+            
+            id = re.compile('/(\d+)/').findall(dataredir[0]) if dataredir else ''
+            href = 'http://tvpstream.tvp.pl/sess/tvplayer.php?object_id='+id[0] if id else ''
+            code='[B][COLOR green]video[/COLOR][/B]' if href else ''
+            #if bstart <= time.time() <= bstop:
+            if time.time() <= bstop:
+                bstart=bstart/10 # make live apear first
+                code='[B][COLOR lightgreen]Live[/COLOR][/B]'
+                times = [times[0].split(' ')[-1]]
+            t = '%s: [COLOR blue]%s, %s[/COLOR]'%(times[0],title[0].strip(),category[0].strip())
+            print times[0]
+            out.append({'title':t,'tvid':'','img':'','url':href,'group':'','urlepg':'','code':code,'ttime':bstart})
+    out = sorted(out, key=lambda x: x['ttime'])
     return out
+
 
 def test():
     out=get_root()
+    out=rio_program()
