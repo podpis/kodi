@@ -4,11 +4,12 @@ import re
 import urllib2,urllib
 import base64
 import urlparse
-
+import jsunpack
 try:
     import execjs
 except:
-    import js2py
+    pass
+import js2py
 
 
 UA='Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'
@@ -39,6 +40,9 @@ def decode(url,data):
     for query in srcs:
         if 'livecounter' in query:
             pass
+        elif 'sawlive.tv' in query:
+            print '@@sawlive.tv'    #DONE
+            return _sawlivetv(query,data,url)    
         elif 'pxstream.tv' in query:
             print '@@pxstream'
             return _pxstream(query,data,url)
@@ -87,7 +91,50 @@ def decode(url,data):
     print srcs
     return None
 
-
+#query='http://sawlive.tv/embed/tvp22'
+#query='http://sawlive.tv/embed/canalsport'
+def _sawlivetv(query,data,url):
+    vido_url=''
+    source = getUrl(query)
+    try:
+        decoded = jsunpack.unpack(source.decode('string_escape'))
+    except:
+        decoded =''
+    src=re.compile('src=["\'](http:.*?)["\']').findall(decoded)
+    if src:
+        header = {'Referer':  src[0], 'User-Agent': UA}
+        decoded = getUrl(src[0].replace('/view/','/watch/'),header=header)
+        
+        swfUrl = re.compile('SWFObject\(\'(.*?)\'').findall(decoded)
+        match = re.compile('(eval\(function\(p,a,c,k,e,d\).*?)\n').findall(decoded)
+        if match:
+            decoded = jsunpack.unpack(match[0].decode('string_escape'))
+        
+            unscape = lambda x: x.group(0).replace('%','').decode('hex')
+            decoded = re.sub('%.{2}',unscape,decoded)
+            
+            code = decoded.replace("so.addVariable('file',","file=")
+            code = code.replace("so.addVariable('streamer',","streamer=")
+            code = code.replace("));",");")
+            code = code.replace("unescape","")
+            
+            context = js2py.EvalJs() 
+            context.execute(code)
+            streamer= getattr(context,'streamer')
+            file= getattr(context,'file')
+        
+        
+            if swfUrl and streamer and file:
+                vido_url = streamer +' playpath='+file + ' swfUrl='+swfUrl[0] + ' swfVfy=1 live=1 timeout=13   pageUrl='+src[0]
+        # 
+        # match22 = re.compile("SWFObject\('(.*?)','mpl','100%','100%','9'\);").findall(data)
+        # match23 = re.compile("so.addVariable\('file', '(.*?)'\);").findall(data)
+        # match24 = re.compile("so.addVariable\('streamer', '(.*?)'\);").findall(data)
+        # print ("Match", match22, match23, match24, link22)
+        # videolink = match24[0] + ' playpath=' + match23[0] + ' swfUrl=' + match22[
+        #     0] + ' pageUrl=http://sawlive.tv/embed/' + channel + ' live=true swfVfy=true'
+        # vido_url = src[0]#+'|Referer='+query+'&User-Agent=' + UA 
+    return vido_url
 ##
 def _pxstream(query,data,url):
     vido_url=''

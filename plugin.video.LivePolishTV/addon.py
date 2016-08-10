@@ -40,6 +40,7 @@ import sport365
 import sporttvp
 import iptvsatlinks
 import sitemtv
+import telewizjalive
 
 # ____________________________
 def getUrl(url,data=None):
@@ -243,7 +244,9 @@ def build_m3u():
             out_all = yoytv.get_root(addheader=True)            
         elif service=='looknij.in':
             out_all = looknijin.get_root(addheader=True)  
-  
+        elif service=='telewizja-live':
+            out_all = telewizjalive.get_root(addheader=True)  
+            
         N=len(out_all)
         out_sum=[]
         pDialog.update(0,message= 'Znalazlem!  %d' % N  )
@@ -270,7 +273,9 @@ def build_m3u():
                     one['url'] = yoytv.decode_url(one.get('url',''))
                 if service=='looknij.in':
                     one['url'] = looknijin.decode_url(one.get('url',''))   
-                    
+                if service=='telewizja-live':
+                    one['url'] = telewizjalive.decode_url(one.get('url',''))
+                        
                 if one['url']:
                     if isinstance(one['url'],list):
                         for url in one['url']:
@@ -402,6 +407,8 @@ if mode is None:
     #addDir('LIVE TV: cinematv',iconImage=RESOURCES+'cinematv.png')
     addDir('LIVE TV: wizja',iconImage=RESOURCES+'wizjatv.png')
     #addDir('LIVE TV: polxtv',iconImage=RESOURCES+'polxtv.png')
+    addDir('LIVE TV: telewizja-live',iconImage=RESOURCES+'telewizjalive.png')
+    
     addDir('LIVE TV: sport365',iconImage=RESOURCES+'sport365.png')
     addDir('LIVE TV: sport.tvp',iconImage=RESOURCES+'sporttvp.png')
     addDir('LIVE TV: sport.tvp/rio',iconImage=RESOURCES+'rio-tvp-logo.png')
@@ -507,6 +514,14 @@ elif mode[0]=='play_sporttvp':
         
 elif mode[0]=='play_looknij':
     stream_url = ltv.decode_url(ex_link)
+    if stream_url:
+        xbmcplugin.setResolvedUrl(addon_handle, True, xbmcgui.ListItem(path=stream_url))
+    else:
+        xbmcplugin.setResolvedUrl(addon_handle, False, xbmcgui.ListItem(path=stream_url))
+
+elif mode[0]=='play_telewizjalive':
+    stream_url = telewizjalive.decode_url(ex_link)
+    #xbmcgui.Dialog().ok('',stream_url)
     if stream_url:
         xbmcplugin.setResolvedUrl(addon_handle, True, xbmcgui.ListItem(path=stream_url))
     else:
@@ -707,8 +722,12 @@ elif mode[0] == 'folder':
         content = sitemtv.get_root()
         for one in content: # 
             addLinkItem(one.get('title',''),  one['url'], 'play_sitemtv', one.get('epgname',None),iconimage=one.get('img'))
+    elif fname ==  'LIVE TV: telewizja-live':
+        content = telewizjalive.get_root()
+        for one in content: # 
+            addLinkItem(one.get('title',''),  one['url'], 'play_telewizjalive', one.get('epgname',None),infoLabels=one,iconimage=one.get('img'))
    
-    
+   
     
     elif fname == 'LIVE TV: iptvsatlinks ()':
         content = iptvsatlinks.get_playlist()
