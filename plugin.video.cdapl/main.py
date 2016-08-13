@@ -7,6 +7,13 @@ import xbmc,xbmcgui,xbmcaddon
 import xbmcplugin
 import json 
 
+try:
+    import StorageServer
+except:
+    import storageserverdummy as StorageServer
+cache = StorageServer.StorageServer("cda")
+
+
 from resources.lib import cdapl as cda
 from resources.lib import filmwebapi as fa
 
@@ -142,14 +149,14 @@ def setView():
         }
         xbmc.executebuiltin('Container.SetViewMode(%s)' % view_modes[view_mode])
 
-    xbmcplugin.addSortMethod( handle=addon_handle, sortMethod=xbmcplugin.SORT_METHOD_UNSORTED )
+    
     xbmcplugin.addSortMethod( handle=addon_handle, sortMethod=xbmcplugin.SORT_METHOD_TITLE )
     xbmcplugin.addSortMethod( handle=addon_handle, sortMethod=xbmcplugin.SORT_METHOD_VIDEO_RATING )
     xbmcplugin.addSortMethod( handle=addon_handle, sortMethod=xbmcplugin.SORT_METHOD_VIDEO_YEAR  )
     xbmcplugin.addSortMethod( handle=addon_handle, sortMethod=xbmcplugin.SORT_METHOD_GENRE )
     xbmcplugin.addSortMethod( handle=addon_handle, sortMethod=xbmcplugin.SORT_METHOD_STUDIO  )
     xbmcplugin.addSortMethod( handle=addon_handle, sortMethod=xbmcplugin.SORT_METHOD_VIDEO_RUNTIME )
-
+    xbmcplugin.addSortMethod( handle=addon_handle, sortMethod=xbmcplugin.SORT_METHOD_UNSORTED )
 
 def encoded_dict(in_dict):
     out_dict = {}
@@ -199,11 +206,17 @@ def selectQuality(stream_url,quality):
   
 
 def decodeVideo(ex_link):
+    tmp_COOKIE = cda.COOKIEFILE
+    cda.COOKIEFILE = ''
+    print decodeVideo
     stream_url = cda.getVideoUrls(ex_link)
+    print stream_url
     quality = my_addon.getSetting('quality')
+    print stream_url
     stream_url = selectQuality(stream_url,int(quality))
-    # print '$'*10
-    # print stream_url
+    print '$'*10
+    print stream_url
+    cda.COOKIEFILE = tmp_COOKIE
     if stream_url:
         xbmcplugin.setResolvedUrl(addon_handle, True, xbmcgui.ListItem(path=stream_url))
     else:
@@ -340,6 +353,21 @@ def mainWalk(ex_link,json_file,fname=''):
     setView()
     return 1
 
+def cdaSearch(ex_link):
+    use_filmweb = my_addon.getSetting('filmweb_search')
+    items,nextpage = cda.searchCDA(ex_link)
+    N_items=len(items)
+    if items:
+        for item in items:
+            item=updateMetadata(item,use_filmweb)
+            # print item
+            addLinkItem(name=item.get('title').encode("utf-8"), url=item.get('url'), mode='decodeVideo', iconImage=item.get('img'), infoLabels=item, IsPlayable=True,fanart=item.get('img'),totalItems=N_items)
+        if nextpage:
+            addDir('[COLOR gold]Następna strona >> [/COLOR] ',ex_link=nextpage, json_file=use_filmweb, mode='cdaSearch',iconImage='next.png')
+    setView()
+    x=xbmcplugin.endOfDirectory(addon_handle,succeeded=True)
+    
+
 
 def logincda():
     u = my_addon.getSetting('user')
@@ -349,9 +377,33 @@ def logincda():
             cda.COOKIEFILE=DATAPATH+'cookie.cda'
             addDir('[B]Moje cda.pl[/B]',ex_link='', json_file='', mode='MojeCDA', iconImage='cdaMoje.png',infoLabels=False)
        
-if os.path.exists(DATAPATH+'cookie.cda'):
-    cda.COOKIEFILE=DATAPATH+'cookie.cda'
+if os.path.exists(os.path.join(DATAPATH,'cookie.cda')):
+    cda.COOKIEFILE=os.path.join(DATAPATH,'cookie.cda')
 
+
+## Historia wyszukiwania
+def HistoryLoad():
+    return cache.get('history').split(';')
+
+def HistoryAdd(entry):
+    history = HistoryLoad()
+    if history == ['']:
+        history = []
+    history.insert(0, entry)
+    cache.set('history',';'.join(history[:50]))
+
+def HistoryDel(entry):
+    history = HistoryLoad()
+    print history
+    history.remove(entry)
+    if history:
+        cache.set('history',';'.join(history[:50]))
+    else:
+        HistoryClear()
+
+def HistoryClear():
+    cache.delete('history')
+    
 ## MAIN LOOP 
    
 xbmcplugin.setContent(addon_handle, 'movies')	
@@ -367,7 +419,7 @@ if mode is None:
     addDir('Filmy',ex_link='', mode='premiumKat',iconImage='MediaPremium.png')
     userFolderADD()
     addDir('[COLOR khaki]Wybrane[/COLOR]',ex_link='', json_file=FAVORITE, mode='walk',  iconImage='cdaUlubione.png',infoLabels={'plot':'Lista wybranych pozycji. Szybki dostep, lokalna baza danych.'})
-    addDir('[COLOR green]Szukaj[/COLOR]',ex_link='', mode='cdaSearch',iconImage='Szukaj_cda.png')
+    addDir('[COLOR green]Szukaj[/COLOR]',ex_link='', mode='Szukaj',iconImage='Szukaj_cda.png')
     addLinkItem('[COLOR gold]-=Opcje=-[/COLOR]','','Opcje',iconImage=MEDIA+'Opcje.png')
     
     xbmcplugin.endOfDirectory(addon_handle,succeeded=True) #,cacheToDisc=True)
@@ -446,24 +498,56 @@ elif mode[0] == 'favoritesREM':
     xbmc.executebuiltin('XBMC.Container.Refresh')        
  
 elif mode[0]=='cdaSearch':
-    use_filmweb=json_file if json_file else 'false'
-    if not ex_link:
-        use_filmweb = my_addon.getSetting('filmweb_search')
-        d = xbmcgui.Dialog().input('Szukaj, Podaj tytuł', type=xbmcgui.INPUT_ALPHANUM)
-        if d:
-            ex_link='http://www.cda.pl/video/show/'+d.replace(' ','_')
+    cdaSearch(ex_link)
+    # use_filmweb=json_file if json_file else 'false'
+    # if not ex_link:
+    #     use_filmweb = my_addon.getSetting('filmweb_search')
+    #     d = xbmcgui.Dialog().input('Szukaj, Podaj tytuł', type=xbmcgui.INPUT_ALPHANUM)
+    #     if d:
+    #         ex_link='http://www.cda.pl/video/show/'+d.replace(' ','_')
 
-    items,nextpage = cda.searchCDA(ex_link)
-    N_items=len(items)
-    if items:
-        for item in items:
-            item=updateMetadata(item,use_filmweb)
-            # print item
-            addLinkItem(name=item.get('title').encode("utf-8"), url=item.get('url'), mode='decodeVideo', iconImage=item.get('img'), infoLabels=item, IsPlayable=True,fanart=item.get('img'),totalItems=N_items)
-        if nextpage:
-            addDir('[COLOR gold]Następna strona >> [/COLOR] ',ex_link=nextpage, json_file=use_filmweb, mode='cdaSearch',iconImage='next.png')
-    setView()
-    x=xbmcplugin.endOfDirectory(addon_handle,succeeded=True)
+   ##   items,nextpage = cda.searchCDA(ex_link)
+    # N_items=len(items)
+    # if items:
+    #     for item in items:
+    #         item=updateMetadata(item,use_filmweb)
+    #         # print item
+    #         addLinkItem(name=item.get('title').encode("utf-8"), url=item.get('url'), mode='decodeVideo', iconImage=item.get('img'), infoLabels=item, IsPlayable=True,fanart=item.get('img'),totalItems=N_items)
+    #     if nextpage:
+    #         addDir('[COLOR gold]Następna strona >> [/COLOR] ',ex_link=nextpage, json_file=use_filmweb, mode='cdaSearch',iconImage='next.png')
+    # setView()
+    # x=xbmcplugin.endOfDirectory(addon_handle,succeeded=True)
+
+elif mode[0] =='Szukaj':
+    addDir('[COLOR green]Nowe Szukanie[/COLOR]','',mode='SzukajNowe')
+    historia = HistoryLoad()
+    print historia
+    if not historia == ['']:
+        for entry in historia:
+            contextmenu = []
+            contextmenu.append(('Usuń', 'XBMC.Container.Refresh(%s)'% build_url({'mode': 'SzukajUsun', 'ex_link' : entry})),)
+            contextmenu.append(('Usuń całą historię', 'XBMC.Container.Update(%s)' % build_url({'mode': 'SzukajUsunAll'})),)
+            addDir(name=entry, ex_link='http://www.cda.pl/video/show/'+entry.replace(' ','_'), mode='cdaSearch', fanart=None, contextmenu=contextmenu) 
+    xbmcplugin.endOfDirectory(addon_handle,succeeded=True,cacheToDisc=False)
+    
+
+        
+elif mode[0] =='SzukajNowe':
+    d = xbmcgui.Dialog().input('Szukaj, podaj tytuł', type=xbmcgui.INPUT_ALPHANUM)
+    if d:
+        HistoryAdd(d)
+        ex_link='http://www.cda.pl/video/show/'+d.replace(' ','_')
+        cdaSearch(ex_link)
+
+elif mode[0] =='SzukajUsun':
+    HistoryDel(ex_link)
+    xbmc.executebuiltin('XBMC.Container.Refresh(%s)'%  build_url({'mode': 'Szukaj'}))
+    xbmcplugin.endOfDirectory(addon_handle,succeeded=True,cacheToDisc=False)
+    
+elif mode[0] == 'SzukajUsunAll':
+    HistoryClear()
+    xbmc.executebuiltin('XBMC.Container.Refresh(%s)'%  build_url({'mode': 'Szukaj'}))
+    xbmcplugin.endOfDirectory(addon_handle,succeeded=True,cacheToDisc=False)
 
 elif mode[0] == 'MojeCDA':
     u = my_addon.getSetting('user')

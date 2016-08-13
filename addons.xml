@@ -53,12 +53,13 @@ provider-name="Michal">
 </addon>
 
 <addon id="plugin.video.cdapl"
-    version="1.7.3"
+    version="1.7.4"
     name="CDAPL"
     provider-name="Michal">
 
 <requires>
   <import addon="xbmc.python" version="2.1.0"/>
+  <import addon="script.common.plugin.cache" version="2.5.5"/>
 </requires>
 
 <extension point="xbmc.python.pluginsource" library="main.py">
@@ -70,6 +71,12 @@ provider-name="Michal">
   <description lang="en">cda.pl playlist</description>
   <disclaimer lang="en">private kodi addon</disclaimer>
   <platform>all</platform>
+  <language></language>
+  <license></license>
+  <forum></forum>
+  <website>https://github.com/ramicspa/kodi</website>
+  <email>ramicspa@gmail.com</email>
+  <source></source>
 </extension>
 </addon>
 

@@ -174,7 +174,7 @@ def getVideoUrls(url,tryIT=4):
     # check if version is selecte
     playerSWF1='|Cookie="PHPSESSID=1&Referer=http://static.cda.pl/player5.9/player.swf'
     playerSWF='|Referer=http://static.cda.pl/player5.9/player.swf'
-    #print url
+    print "getVideoUrls",url
     content = getUrl(url)
     src=[]
     
@@ -301,12 +301,14 @@ def l2d(l):
 # url='http://www.cda.pl/video/show/3d_dubbing/p1?duration=dlugie&section=&quality=720p&section=&s=best&section='
 # url='http://www.cda.pl/video/show/film_lektor_pl_dubbing/p1?duration=dlugie&section=&quality=720p&section=&s=date&section='
 
+url='http://www.cda.pl/video/show/deadpool'
+url='http://www.cda.pl/video/show/house_of_cards'
 # items=searchCDA(url)
 # print_toJson(items)
 def searchCDA(url):
     content = getUrl(url)
     labels=re.compile('<label(.*?)</label>', re.DOTALL).findall(content)
-    nextpage =re.compile(' class="sbmBigNext btn-my btn-large fiximg" href="(.*?)">').findall(content)
+    nextpage =re.compile('<a class="sbmBigNext btn-my btn-large fiximg" href="(.*?)"').findall(content)
     
     items=[]
     #label=labels[0]
@@ -329,7 +331,7 @@ def searchCDA(url):
                 img = image[0] if image else ''
                 items.append({'url':url,'title':unicode(title,'utf-8'),'code':code,'plot':unicode(plot,'utf-8'),'img':img,'duration':duration,'new':nowosc})
     if items and nextpage:
-        nextpage = BASEURL+ nextpage[0]
+        nextpage = BASEURL+ nextpage[-1]
     return items,nextpage
 
 def print_toJson(items):
