@@ -118,7 +118,7 @@ def getLinks(ex_link):
         
         link=linksL[s].get('href') if s>-1 else ''
         host=linksL[s].get('host') if s>-1 else ''        
-        if 'cda' in host:
+        if 'cda.pl' in host:
             print 'CDA'
             print link
             stream_url = cdaresolver.getVideoUrls(link)

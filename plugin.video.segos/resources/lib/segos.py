@@ -33,9 +33,9 @@ def getUrl(url,data=None,header={},useCookies=True,saveCookie=False):
         link = ''
     return link
     
-url='http://segos.es/filmy.php?page=1'    
-url='http://segos.es/filmy/gatunek.php?gatunek=Akcja'
-url='http://segos.es/bajki.php?page=2'
+# url='http://segos.es/filmy.php?page=1'    
+# url='http://segos.es/filmy/gatunek.php?gatunek=Akcja'
+# url='http://segos.es/bajki.php?page=2'
 def scanMainpage(url,page=1):
     if 'page=' in url:
         url = re.sub('page=\d+','page=%d'%int(page),url)
@@ -92,8 +92,9 @@ def scanMainpage(url,page=1):
     prevPage = page-1 if page>1 else False
     return (out, (prevPage,nextPage))  
 
-url='http://segos.es/filmy/view.php?id=1583'
-url='http://segos.es/bajki/view.php?id=1209'  
+# url='http://segos.es/filmy/view.php?id=1583'
+# url='http://segos.es/bajki/view.php?id=1209'  
+# url='http://segos.es/filmy/view.php?id=1229'
 def getVideoLinks(url):
     outL=[]
     content = getUrl(url)
@@ -109,10 +110,25 @@ def getVideoLinks(url):
                 host += ' - ' + urlparse.urlparse(link).netloc
             if 'ebd.cda.pl' in host:
                 link = 'http://www.cda.pl/video/'+link.split('/')[-1]
+                host = 'cda.pl'
         outL.append({'href':link,'host':host})
+    idx = content.find('Inne jakości')
+    if idx:
+        items = re.compile( '<div class="col-lg-1">(.*?)</div>[ \t\n]*<div class="col-lg-1">(.*?)</div>[ \t\n]*<div class="col-lg-7">(.*?)</div>[ \t\n]*<div class="col-lg-2">(.*?)</div>[ \t\n]*<div class="col-lg-1">(.*?)</div>',re.DOTALL).findall(content[idx:-1])
+        #item = items[1]
+        if len(items)>1:
+            for item in items[1:]:
+                audio1 = re.compile('title="(.*)"').findall(item[0])
+                audio1 = audio1[0] if audio1 else ''
+                audio = audio1 + ' (%s)'%item[1] if item else audio1
+                link = re.compile('href="(.*?)"').findall(item[2])
+                if link:
+                    link='http'+link[0].split('http')[-1]
+                    host = urlparse.urlparse(link).netloc + ' ' + audio
+                    outL.append({'href':link,'host':host})
     return outL    
 
-url = 'http://greevid.com/video_148786?player=embed&width=708&height=400'     
+# url = 'http://greevid.com/video_148786?player=embed&width=708&height=400'     
 def get_greevid(url):
     content = getUrl(url)
     iframes = re.compile('<iframe(.*?)</iframe>',re.DOTALL).findall(content)
