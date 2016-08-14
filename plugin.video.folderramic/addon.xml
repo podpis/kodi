@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon id="plugin.video.folderramic"
+version="1.0"
+name="folder"
+provider-name="Michal">
+<requires>
+  <import addon="xbmc.python" version="2.1.0"/>
+
+</requires>
+<extension point="xbmc.python.pluginsource" library="default.py">
+  <provides>video</provides>
+</extension>
+<extension point="xbmc.addon.metadata">
+  <summary lang="en"> master ramic</summary>
+  <description lang="en">master ramic addon</description>
+  <disclaimer lang="en">private use</disclaimer>
+  <language></language>
+  <platform>all</platform>
+  <license></license>
+  <forum></forum>
+  <website>https://github.com/ramicspa/kodi</website>
+  <email>ramicspa@gmail.com</email>
+  <source></source>
+</extension>
+</addon>
