@@ -110,12 +110,12 @@ def getVideoLinks(url):
                 host += ' - ' + urlparse.urlparse(link).netloc
             if 'ebd.cda.pl' in host:
                 link = 'http://www.cda.pl/video/'+link.split('/')[-1]
-                host = 'cda.pl'
+                host = urlparse.urlparse(link).netloc
         outL.append({'href':link,'host':host})
     idx = content.find('Inne jakości')
     if idx:
         items = re.compile( '<div class="col-lg-1">(.*?)</div>[ \t\n]*<div class="col-lg-1">(.*?)</div>[ \t\n]*<div class="col-lg-7">(.*?)</div>[ \t\n]*<div class="col-lg-2">(.*?)</div>[ \t\n]*<div class="col-lg-1">(.*?)</div>',re.DOTALL).findall(content[idx:-1])
-        #item = items[1]
+        #item = items[2]
         if len(items)>1:
             for item in items[1:]:
                 audio1 = re.compile('title="(.*)"').findall(item[0])
@@ -124,6 +124,8 @@ def getVideoLinks(url):
                 link = re.compile('href="(.*?)"').findall(item[2])
                 if link:
                     link='http'+link[0].split('http')[-1]
+                    if 'greevid.com' in link:
+                        link = get_greevid(link)
                     host = urlparse.urlparse(link).netloc + ' ' + audio
                     outL.append({'href':link,'host':host})
     return outL    

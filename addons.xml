@@ -262,7 +262,7 @@ provider-name="Michal">
 </addon>
 
 <addon id="plugin.video.segos"
-version="1.1"
+version="1.2"
 name="segos"
 provider-name="Michal">
 <requires>
