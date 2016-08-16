@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+    <setting id="language" value="" />
+    <setting id="quality" value="" />
+    <setting id="sort" value="" />
+    <setting id="genre" value="" />
+    <setting id="sortT" value="" />
+    <setting id="genreT" value="" />
+    <setting id="set" value="set" />
+</settings>
+
+
