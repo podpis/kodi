@@ -287,6 +287,34 @@ provider-name="Michal">
   </extension>
 </addon>
 
+<addon
+	id="plugin.video.seansik.nl"
+	name="Seansik.nl"
+	version="1.0"
+	provider-name="Michal">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0"/>
+	<import addon="script.module.urlresolver" version="3.0.15"/>
+    <import addon="script.common.plugin.cache" version="2.5.5"/>
+    <import addon="script.module.pyxbmct" />
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="main.py">
+    <provides>video</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en">...</summary>
+    <description lang="en">Odgrywa zasoby Seansik.TV</description>
+    <disclaimer lang="en"></disclaimer>
+    <language></language>
+    <platform>all</platform>
+    <license></license>
+    <forum></forum>
+    <website></website>
+    <email></email>
+    <source></source>
+  </extension>
+</addon>
+
 <addon id="plugin.video.segos"
 version="1.2"
 name="segos"
