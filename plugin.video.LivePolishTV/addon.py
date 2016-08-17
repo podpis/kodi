@@ -29,17 +29,18 @@ import looknijtv as ltv
 import telewizjada as tel
 #import matchsport as ms
 import iklub
-import ihtv
+#import ihtv
 import itivi
 import yoytv
 import looknijin
-import cinematv
-import polxtv
+#import cinematv
+#import polxtv
 import wizjatv as wt
+import psatv
 import sport365
 import sporttvp
-import iptvsatlinks
-import sitemtv
+#import iptvsatlinks
+#import sitemtv
 import telewizjalive
 
 # ____________________________
@@ -408,7 +409,7 @@ if mode is None:
     addDir('LIVE TV: wizja',iconImage=RESOURCES+'wizjatv.png')
     #addDir('LIVE TV: polxtv',iconImage=RESOURCES+'polxtv.png')
     addDir('LIVE TV: telewizja-live',iconImage=RESOURCES+'telewizjalive.png')
-    
+    addDir('LIVE TV: psa-tv.blogspot',iconImage=RESOURCES+'psatv.png')
     addDir('LIVE TV: sport365',iconImage=RESOURCES+'sport365.png')
     addDir('LIVE TV: sport.tvp',iconImage=RESOURCES+'sporttvp.png')
     addDir('LIVE TV: sport.tvp/rio',iconImage=RESOURCES+'rio-tvp-logo.png')
@@ -517,7 +518,7 @@ elif mode[0]=='play_looknij':
     if stream_url:
         xbmcplugin.setResolvedUrl(addon_handle, True, xbmcgui.ListItem(path=stream_url))
     else:
-        xbmcplugin.setResolvedUrl(addon_handle, False, xbmcgui.ListItem(path=stream_url))
+        xbmcplugin.setResolvedUrl(addon_handle, False, xbmcgui.ListItem(path=''))
 
 elif mode[0]=='play_telewizjalive':
     stream_url = telewizjalive.decode_url(ex_link)
@@ -525,7 +526,18 @@ elif mode[0]=='play_telewizjalive':
     if stream_url:
         xbmcplugin.setResolvedUrl(addon_handle, True, xbmcgui.ListItem(path=stream_url))
     else:
-        xbmcplugin.setResolvedUrl(addon_handle, False, xbmcgui.ListItem(path=stream_url))
+        xbmcplugin.setResolvedUrl(addon_handle, False, xbmcgui.ListItem(path=''))
+
+
+elif mode[0]=='play_psatv':
+    stream_url = psatv.decode_url(ex_link)
+    #xbmcgui.Dialog().ok('',stream_url)
+    if stream_url:
+        xbmcplugin.setResolvedUrl(addon_handle, True, xbmcgui.ListItem(path=stream_url))
+    else:
+        xbmcplugin.setResolvedUrl(addon_handle, False, xbmcgui.ListItem(path=''))
+
+
 
 elif mode[0]=='play_wizja':
     stream_url = wt.decode_url(ex_link)
@@ -534,7 +546,7 @@ elif mode[0]=='play_wizja':
         xbmcplugin.setResolvedUrl(addon_handle, True, xbmcgui.ListItem(path=stream_url))
     else:
         xbmcgui.Dialog().ok("Brak wolnych miejsc!", 'Ze względu na duża ilość oglądających osób - dostęp tylko dla użytkowników Premium.')  
-        xbmcplugin.setResolvedUrl(addon_handle, False, xbmcgui.ListItem(path=stream_url)) 
+        xbmcplugin.setResolvedUrl(addon_handle, False, xbmcgui.ListItem(path='')) 
 
 elif mode[0]=='play_cinematv':
     #xbmcgui.Dialog().ok('',ex_link)
@@ -726,6 +738,10 @@ elif mode[0] == 'folder':
         content = telewizjalive.get_root()
         for one in content: # 
             addLinkItem(one.get('title',''),  one['url'], 'play_telewizjalive', one.get('epgname',None),infoLabels=one,iconimage=one.get('img'))
+    elif fname ==  'LIVE TV: psa-tv.blogspot':
+        content = psatv.get_root()
+        for one in content: # 
+            addLinkItem(one.get('title',''),  one['url'], 'play_psatv', one.get('epgname',None),infoLabels=one,iconimage=one.get('img'))
    
    
     
