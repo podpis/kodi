@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <settings>
     <category label="Ustawienia">
-        <setting type="sep" />
         <setting id="hide_addplugin" type="bool" label="Schowaj 'Dodaj plugin'" default="false"/>
+        <setting type="sep" />
+        <setting label="Zmiana nazwy pluginu jest dostępna z menu contekstowego pluginu" type="lsep"/>
+        <setting label="UWAGA: wymagane jest ponowne uruchomienie KODI" type="lsep"/>
         <setting id="set" value="on" />
     </category>
 </settings>

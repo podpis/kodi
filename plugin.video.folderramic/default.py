@@ -10,52 +10,39 @@ my_addon        = xbmcaddon.Addon()
 my_addon_id     = my_addon.getAddonInfo('id')
 addonName       = my_addon.getAddonInfo('name')
 PATH            = my_addon.getAddonInfo('path')
-DATAPATH    = xbmc.translatePath(my_addon.getAddonInfo('profile')).decode('utf-8')
+DATAPATH        = xbmc.translatePath(my_addon.getAddonInfo('profile')).decode('utf-8')
 
-FAVORITE    = os.path.join(DATAPATH,'favorites.json')
+FAVORITE        = os.path.join(DATAPATH,'favorites.json')
 
 base_url = sys.argv[0]
 addon_handle = int(sys.argv[1])
 args = urlparse.parse_qs(sys.argv[2][1:])
 xbmcplugin.setContent(addon_handle, 'plugin')
 
-#addon_path=r'c:\users\ramic\appdata\roaming\Kodi\addons\plugin.video.alltube'
 
-def get_addon_xml(addon_path):
-    with open(os.path.join(addon_path,'addon.xml'),'r') as f:
-        data = f.read()
-    metadata={}
-    if data:
-        addon = re.compile('<addon(.*?)>',re.DOTALL).search(data)
-        if addon:
-            id = re.search('id="(.*?)"',addon.group(1))
-            name = re.search('name="(.*?)"',addon.group(1))
-            providername = re.search('provider-name="(.*?)"',addon.group(1))
-            version = re.search('version="(.*?)"',addon.group(1))
-            metadata['id'] = id.group(1) if id else ''       
-            metadata['name'] = name.group(1) if name else ''            
-            metadata['providername'] = providername.group(1) if providername else ''            
-            metadata['version'] = version.group(1) if version else ''            
-        extension = re.compile('<extension(.*?)>',re.DOTALL).search(data)
-        if extension:
-            library = re.search('library="(.*?)"',extension.group(1))
-            metadata['library'] = library.group(1) if library else ''
-    return metadata
-    
 def get_video_plugins():
-    addons_path = os.path.join(PATH,'..')
+    print 'get_video_plugins'
+    print 'my_addon', my_addon
+    print 'my_addon_id [%s]'%my_addon_id    
+
+    addons_path = xbmc.translatePath(os.path.join('special://','home','addons'))
     out = []
     all_addons =  os.listdir(addons_path)
     for addon in all_addons:
-        addon_path = os.path.join(addons_path,addon)
-        if addon.startswith('plugin.video') and  os.path.isdir(addon_path):
-            data = get_addon_xml(addon_path)
-            data['url']='plugin://'+data.get('id')
-            data['img']=os.path.join(addon_path,'icon.png')
-            if addonName not in data['name']:
+        
+        if addon.startswith('plugin.video') and addon != my_addon_id:
+            data={}
+            #print '%s \t\t %s'%(my_addon_id,addon)
+            try:
+                tmp_addon =  xbmcaddon.Addon(addon)
+                data['name'] = tmp_addon.getAddonInfo('name')
+                data['url']='plugin://'+tmp_addon.getAddonInfo('id')
+                data['img']=tmp_addon.getAddonInfo('icon')
                 out.append(data)
+            except:
+                print 'TRY ERROR %s',addon
+                
     return out
-
 
 def addDirL(name,ex_link=None,mode='folder',pluggin=True,iconImage='DefaultFolder.png',contextO=[''],fanart='',isFolder=True):
     if pluggin:
@@ -66,6 +53,7 @@ def addDirL(name,ex_link=None,mode='folder',pluggin=True,iconImage='DefaultFolde
     if fanart:
         li.setProperty('fanart_image', fanart )
     contextMenuItems=[]
+    
     if 'F_REM' in contextO:
         contextMenuItems.append(('[COLOR red]Usuń plugin z list[/COLOR]', 'RunPlugin(plugin://%s?mode=delPlugin&ex_link=%s)'%(my_addon_id,urllib.quote_plus(name))))
     if 'F_DEL' in contextO:
@@ -74,6 +62,8 @@ def addDirL(name,ex_link=None,mode='folder',pluggin=True,iconImage='DefaultFolde
         contextMenuItems.append(('Ukryj [I]\'Dodaj Plugins\'[/I]', 'RunPlugin(plugin://%s?mode=hidePlugin&ex_link=T)'%(my_addon_id)))
     else:
         contextMenuItems.append(('Pokaż [I]\'Dodaj Plugins\'[/I]', 'RunPlugin(plugin://%s?mode=hidePlugin&ex_link=F)'%(my_addon_id)))
+    contextMenuItems.append(('[B]Zmień nazwę pluginu[/B]', 'RunPlugin(plugin://%s?mode=renamePlugin&ex_link=)'%(my_addon_id)))
+    
     li.addContextMenuItems(contextMenuItems, replaceItems=False)        
     xbmcplugin.addDirectoryItem(handle=addon_handle, url=url,listitem=li, isFolder=isFolder)
 
@@ -116,6 +106,22 @@ elif mode[0] == 'hidePlugin':
     else:
         my_addon.setSetting('hide_addplugin','false')
     xbmc.executebuiltin('XBMC.Container.Refresh')     
+
+elif mode[0] == 'renamePlugin':
+    new_name = xbmcgui.Dialog().input('Podaj nową nazwe pluginu [%s]'%addonName, type=xbmcgui.INPUT_ALPHANUM)
+    if new_name and new_name != addonName:
+        try:
+            import xml.etree.ElementTree as ET
+            import time
+            xml_path = os.path.join(xbmc.translatePath(PATH),'addon.xml')
+            tree = ET.parse(xml_path)
+            tree.getroot().set('name',new_name)
+            tree.write(xml_path)
+            xbmc.executebuiltin('Notification([COLOR green]Nazwa zmieniona [/COLOR],[B]wymagany restart![/B] )')
+             xbmc.executebuiltin("XBMC.UpdateLocalAddons()")
+        except:
+            xbmc.executebuiltin('Notification([COLOR red]Problem[/COLOR], )')
+    
     
 elif mode[0] == 'addPlugin':
     jdata = ReadJsonFile(FAVORITE)
@@ -132,7 +138,7 @@ elif mode[0] == 'addPlugin':
 
 elif mode[0] == 'delPlugin':
     if ex_link=='all':
-        yes = xbmcgui.Dialog().yesno("??","Usuń wszystkie filmy z Wybranych?")
+        yes = xbmcgui.Dialog().yesno("Usuń","Usunąć wszystkie pluginy z listy?")
         if yes:
             os.remove(FAVORITE)
     else:
@@ -143,7 +149,7 @@ elif mode[0] == 'delPlugin':
             if jdata[i].get('title') == remItem:
                 to_remove.append(i)
         if len(to_remove)>1:
-            yes = xbmcgui.Dialog().yesno("??",remItem.get('title'),"Usuń %d pozycji z Wybranych?" % len(to_remove))
+            yes = xbmcgui.Dialog().yesno("Usuń",remItem.get('title'),"Usunąć %d pozycji?" % len(to_remove))
         else:
             yes = True
         if yes:
@@ -154,7 +160,9 @@ elif mode[0] == 'delPlugin':
     xbmc.executebuiltin('XBMC.Container.Refresh')  
 
 elif mode[0] == 'run':
-    xbmc.executebuiltin('XBMC.Container.Refresh')  
+    pass
+    #xbmc.executebuiltin('XBMC.Container.Refresh')
+    #xbmc.executebuiltin('XBMC.ActivateWindow(10025,"%s",return)'%ex_link)
 
 xbmcplugin.endOfDirectory(addon_handle)
     
