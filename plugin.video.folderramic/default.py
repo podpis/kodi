@@ -118,7 +118,7 @@ elif mode[0] == 'renamePlugin':
             tree.getroot().set('name',new_name)
             tree.write(xml_path)
             xbmc.executebuiltin('Notification([COLOR green]Nazwa zmieniona [/COLOR],[B]wymagany restart![/B] )')
-             xbmc.executebuiltin("XBMC.UpdateLocalAddons()")
+            xbmc.executebuiltin("XBMC.UpdateLocalAddons()")
         except:
             xbmc.executebuiltin('Notification([COLOR red]Problem[/COLOR], )')
     
