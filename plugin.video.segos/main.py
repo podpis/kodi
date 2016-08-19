@@ -129,7 +129,7 @@ def getLinks(ex_link):
                     stream_url = cdaresolver.getVideoUrls(stream_url[selection][1])
                 else:
                     stream_url=''
-        else:
+        elif link:
             try:
                 stream_url = urlresolver.resolve(link)
             except Exception,e:
@@ -182,9 +182,10 @@ page = args.get('page',[1])[0]
 
 if mode is None:
     addDir(name="[COLOR blue]Filmy[/COLOR]",ex_link='http://segos.es/filmy.php?page=1', mode='ListMovies',page=1,iconImage='DefaultFolder.png',fanart=FANART)
+    addDir(name=" [COLOR lightblue]Polecane[/COLOR]",ex_link='F', mode='Polecane',page=1,iconImage='DefaultFolder.png',fanart=FANART)
     addDir(name=" => [I]Kategorie Filmów[/I]",ex_link='cat', mode='GatunekRok',iconImage='DefaultFolder.png',fanart=FANART)
     addDir(name="[COLOR blue]Bajki[/COLOR]",ex_link='http://segos.es/bajki.php?page=1', mode='ListMovies',page=1,iconImage='DefaultFolder.png',fanart=FANART)
-
+    addDir(name=" [COLOR lightblue]Polecane[/COLOR]",ex_link='B', mode='Polecane',page=1,iconImage='DefaultFolder.png',fanart=FANART)
     addDir('[COLOR green]Szukaj[/COLOR]','',mode='Szukaj')
     #addLinkItem('[COLOR gold]-=Opcje=-[/COLOR]','','Opcje',IsPlayable=False)
 
@@ -195,11 +196,18 @@ elif mode[0] == 'Opcje':
 elif mode[0] == '__page__M':
     url = build_url({'mode': 'ListMovies', 'foldername': '', 'ex_link' : ex_link ,'page':page})
     xbmc.executebuiltin('XBMC.Container.Refresh(%s)'% url)
-elif mode[0] == '__page__S':
-    url = build_url({'mode': 'ListSeriale', 'foldername': '','ex_link' : ex_link ,'page':page})
-    xbmc.executebuiltin('XBMC.Container.Refresh(%s)'% url)
 
-
+elif mode[0] == 'Polecane':
+    filmy,bajki = segos.get_polecane()
+    if 'F' in ex_link:
+        items=len(filmy)
+        for f in filmy:
+            addLinkItem(name=f.get('title'), url=f.get('url'), mode='getLinks', iconimage=f.get('img'), fanart=f.get('img'), infoLabels=f, IsPlayable=True,itemcount=items)
+    if 'B' in ex_link:
+        items=len(bajki)
+        for f in bajki:
+            addLinkItem(name=f.get('title'), url=f.get('url'), mode='getLinks', iconimage=f.get('img'), fanart=f.get('img'), infoLabels=f, IsPlayable=True,itemcount=items)
+            
 
 elif mode[0] == 'ListMovies':
     ListMovies(ex_link,page)

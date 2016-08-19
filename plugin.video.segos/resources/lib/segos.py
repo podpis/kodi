@@ -92,9 +92,35 @@ def scanMainpage(url,page=1):
     prevPage = page-1 if page>1 else False
     return (out, (prevPage,nextPage))  
 
+def get_polecane(url='http://segos.es/recomend_list.php'):
+    out_F=[]
+    out_B=[]
+    content = getUrl(url)
+    trs = re.compile('<tr>(.*?)</tr>',re.DOTALL).findall(content)
+    for tr in trs:
+        href_title = re.compile('<p><a href="(.*?)">(.*?)</a></p>').findall(tr)
+        img = re.compile('<img src="(.*?)"').findall(tr)
+        if href_title:
+            one = {'url'   : BASEURL+href_title[0][0],
+                'title'  : unicodePLchar(href_title[0][1]),
+                'plot'   : '',
+                'img'    : BASEURL+img[0] if img else '',
+                'rating' : '',
+                'year'   : '',
+                'code'  : '',
+                    }
+            if   '/bajki/' in href_title[0][0]:
+                out_B.append(one)
+            elif '/filmy/' in href_title[0][0]:
+                out_F.append(one)
+    return (out_F,out_B)
+    
+    
+
 # url='http://segos.es/filmy/view.php?id=1583'
 # url='http://segos.es/bajki/view.php?id=1209'  
 # url='http://segos.es/filmy/view.php?id=1229'
+# url='http://segos.es/bajki/view.php?id=1266'
 def getVideoLinks(url):
     outL=[]
     content = getUrl(url)
@@ -118,15 +144,17 @@ def getVideoLinks(url):
         #item = items[2]
         if len(items)>1:
             for item in items[1:]:
-                audio1 = re.compile('title="(.*)"').findall(item[0])
-                audio1 = audio1[0] if audio1 else ''
-                audio = audio1 + ' (%s)'%item[1] if item else audio1
+                audio = re.compile('title="(.*)"').findall(item[0])
+                audio = '[COLOR green]%s[/COLOR]'%audio[0] if audio else ''
+                dzwiek = ' dźwięk:[B]%s[/B]'%item[1] if len(item[1]) else ''
+                quality = re.compile('\[(.*?)\]').findall(item[2])
+                quality = ' jakść:[B]%s[/B]'%quality[0] if quality else ''
                 link = re.compile('href="(.*?)"').findall(item[2])
                 if link:
                     link='http'+link[0].split('http')[-1]
                     if 'greevid.com' in link:
                         link = get_greevid(link)
-                    host = urlparse.urlparse(link).netloc + ' ' + audio
+                    host = urlparse.urlparse(link).netloc +'  '+ audio + dzwiek + quality
                     outL.append({'href':link,'host':host})
     return outL    
 
