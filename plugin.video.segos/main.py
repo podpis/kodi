@@ -69,9 +69,10 @@ def addDir(name,ex_link=None, page=0, mode='folder',iconImage='DefaultFolder.png
         li.addContextMenuItems(contextMenuItems, replaceItems=False)  
           
     ok = xbmcplugin.addDirectoryItem(handle=addon_handle, url=url,listitem=li, isFolder=True,totalItems=itemcount)
-    xbmcplugin.addSortMethod(addon_handle, sortMethod=xbmcplugin.SORT_METHOD_NONE, label2Mask = "%R, %Y, %P")
+    xbmcplugin.addSortMethod(addon_handle, sortMethod=xbmcplugin.SORT_METHOD_NONE, label2Mask = "%P")
     return ok
     
+
 def encoded_dict(in_dict):
     out_dict = {}
     for k, v in in_dict.iteritems():
@@ -90,10 +91,13 @@ def build_url(query):
 
 def ListMovies(ex_link,page):
     filmy,pagination = segos.scanMainpage(ex_link,int(page))
+    infoTab = True if 'true' in my_addon.getSetting('infoTab') else False
     if pagination[0]:
         addLinkItem(name='[COLOR blue]<< Poprzednia strona <<[/COLOR]', url=ex_link, page=pagination[0], mode='__page__M', IsPlayable=False)
     items=len(filmy)
     for f in filmy:
+        f.update(segos.get_info(f.get('url'),infoTab))
+        #f['title'] += ' (%s)'%f.get('year','') if f.get('year','') else ''
         addLinkItem(name=f.get('title'), url=f.get('url'), mode='getLinks', iconimage=f.get('img'), infoLabels=f, IsPlayable=True,itemcount=items)
     if pagination[1]:
         addLinkItem(name='[COLOR blue]>> Następna strona >>[/COLOR]', url=ex_link, page=pagination[1], mode='__page__M', IsPlayable=False)
@@ -187,7 +191,7 @@ if mode is None:
     addDir(name="[COLOR blue]Bajki[/COLOR]",ex_link='http://segos.es/bajki.php?page=1', mode='ListMovies',page=1,iconImage='DefaultFolder.png',fanart=FANART)
     addDir(name=" [COLOR lightblue]Polecane[/COLOR]",ex_link='B', mode='Polecane',page=1,iconImage='DefaultFolder.png',fanart=FANART)
     addDir('[COLOR green]Szukaj[/COLOR]','',mode='Szukaj')
-    #addLinkItem('[COLOR gold]-=Opcje=-[/COLOR]','','Opcje',IsPlayable=False)
+    addLinkItem('[COLOR gold]-=Opcje=-[/COLOR]','','Opcje',IsPlayable=False)
 
     
 elif mode[0] == 'Opcje':

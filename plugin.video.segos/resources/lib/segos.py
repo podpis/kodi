@@ -115,8 +115,29 @@ def get_polecane(url='http://segos.es/recomend_list.php'):
                 out_F.append(one)
     return (out_F,out_B)
     
+#url='http://segos.es/filmy/view.php?id=1776'    
+def get_info(url,infoTab=True):
+    info={}
+    if infoTab:
+        content = getUrl(url)
+        infx = content.find('<div class="tab-pane fade" id="Informacje">')
+        if infx:
+            subset=content[infx:-1]
+            year = re.search('<b>Rok produkcji</b>:(.*?)<',subset,flags=re.MULTILINE|re.I)
+            genre = re.search('<b>Gatunek</b>:(.*?)<',subset,flags=re.DOTALL)
+            quality = re.search('<b>Jakość</b>:(.*?)<',subset,flags=re.MULTILINE|re.I)
+            audio = re.search('<b>Audio</b>:(.*?)<',subset,flags=re.MULTILINE|re.I)
+            lang = re.search('<b>Język</b>:(.*?)<',subset,flags=re.MULTILINE|re.I)
+            plot = re.search('<b>Opis</b>:(.*?)<',subset,flags=re.MULTILINE|re.I)
+            if year:    info['year']=year.group(1).strip().strip('(').strip(')')
+            if genre:   info['genre']=genre.group(1).strip()
+            if quality: info['quality']=quality.group(1).strip()
+            if audio:   info['audio']=audio.group(1).strip()
+            if lang:    info['lang']=lang.group(1).strip()
+            if plot:    info['plot']=unicodePLchar(plot.group(1).strip())
+            info['code']= ','.join([info.get('quality'),info.get('lang'),info['audio']])
+    return info
     
-
 # url='http://segos.es/filmy/view.php?id=1583'
 # url='http://segos.es/bajki/view.php?id=1209'  
 # url='http://segos.es/filmy/view.php?id=1229'
