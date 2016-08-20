@@ -243,7 +243,6 @@ page = args.get('page',[1])[0]
 
 if mode is None:
     addDir(name="[COLOR blue]Filmy[/COLOR]",ex_link='http://alltube.tv/filmy-online/',page=1, mode='ListMovies',iconImage='DefaultFolder.png')
-    #addDir(name="Filmy (Lektor,Dubbing,Polskie)",ex_link='http://alltube.tv/filmy-online/wersja[Lektor,Dubbing,PL]+',page=1, mode='ListMovies',iconImage='DefaultFolder.png')
     addDir(name=" Popularne",ex_link='http://alltube.tv/filmy-online/?filter=popular',page=1, mode='ListMovies',iconImage='DefaultFolder.png')
     addDir(name=" Najwyżej oceniane",ex_link='http://alltube.tv/filmy-online/?filter=rate',page=1, mode='ListMovies',iconImage='DefaultFolder.png')
     addDir(name=" => [Gatunek]",ex_link='gatunek',page=1, mode='GatunekRok',iconImage='DefaultFolder.png',fanart=FANART)
@@ -253,7 +252,7 @@ if mode is None:
     addDir(name="[COLOR blue]Seriale - nowe odcinki[/COLOR]",ex_link=None,page=1, mode='ListSeriale',iconImage='DefaultFolder.png')
     addDir(name=" Popularne",ex_link='filter=popular',page=1, mode='ListSeriale',iconImage='DefaultFolder.png')
     addDir(name=" Najwyżej oceniane",ex_link='filter=rate',page=1, mode='ListSeriale',iconImage='DefaultFolder.png')
-    
+    addDir(name=" Najwyżej oceniane",ex_link='filter=rate',page=1, mode='ListSeriale',iconImage='DefaultFolder.png')
     addDir(name="[COLOR yellow]D[COLOR blue]L[COLOR red]A [COLOR lightgreen]D[COLOR purple]Z[COLOR gold]I[COLOR blue]E[COLOR red]C[COLOR lightgreen]I[/COLOR]",ex_link='http://alltube.tv/filmy-online/kategoria[5]+wersja[Lektor,Dubbing,PL]+', mode='ListMovies',iconImage='DefaultFolder.png')
     
     addDir(name="Playlisty",ex_link='', mode='Playlist',iconImage='DefaultFolder.png')

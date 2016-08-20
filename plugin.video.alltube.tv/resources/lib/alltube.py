@@ -194,8 +194,8 @@ def Search(txt='futurama'):
     if content:
         items=json.loads(content)
         for item in items.get('suggestions',[]):
-            href  = unicodePLchar(item.get('data',''))
-            title = item.get('value','')
+            href  = item.get('data','')
+            title = unicodePLchar(item.get('value',''))
             if 'serial' in href:
                 out_s.append({'title':title,'href':href})
             else:
@@ -306,6 +306,9 @@ def filter(what):
 
 ##
 def unicodePLchar(txt):
+    if type(txt) is not str:
+        txt=txt.encode('utf-8')
+        
     txt = txt.replace('&nbsp;','')
     txt = txt.replace('#038;','')
     txt = txt.replace('&lt;br/&gt;',' ')
