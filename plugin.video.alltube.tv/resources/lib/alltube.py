@@ -111,17 +111,32 @@ def scanTVshows(data=None,page=1):
 
 
 #url='http://alltube.tv/gra-o-tron-game-of-thrones/odcinek-08/odcinek-8-sezon-6/60500'
-#url='http://alltube.tv/serial/gra-o-skarb-game-of-stones/2366'
+#url='http://alltube.tv/serial/nie-z-tego-swiata-supernatural/320'
 def scanEpisodes(url):
     content = getUrl(url)
     episodes = re.compile('<li class="episode"><a href="(.*?)">(.*?)</a></li>').findall(content)
     out=[]    
     for e in episodes:
-        one = {'href'  : e[0],
-               'title' : unicodePLchar(e[1].strip())}
+        season = re.findall('s(\d+)',e[1],flags=re.I)
+        season = int(season[0]) if season else ''
+        episode = re.findall('e(\d+)',e[1],flags=re.I)
+        episode = int(episode[0]) if episode else ''
+        one = { 'href'  : e[0],
+                'season' : season,
+                'episode' : episode,
+                'mediatype': 'episode',
+                'title' : unicodePLchar(e[1].strip())}
         out.append(one)
     return out
 
+#out = scanEpisodes(url)
+def splitToSeasons(out):
+    out_s={}
+    seasons = [x.get('season') for x in out]
+    for s in set(seasons):
+        out_s['Sezon %02d'%s]=[out[i] for i, j in enumerate(seasons) if j == s]
+    return out_s
+            
 #url=href_go
 def parseVideoLink(url,host):
     if 'cda' in host:

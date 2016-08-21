@@ -98,7 +98,7 @@ def build_url(query):
 
 ## sub functions
     
-ex_link='http://alltube.tv/filmy-online/'
+#ex_link='http://alltube.tv/filmy-online/'
 def ListMovies(ex_link,page):
     url,data = ex_link.split('?') if '?'in ex_link else (ex_link,None)
     filmy,pagination = alltube.scanMainpage(url,int(page),data)
@@ -110,27 +110,48 @@ def ListMovies(ex_link,page):
         addLinkItem(name=f.get('title'), url=f.get('href'), mode='getLinks', iconimage=f.get('img'), infoLabels=f, IsPlayable=True,itemcount=items,fanart=f.get('img'))
     if pagination[1]:
         addLinkItem(name='[COLOR blue]>> następna strona >>[/COLOR]', url=ex_link, mode='__page__M', page=pagination[1], IsPlayable=False)
-
+    xbmcplugin.setContent(addon_handle, 'movies')
 
 def ListSeriale(ex_link,page):
     filmy,pagination = alltube.scanTVshows(ex_link,int(page))
+    my_mode = 'getEpisodes'
+    if 'true' in my_addon.getSetting('groupEpisodes'):
+        my_mode = 'getSeasons'
     if pagination[0]:
         addLinkItem(name='[COLOR blue]<< poprzednia strona <<[/COLOR]', url=ex_link, mode='__page__S', page=pagination[0], IsPlayable=False)
     items=len(filmy)
     for f in filmy:
-        addDir(name=f.get('title'), ex_link=f.get('href'), mode='getEpisodes', iconImage=f.get('img'), infoLabels=f, fanart=f.get('img'))
+        #addDir(name=f.get('title'), ex_link=f.get('href'), mode='getEpisodes', iconImage=f.get('img'), infoLabels=f, fanart=f.get('img'))
+        addDir(name=f.get('title'), ex_link=f.get('href'), mode=my_mode, iconImage=f.get('img'), infoLabels=f, fanart=f.get('img'))
     if pagination[1]:
         addLinkItem(name='[COLOR blue]>> następna strona >>[/COLOR]', url=ex_link, mode='__page__S', page=pagination[1], IsPlayable=False)
-
+    xbmcplugin.setContent(addon_handle, 'tvshows')
         
-
+def getSeasons(ex_link):
+    episodes = alltube.scanEpisodes(ex_link)
+    seasons =alltube.splitToSeasons(episodes)
+    for s_name in sorted(seasons.keys()):
+        addDir(name=s_name, ex_link=urllib.quote(str(seasons[s_name])), mode='getEpisodes2')
+    xbmcplugin.setContent(addon_handle, 'season')
+    
 def ListEpisodes(ex_link):
     episodes = alltube.scanEpisodes(ex_link)
     for f in episodes:
         addLinkItem(name=f.get('title'), url=f.get('href'), mode='getLinks', iconimage=f.get('img'), infoLabels=f, IsPlayable=True,fanart=f.get('img'))
+    xbmcplugin.setContent(addon_handle, 'episodes')
 
+def ListEpisodes2(ex_link):
+    episodes = eval(urllib.unquote(ex_link))
+    for f in episodes:
+        addLinkItem(name=f.get('title'), url=f.get('href'), mode='getLinks', iconimage=f.get('img'), infoLabels=f, IsPlayable=True,fanart=f.get('img'))
+    xbmcplugin.setContent(addon_handle, 'episodes')
+
+    
 def FSLinks(ex_link,tryb='search',page=1):
     pagination=(None,None)
+    my_mode = 'getEpisodes'
+    if 'true' in my_addon.getSetting('groupEpisodes'):
+        my_mode = 'getSeasons'
     if   tryb=='search':
         filmy,seriale = alltube.Search(ex_link)
     elif tryb=='playlist':
@@ -147,7 +168,7 @@ def FSLinks(ex_link,tryb='search',page=1):
         addLinkItem(name=f.get('title'), url=f.get('href'), mode='getLinks', iconimage=f.get('img'), infoLabels=f, IsPlayable=True,fanart=f.get('img'))
     for f in seriale:
         f['title']='[COLOR purple](S)[/COLOR] '+f.get('title')
-        addDir(name=f.get('title'), ex_link=f.get('href'), mode='getEpisodes', iconImage=f.get('img'), infoLabels=f, fanart=f.get('img'))
+        addDir(name=f.get('title'), ex_link=f.get('href'), mode=my_mode, iconImage=f.get('img'), infoLabels=f, fanart=f.get('img'))
     
     if pagination[1]:
         addLinkItem(name='[COLOR blue]>> następna strona >>[/COLOR]', url=ex_link, mode='__page__P', page=pagination[1], IsPlayable=False)
@@ -252,13 +273,12 @@ if mode is None:
     addDir(name="[COLOR blue]Seriale - nowe odcinki[/COLOR]",ex_link=None,page=1, mode='ListSeriale',iconImage='DefaultFolder.png')
     addDir(name=" Popularne",ex_link='filter=popular',page=1, mode='ListSeriale',iconImage='DefaultFolder.png')
     addDir(name=" Najwyżej oceniane",ex_link='filter=rate',page=1, mode='ListSeriale',iconImage='DefaultFolder.png')
-    addDir(name=" Najwyżej oceniane",ex_link='filter=rate',page=1, mode='ListSeriale',iconImage='DefaultFolder.png')
     addDir(name="[COLOR yellow]D[COLOR blue]L[COLOR red]A [COLOR lightgreen]D[COLOR purple]Z[COLOR gold]I[COLOR blue]E[COLOR red]C[COLOR lightgreen]I[/COLOR]",ex_link='http://alltube.tv/filmy-online/kategoria[5]+wersja[Lektor,Dubbing,PL]+', mode='ListMovies',iconImage='DefaultFolder.png')
     
     addDir(name="Playlisty",ex_link='', mode='Playlist',iconImage='DefaultFolder.png')
     
     addDir('[COLOR green]Szukaj[/COLOR]','',mode='Szukaj')
-
+    addLinkItem('[COLOR gold]-=Opcje=-[/COLOR]','','Opcje',IsPlayable=False)
 
 elif mode[0] == '__page__M':
     url = build_url({'mode': 'ListMovies', 'foldername': '', 'ex_link' : ex_link, 'page': page})
@@ -272,8 +292,6 @@ elif mode[0] == '__page__P':
     url = build_url({'mode': 'PlaylistLinks', 'foldername': '', 'ex_link' : ex_link, 'page': page})
     xbmc.executebuiltin('XBMC.Container.Refresh(%s)'% url)
     
-elif mode[0] == 'getEpisodes':
-    ListEpisodes(ex_link)
 
 elif mode[0] == 'Playlist':
     items = alltube.getPlaylist()
@@ -286,6 +304,15 @@ elif mode[0] == 'PlaylistLinks':
 elif mode[0] == 'ListMovies':
     ListMovies(ex_link,page)
 
+elif mode[0] == 'getSeasons':
+    getSeasons(ex_link)
+    
+elif mode[0] == 'getEpisodes':
+    ListEpisodes(ex_link)
+
+elif mode[0] == 'getEpisodes2':
+    ListEpisodes2(ex_link)
+    
 elif mode[0] == 'ListSeriale':
     ListSeriale(ex_link,page)
 

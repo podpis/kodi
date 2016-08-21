@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+
+    <category label="Seriale" >
+        <setting id="groupEpisodes" type="bool" label="Grupuj epizody w sezonach" default="false" enable=/>
+    </category>  
+
+</settings>
+
+
