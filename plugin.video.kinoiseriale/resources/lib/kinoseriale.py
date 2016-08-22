@@ -11,11 +11,8 @@ BASEURL='http://www.kinoiseriale.tv'
 TIMEOUT = 10
 
 UA='Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'
-
-
-# COOKIEFILE = r'C:\Users\ramic\AppData\Roaming\Kodi\addons\plugin.video.efilmy\resources\lib\1efimly.cookie'
 COOKIEFILE=''
-BRAMKA = 'http://www.bramka.proxy.net.pl/index.php?q='
+#BRAMKA = 'http://www.bramka.proxy.net.pl/index.php?q='
 
 def getUrl(url,data=None,header={},useCookies=True,saveCookie=False):
     if COOKIEFILE and os.path.isfile(COOKIEFILE) and useCookies:
@@ -39,19 +36,23 @@ def getUrl(url,data=None,header={},useCookies=True,saveCookie=False):
         link = ''
     return link
 
-url='http://www.kinoiseriale.tv/filmy/szukaj.html?ask=Wyszukaj+Film&mode=2&type=0&qual=0&gat=1&rok=0&stype=1&site=1'
-url='http://www.kinoiseriale.tv/rankingi.html?typ=rating'
-url='http://www.kinoiseriale.tv/filmy/szukaj.html?ask=Wyszukaj+Film&stype=2&site=1'
-def scanMainpage(url,page=1):
-    if 'site=' in url:
-        url = re.sub('site=\d+','site=%d'%page,url)
-    else:
-        url = url + '&site=%d' %page
+# url='http://www.kinoiseriale.tv/filmy/szukaj.html?ask=Wyszukaj+Film&mode=2&type=0&qual=0&gat=1&rok=0&stype=1&site=1'
+# url='http://www.kinoiseriale.tv/rankingi.html?typ=rating'
+# url='http://www.kinoiseriale.tv/filmy/szukaj.html?ask=Wyszukaj+Film&stype=2&site=1'
+# url='http://www.kinoiseriale.tv/top/dzisiaj.html'
+def scanMainpage(url,page=0):
+    if page>0:
+        if 'site=' in url:
+            url = re.sub('site=\d+','site=%d'%page,url)
+        else:
+            url = url + '&site=%d' %page
     content = getUrl(url)
-    
+    if page==0:
+        page = 1
+        
     nextPage=False
     next_url=url.replace('http://www.kinoiseriale.tv','').replace('site=%d'%page,'site=%d' %(page+1))
-    if content.find(next_url.split('//')[-1])>-1:
+    if content.find(next_url.split('//')[-1])>-1 and '<div id="stronicowanie">' in content:
         nextPage = page+1
    
         
@@ -84,17 +85,17 @@ def scanMainpage(url,page=1):
                 'title'  : unicodePLchar(title.group(1)),
                 'plot'   : unicodePLchar(plot.group(1)) if plot else '',
                 'img'    : img,
-                'rating' : vote.group(1).replace(',','.') if vote else '?',
-                'year'   : year.group(1) if year else '?',
-                'code'  : quality.group(1) if quality else '?',
+                'rating' : vote.group(1).replace(',','.') if vote else '',
+                'year'   : year.group(1) if year else '',
+                'code'  : quality.group(1) if quality else '',
                     }
             if one['title'] and one['href']:
                 out.append(one)
     prevPage = page-1 if page>1 else False
     return (out, (prevPage,nextPage))    
 
-url='http://www.kinoiseriale.tv/serial/ally-mcbeal.html'
-url='http://www.kinoiseriale.tv/serial/allo-allo.html'
+# url='http://www.kinoiseriale.tv/serial/ally-mcbeal.html'
+# url='http://www.kinoiseriale.tv/serial/allo-allo.html'
 #out=scanTVshow(url)
 def scanTVshow(url):
     content = getUrl(url)
@@ -158,6 +159,7 @@ def getGatunekRok(rodzaj='film',typ='gat'):
         return (display,url_list)
     return False        
 
+
 def Rankingi(url='http://www.kinoiseriale.tv/rankingi.html'):
     content = getUrl(url)
     out=[]
@@ -169,6 +171,7 @@ def Rankingi(url='http://www.kinoiseriale.tv/rankingi.html'):
 
 #url='http://www.kinoiseriale.tv/filmonline/7557/za-murami-derriE3A8re-les-murs.html'
 #url='http://www.kinoiseriale.tv/odcinek/45376/the-best-of-allo-allo-allo-allo-wspomnien-czar.html'
+#url='http://www.kinoiseriale.tv/filmonline/19694/keanu--0.html'
 def getVideoLinks(url):
     outL=[]
     print url

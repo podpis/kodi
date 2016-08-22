@@ -16,8 +16,8 @@ cache = StorageServer.StorageServer("kinoseriale")
 
 import resources.lib.kinoseriale as kinoseriale
 import resources.lib.cdaresolver as cdaresolver
-import resources.lib.playernautresolver as playernautresolver
-import resources.lib.unshorten as unshorten
+# import resources.lib.playernautresolver as playernautresolver
+# import resources.lib.unshorten as unshorten
 
 
 base_url        = sys.argv[0]
@@ -107,7 +107,7 @@ def build_url(query):
 
 def ListMovies(ex_link,page):
     filmy,pagination = kinoseriale.scanMainpage(ex_link,int(page))
-    print '$$$$$$$$$$$$$$$$$$$$$$',filmy
+    #print '$$$$$$$$$$$$$$$$$$$$$$',filmy
     if pagination[0]:
         addLinkItem(name='[COLOR blue]<< poprzednia strona <<[/COLOR]', url=ex_link, mode='__page__M', page=pagination[1], IsPlayable=False)
     items=len(filmy)
@@ -163,22 +163,8 @@ def getLinks(ex_link):
                     stream_url = cdaresolver.getVideoUrls(stream_url[selection][1])
                 else:
                     stream_url=''
-        elif 'playernaut' in h[selection]:
-            print 'playernaut'
-            print link
-            stream_url = playernautresolver.getVideoUrls(link)
-            print 'playernaut'
-            print stream_url
-            if type(stream_url) is list:
-                qualityList = [x[0] for x in stream_url]
-                hrefs = [x[1] for x in stream_url]
-                selection = xbmcgui.Dialog().select("Quality [can be set default]", qualityList)
-                if selection>-1:
-                    stream_url=hrefs[selection]
-                else:
-                    stream_url=''
-                
-        else: 
+     
+        elif link: 
             print '!!!urlresolver'
             print link
             try:
@@ -191,7 +177,7 @@ def getLinks(ex_link):
     if stream_url:
         xbmcplugin.setResolvedUrl(addon_handle, True, xbmcgui.ListItem(path=stream_url))
     else:
-        xbmcplugin.setResolvedUrl(addon_handle, False, xbmcgui.ListItem(path=stream_url))
+        xbmcplugin.setResolvedUrl(addon_handle, False, xbmcgui.ListItem(path=''))
         
 ## Historia wyszukiwania
 def HistoryLoad():
@@ -218,7 +204,7 @@ def HistoryClear():
 def RankingiFilmowe(ex_link,page):
     folders = kinoseriale.Rankingi()
     for folder in folders:
-        addDir(name=folder.get('title'),ex_link=folder.get('url'),page=1, mode='ListMovies',iconImage='DefaultFolder.png',fanart=FANART)
+        addDir(name=folder.get('title'),ex_link=folder.get('url'),page=0, mode='ListMovies',iconImage='DefaultFolder.png',fanart=FANART)
         
         
         
@@ -237,8 +223,6 @@ page = args.get('page',[1])[0]
 
 if mode is None:
     addDir(name="[COLOR blue]Filmy[/COLOR]",ex_link='http://www.kinoiseriale.tv/filmy/szukaj.html?ask=Wyszukaj+Film&stype=1&site=1',page=1, mode='ListMovies',iconImage='DefaultFolder.png',fanart=FANART)
-    #addDir(name="Premiery",ex_link='http://cda-online.pl/kategoria/premiery/',page=1, mode='ListMovies',iconImage='DefaultFolder.png',fanart=FANART)
-    #addDir(name="Filmy HD",ex_link='http://cda-online.pl/jakosc/hd/',page=1, mode='ListMovies',iconImage='DefaultFolder.png',fanart=FANART)
     addDir(name=" => [Gatunki]",ex_link='film|gat',page=1, mode='GatunekRok',iconImage='DefaultFolder.png',fanart=FANART)
     addDir(name=" => [Rok Produkcji]",ex_link='film|rok',page=1, mode='GatunekRok',iconImage='DefaultFolder.png',fanart=FANART)
     addDir(name=" => [Typ filmu]",ex_link='film|mode',page=1, mode='GatunekRok',iconImage='DefaultFolder.png',fanart=FANART)
@@ -247,7 +231,6 @@ if mode is None:
     addDir('[COLOR green]Szukaj Film[/COLOR]',ex_link='&stype=1',mode='Szukaj')
     addDir(name="[COLOR blue]Seriale[/COLOR]",ex_link='http://www.kinoiseriale.tv/filmy/szukaj.html?ask=Wyszukaj+Film&stype=2&site=1',page=1, mode='ListSeriale',iconImage='DefaultFolder.png',fanart=FANART)
     addDir(name=" => [Gatunki]",ex_link='serial|gat',page=1, mode='GatunekRok',iconImage='DefaultFolder.png',fanart=FANART)
-    #addDir(name=" => [Rok]",ex_link='serial|rok',page=1, mode='GatunekRok',iconImage='DefaultFolder.png',fanart=FANART)
     
     addDir('[COLOR green]Szukaj Serial[/COLOR]',ex_link='&stype=2',mode='Szukaj')
     #addLinkItem('[COLOR gold]-=Opcje=-[/COLOR]','','Opcje')
