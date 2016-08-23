@@ -2,7 +2,7 @@
 <addon 
 	id="plugin.video.LivePolishTV" 
 	name="LivePolishTV" 
-	version="1.7.14" 
+	version="1.7.15" 
 	provider-name="Michal">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>

@@ -295,65 +295,7 @@ def build_m3u():
             xbmcgui.Dialog().ok('[COLOR green]Lista zapisana[/COLOR] ','[COLOR blue]'+outfilename+'[/COLOR]','Uaktualnij ustawienia [COLOR blue]PVR IPTV Simple Client[/COLOR] i (re)aktywuj Live TV')
             
         pDialog.close()
-        
-#-------------------------------------------	
-#
-#
-# settings_replace = lambda k,v,z: re.sub(r'(?P<id>id="%s") value="(.*)"'%k ,'\g<id> value="%s"'%v, z)
-# def __update_file(settings_file,new_path):
-#     pass
-#    tree = et.parse(settings_file)        
-#    tree.find('setting/[@id="m3uPath"]').attrib["value"]=new_path
-#    tree.find('setting/[@id="m3uPathType"]').attrib["value"]='0'
-#    tree.find('setting/[@id="epgUrl"]').attrib["value"]="http://epg.iptvlive.org"
-#    tree.find('setting/[@id="epgPathType"]').attrib["value"]='1'
-#    tree.find('setting/[@id="logoFromEpg"]').attrib["value"]='2'
-#    tree.write(settings_file)
-    
-# def update_prv_simpleiptv(pvr_path,m3uPath):
-#     #pvr_path='C:/Users\\ramic/AppData/Roaming/Kodi/userdata/addon_data/pvr.iptvsimple'
-#     settings_file=os.path.join(pvr_path,'settings.xml')
-#     if os.path.exists(settings_file):
-#         print 'updating settings.xml file'
-#         __update_file(settings_file,m3uPath)
-#         return 'Updated %s' %(settings_file)
-#     else:
-#         print 'creating settings file'
-#         xmlcontent="""
-# <settings>
-#     <setting id="epgCache" value="true" />
-#     <setting id="epgPath" value="" />
-#     <setting id="epgPathType" value="1" />
-#     <setting id="epgTSOverride" value="true" />
-#     <setting id="epgTimeShift" value="0.000000" />
-#     <setting id="epgUrl" value="" />
-#     <setting id="logoBaseUrl" value="" />
-#     <setting id="logoFromEpg" value="2" />
-#     <setting id="logoPath" value="" />
-#     <setting id="logoPathType" value="1" />
-#     <setting id="m3uCache" value="true" />
-#     <setting id="m3uPath" value="" />
-#     <setting id="m3uPathType" value="0" />
-#     <setting id="m3uUrl" value="" />
-#     <setting id="sep1" value="" />
-#     <setting id="sep2" value="" />
-#     <setting id="sep3" value="" />
-#     <setting id="startNum" value="1" />
-# </settings>
-# """
-#         try:
-#             os.makedirs(pvr_path)
-#             with open(settings_file,'w') as f:
-#                 f.write(xmlcontent)
-#             __update_file(settings_file,m3uPath)
-#             return 'Created %s' %(settings_file)
-#         except:
-#             return 'Problem z uworzeniem settings.xml'
-#  
-#
-#
-#
-#repl = lambda k,v,z: re.sub(r'(?P<id>id="%s") value="(.*)"'%k ,'\g<id> value="%s"'%v, z)
+
 def addon_enable_and_set(addonid='pvr.iptvsimple',settings={'m3uPath': 'dupa'}):
     print '_addon_enable_and_set ID=%s' % addonid
     xbmc.executeJSONRPC('{"jsonrpc":"2.0","method":"Addons.SetAddonEnabled","id":1,"params":{"addonid":"%s", "enabled":true}}'%addonid )
@@ -410,9 +352,10 @@ if mode is None:
     #addDir('LIVE TV: polxtv',iconImage=RESOURCES+'polxtv.png')
     addDir('LIVE TV: telewizja-live',iconImage=RESOURCES+'telewizjalive.png')
     addDir('LIVE TV: psa-tv.blogspot',iconImage=RESOURCES+'psatv.png')
+    addDir('LIVE TV: delta-live',iconImage=RESOURCES+'deltalive.png')
     addDir('LIVE TV: sport365',iconImage=RESOURCES+'sport365.png')
     addDir('LIVE TV: sport.tvp',iconImage=RESOURCES+'sporttvp.png')
-    addDir('LIVE TV: sport.tvp/rio',iconImage=RESOURCES+'rio-tvp-logo.png')
+    #addDir('LIVE TV: sport.tvp/rio',iconImage=RESOURCES+'rio-tvp-logo.png')
     #addDir('LIVE TV: sitemtv',iconImage=RESOURCES+'.png')
     #addDir('LIVE TV: iptvsatlinks ()',iconImage=RESOURCES+'iptvsatlinks.jpg')
     
@@ -577,13 +520,24 @@ elif mode[0]=='play_looknijin':
         
 elif mode[0]== 'play_polxtv':
     stream_url = polxtv.decode_url(ex_link)
-    
     print '###play_polxtv',stream_url
     if stream_url:
         xbmcplugin.setResolvedUrl(addon_handle, True, xbmcgui.ListItem(path=stream_url))
     else:
         xbmcgui.Dialog().ok('[COLOR orange] Problem [/COLOR]','Nie znalazłem linku')
         xbmcplugin.setResolvedUrl(addon_handle, False, xbmcgui.ListItem(path=stream_url))   
+
+elif mode[0]== 'play_deltalive':
+    import deltalive
+    stream_url = deltalive.decode_url(ex_link)
+    #xbmcgui.Dialog().ok('',ex_link,stream_url)
+    print '###play_deltalive',stream_url
+    if stream_url:
+        xbmcplugin.setResolvedUrl(addon_handle, True, xbmcgui.ListItem(path=stream_url))
+    else:
+        xbmcgui.Dialog().ok('[COLOR orange] Problem [/COLOR]','Nie znalazłem linku')
+        xbmcplugin.setResolvedUrl(addon_handle, False, xbmcgui.ListItem(path=''))   
+
 
 elif mode[0]== 'play_yoytv':
     stream_url = yoytv.decode_url(ex_link)
@@ -721,10 +675,10 @@ elif mode[0] == 'folder':
         content = sporttvp.get_root()
         for one in content: # 'play_sporttvp'
             addLinkItem(one.get('title',''),  one['url'], 'play_sporttvp', infoLabels=one, IsPlayable=True)
-    elif fname == 'LIVE TV: sport.tvp/rio':
-        content = sporttvp.rio_program()
-        for one in content: # 'play_sporttvp'
-            addLinkItem(one.get('title',''),  one['url'], 'play_sporttvp', infoLabels=one, IsPlayable=True)
+    # elif fname == 'LIVE TV: sport.tvp/rio':
+    #     content = sporttvp.rio_program()
+    #     for one in content: # 'play_sporttvp'
+    #         addLinkItem(one.get('title',''),  one['url'], 'play_sporttvp', infoLabels=one, IsPlayable=True)
             
     elif fname == 'LIVE TV: wizja':
         content = wt.get_root()
@@ -742,9 +696,12 @@ elif mode[0] == 'folder':
         content = psatv.get_root()
         for one in content: # 
             addLinkItem(one.get('title',''),  one['url'], 'play_psatv', one.get('epgname',None),infoLabels=one,iconimage=one.get('img'))
-   
-   
-    
+    elif fname ==  'LIVE TV: delta-live':
+        import deltalive
+        content = deltalive.get_root()
+        for one in content: # 
+            addLinkItem(one.get('title',''),  one['url'], 'play_deltalive', one.get('epgname',None),infoLabels=one,iconimage=one.get('img'))
+
     elif fname == 'LIVE TV: iptvsatlinks ()':
         content = iptvsatlinks.get_playlist()
         for one in content: # 

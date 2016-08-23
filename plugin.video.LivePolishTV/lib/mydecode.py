@@ -40,6 +40,18 @@ def decode(url,data):
     for query in srcs:
         if 'livecounter' in query:
             pass
+        elif 'widestream.io' in query:
+            print '@@widestream.io'    #D
+            return _widestream(query,data,url)  
+        elif 'static.nowlive.xyz' in query:
+            print '@@static.nowlive.xyz'    #D
+            return _staticnowlive(query,data,url)  
+        elif 'delta-live.pro' in query:
+            print '@@delta-live.pro'    #DONE
+            return _deltalivepro(query,data,url)  
+        elif 'openlive.org' in query:
+            print '@@openlive.org'    #DONE
+            return _openlive(query,data,url)  
         elif 'sawlive.tv' in query:
             print '@@sawlive.tv'    #DONE
             return _sawlivetv(query,data,url)    
@@ -91,6 +103,71 @@ def decode(url,data):
     print srcs
     return None
 
+
+def _widestream(query,data,url):
+    vido_url=''
+    header = {'User-Agent':UA,
+             'Referer': url,}
+    decoded = getUrl(query,header=header)
+    file = re.compile('file: "(.*?)"').search(decoded)
+    if file:
+        vido_url=file.group(1)
+    return vido_url 
+    
+def _staticnowlive(query,data,url):
+    #http://163.172.216.164/swf/6459.m3u8?sf=NTdiOThlZTEyMmY4Ng==&token=D9YZNC8NIQnSnIzkR-pf0g
+    vido_url=''
+    feed = re.compile('id=[\'"](.*?)[\'"]; width=[\'"](.*?)[\'"]; height=[\'"](.*?)[\'"];').findall(data)
+    if feed:
+        src2='http://nowlive.pw/stream.php?id=%s&width=%s&height=%s&stretching=uniform&p=1'%feed[0]
+        header = {'User-Agent':UA,
+                 'Referer': url,}
+        decoded = getUrl(src2,header=header)
+        stream = re.compile('curl = "(.*?)"').findall(decoded)
+        h = "|Cookie=%s" % urllib.quote('PHPSESSID=1')
+        header={'User-Agent':UA,'Referer': src2,'Host':'nowlive.pw',
+        'X-Requested-With':'XMLHttpRequest',
+        'Cookie':'_ga=GA1.2.971820973.1471970062; _gat=1'}
+        
+        token_data = getUrl('http://nowlive.pw/getToken.php',header=header)
+        token = re.compile('"token":"(.*?)"').findall(token_data)
+        if token and stream:
+            vido_url = base64.b64decode(stream[0]) + token[0] +'|Referer==http://nowlive.pw/jwplayer.flash.swf'
+    return vido_url    
+    
+def _deltalivepro(query,data,url):
+    #rtmp://demo.fms.visionip.tv/live/<playpath>demo-sub-polsat2-hsslive-25f-16x9-SD <swfUrl>http://delta-live.pro/floplayer/flowplayer-3.2.18.swf <pageUrl>http://delta-live.pro/streams/ogolne/polsat1.html
+    vido_url=''
+    file = re.compile('url: \'(.*?)\'').search(data)
+    rtmp = re.compile('netConnectionUrl: \'(.*?)\'').search(data)
+    swfUrl = re.search('"player", "(.*?.swf)"',data)
+    if file and rtmp and swfUrl:
+        vido_url = rtmp.group(1) + ' playpath='+file.group(1).strip() +' swfUrl='+swfUrl.group(1) + ' swfVfy=1 live=1 timeout=13  pageUrl='+url
+    return vido_url   
+    
+def _openlive(query,data,url):
+    #rtmp://94.176.148.234/live?token=IX5KIjKObbvIjTyK3x3bQAExpired=1471982518<playpath>ver27987b5ad39232b2a109471e62c0ac81 <swfUrl>http://p.jwpcdn.com/6/12/jwplayer.flash.swf <pageUrl>http://openlive.org/embed.php?file=deltajedynka&width=620&height=420
+
+    vido_url=''
+    feed = re.compile('file=[\'"](.*?)[\'"]; width=[\'"](.*?)[\'"]; height=[\'"](.*?)[\'"];').findall(data)
+    if feed:
+        src2='http://openlive.org/embed.php?file=%s&width=%s&height=%s'%feed[0]
+        
+        header = {'User-Agent':UA,
+                    'Referer': url,}
+        decoded = getUrl(src2,header=header)
+        swfUrl = ['http://p.jwpcdn.com/6/12/jwplayer.flash.swf']
+        stream = re.compile('\'streamer\'[:, ]+\'(.*?)\'').findall(decoded)
+        file   = re.compile('\'file\'[:, ]+\'(.*?)\'').findall(decoded)
+        if swfUrl and stream and file:
+            u_p=urlparse.urlparse(stream[0])
+            request = urllib2.Request('http://'+u_p.netloc+u_p.path, None, header)
+            data =  urllib2.urlopen(request)
+            ip,port=data.fp._sock.fp._sock.getpeername()
+            rtmp = 'rtmp://94.176.148.234/live?'+u_p.query
+            vido_url = rtmp +' playpath='+file[0] + ' swfUrl='+swfUrl[0] + ' swfVfy=1 live=1  timeout=10 pageUrl='+src2 #swfVfy=1 live=1 
+    return vido_url
+    
 #query='http://sawlive.tv/embed/tvp22'
 #query='http://sawlive.tv/embed/canalsport'
 def _sawlivetv(query,data,url):
@@ -287,7 +364,7 @@ def _static_bro_adca_st(query,data,url):
         src2=src2[0] if src2 else 'brocast.tech'
         host = urlparse.urlparse(src2).netloc
         #src2='http://ebookterritory.pw/stream.php?id=%s&width=%s&height=%s&stretching=uniform'%feed[0]
-        src2='http://'+host+'/stream.php?id=%s&&width=%s&height=%s&stretching=uniform'%feed[0]
+        src2='http://'+host+'/stream.php?id=%s&width=%s&height=%s&stretching=uniform'%feed[0]
         
         header = {'User-Agent':UA,
                 'Referer': url,

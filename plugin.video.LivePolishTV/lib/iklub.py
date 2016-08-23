@@ -7,7 +7,7 @@ try:
     import execjs
 except:
     import js2py
-
+import mydecode
 
 def fixForEPG(one):
     return one
@@ -59,7 +59,9 @@ def get_root(addheader=False):
 url='http://iklub.net/fightbox-2/'
 url='http://iklub.net/mini-2/'
 url='http://iklub.net/1tvn/'
-def decode_url(url='http://iklub.net/tvp2/'):
+url='http://iklub.net/polsat1-2/'
+url='http://iklub.net/polsat/'
+def decode_url(url='http://iklub.net/tvphd/'):
     vido_urls=[]
     if 'iklub.net' in url:
         urlpl = getUrl(url)
@@ -76,19 +78,24 @@ def decode_url(url='http://iklub.net/tvp2/'):
             if pageUrl:
                 content=getUrl(pageUrl[0])
 
-                fun_hex = re.compile('eval\(unescape\(\'(.*?)\'\)\);\neval').findall(content)
+                fun_hex = re.compile('eval\(unescape\(\'(.*?)\'\)\);\n').findall(content)
                 if fun_hex:
                     fun = fun_hex[0].replace('%','').decode('hex')
-                    fun_name = re.search('function (.*?)\(',fun).group(1)
+                    fun_name = re.search('function (.*?)\(',fun)
                     
-                    code = re.search('\+ \'(.*?)\' \+',content).group(1)
-                    try:
-                        ctx = execjs.compile(fun)
-                        decoded = ctx.call(fun_name, code)
-                    except:
-                        context = js2py.EvalJs() 
-                        context.execute('pyimport urllib;'+fun.replace('\t','').replace('\n','').replace('unescape(','urllib.unquote(') )
-                        decoded = getattr(context,fun_name)(code)
+                    code = re.search('\+ \'(.*?)\' \+',content)
+                    if fun_name and code:
+                        fun_name = fun_name.group(1)
+                        code = code.group(1)
+                        try:
+                            ctx = execjs.compile(fun)
+                            decoded = ctx.call(fun_name, code)
+                        except:
+                            context = js2py.EvalJs() 
+                            context.execute('pyimport urllib;'+fun.replace('\t','').replace('\n','').replace('unescape(','urllib.unquote(') )
+                            decoded = getattr(context,fun_name)(code)
+                    else:
+                        decoded = fun
                 else:
                     fun_hex = re.compile('write\(\'(.*?)\'\);').findall(content)
                     if fun_hex:
@@ -118,9 +125,16 @@ def decode_url(url='http://iklub.net/tvp2/'):
                     vido_url = link + ' swfUrl='+swfUrl + ' swfVfy=1 live=1 timeout=13 pageUrl='+pageUrl[0]
                     vido_urls.append(vido_url)
                     #rtmp://31.220.0.201/privatestream/<playpath>tvvvppspportch <swfUrl>http://privatestream.tv/js/jwplayer.flash.swf <pageUrl>http://iklub.net/tvpsportl.html
+                elif 'static.u-pro.fr' in src:
+                    source = re.compile('source=(rtmp.*?[^&]*)').findall(src)
+                    if source:
+                        vido_urls.append(source[0])
                 else:
                     data = getUrl(src)
-                    if data:
+                    vido_url = mydecode.decode(url,decoded.replace('\\',''))
+                    if vido_url:
+                        vido_urls.append(vido_url)
+                    elif data:
                         idx = data.find('Initialize player')
                         if idx<0:
                             src = re.search('src="(.*?)"',data)
