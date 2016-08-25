@@ -407,7 +407,7 @@ provider-name="Michal">
 	</extension>
 </addon>
 
-<addon id="script.module.urlresolver" name="URLResolver" version="3.0.18a" provider-name="Eldorado">
+<addon id="script.module.urlresolver" name="URLResolver" version="3.0.19" provider-name="Eldorado">
 <requires>
 <import addon="xbmc.python" version="2.1.0"/>
 </requires>
