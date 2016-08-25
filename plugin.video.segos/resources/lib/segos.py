@@ -120,7 +120,7 @@ def get_info(url,infoTab=True):
     info={}
     if infoTab:
         content = getUrl(url)
-        infx = content.find('<div class="tab-pane fade" id="Informacje">')
+        infx = content.find('<div id="myTabContent" class="tab-content">')
         if infx:
             subset=content[infx:-1]
             year = re.search('<b>Rok produkcji</b>:(.*?)<',subset,flags=re.MULTILINE|re.I)

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addon id="plugin.video.segos"
-version="1.4"
+version="1.5"
 name="segos"
 provider-name="Michal">
 <requires>

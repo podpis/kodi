@@ -314,7 +314,7 @@ provider-name="Michal">
 </addon>
 
 <addon id="plugin.video.segos"
-version="1.4"
+version="1.5"
 name="segos"
 provider-name="Michal">
 <requires>
