@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 """
 Created on Fri May 29 22:10:54 2015
 
@@ -49,6 +48,7 @@ def vodTVP_getApiQuery(parent_id,count=10):
     response.close()
     return js
 
+#episode=item
 def _getPlayable(episode):
     E={}
     E['filename'] = str(episode.get('_id',''))
@@ -56,15 +56,18 @@ def _getPlayable(episode):
         E['filename'] = E['filename']+'&mime_type=video/mp4'
     E['fanart'] = vodTVP_getImage(episode,['image_16x9','image'])
     E['img'] = vodTVP_getImage(episode,['image'])
-    E['tvshowtitle'] =  episode.get('website_title','').encode('utf-8')
+    E['tvshowtitle'] =''
+    if episode.get('website_title',None):
+        E['tvshowtitle'] =  episode.get('website_title','').encode('utf-8')
     E['title']=''
-    if episode.get('website_title',''):
+    if episode.get('website_title',None):
         E['title'] =  episode.get('website_title','').encode('utf-8') + ', ' 
     E['title'] += episode.get('title','').encode('utf-8')
     E['plot'] =  episode.get('description_root','').encode('utf-8')
     E['aired'] =  episode.get('publication_start_dt','').encode('utf-8')
     release_date = episode.get('release_date','')
     release_date_sec = release_date.get('sec','') if release_date else ''
+    E['duration'] = episode.get('duration','')
     if release_date_sec:
         E['date'] =  strftime("%d.%m.%Y", localtime(release_date_sec))
     else:
@@ -141,14 +144,15 @@ def vodTVP_GetStreamUrl(channel_id='26403971',proxy={},timeout=TIMEOUT,bramka=Fa
             return js.get('video_url')
     return ''
 
-def vodTVP_getImage(item,img_keys):
+def vodTVP_getImage(item,img_keys=['image_16x9','image']):
     urlImage = 'http://s.v3.tvp.pl/images/%s/%s/%s/uid_%s_width_%d_gs_0.jpg'
     iconUrl=''
     for key in img_keys:
         if key in item:
-            iconFile = item[key][0]['file_name']
-            iconWidth = item[key][0]['width']
-            iconUrl = urlImage %(iconFile[0],iconFile[1],iconFile[2],iconFile[:-4],iconWidth)
+            iconFile = item[key][0].get('file_name',None)
+            iconWidth = item[key][0].get('width',None)
+            if iconFile and iconWidth:
+                iconUrl = urlImage %(iconFile[0],iconFile[1],iconFile[2],iconFile[:-4],iconWidth)
             break
     return iconUrl
 
@@ -163,17 +167,19 @@ def vodTVP_root(parent_id='1785454'):
     return ROOT
 
 
-def vodTVPapi(parent_id=26389937,Count=150):
+def vodTVPapi(parent_id=25621524,Count=150):
     js=vodTVP_getApiQuery(parent_id,Count)
     items = js.pop('items')
     lista_pozycji = []
     lista_katalogow = []
+    #print 'parent_id',parent_id
     if js.get('found_any'):
         for item in items:
             if len(item.get('videoFormatMimes',[])):
                 playable=_getPlayable(item)
                 if playable.get('filename',''):
                     lista_pozycji.append(playable)
+                    
             elif item.get('playable',False):
                 playable=_getPlayable(item)
                 if playable.get('filename',''):
@@ -188,8 +194,10 @@ def vodTVPapi(parent_id=26389937,Count=150):
     if len(lista_katalogow)==1 and lista_katalogow[0].get('title')=='wideo':
         (lista_katalogow,lista_pozycji) = vodTVPapi(lista_katalogow[0].get('id'),Count)
     return (lista_katalogow,lista_pozycji)
-# a=vodTVPapi(24035157)
-# a=vodTVPapi(24035163)
+
+
+# a=vodTVPapi(25621524)
+# a=vodTVPapi(26326674)
 # a=vodTVPapi(26389937)
 #a=vodTVPapi()
 # Rozrywka

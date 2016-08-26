@@ -7,8 +7,7 @@ import urlparse
 import xbmc,xbmcgui,xbmcaddon
 import xbmcplugin
 
-import vodTVPapi as vod
-
+import lib.vodTVPapi as vod
 
 base_url        = sys.argv[0]
 addon_handle    = int(sys.argv[1])
@@ -95,7 +94,7 @@ def get_tvpLiveStreams(url='http://tvpstream.tvp.pl'):
                     'url':url+livesrc % video_id})
     return out
 
-def playLiveVido(ex_link='http://tvpstream.tvp.pl/sess/tvplayer.php?object_id=15349841'):
+def playLiveVido(ex_link='http://tvpstream.tvp.pl/sess/tvplayer.php?object_id=26283354'):
     data=getUrl(ex_link)
     live_src = re.compile("0:{src:'(.*?)'", re.DOTALL).findall(data)
     if live_src:
@@ -125,8 +124,9 @@ def vodtvp_Kabarety_TVP():
 
 def vodtvp_RIO():
     addDir('Transmisje',ex_link='23578493',mode='vodTVP')
-    addDir('Wideo',ex_link='23578509',mode='vodTVP')
+    addDir('Wideo',ex_link='23578509',mode='vodTVP') #19369963
     addDir('Dyscypliny',ex_link='24035157',mode='vodTVP')
+   
     
 def settings_getProxy():
     protocol =  my_addon.getSetting('protocol')
@@ -155,7 +155,7 @@ def ReadJsonFile(jfilename):
     data=json.loads(content)
     return data
 
-#-------------------------------------------	
+
 
 xbmcplugin.setContent(addon_handle, 'movies')	
 my_addon.setSetting('set','set')
@@ -164,19 +164,18 @@ fname = args.get('foldername',[''])[0]
 ex_link = args.get('ex_link',[''])[0]
 
 if mode is None:
-    addDir('[B][COLOR blue]Rio 2016[/COLOR][/B]',ex_link='',mode='_RIO',contextO=[],iconImage=RESOURCES+'rio-tvp-logo.png')
+    #addDir('[B][COLOR blue]Rio 2016[/COLOR][/B]',ex_link='',mode='_RIO',contextO=[],iconImage=RESOURCES+'rio-tvp-logo.png')
     addDir('Wiadomości','http://wiadomosci.tvp.pl/',mode='_news_',contextO=[],iconImage=RESOURCES+'wiadomosci.png')
     addDir('Teleexperss','http://teleexpress.tvp.pl/',mode='_news_',contextO=[],iconImage=RESOURCES+'teleexpress.png')
     addDir('Panorama','http://panorama.tvp.pl/',mode='_news_',contextO=[],iconImage=RESOURCES+'panorama.png')
     addDir('TVP info Live','http://tvpstream.tvp.pl',contextO=[],iconImage=RESOURCES+'tvp-info.png')    
-    addDir('Kabarety TVP',ex_link='',mode='_Kabarety',contextO=[])
-    addDir('Informacje i Publicystyka',ex_link='',mode='_infoP',contextO=[])
-    addDir('[COLOR blue]vod.TVP.pl[/COLOR]',contextO=[])
-    addDir('[COLOR lightblue]vod.Wybrane[/COLOR]',ex_link=FAVORITE, mode='favorites',contextO=[])
+    addDir('Kabarety TVP',ex_link='',mode='_Kabarety',contextO=[],iconImage=RESOURCES+'kabaretytvp.png')
+    addDir('Informacje i Publicystyka',ex_link='',mode='_infoP',contextO=[],iconImage=RESOURCES+'publicystykatvp.png')
+    addDir('[COLOR blue]vod.TVP.pl[/COLOR]',contextO=[],iconImage=RESOURCES+'vodtvp.png')
+    addDir('[COLOR lightblue]vod.Wybrane[/COLOR]',ex_link=FAVORITE, mode='favorites',contextO=[],iconImage=RESOURCES+'wybrane.png')
     
-elif mode[0] == '_RIO':
-    vodtvp_RIO()   
-
+# elif mode[0] == '_RIO':
+#     vodtvp_RIO()   
 
 elif mode[0] == '_news_': 
     tvp_news(fname,ex_link)
@@ -240,37 +239,51 @@ elif mode[0]=='vodTVP_play':
     if 'material_niedostepny' in stream_url:
         y=xbmcgui.Dialog().yesno("[COLOR orange]Problem[/COLOR]", '[B]Ograniczenia Licencyjne, material jest niedostępny[/B]','Spróbowac użyć serwera proxy ??')
         if y:
+            import lib.twork as tw
+
             stream_url=''
             timeout=  int(my_addon.getSetting('timeout'))
             dialog  = xbmcgui.DialogProgress()
+            dialog.create('Szukam darmowych serwerów proxy ...')
+            proxies=vod.getProxies()
             proxy = settings_getProxy()
             if proxy:
-                dialog.create('Ustawiony serwer proxy','Sprawdzam: %s'%(proxy.values()[0]))
-                stream_url = vod.vodTVP_GetStreamUrl(ex_link,proxy,timeout=int(timeout)) 
-                if isinstance(stream_url,list) or (stream_url and not 'material_niedostepny' in stream_url): 
-                    pass
-                else:
-                    stream_url=''
-            if len(stream_url)==0:
-                dialog.create('Szukam darmowych serwerów proxy ...')
-                proxies=vod.getProxies()
-                dialog.create('Znalazłem %d serwerów proxy'%len(proxies))
-                for i,proxy in enumerate(proxies):
-                    dialog.update(int(1.0*i/len(proxies)*100),'(%s) Sprawdzam: %s'%(i+1,proxy.values()[0]))
-                    stream_url = vod.vodTVP_GetStreamUrl(ex_link,proxy,timeout=int(timeout))
+                proxies.insert(0,proxy)
+                
+            dialog.create('Znalazłem %d serwerów proxy'%len(proxies))
+            print 'PROXY STARTING'
+            
+            threads = [tw.Thread(vod.vodTVP_GetStreamUrl, ex_link,proxy,timeout) for proxy in proxies ]
+            [i.start() for i in threads]
+            dialog.update(0,'Sprawdzam %d serwery ... '%(len(threads)))
+            while any([i.isAlive() for i in threads]):
+                xbmc.sleep(1000)    #ms
+                done = [t for t in threads if not t.isAlive()]
+                dialog.update(int(1.0*len(done)/len(proxies)*100),'Sprawdzam, negatywnie odpowiedziało: %d, proszę czekać'%(len(done)))
+                print '%d / %d'%(len(done),len(threads))
+                for t in done:
+                    stream_url = t.result
                     if isinstance(stream_url,list) or (stream_url and not 'material_niedostepny' in stream_url): 
-                        settings_setProxy(proxy)
+                        print 'PROXY YES FOUND'
+                        print 'setting default'
+                        settings_setProxy(t._args[1])
                         break
-                    
+                    else:
+                        print 'NO [%s]'%stream_url
+                        stream_url=''
+                if stream_url or dialog.iscanceled():
+                    break
+
+                
             dialog.close()
-            # print 'AFTER PROXY'
-            # print stream_url
+            print 'AFTER PROXY'
+            print stream_url
     
     if isinstance(stream_url,list):
         label= [x.get('title') for x in stream_url]
         if len(label)>1:
             s = xbmcgui.Dialog().select('Wybierz', label)
-            stream_url = stream_url[s].get('url')
+            stream_url = stream_url[s].get('url') if s>-1 else ''
         else:
             stream_url = stream_url[0].get('url')
                     
@@ -280,9 +293,62 @@ elif mode[0]=='vodTVP_play':
         print '%%%',stream_url
         xbmcplugin.setResolvedUrl(addon_handle, True, xbmcgui.ListItem(path=stream_url))
     else:
-        xbmcgui.Dialog().ok('ERROR','URL jest niedostepny')
-        settings_setProxy({'None':'0.0.0.0:0'}) 
-        
+        #xbmcgui.Dialog().ok('ERROR','URL jest niedostepny')
+        xbmcplugin.setResolvedUrl(addon_handle, False, xbmcgui.ListItem(path=''))
+        #settings_setProxy({'None':'0.0.0.0:0'}) 
+ 
+# elif mode[0]=='vodTVP_play':
+#     print 'vodTVP_play'
+#     print ex_link
+#     stream_url = vod.vodTVP_GetStreamUrl(ex_link)
+#     print stream_url
+#     # Proxy
+#     if 'material_niedostepny' in stream_url:
+#         y=xbmcgui.Dialog().yesno("[COLOR orange]Problem[/COLOR]", '[B]Ograniczenia Licencyjne, material jest niedostępny[/B]','Spróbowac użyć serwera proxy ??')
+#         if y:
+#             stream_url=''
+#             timeout=  int(my_addon.getSetting('timeout'))
+#             dialog  = xbmcgui.DialogProgress()
+#             proxy = settings_getProxy()
+#             if proxy:
+#                 dialog.create('Ustawiony serwer proxy','Sprawdzam: %s'%(proxy.values()[0]))
+#                 stream_url = vod.vodTVP_GetStreamUrl(ex_link,proxy,timeout=int(timeout)) 
+#                 if isinstance(stream_url,list) or (stream_url and not 'material_niedostepny' in stream_url): 
+#                     pass
+#                 else:
+#                     stream_url=''
+#             if len(stream_url)==0:
+#                 dialog.create('Szukam darmowych serwerów proxy ...')
+#                 proxies=vod.getProxies()
+#                 dialog.create('Znalazłem %d serwerów proxy'%len(proxies))
+#                 for i,proxy in enumerate(proxies):
+#                     dialog.update(int(1.0*i/len(proxies)*100),'(%s) Sprawdzam: %s'%(i+1,proxy.values()[0]))
+#                     stream_url = vod.vodTVP_GetStreamUrl(ex_link,proxy,timeout=int(timeout))
+#                     if isinstance(stream_url,list) or (stream_url and not 'material_niedostepny' in stream_url): 
+#                         settings_setProxy(proxy)
+#                         break
+#                     
+#             dialog.close()
+#             # print 'AFTER PROXY'
+#             # print stream_url
+#     
+#     if isinstance(stream_url,list):
+#         label= [x.get('title') for x in stream_url]
+#         if len(label)>1:
+#             s = xbmcgui.Dialog().select('Wybierz', label)
+#             stream_url = stream_url[s].get('url')
+#         else:
+#             stream_url = stream_url[0].get('url')
+#                     
+#     if stream_url:
+#         #if stream_url.endswith('m3u8'):
+#         #    stream_url += '|X-Forwarded-For=127.0.0.1|User-Agent=Mozilla/5.0 (Windows NT 6.1; rv:22.0) Gecko/20100101 Firefox/22.0'
+#         print '%%%',stream_url
+#         xbmcplugin.setResolvedUrl(addon_handle, True, xbmcgui.ListItem(path=stream_url))
+#     else:
+#         xbmcgui.Dialog().ok('ERROR','URL jest niedostepny')
+#         settings_setProxy({'None':'0.0.0.0:0'})  
+      
 elif mode[0]=='vodTVP':
     (katalog,episodes) = vod.vodTVPapi(ex_link)
     if len(episodes):
