@@ -5,7 +5,6 @@ import urllib,urllib2
 import urlparse
 import xbmc,xbmcgui,xbmcaddon
 import xbmcplugin
-#from metahandler import metahandlers
 import urlresolver
 
 try:
@@ -14,8 +13,6 @@ except:
    import storageserverdummy as StorageServer
 cache = StorageServer.StorageServer("efilmy")
 
-
-#import resources.lib.efilmy as ef
 
 base_url        = sys.argv[0]
 addon_handle    = int(sys.argv[1])
@@ -45,16 +42,7 @@ def getUrl(url,data=None):
     
 def addLinkItem(name, url, mode, page=1, iconimage=None, infoLabels=False, IsPlayable=True,fanart=FANART,itemcount=1):
     u = build_url({'mode': mode, 'foldername': name, 'ex_link' : url, 'page':page})
-    # meta={}
-    # if infoLabels and infoLabels.get('year'):
-    #     mg = metahandlers.MetaData()
-    #     simpleyear=infoLabels.get('year','')
-    #     simplename=infoLabels.get('title','').split('[')[0].strip()
-    #     meta = mg.get_meta('movie', name=simplename ,year=simpleyear)
-
-    #       print meta
-    #     print infoLabels
-    #     
+  
     if iconimage==None:
         iconimage='DefaultFolder.png'
     liz = xbmcgui.ListItem(name, iconImage=iconimage, thumbnailImage=iconimage)
@@ -132,18 +120,6 @@ def ListMovies(ex_link):
     if pagination[1]:
         addLinkItem(name='[COLOR blue]>> Następna strona >>[/COLOR]', url=pagination[1], mode='__page__M', IsPlayable=False)
 
-def ListSearch(ex_link):
-    out_m,out_s=ef.search(ex_link.replace(' ','+'))
-    use_filmweb_s = my_addon.getSetting('filmweb_s')
-    use_filmweb_f = my_addon.getSetting('filmweb_f')
-    for f in out_m:
-        f=updateMetadata(f,use_filmweb_f,'f')
-        addLinkItem(name=f.get('title'), url=f.get('url'), mode='getLinks', iconimage=f.get('img'), infoLabels=f, IsPlayable=True)
-    
-    for f in out_s:
-        f=updateMetadata(f,use_filmweb_s,'s')
-        addDir(name=f.get('title'), ex_link=f.get('url'), mode='getEpisodes', iconImage=f.get('img'), infoLabels=f)
-
 
 def ListSeriale(page):
     print 'ListSeriale',page
@@ -189,7 +165,7 @@ def getLinks(ex_link):
     if stream_url:
         xbmcplugin.setResolvedUrl(addon_handle, True, xbmcgui.ListItem(path=stream_url))
     else:
-        xbmcplugin.setResolvedUrl(addon_handle, False, xbmcgui.ListItem(path=stream_url))
+        xbmcplugin.setResolvedUrl(addon_handle, False, xbmcgui.ListItem(path=''))
 
 
         
@@ -231,13 +207,16 @@ page = args.get('page',[1])[0]
 
 if mode is None:
     addDir(name="[COLOR blue]Filmy[/COLOR]",ex_link='http://www.efilmy.tv/filmy.html', mode='ListMovies',iconImage='DefaultFolder.png',fanart=FANART)
-    addDir(name="Top Filmów",ex_link='', mode='Top_filmy',iconImage='DefaultFolder.png',fanart=FANART)
+    addDir(name=" Top Filmów",ex_link='', mode='Top_filmy',iconImage='DefaultFolder.png',fanart=FANART)
+    addDir(name=" Teraz Oglądane",ex_link='http://www.efilmy.net/filmy.php?cmd=watched', mode='cmd',iconImage='DefaultFolder.png',fanart=FANART)
+    addDir(name=" Ostatnio Dodane",ex_link='http://www.efilmy.net/filmy.php?cmd=added', mode='cmd',iconImage='DefaultFolder.png',fanart=FANART)
     addDir(name=" => [I]Kategorie Filmów[/I]",ex_link='cat', mode='GatunekRok',iconImage='DefaultFolder.png',fanart=FANART)
     addDir(name=" => [I]Rok produkcji[/I]",ex_link='year', mode='GatunekRok',iconImage='DefaultFolder.png',fanart=FANART)
     addDir(name="[COLOR blue]Seriale[/COLOR]",ex_link='',page=0, mode='ListSeriale',iconImage='DefaultFolder.png',fanart=FANART)
-    addDir(name="Top Seriali",ex_link='', mode='Top_seriale',iconImage='DefaultFolder.png',fanart=FANART)
+    addDir(name=" Top Seriali",ex_link='', mode='Top_seriale',iconImage='DefaultFolder.png',fanart=FANART)
+    addDir(name=" Teraz Oglądane",ex_link='http://www.efilmy.net/seriale.php?cmd=watched_s', mode='cmd',iconImage='DefaultFolder.png',fanart=FANART)
+    addDir(name=" Ostatnio Dodane",ex_link='http://www.efilmy.net/seriale.php?cmd=added_s', mode='cmd',iconImage='DefaultFolder.png',fanart=FANART)
     addDir(name="[B][COLOR yellow]D[COLOR blue]L[COLOR red]A [COLOR lightgreen]D[COLOR purple]Z[COLOR gold]I[COLOR blue]E[COLOR red]C[COLOR lightgreen]I[/COLOR][/B]",ex_link='http://www.efilmy.tv/kategoria,6,Familijne.html', mode='ListMovies',iconImage='DefaultFolder.png',fanart=FANART)
-    
     addDir('[COLOR green]Szukaj[/COLOR]','',mode='Szukaj')
     addLinkItem('[COLOR gold]-=Opcje=-[/COLOR]','','Opcje',IsPlayable=False)
 
@@ -252,6 +231,19 @@ elif mode[0] == '__page__M':
 elif mode[0] == '__page__S':
     url = build_url({'mode': 'ListSeriale', 'foldername': '', 'ex_link' : '' ,'page':page})
     xbmc.executebuiltin('XBMC.Container.Refresh(%s)'% url)
+
+elif mode[0] =='cmd':
+    items = ef.get_top(ex_link)
+    use_filmweb_f = False
+    if 'filmy.php' in ex_link:
+        use_filmweb_f = my_addon.getSetting('filmweb_f')
+    for f in items:
+        f=updateMetadata(f,use_filmweb_f,'f')
+        addLinkItem(name=f.get('title'), url=f.get('url'), mode='getLinks', iconimage=f.get('img'), infoLabels=f, IsPlayable=True)
+    # else:
+    #     for f in items:
+    #         addDir(name=f.get('title'), ex_link=f.get('url'), mode='getEpisodes', iconImage=f.get('img'), infoLabels=f)
+
 
 elif mode[0].startswith('Top_'):
     what = mode[0].split('_')[-1]

@@ -51,6 +51,7 @@ def getUrl(url,data=None,header={},useCookies=True,saveCookie=False):
 
 #url='http://www.efilmy.tv/filmy.html'
 #url='http://www.efilmy.tv/filmy,p1.html'
+url='http://www.efilmy.tv/'
 #filmy,pagination =get_content(url)
 def get_content(url):
     out=[]
@@ -150,7 +151,7 @@ def get_Episode_list(url):
 #    url='http://www.efilmy.net/seriale.php?cmd=popularne&dni=7'
 #http://www.efilmy.tv/filmy.php?cmd=watched #Teraz Oglądane
 #http://www.efilmy.net/filmy.php?cmd=added   # Ostatnio Dodane
-url='http://www.efilmy.net/filmy.php?cmd=added'
+# url='http://www.efilmy.net/filmy.php?cmd=added'
 def get_top(url):
     #filmy,seriale
     out=[]
@@ -161,7 +162,7 @@ def get_top(url):
     content = getUrl(url,header=header)
 
     divs= re.compile('(<div class=.*?</div>)',re.DOTALL).findall(content)
-    #item = divs[3]
+    #item = divs[0]
     for item in divs:
         title_pl = re.compile('href="(.*?)" class="pl">(.*?)</a>').findall(item)
         title_en = re.compile('class="en">(.*?)</a>').findall(item)
@@ -223,12 +224,12 @@ def search(txt='futurama'):
 # url='http://www.efilmy.net/film,28550,Koszmarna-opowiesc-wigilijna-A-Christmas-Horror-Story-2015-Lektor-PL.html'
 # url='http://www.efilmy.tv/film,6000,Opowiesc-wigilijna-Muppetow-The-Muppet-Christmas-Carol-1992-Lektor-PL.html'
 # url='http://www.efilmy.tv/film,28547,Sprawiedliwy-2015-PL.html'
-url='http://www.efilmy.tv/serial,6,13-Posterunek-1997-2000,sezon-1,odcinek-1.html'
-url='http://www.efilmy.tv/serial,107,Chirurdzy-Grey-s-Anatomy-2005-2011,sezon-12,odcinek-1.html'
-url='http://www.efilmy.tv/filmy.php?id=13577&title=Futurama-Potwor-o-miliardzie-grzbietow-Futurama-The-Beast-with-a-Billion-Backs-2008-Lektor-PL'
-url='http://www.efilmy.tv/film,14972,Szybki-cash-Snabba-Cash-2010-Lektor-PL.html'
-url='http://www.efilmy.tv/serial,9,24-godziny-2002,sezon-9,odcinek-1.html'
-url='http://www.efilmy.tv/film,28633,Brama-piekiel-Hellgate-1989-Lektor-PL.html'
+# url='http://www.efilmy.tv/serial,6,13-Posterunek-1997-2000,sezon-1,odcinek-1.html'
+# url='http://www.efilmy.tv/serial,107,Chirurdzy-Grey-s-Anatomy-2005-2011,sezon-12,odcinek-1.html'
+# url='http://www.efilmy.tv/filmy.php?id=13577&title=Futurama-Potwor-o-miliardzie-grzbietow-Futurama-The-Beast-with-a-Billion-Backs-2008-Lektor-PL'
+# url='http://www.efilmy.tv/film,14972,Szybki-cash-Snabba-Cash-2010-Lektor-PL.html'
+# url='http://www.efilmy.tv/serial,9,24-godziny-2002,sezon-9,odcinek-1.html'
+# url='http://www.efilmy.tv/film,28633,Brama-piekiel-Hellgate-1989-Lektor-PL.html'
 def getVideoLinks(url):
     outL=[]
     header['Referer']=url
