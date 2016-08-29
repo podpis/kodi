@@ -196,7 +196,7 @@ def vodTVPapi(parent_id=25621524,Count=150):
     return (lista_katalogow,lista_pozycji)
 
 
-# a=vodTVPapi(25621524)
+# a=vodTVPapi(19181289)
 # a=vodTVPapi(26326674)
 # a=vodTVPapi(26389937)
 #a=vodTVPapi()

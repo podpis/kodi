@@ -342,7 +342,7 @@ provider-name="Michal">
 <addon
     id="plugin.video.TVP.pl"
     name="TVP.pl"
-    version="1.5.0"
+    version="1.5.1"
     provider-name="Michal">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>

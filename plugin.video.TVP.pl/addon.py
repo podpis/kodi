@@ -171,12 +171,27 @@ if mode is None:
     addDir('TVP info Live','http://tvpstream.tvp.pl',contextO=[],iconImage=RESOURCES+'tvp-info.png')    
     addDir('Kabarety TVP',ex_link='',mode='_Kabarety',contextO=[],iconImage=RESOURCES+'kabaretytvp.png')
     addDir('Informacje i Publicystyka',ex_link='',mode='_infoP',contextO=[],iconImage=RESOURCES+'publicystykatvp.png')
+    addDir('Astronarium',ex_link='http://www.astronarium.pl/odcinki/',mode='Astronarium',contextO=[],iconImage='http://www.astronarium.pl/pliki/astronarium_logo_small.jpg')
+
     addDir('[COLOR blue]vod.TVP.pl[/COLOR]',contextO=[],iconImage=RESOURCES+'vodtvp.png')
     addDir('[COLOR lightblue]vod.Wybrane[/COLOR]',ex_link=FAVORITE, mode='favorites',contextO=[],iconImage=RESOURCES+'wybrane.png')
     
 # elif mode[0] == '_RIO':
 #     vodtvp_RIO()   
 
+elif mode[0] == 'Astronarium': 
+    import lib.astronarium as astronarium
+    out=astronarium.getEpisodes(ex_link)
+    for one in out:
+        addLinkItem(one['title'], one['url'], 'Astronarium_play', iconimage=one['img'])  
+elif mode[0] == 'Astronarium_play':
+    import lib.astronarium as astronarium
+    src = astronarium.getVideo(ex_link)
+    if src:
+        xbmcplugin.setResolvedUrl(addon_handle, True, xbmcgui.ListItem(path=src))  
+    else:
+        xbmcplugin.setResolvedUrl(addon_handle, False, xbmcgui.ListItem(path=''))  
+        
 elif mode[0] == '_news_': 
     tvp_news(fname,ex_link)
 elif mode[0] == '_infoP':
