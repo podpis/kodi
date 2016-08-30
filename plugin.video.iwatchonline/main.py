@@ -31,7 +31,7 @@ RESOURCES   = PATH+'/resources/'
 FANART      = None
  
 __language__ = my_addon.getLocalizedString
-print '__language__',__language__
+iwatchonline.COOKIEFILE=os.path.join(DATAPATH,'cookie.iwatch')
 
 ## COMMON Functions
 
@@ -101,6 +101,7 @@ def build_url(query):
 ## sub functions
 
 def ListMovies(ex_link):
+    print ex_link
     filmy,pagination = iwatchonline.scanMainpage(ex_link)
     print 'ListMovies',pagination
     if pagination[0]:
@@ -237,14 +238,14 @@ ex_link = args.get('ex_link',[''])[0]
 page = args.get('page',[1])[0]
 
 if mode is None:
-    addDir(name="[COLOR blue][B]="+slan('Movies')+"=[/B][/COLOR]",ex_link='https://www.iwatchonline.cr/movies?', mode='ListMovies',iconImage='DefaultFolder.png',fanart=FANART)
+    addDir(name="[COLOR blue][B]="+slan('Movies')+"=[/B][/COLOR]",ex_link='https://www.iwatchonline.lol/movies?', mode='ListMovies',iconImage='DefaultFolder.png',fanart=FANART)
     addLinkItem("  [COLOR lightblue]"+slan('Set Quality')+"[/COLOR] [COLOR blue][B]"+quality+"[/B][/COLOR]",'',mode='setQuality',IsPlayable=False)
     addLinkItem("  [COLOR lightblue]"+slan('Set Language')+"[/COLOR] [COLOR blue][B]"+language+"[/B][/COLOR]",'',mode='setLanguage',IsPlayable=False)
     addLinkItem("  [COLOR lightblue]"+slan('Set Genre')+"[/COLOR] [COLOR blue][B]"+genre+"[/B][/COLOR]",'',mode='setGenre',IsPlayable=False)
     addLinkItem("  [COLOR lightblue]"+slan('Sort by')+"[/COLOR] [COLOR blue][B]"+sort+"[/B][/COLOR]",'',mode='setSort',IsPlayable=False)
     
     addDir('  [COLOR blue]'+slan('Search Movies')+'[/COLOR]','searchquery=%s&searchin=m',mode='Szukaj')
-    addDir(name="[COLOR green][B]="+slan('TV Shows')+"=[/B][/COLOR]",ex_link='https://www.iwatchonline.cr/tv-show?', mode='ListTVShows',iconImage='DefaultFolder.png',fanart=FANART)
+    addDir(name="[COLOR green][B]="+slan('TV Shows')+"=[/B][/COLOR]",ex_link='https://www.iwatchonline.lol/tv-show?', mode='ListTVShows',iconImage='DefaultFolder.png',fanart=FANART)
     addLinkItem("  [COLOR lightgreen]"+slan('Set Genre')+"[/COLOR] [COLOR green][B]"+genreT+"[/B][/COLOR]",'T',mode='setGenre',IsPlayable=False)
     addLinkItem("  [COLOR lightgreen]"+slan('Sort by')+"[/COLOR] [COLOR green][B]"+sortT+"[/B][/COLOR]",'T',mode='setSort',IsPlayable=False)
     addDir('  [COLOR green]'+slan('Search TV Shows')+'[/COLOR]','searchquery=%s&searchin=t',mode='Szukaj')

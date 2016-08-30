@@ -3,38 +3,72 @@
 import urllib2,urllib
 import os,re
 import urlparse
-import cookielib
+import cfcookie,cookielib
 
-BASEURL='https://www.iwatchonline.cr'
+BASEURL='https://www.iwatchonline.lol'
 TIMEOUT = 10
 UA='Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'
 
-COOKIEFILE=''
+COOKIEFILE=r''
 
-def getUrl(url,data=None,header={},useCookies=True,saveCookie=False):
-    if COOKIEFILE and os.path.isfile(COOKIEFILE) and useCookies:
-        cj = cookielib.LWPCookieJar()
-        cj.load(COOKIEFILE)
-        opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cj))
-        urllib2.install_opener(opener)
-    
+# def _getUrl(url,data=None,header={},useCookies=True,saveCookie=False):
+#     if COOKIEFILE and os.path.isfile(COOKIEFILE) and useCookies:
+#         cj = cookielib.LWPCookieJar()
+#         cj.load(COOKIEFILE)
+#         opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cj))
+#         urllib2.install_opener(opener)
+#     
+#     req = urllib2.Request(url,data)
+#     if not header:
+#         header = {'User-Agent':UA}
+#     req = urllib2.Request(url,data,headers=header)
+#     try:
+#         response = urllib2.urlopen(req,timeout=TIMEOUT)
+#         link =  response.read()
+#         response.close()
+#         if COOKIEFILE and os.path.isfile(COOKIEFILE) and saveCookie and useCookies:
+#              cj.save(COOKIEFILE, ignore_discard = True) 
+#     except urllib2.HTTPError as e:
+#         #link = e.read()
+#         link = ''
+#     return link
+
+def _getUrl(url,data=None,cookies=None):
     req = urllib2.Request(url,data)
-    if not header:
-        header = {'User-Agent':UA}
-    req = urllib2.Request(url,data,headers=header)
+    req.add_header('User-Agent', UA)
+    if cookies:
+        req.add_header("Cookie", cookies)
     try:
         response = urllib2.urlopen(req,timeout=TIMEOUT)
-        link =  response.read()
+        link = response.read()
         response.close()
-        if COOKIEFILE and os.path.isfile(COOKIEFILE) and saveCookie and useCookies:
-             cj.save(COOKIEFILE, ignore_discard = True) 
-    except urllib2.HTTPError as e:
-        #link = e.read()
-        link = ''
+    except:
+        link=''
     return link
+    
+def getUrl(url,data=None):
+    cookies=cfcookie.cookieString(COOKIEFILE)
+    content=_getUrl(url,data,cookies)
+    if not content:
+        cj=cf_setCookies(url,COOKIEFILE)
+        cookies=cfcookie.cookieString(COOKIEFILE)
+        content=_getUrl(url,data,cookies)
+    return content
+
+def cf_setCookies(link,cfile=COOKIEFILE):
+    cj = cookielib.LWPCookieJar()
+    cookieJar = cfcookie.createCookie(BASEURL,cj,UA)
+    dataPath=os.path.dirname(cfile)
+    if not os.path.exists(dataPath):
+        os.makedirs(dataPath)
+    else:
+        print 'PATH OK'
+    if cookieJar:
+        cookieJar.save(cfile, ignore_discard = True) 
+    return cj
 
 def getLanguages():
-    content = getUrl('https://www.iwatchonline.cr/movies')
+    content = getUrl(BASEURL+'/movies')
     langs=re.compile('<a class="spf-link" href="\?language=(.*)">').findall(content)
     lang = langs.remove('Polish')
     langs.insert(0,'Polish')
@@ -42,13 +76,13 @@ def getLanguages():
     return langs
 
 def getGenre():
-    content = getUrl('https://www.iwatchonline.cr/movies')
+    content = getUrl(BASEURL+'/movies')
     genre=re.compile('<a class="spf-link" href="\?gener=(.*?)">(.*?)</a>',re.DOTALL).findall(content)
     return genre
 
 #url='https://www.iwatchonline.lol/movies?'
 #url='https://www.iwatchonline.lol/movies?&amp;p=25'
-#url='https://www.iwatchonline.cr/tv-show?'
+#url='https://www.iwatchonline.lol/movies?sort=metacritc'
 def scanMainpage(url):
     out=[]
     content = getUrl(url.replace('&amp;','&'))
@@ -88,7 +122,7 @@ def scanMainpage(url):
             
     return (out, (prevPage,nextPage))     
 
-url='https://www.iwatchonline.cr/tv-shows/28131-house-of-cards'
+#url='https://www.iwatchonline.lol/tv-shows/28131-house-of-cards'
 def scanTVShows(url):
     out=[]
     content = getUrl(url.replace('&amp;','&'))
@@ -129,7 +163,7 @@ def scanTVShows(url):
 
 def search(data='searchquery=india&searchin=m'):
     out=[]
-    url='http://www.iwatchonline.cr/search'
+    url=BASEURL+'/search'
     #data='searchquery=%s&searchin=%s'%(urllib.quote_plus(searchquery),searchin)
     content= getUrl(url,data=data)
     
@@ -152,8 +186,8 @@ def search(data='searchquery=india&searchin=m'):
     return out
     
 # url='https://www.iwatchonline.lol/movie/57667-kindergarten-cop-2-2016'
-url='https://www.iwatchonline.cr/movie/55880-the-huntsman-winter-s-war-2016'
-url='https://www.iwatchonline.cr/episode/62514-totally-spies-totally-dunzo-2--s05e26'
+url='https://www.iwatchonline.lol/movie/55880-the-huntsman-winter-s-war-2016'
+url='https://www.iwatchonline.lol/episode/62514-totally-spies-totally-dunzo-2--s05e26'
 def getVideoLinks(url):
     outL=[]
     content = getUrl(url)
