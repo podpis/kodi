@@ -95,7 +95,7 @@ def getLinks(ex_link):
 
     
     print stream_url
-    xbmcgui.Dialog().ok('',stream_url)
+    #xbmcgui.Dialog().ok('',stream_url)
     if stream_url:
         xbmcplugin.setResolvedUrl(addon_handle, True, xbmcgui.ListItem(path=stream_url))
     else:
