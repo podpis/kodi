@@ -21,7 +21,9 @@ DATAPATH    = xbmc.translatePath(my_addon.getAddonInfo('profile')).decode('utf-8
 RESOURCES   = PATH+'/resources/'
 
 FANART=None
-
+ekstraklasa.GATE = ''
+if my_addon.getSetting('bramka')=='true':
+    ekstraklasa.GATE = 'http://invisiblesurf.review/index.php?q='
 
 ## COMMON Functions
 
@@ -95,7 +97,7 @@ def getLinks(ex_link):
 
     
     print stream_url
-    #xbmcgui.Dialog().ok('',stream_url)
+    xbmcgui.Dialog().ok('',stream_url)
     if stream_url:
         xbmcplugin.setResolvedUrl(addon_handle, True, xbmcgui.ListItem(path=stream_url))
     else:
@@ -121,7 +123,10 @@ if mode is None:
     addDir(name="[COLOR lightgreen]Live[/COLOR]",ex_link='',params={'user':'Ekstraklasa','sort':'live','page':'1'}, mode='getVideos',iconImage='DefaultFolder.png')
     addDir(name="Najnowsze",ex_link='Ekstraklasa',params={'user':'Ekstraklasa','sort':'recent','page':'1'}, mode='getVideos',iconImage='DefaultFolder.png')
     addDir(name="Najpopularniejsze",ex_link='Ekstraklasa',params={'user':'Ekstraklasa','sort':'visited','page':'1'}, mode='getVideos',iconImage='DefaultFolder.png')
-  
+    addLinkItem('[COLOR gold]-=Opcje=-[/COLOR]','','Opcje')
+
+elif mode[0] == 'Opcje':
+    my_addon.openSettings()     
 
 elif mode[0] =='getLinks':
     getLinks(ex_link)
