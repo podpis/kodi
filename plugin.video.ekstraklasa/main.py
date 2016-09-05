@@ -88,16 +88,16 @@ def getLinks(ex_link):
     if len(linksL):
         if len(linksL)>1:
             lables = [x.get('label') for x in linksL]
-            s = xbmcgui.Dialog().select('Dostępne źródła',lables)
+            s = xbmcgui.Dialog().select('Dostępne jakości',lables)
         else:
             s=0
-        print 's',s
+        #print 's',s
         stream_url=linksL[s].get('url') if s>-1 else ''
         host=linksL[s].get('label') if s>-1 else ''  
 
     
     print stream_url
-    xbmcgui.Dialog().ok('',stream_url)
+    #xbmcgui.Dialog().ok('',stream_url)
     if stream_url:
         xbmcplugin.setResolvedUrl(addon_handle, True, xbmcgui.ListItem(path=stream_url))
     else:
@@ -111,8 +111,6 @@ def getLinks(ex_link):
     
 xbmcplugin.setContent(addon_handle, 'video')	
 
-jezyk = my_addon.getSetting('jezyk')
-
 mode = args.get('mode', None)
 fname = args.get('foldername',[''])[0]
 ex_link = args.get('ex_link',[''])[0]
@@ -123,7 +121,7 @@ if mode is None:
     addDir(name="[COLOR lightgreen]Live[/COLOR]",ex_link='',params={'user':'Ekstraklasa','sort':'live','page':'1'}, mode='getVideos',iconImage='DefaultFolder.png')
     addDir(name="Najnowsze",ex_link='Ekstraklasa',params={'user':'Ekstraklasa','sort':'recent','page':'1'}, mode='getVideos',iconImage='DefaultFolder.png')
     addDir(name="Najpopularniejsze",ex_link='Ekstraklasa',params={'user':'Ekstraklasa','sort':'visited','page':'1'}, mode='getVideos',iconImage='DefaultFolder.png')
-    addLinkItem('[COLOR gold]-=Opcje=-[/COLOR]','','Opcje')
+    addLinkItem('[COLOR gold]-=Opcje=-[/COLOR]','','Opcje',IsPlayable=False)
 
 elif mode[0] == 'Opcje':
     my_addon.openSettings()     
@@ -140,8 +138,8 @@ elif mode[0] =='getVideos':
         addLinkItem(name='[COLOR blue]<< poprzednia strona <<[/COLOR]', url=ex_link, mode='__page__', params=pagination[0], IsPlayable=False)
     items=len(Litems)
     for f in Litems:
-        f['code']='[COLOR lightgreen]onAir[/COLOR]' if f.get('onair',False) else ''
         f['code']= f.get('duration_formatted','')
+        f['code']='[COLOR lightgreen]onAir[/COLOR]' if f.get('onair',False) else f['code']
         addLinkItem(name=f.get('title'), url=f.get('id'), mode='getLinks', iconimage=f.get('thumbnail_240_url'), infoLabels=f, IsPlayable=True,itemcount=items,fanart=f.get('img'))
     if pagination[1]:
         addLinkItem(name='[COLOR blue]>> następna strona >>[/COLOR]', url=ex_link, mode='__page__', params=pagination[1], IsPlayable=False)
