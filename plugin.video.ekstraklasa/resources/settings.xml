@@ -5,7 +5,8 @@
         <setting label="Aktywuj bramkę Proxy jeśli zawartość podkatalogów jest pusta" type="lsep"/>
         <setting id="bramka" type="bool" label="Proxy?" default="false" enable=/>
     </category>
-
+    <setting id="LigaTitle" value="" />
+    <setting id="LigaUrl" value="" />
 </settings>
 
 

@@ -5,10 +5,11 @@ import urllib,urllib2
 import urlparse
 import xbmc,xbmcgui,xbmcaddon
 import xbmcplugin
-
+import urlresolver
 
 
 import resources.lib.ekstraklasa as ekstraklasa
+import resources.lib.estadios as estadios
 
 base_url        = sys.argv[0]
 addon_handle    = int(sys.argv[1])
@@ -103,7 +104,28 @@ def getLinks(ex_link):
     else:
         xbmcplugin.setResolvedUrl(addon_handle, False, xbmcgui.ListItem(path=''))
 
-        
+def estadios_getLinks(ex_link):
+    link = estadios.getVideoLinks(ex_link)
+    #xbmcgui.Dialog().ok('',link)
+    if link:
+        print link
+        if 'extragoals' in link:
+            import resources.lib.extragoalsresolver as extragoalsresolver
+            stream_url = extragoalsresolver.getVideoUrls(link)
+            #xbmcgui.Dialog().ok('',stream_url)
+        else:
+            try:
+                stream_url = urlresolver.resolve(link)
+            except Exception,e:
+                stream_url=''
+                s = xbmcgui.Dialog().ok('[COLOR red]Problem[/COLOR]',str(e))
+    
+    print 'stream_url',stream_url
+    if stream_url:
+        xbmcplugin.setResolvedUrl(addon_handle, True, xbmcgui.ListItem(path=stream_url))
+    else:
+        xbmcplugin.setResolvedUrl(addon_handle, False, xbmcgui.ListItem(path=''))
+                
 ## ######################
 ## MAIN
 ## ######################
@@ -116,13 +138,47 @@ fname = args.get('foldername',[''])[0]
 ex_link = args.get('ex_link',[''])[0]
 params = args.get('params',[{}])[0]
 
+# LigaTitle = my_addon.getSetting('LigaTitle')
+# LigaUrl = my_addon.getSetting('LigaUrl')
 
 if mode is None:
     addDir(name="[COLOR lightgreen]Live[/COLOR]",ex_link='',params={'user':'Ekstraklasa','sort':'live','page':'1'}, mode='getVideos',iconImage='DefaultFolder.png')
     addDir(name="Najnowsze",ex_link='Ekstraklasa',params={'user':'Ekstraklasa','sort':'recent','page':'1'}, mode='getVideos',iconImage='DefaultFolder.png')
     addDir(name="Najpopularniejsze",ex_link='Ekstraklasa',params={'user':'Ekstraklasa','sort':'visited','page':'1'}, mode='getVideos',iconImage='DefaultFolder.png')
+    #addLinkItem("[COLOR lightblue]Liga: [/COLOR] [COLOR blue][B]"+LigaTitle+"[/B][/COLOR]",'',mode='Estadios_setLiga',IsPlayable=False)
+    #addDir('[COLOR lightblue]Skróty meczów[/COLOR]',ex_link='http://estadios.pl/skroty-meczow',params={}, mode='Estadios_skroty',iconImage='DefaultFolder.png')
+    addDir('[COLOR blue]Skróty meczów[/COLOR]',ex_link='http://estadios.pl/skroty-meczow',params={}, mode='Estadios_skroty_Liga',iconImage=RESOURCES+'estadios.png')
     addLinkItem('[COLOR gold]-=Opcje=-[/COLOR]','','Opcje',IsPlayable=False)
+##    
+# elif mode[0] =='Estadios_setLiga':
+#     data = estadios.get_liga()
+#     if data:
+#         label = [estadios.unicodePLchar(x[1].strip()) for x in data]
+#         value = [x[0].strip() for x in data]
+#         s = xbmcgui.Dialog().select('Wybierz Ligę',label)
+#         s = s if s>-1 else 0
+#         my_addon.setSetting('LigaUrl',value[s])
+#         my_addon.setSetting('LigaTitle',label[s])
+#     xbmc.executebuiltin('XBMC.Container.Refresh')
+    
+elif mode[0] =='Estadios_skroty':
+    #url = LigaUrl if LigaUrl else ex_link
+    out=estadios.get_skroty_meczow(ex_link)
+    for f in out:
+        addLinkItem(name=f.get('title'), url=f.get('url'), mode='Estadios_play', iconimage=f.get('img'), infoLabels=f, IsPlayable=True,fanart=f.get('img'))
 
+elif mode[0] =='Estadios_skroty_Liga':
+    data = estadios.get_liga()
+    if data:
+        label = [estadios.unicodePLchar(x[1].strip()) for x in data]
+        value = [x[0].strip() for x in data]
+        for t,v in zip(label,value):
+            addDir(t,ex_link=v,params={}, mode='Estadios_skroty',iconImage='DefaultFolder.png')
+
+
+elif mode[0] =='Estadios_play':
+    estadios_getLinks(ex_link) 
+##    
 elif mode[0] == 'Opcje':
     my_addon.openSettings()     
 
