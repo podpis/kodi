@@ -91,6 +91,7 @@ def get_link(item):
         f=re.compile('.*?name="f"\s*value=["\']([^"\']+)["\']').findall(data)
         s=re.compile('.*?name="s"\s*value=["\']([^"\']+)["\']').findall(data)
         r=re.compile('[\'"]action[\'"][,\s]*[\'"](http.*?)[\'"]').findall(data)
+        sk=''
         if s:
             s=aes.decode_hls(s[0])
             sk=re.compile('"stkey":"(.*?)"').findall(s)
@@ -99,12 +100,15 @@ def get_link(item):
             enc_data=json.loads(base64.b64decode(f[0]))
             ciphertext = 'Salted__' + enc_data['s'].decode('hex') + base64.b64decode(enc_data['ct'])
             src=aes.decrypt(item.get('key'),base64.b64encode(ciphertext))
-            src=src.replace('"','').replace(sk,'').encode('utf-8')
+            src=src.replace('"','').replace(sk,'').replace('\\','').encode('utf-8')
             print src
-            href=aes.decode_hls(src)
-            if href:
-                href +='|Referer=%s&User-Agent=%s'%(urllib.quote(r[0]),UA)
-                return href
+            if src.startswith('http'):
+                href =src+'|Referer=%s&User-Agent=%s'%(urllib.quote(r[0]),UA)
+            else:
+                href=aes.decode_hls(src)
+                if href:
+                    href +='|Referer=%s&User-Agent=%s'%(urllib.quote(r[0]),UA)
+                    return href
     return ''
 
 

@@ -75,20 +75,6 @@ def fixForEPG(one):
         one['tvid']=newName
     return one
     
-# def getUrl(url, cookieJar=None,post=None, timeout=20, headers={},):
-# 
-#     cookie_handler = urllib2.HTTPCookieProcessor(cookieJar)
-# 
-#     opener = urllib2.build_opener(cookie_handler, urllib2.HTTPBasicAuthHandler(), urllib2.HTTPHandler())
-#     #opener = urllib2.install_opener(opener)
-#     req = urllib2.Request(url,headers=headers)
-#     req.add_header('User-Agent','Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.154 Safari/537.36')
-# 
-#     response = opener.open(req,post,timeout=timeout)
-#     link=response.read()
-#     response.close()
-#     return link;
-
 def getUrl(url,data=None,header={},cookies=None):
     if not header:
         header = {'User-Agent':UA}
@@ -146,21 +132,22 @@ def get_page(live='1',country='140',page=1):
     next_page = page+1 if idx>-1 else None
     return out,next_page
 
-#url='http://yoy.tv/channels/1074'
+#url='http://yoy.tv/channels/793'
+#url='http://yoy.tv/channels/3330'
 def decode_url(url):
     # cookieJar = cookielib.MozillaCookieJar()
     # rtmp://94.242.228.182/yoy/_definst_<playpath>398 <swfUrl>http://yoy.tv/playerv3a.swf <pageUrl>http://yoy.tv/channels/398
     vido_url=''
     if 'yoy.tv' in url:
         content = getUrl(url)
-        # idx=content.find('FlashVars')
-        # content[idx:idx+200]
         flash = re.compile('FlashVars value="(.*?)"').findall(content)
         if flash:
             rtmp = re.search('(rtmp://.*?)\&',flash[0])
             cid = re.search('cid=(.*?)\&',flash[0])
             if rtmp:
-                vido_url = rtmp.group(1)+'/_definst_/'+cid.group(1).strip() +' swfUrl=http://yoy.tv/playerv3a.swf swfVfy=1 live=1 timeout='+TIMEOUT+' pageUrl='+url
+                ip1 =map(int,re.compile('/(\d+)\.(\d+)\.(\d+)\.(\d+)/').findall(rtmp.group(1))[0])
+                ip2 = '.'.join([str(255-ip1[x]) for x in [3,2,0,1]])
+                vido_url = 'rtmp://'+ip2+'/yoy/_definst_/'+cid.group(1).strip() +' swfUrl=http://yoy.tv/playerv3a.swf swfVfy=1 live=1 timeout='+TIMEOUT+' pageUrl='+url
     return vido_url    
 
 ##    
@@ -168,3 +155,7 @@ def decode_url(url):
 # decode_url(out[0]['url'])
 # for o in out:
 #     print o.get('title')
+# headers={'Referer':'http://yoy.tv/channels/3330',
+# 'User-Agent':'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36',
+# 'X-Requested-With':'XMLHttpRequest'}
+# url='http://yoy.tv/freeminutes'
