@@ -61,7 +61,7 @@ def ChooseAndPlay(ex_link,kat=''):
         if stream_url:
             xbmcplugin.setResolvedUrl(addon_handle, True, xbmcgui.ListItem(path=stream_url))
         else:
-            xbmcplugin.setResolvedUrl(addon_handle, False, xbmcgui.ListItem(path=stream_url))
+            xbmcplugin.setResolvedUrl(addon_handle, False, xbmcgui.ListItem(path=''))
             
 def ShowLinks(ex_link):
     out = nk.get_movie_links(ex_link)

@@ -98,6 +98,7 @@ def natural_keys(text):
 url='http://nasze-kino.eu/film/dzieciaki-mojej-siostry-na-tropie-zlota-my-canadian-adventure-quest-for-the-lost-gold-2015-lektor-pl/6719'
 url='http://nasze-kino.eu/film/zielona-latarnia-green-lantern-2011-lektor-pl/6732'
 url='http://nasze-kino.eu/film/godzilla-milleniumpowrot-godzilli-1999-lektor-pl/6718'
+url='http://nasze-kino.eu/film/sekretne-zycie-zwierzakow-domowych-the-secret-life-of-pets-2016-lektor-ivo/8002'
 def get_movie_links(url):
     content=getUrl(url)
     out={}
@@ -112,6 +113,15 @@ def get_movie_links(url):
             if not out.has_key(title):
                 out[title]=[]
             out[title].append(href)
+    if not out and items:
+        print 'check forum'
+        forum=getUrl(items[0][0])
+        pre=re.compile('<pre class="bbcode_code" style="[^"]*">(.*?)</pre>',re.DOTALL).findall(forum)
+        if pre:
+            items = re.compile('<a href="([^"]*)" target="\s*_blank">').findall(pre[0])
+            if items:
+               out['OGLADAJ']=items
+     
     #print sorted(out.keys(),key=natural_keys)
     return out
 
