@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import urllib2,urllib
 import re,json
-import urlparse
+import urlparse,cookielib
 
 BASEURL='http://www.ceskatelevize.cz'
 def getUrl(url,data={},headers={}):
@@ -38,8 +38,8 @@ def get_root(url=BASEURL):
     return out
 
 # url='/ivysilani/10090925908-vsechnoparty/216522161600027/'
-#url='/ct24/zive-vysilani/'
-def getVideo2(url):
+#url='http://www.ceskatelevize.cz/sport/zive-vysilani/'
+def getVideo(url):
     myurl = url
     video_url={'msg':'','url':''}
     if url.startswith('/'):
@@ -58,8 +58,8 @@ def test():
         print url
         getVideo(one.get('url'))
         
-def getVideo(ch='ct24'):
-    channels={'ct1':'1','ct2':'2','ct24':'24','sport':'4','D':'5','art':'6'}
+def getVideo(ch='ct1'):
+    channels={'ct1':'1','ct2':'2','ct24':'24','sport':'4','ct5':'5','D':'5','art':'6'}
     video_url={'msg':'','url':''}
     if ch in channels.keys():
         print 'czeskatv',channels[ch]
@@ -83,11 +83,12 @@ def getVideo(ch='ct24'):
         video_url['msg']='Unknown channel [%s]'%ch
     return video_url
 
-def getstream(chid='ct24',chtype='channel',churl='/ivysilani/embed/iFramePlayerCT24.php'):
+def getstream(chid='1',chtype='channel',churl='/ivysilani/embed/iFramePlayerCT24.php'):
     video_url={'msg':'','url':''}
     url='http://www.ceskatelevize.cz/ivysilani/ajax/get-client-playlist'
     header={ 'User-Agent':'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36','x-addr': '127.0.0.1',}
     post_data = {'playlist[0][id]': chid,'playlist[0][type]': chtype,'requestUrl': churl,'requestSource': "iVysilani",'addCommercials': 0,'type': "html"}
+    #post_data = {'playlist[0][id]': 416231100212037 ,'playlist[0][type]': 'episode','requestUrl': '/ivysilani/1183909575-tyden-v-regionech-ostrava/416231100212037-tyden-v-regionech/','requestSource': "iVysilani",'addCommercials': 0,'type': "html"}
     content = getUrl(url, post_data, headers=header)
     tmpurl=json.loads(content).get('url')
     if tmpurl.startswith('http'):
@@ -102,7 +103,4 @@ def getstream(chid='ct24',chtype='channel',churl='/ivysilani/embed/iFramePlayerC
         video_url['msg'] = tmpurl
 
     return video_url
-    
-
-
 

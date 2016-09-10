@@ -134,11 +134,13 @@ elif mode[0].startswith('iptvsatlinks'):
     import iptvsatlinks
     if '_play_' in mode[0]:
         if '.ts' in ex_link:
-            finalUrl='plugin://plugin.video.f4mTester/?name=%s&url=%s&streamtype=TSDOWNLOADER'%(fname,urllib.quote_plus(ex_link))
-            xbmc.executebuiltin('XBMC.RunPlugin('+finalUrl+')')
-            xbmcgui.Dialog().ok('',ex_link)
-            # finalUrl = ex_link
-            # xbmcplugin.setResolvedUrl(addon_handle, True, xbmcgui.ListItem(path=finalUrl))
+            try:
+                xbmcaddon.Addon('plugin.video.f4mTester')
+                finalUrl='plugin://plugin.video.f4mTester/?name=%s&url=%s&streamtype=TSDOWNLOADER'%(fname,urllib.quote_plus(ex_link))
+                xbmc.executebuiltin('XBMC.RunPlugin('+finalUrl+')')
+            except:
+                finalUrl = ex_link
+                xbmcplugin.setResolvedUrl(addon_handle, True, xbmcgui.ListItem(path=finalUrl))
         else:
             play(ex_link,fname)
     elif '_content_' in mode[0]:
