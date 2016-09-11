@@ -54,6 +54,7 @@ def get_skroty_meczow(url):
 # url='http://estadios.pl/mecz19549,anderlecht-bruksela-gent'
 # url='http://estadios.pl/mecz19541,inter-mediolan-palermo'
 # url='http://estadios.pl/mecz19570,malta-szkocja'
+# url='http://estadios.pl/mecz19677,termalica-bruk-bet-nieciecza-legia-warszawa'
 # url=out[4].get('url')
 def getVideoLinks(url):
     content = getUrl(url)

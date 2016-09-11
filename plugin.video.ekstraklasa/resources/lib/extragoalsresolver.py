@@ -23,14 +23,15 @@ def getUrl(url):
 
 # url='//extragoals.com/video/embed/cc5e8ddd92'
 # url='//extragoals.com/video/embed/e696ccfd4a'
-
+# url='//extragoals.com/video/embed/a3f0975acd
 def getVideoUrls(url):
     if url.startswith('//'):
         url = 'https:'+url
     src=''
     BRAMKA = 'http://www.bramka.proxy.net.pl/index.php?q='
     content = getUrl(BRAMKA+url)
-    srcs = re.compile('src=["\'](//cdn.streamable.com/video/mp4/.+?)["\']',re.DOTALL).findall(content)
+    #srcs = re.compile('src=["\'](//cdn.streamable.com/video/mp4/.+?)["\']',re.DOTALL).findall(content)
+    srcs = re.compile('src=["\'](//.+?)["\']',re.DOTALL).findall(content)
     if srcs:
        src=srcs[0] 
        if src.startswith('//'):
