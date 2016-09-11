@@ -75,12 +75,22 @@ def m3u2list():
     return out
 
 
-def play(ex_link,fname=''):
+def play(ex_link):
     print '##PLAY',ex_link
-    if ex_link:
-        xbmcplugin.setResolvedUrl(addon_handle, True, xbmcgui.ListItem(path=ex_link))
-    else:
-        xbmcplugin.setResolvedUrl(addon_handle, False, xbmcgui.ListItem(path=''))
+    if ex_link.endswith('.ts'):
+        try:
+            xbmcaddon.Addon('plugin.video.f4mTester')
+            finalUrl='plugin://plugin.video.f4mTester/?name=%s&url=%s&streamtype=TSDOWNLOADER'%(fname,urllib.quote_plus(ex_link))
+            #xbmc.executebuiltin('XBMC.RunPlugin('+finalUrl+')')
+            xbmc.sleep(1)
+        except:
+            finalUrl = ex_link
+        xbmcplugin.setResolvedUrl(addon_handle, True, xbmcgui.ListItem(path=finalUrl))
+    else:        
+        if ex_link:
+            xbmcplugin.setResolvedUrl(addon_handle, True, xbmcgui.ListItem(path=ex_link))
+        else:
+            xbmcplugin.setResolvedUrl(addon_handle, False, xbmcgui.ListItem(path=''))
         
 
 ##
@@ -95,10 +105,11 @@ ex_link = args.get('ex_link',[''])[0]
 
 
 if mode is None:
-    addDir('LiveTV: iptvsatlinks',mode='iptvsatlinks',iconImage=RESOURCES+'iptvsatlinks.jpg')
-    addDir('LiveTV: ceskatelevize.cz',mode='czeska', iconImage=RESOURCES+'logo-ceskatelevize-full.png')
-    addDir('LiveTV: iptv1',mode='m3u',iconImage=RESOURCES+'m3u.jpg')
-
+    addDir('IPTV: iptvsatlinks',mode='iptvsatlinks',iconImage=RESOURCES+'iptvsatlinks.jpg')
+    addDir('IPTV: iptvlinkss'  ,mode='iptvlinkss',iconImage=RESOURCES+'iptvlinkss.png')
+    addDir('IPTV: iptv1',mode='m3u',iconImage=RESOURCES+'m3u.jpg')
+    addDir('WebTV: ceskatelevize.cz',mode='czeska', iconImage=RESOURCES+'logo-ceskatelevize-full.png')
+    
 elif mode[0] == 'Opcje':
     my_addon.openSettings()   
 
@@ -111,7 +122,7 @@ elif mode[0] == 'm3u':
     for one in m3u_items:
         addLinkItem(one.get('title',''),  one['url'], 'playUrl', IsPlayable=True,infoLabels=one, iconimage=one.get('img')) 
 
-
+##
 elif mode[0].startswith('czeska'):
     import ceskatelevize
     if 'play' in mode[0]:
@@ -129,20 +140,11 @@ elif mode[0].startswith('czeska'):
         items = ceskatelevize.get_root()
         for one in items:
             addLinkItem(one.get('title',''),  one.get('url'), 'czeska_play', IsPlayable=True,infoLabels=one, iconimage=one.get('img'))  
-
+##
 elif mode[0].startswith('iptvsatlinks'):
     import iptvsatlinks
     if '_play_' in mode[0]:
-        if '.ts' in ex_link:
-            try:
-                xbmcaddon.Addon('plugin.video.f4mTester')
-                finalUrl='plugin://plugin.video.f4mTester/?name=%s&url=%s&streamtype=TSDOWNLOADER'%(fname,urllib.quote_plus(ex_link))
-                xbmc.executebuiltin('XBMC.RunPlugin('+finalUrl+')')
-            except:
-                finalUrl = ex_link
-                xbmcplugin.setResolvedUrl(addon_handle, True, xbmcgui.ListItem(path=finalUrl))
-        else:
-            play(ex_link,fname)
+        play(ex_link)
     elif '_content_' in mode[0]:
         m3u_items = iptvsatlinks.m3u2list(ex_link)
         for one in m3u_items:
@@ -154,5 +156,19 @@ elif mode[0].startswith('iptvsatlinks'):
                 addDir(one.get('title',''),  one['url'], 'iptvsatlinks_content_')      
             else:
                 addLinkItem(one.get('title',''),  '', '', IsPlayable=False) 
+##
+elif mode[0].startswith('iptvlinkss'):
+    import iptvlinkss
+    if '_play_' in mode[0]:
+        play(ex_link)
+    elif '_content_' in mode[0]:
+        m3u_items = iptvlinkss.m3u2list(ex_link)
+        for one in m3u_items:
+            addLinkItem(one.get('title',''),  one['url'], 'iptvlinkss_play_', IsPlayable=True,infoLabels=one, iconimage=one.get('img')) 
+    else:
+        content = iptvlinkss.get_root()
+        for one in content: # 
+            addDir(one.get('title',''),  one.get('url'), 'iptvlinkss_content_',iconImage=one.get('img'))      
+
                 
 xbmcplugin.endOfDirectory(addon_handle)
