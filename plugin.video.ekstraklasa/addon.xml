@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<addon id="plugin.video.ekstraklasa" name="Ekstraklasa" version="1.4" provider-name="Michal">
+<addon id="plugin.video.ekstraklasa" name="Ekstraklasa" version="1.6" provider-name="Michal">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
     <import addon="script.module.urlresolver" version="3.0.15"/> 
@@ -8,9 +8,9 @@
     <provides>video</provides>
   </extension>
   <extension point="xbmc.addon.metadata">
-    <summary lang="en">Mecze ekstraklasy z dailymotion</summary>
+    <summary lang="pl">Mecze ekstraklasy z dailymotion i nie tylko</summary>
     <description lang="en">Ekstraklasa</description>
-    <disclaimer lang="en"></disclaimer>
+    <disclaimer lang="pl">testing</disclaimer>
     <language></language>
     <platform>all</platform>
     <license>GNU 2.0 - GENERAL PUBLIC LICENSE. Version 2, June 1991</license>

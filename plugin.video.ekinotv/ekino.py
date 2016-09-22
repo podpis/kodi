@@ -55,28 +55,61 @@ def skanuj_filmy(kat='',wer='', page='1', url='http://ekino-tv.pl/movie/cat/kate
     print my_url
     content  = getUrl(my_url)
     return _getData(content)
-    
-def _getData(content):
-    img = re.compile('<img src="(/static/thumb/.*.jpg)" alt=').findall(content)
-    title = re.compile('<div class="title">[\s]*<a href="(.*?)">(.*?)</a><br>').findall(content)
-    des = re.compile('<div class="movieDesc">[\s\n]*(.*?)</div>').findall(content)
-    rok = re.compile('<p class="cates">(.*) \|').findall(content)
-    categorie = re.compile('<p class="cates">(.*) \| (<a href="/movie/cat/kategoria\[\d+\]">.*</a>[,]*)*</p>').findall(content)
 
-    foundItems=min(len(img),len(title),len(des),len(categorie))
+def _getData(content):
+
+    ids = [(a.start(), a.end()) for a in re.finditer('<div class="movies-list-item"', content)]
+    ids.append( (-1,-1) )
     res=[]
-    for i in range(foundItems):
-        out={}
-        #cat = dict(zip(range(len(_Links)),_Links))
-        out['href'] = title[i][0]
-        out['title'] = unicodePLchar(title[i][1].strip('\n '))
-        out['year'] = categorie[i][0]
-        out['genre'] = ''.join(re.compile('>(.*?)<').findall(categorie[i][1]))
-        out['code'] = 'HD' if 'HD' in out['genre'] else ''
-        out['plot'] = unicodePLchar(des[i].strip('\n '))
-        out['img'] = BASEURL+img[i].replace('/thumb/','/normal/')
-        res.append(out)
+    for i in range(len(ids[:-1])):
+        #print content[ ids[i][1]:ids[i+1][0] ]
+        subset = content[ ids[i][1]:ids[i+1][0] ]
+        
+        img = re.compile('<img src="(/static/thumb/.*.jpg)" alt=').findall(subset)
+        title = re.compile('<div class="title">[\s]*<a href="(.*?)">(.*?)</a><br>').findall(subset)
+        des = re.compile('<div class="movieDesc">[\s\n]*(.*?)</div>').findall(subset)
+        rating = re.compile('<div class="sum-vote"><[^>]*>([^>]*)</div>').findall(subset)
+        rok = re.compile('<p class="cates">(.*) \|').findall(subset)
+        categorie = re.compile('<p class="cates">(.*) \| (<a href="/movie/cat/kategoria\[\d+\]">.*</a>[,]*)*</p>').findall(subset)
+
+        if title:
+            out={}
+            #cat = dict(zip(range(len(_Links)),_Links))
+            out['href'] = title[0][0]
+            out['title'] = unicodePLchar(title[0][1].strip('\n '))
+            out['year'] = rok[0] if rok else ''
+            out['genre'] = ''.join(re.compile('>(.*?)<').findall(categorie[0][1])) if categorie else ''
+            out['code'] = 'HD' if 'HD' in out['genre'] else ''
+            out['plot'] = unicodePLchar(des[0].strip('\n ')) if des else ''
+            out['rating'] = rating[0].strip() if rating else ''
+            out['img'] = BASEURL+img[0].replace('/thumb/','/normal/') if img else ''
+            res.append(out)
     return res
+
+    
+# def _getData(content):
+#     img = re.compile('<img src="(/static/thumb/.*.jpg)" alt=').findall(content)
+#     title = re.compile('<div class="title">[\s]*<a href="(.*?)">(.*?)</a><br>').findall(content)
+#     des = re.compile('<div class="movieDesc">[\s\n]*(.*?)</div>').findall(content)
+#     rating = re.compile('<div class="sum-vote"><[^>]*>([^>]*)</div>').findall(content)
+#     rok = re.compile('<p class="cates">(.*) \|').findall(content)
+#     categorie = re.compile('<p class="cates">(.*) \| (<a href="/movie/cat/kategoria\[\d+\]">.*</a>[,]*)*</p>').findall(content)
+# 
+#     foundItems=min(len(img),len(title),len(des),len(categorie))
+#     res=[]
+#     for i in range(foundItems):
+#         out={}
+#         #cat = dict(zip(range(len(_Links)),_Links))
+#         out['href'] = title[i][0]
+#         out['title'] = unicodePLchar(title[i][1].strip('\n '))
+#         out['year'] = categorie[i][0]
+#         out['genre'] = ''.join(re.compile('>(.*?)<').findall(categorie[i][1]))
+#         out['code'] = 'HD' if 'HD' in out['genre'] else ''
+#         out['plot'] = unicodePLchar(des[i].strip('\n '))
+#         out['rating'] = rating[i].strip()
+#         out['img'] = BASEURL+img[i].replace('/thumb/','/normal/')
+#         res.append(out)
+#     return res
     
 
 # url='/movie/show/piraci-z-karaiboacutew-na-nieznanych-wodach-pirates-of-the-caribbean-on-stranger-tides-2011-lektor/3132'
@@ -86,7 +119,7 @@ def get_sources(url='/movie/show/partyzant-napisy-pl-partisan-2015-napisy/7909')
     iframes = re.compile('ShowPlayer\(\'(.*?)\',\'.*?\'\)').findall(content)
     _Lables=[]
     _Links=[]
-    one=iframes[0]
+    #one=iframes[0]
     for one in iframes:
         print one
         if 'hosting=vshare' in one:

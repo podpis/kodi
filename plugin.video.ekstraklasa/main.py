@@ -21,7 +21,7 @@ PATH        = my_addon.getAddonInfo('path')
 DATAPATH    = xbmc.translatePath(my_addon.getAddonInfo('profile')).decode('utf-8')
 RESOURCES   = PATH+'/resources/'
 
-FANART=None
+FANART=RESOURCES+'fanart.png'
 ekstraklasa.GATE = ''
 if my_addon.getSetting('bramka')=='true':
     ekstraklasa.GATE = 'http://invisiblesurf.review/index.php?q='
@@ -142,24 +142,14 @@ params = args.get('params',[{}])[0]
 # LigaUrl = my_addon.getSetting('LigaUrl')
 
 if mode is None:
-    addDir(name="[COLOR lightgreen]Live[/COLOR]",ex_link='',params={'user':'Ekstraklasa','sort':'live','page':'1'}, mode='getVideos',iconImage='DefaultFolder.png')
-    addDir(name="Najnowsze",ex_link='Ekstraklasa',params={'user':'Ekstraklasa','sort':'recent','page':'1'}, mode='getVideos',iconImage='DefaultFolder.png')
-    addDir(name="Najpopularniejsze",ex_link='Ekstraklasa',params={'user':'Ekstraklasa','sort':'visited','page':'1'}, mode='getVideos',iconImage='DefaultFolder.png')
-    #addLinkItem("[COLOR lightblue]Liga: [/COLOR] [COLOR blue][B]"+LigaTitle+"[/B][/COLOR]",'',mode='Estadios_setLiga',IsPlayable=False)
-    #addDir('[COLOR lightblue]Skróty meczów[/COLOR]',ex_link='http://estadios.pl/skroty-meczow',params={}, mode='Estadios_skroty',iconImage='DefaultFolder.png')
+    addDir(name="[COLOR lightgreen]Live[/COLOR]",ex_link='',params={'user':'Ekstraklasa','sort':'live','page':'1'}, mode='getVideos',iconImage=RESOURCES+'../icon.png')
+    addDir(name="Najnowsze",ex_link='Ekstraklasa',params={'user':'Ekstraklasa','sort':'recent','page':'1'}, mode='getVideos',iconImage=RESOURCES+'../icon.png')
+    addDir(name="Najpopularniejsze",ex_link='Ekstraklasa',params={'user':'Ekstraklasa','sort':'visited','page':'1'}, mode='getVideos',iconImage=RESOURCES+'../icon.png')
     addDir('[COLOR blue]Skróty meczów[/COLOR]',ex_link='http://estadios.pl/skroty-meczow',params={}, mode='Estadios_skroty_Liga',iconImage=RESOURCES+'estadios.png')
+    addDir('[COLOR blue]Football Video[/COLOR]',ex_link='',params={}, mode='livefootballol',iconImage=RESOURCES+'livefootballol.png')
     addLinkItem('[COLOR gold]-=Opcje=-[/COLOR]','','Opcje',IsPlayable=False)
 ##    
-# elif mode[0] =='Estadios_setLiga':
-#     data = estadios.get_liga()
-#     if data:
-#         label = [estadios.unicodePLchar(x[1].strip()) for x in data]
-#         value = [x[0].strip() for x in data]
-#         s = xbmcgui.Dialog().select('Wybierz Ligę',label)
-#         s = s if s>-1 else 0
-#         my_addon.setSetting('LigaUrl',value[s])
-#         my_addon.setSetting('LigaTitle',label[s])
-#     xbmc.executebuiltin('XBMC.Container.Refresh')
+
     
 elif mode[0] =='Estadios_skroty':
     #url = LigaUrl if LigaUrl else ex_link
@@ -179,6 +169,40 @@ elif mode[0] =='Estadios_skroty_Liga':
 elif mode[0] =='Estadios_play':
     estadios_getLinks(ex_link) 
 ##    
+
+elif mode[0].startswith('livefootballol'):
+    import resources.lib.livefootballol as livefootballol
+    if '_play_' in mode[0]:
+        #xbmcgui.Dialog().ok('_play_',ex_link)
+        link = livefootballol.getVideoLinks(ex_link)
+        try:
+            stream_url = urlresolver.resolve(link)
+        except Exception,e:
+            stream_url=''
+            xbmcgui.Dialog().ok('[COLOR red]Problem[/COLOR]',str(e))
+                
+        print 'stream_url',stream_url
+        if stream_url:
+            xbmcplugin.setResolvedUrl(addon_handle, True, xbmcgui.ListItem(path=stream_url))
+        else:
+            xbmcplugin.setResolvedUrl(addon_handle, False, xbmcgui.ListItem(path=''))
+    elif '_page_' in mode[0]:
+        url = build_url({'mode': 'livefootballol_content_', 'foldername': '', 'ex_link' : ex_link, })
+        xbmc.executebuiltin('XBMC.Container.Refresh(%s)'% url)
+    elif '_content_' in mode[0]:
+        items,pagination = livefootballol.get_games(ex_link)
+        if pagination[0]:
+            addLinkItem(name='[COLOR blue]<< poprzednia strona <<[/COLOR]', url=pagination[0], mode='livefootballol_page_', IsPlayable=False)
+        for one in items:
+            addLinkItem(one.get('title',''),  one['url'], mode='livefootballol_play_', IsPlayable=True,infoLabels=one, iconimage=one.get('img')) 
+        if pagination[1]:
+            addLinkItem(name='[COLOR blue]>> następna strona >>[/COLOR]', url=pagination[1], mode='livefootballol_page_', IsPlayable=False)
+    else:
+        content = livefootballol.get_video()
+        for one in content: # 
+            addDir(one.get('title',''),  one['url'], mode='livefootballol_content_')      
+
+
 elif mode[0] == 'Opcje':
     my_addon.openSettings()     
 
@@ -200,14 +224,12 @@ elif mode[0] =='getVideos':
     if pagination[1]:
         addLinkItem(name='[COLOR blue]>> następna strona >>[/COLOR]', url=ex_link, mode='__page__', params=pagination[1], IsPlayable=False)
 
-    
 elif mode[0] == '__page__':
     url = build_url({'mode': 'getVideos', 'foldername': '', 'ex_link' : ex_link, 'params': params})
     xbmc.executebuiltin('XBMC.Container.Refresh(%s)'% url)
 
 elif mode[0] == 'Opcje':
     my_addon.openSettings()   
-
 
 elif mode[0] == 'folder':
     pass

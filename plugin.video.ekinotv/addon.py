@@ -56,7 +56,7 @@ def addLinkItem(name, url, mode, iconimage=None, infoLabels={}, IsPlayable=True,
     contextMenuItems.append(('Informacja', 'XBMC.Action(Info)'))
     liz.addContextMenuItems(contextMenuItems, replaceItems=False)     
     ok = xbmcplugin.addDirectoryItem(handle=addon_handle, url=u, listitem=liz)
-    xbmcplugin.addSortMethod(addon_handle, sortMethod=xbmcplugin.SORT_METHOD_NONE, label2Mask = "%Y,%P")
+    xbmcplugin.addSortMethod(addon_handle, sortMethod=xbmcplugin.SORT_METHOD_NONE, label2Mask = "%R,%Y,%P")
     return ok
 
 def addFilmLinks(kat,wer,page,ex_link):
@@ -110,6 +110,7 @@ WERSJE  = get_WERSJE()
 if mode is None:
     addDir('[COLOR blue]Filmy[/COLOR]',kat='',wer=WERSJE)
     addDir('Filmy HD',kat='35',wer=WERSJE)
+    addDir('Filmy 3D',kat='36',wer=WERSJE)
     addDir('Filmy Dla Dzieci HD',kat='2,3,5,6',wer=WERSJE)
     addDir('Filmy [Kategoria]',kat='',wer=WERSJE)
     #addDir('[COLOR blue]Seriale[/COLOR]',kat='',ex_link='http://ekino-tv.pl/serie/',wer='')

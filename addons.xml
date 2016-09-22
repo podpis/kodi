@@ -26,6 +26,32 @@ provider-name="Michal">
 </extension>
 </addon>
 
+<addon
+	id="plugin.video.anime.pl"
+	name="anime.pl"
+	version="1.0"
+	provider-name="Michal">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0"/>
+	<import addon="script.module.urlresolver" version="3.0.15"/>
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="addon.py">
+    <provides>video</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en">anime</summary>
+    <description lang="en">anime.pl</description>
+    <disclaimer lang="en"></disclaimer>
+    <language></language>
+    <platform>all</platform>
+    <license></license>
+    <forum></forum>
+    <website>https://github.com/ramicspa/kodi</website>
+    <email>ramicspa@gmail.com</email>
+    <source></source>
+  </extension>
+</addon>
+
 <addon id="plugin.video.cdaonline"
 version="1.7.0"
 name="cda-online"
@@ -107,13 +133,39 @@ provider-name="Michal">
 </addon>
 
 <addon
-	id="plugin.video.ekinotv"
-	name="Ekino-tv"
-	version="1.4"
+	id="plugin.video.ekabaretpl"
+	name="ekabaret"
+	version="1.0"
 	provider-name="Michal">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
-	<import addon="script.module.urlresolver" version="3.0.0"/>
+	<import addon="script.module.urlresolver" version="3.0.15"/>
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="addon.py">
+    <provides>video</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en">ekabaret</summary>
+    <description lang="en">ekabaret</description>
+    <disclaimer lang="en"></disclaimer>
+    <language></language>
+    <platform>all</platform>
+    <license></license>
+    <forum></forum>
+    <website>https://github.com/ramicspa/kodi</website>
+    <email>ramicspa@gmail.com</email>
+    <source></source>
+  </extension>
+</addon>
+
+<addon
+	id="plugin.video.ekinotv"
+	name="eKino-tv"
+	version="1.5"
+	provider-name="Michal">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0"/>
+	<import addon="script.module.urlresolver" version="3.0.15"/>
   </requires>
   <extension point="xbmc.python.pluginsource" library="addon.py">
     <provides>video</provides>
@@ -132,7 +184,7 @@ provider-name="Michal">
   </extension>
 </addon>
 
-<addon id="plugin.video.ekstraklasa" name="Ekstraklasa" version="1.4" provider-name="Michal">
+<addon id="plugin.video.ekstraklasa" name="Ekstraklasa" version="1.6" provider-name="Michal">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
     <import addon="script.module.urlresolver" version="3.0.15"/>
@@ -141,9 +193,9 @@ provider-name="Michal">
     <provides>video</provides>
   </extension>
   <extension point="xbmc.addon.metadata">
-    <summary lang="en">Mecze ekstraklasy z dailymotion</summary>
+    <summary lang="pl">Mecze ekstraklasy z dailymotion i nie tylko</summary>
     <description lang="en">Ekstraklasa</description>
-    <disclaimer lang="en"></disclaimer>
+    <disclaimer lang="pl">testing</disclaimer>
     <language></language>
     <platform>all</platform>
     <license>GNU 2.0 - GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
@@ -328,7 +380,7 @@ provider-name="Michal">
 <addon
 	id="plugin.video.LivePolishTV"
 	name="LivePolishTV"
-	version="1.7.16"
+	version="1.7.19"
 	provider-name="Michal">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
@@ -434,7 +486,7 @@ provider-name="Michal">
 <addon
     id="plugin.video.TVP.pl"
     name="TVP.pl"
-    version="1.5.1"
+    version="1.5.2"
     provider-name="Michal">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>

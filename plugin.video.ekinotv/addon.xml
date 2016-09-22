@@ -1,12 +1,12 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0"  encoding="UTF-8" standalone="no"?>
 <addon 
 	id="plugin.video.ekinotv" 
-	name="Ekino-tv" 
-	version="1.4" 
+	name="eKino-tv" 
+	version="1.5" 
 	provider-name="Michal">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
-	<import addon="script.module.urlresolver" version="3.0.0"/>
+	<import addon="script.module.urlresolver" version="3.0.15"/>
   </requires>
   <extension point="xbmc.python.pluginsource" library="addon.py">
     <provides>video</provides>

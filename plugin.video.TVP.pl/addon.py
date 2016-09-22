@@ -64,20 +64,31 @@ def addDir(name,ex_link=None,mode='folder',contextO=['F_ADD'],iconImage='Default
 def build_url(query):
     return base_url + '?' + urllib.urlencode(query)
 
-def tvp_news(name,URL):
+def tvp_news(name,URL='http://wiadomosci.tvp.pl/'):
     content = getUrl(URL)
     vido_id = re.compile('data-video-id="(.+?)"', re.DOTALL).findall(content)[0]
     url_player='http://wiadomosci.tvp.pl/sess/tvplayer.php?&object_id=' + vido_id
     content = getUrl(url_player)
-    poster_link = re.compile("poster:'(.+?)\'", re.DOTALL).findall(content)[0]
-    title_link = re.compile('title: "(.+?)",', re.DOTALL).findall(content)[0]    
+    poster_link = re.compile("poster:'(.+?)\'", re.DOTALL).findall(content)
+    poster_link = poster_link[0] if poster_link else ''
+    title_link = re.compile('title: "(.+?)",', re.DOTALL).findall(content)
+    title_link = title_link[0] if title_link else ''
     vido_link = re.compile("1:{src:\'(.+?)\'", re.DOTALL).findall(content)
     if not vido_link:
         vido_link = re.compile("0:{src:\'(.+?)\'", re.DOTALL).findall(content)
-        title_link += ' (Live)'
-    li = xbmcgui.ListItem(name +' ' + title_link, iconImage='DefaultVideo.png')
-    li.setThumbnailImage(poster_link)
-    xbmcplugin.addDirectoryItem(handle=addon_handle, url=vido_link[0], listitem=li)
+        if vido_link:
+           vido_link = vod.m3u_quality(vido_link[0])
+        title_link += ' (Live) '
+  
+    for vl in vido_link:
+        url = vl
+        title2 = ''
+        if isinstance(vl,dict):
+            url = vl.get('url',vl)
+            title2='[B]'+vl.get('title','')+'[/B]'
+        li = xbmcgui.ListItem(name +' ' + title_link + title2, iconImage='DefaultVideo.png')
+        li.setThumbnailImage(poster_link)
+        xbmcplugin.addDirectoryItem(handle=addon_handle, url=url, listitem=li)
 
 def get_tvpLiveStreams(url='http://tvpstream.tvp.pl'):
     data=getUrl(url)
@@ -94,7 +105,7 @@ def get_tvpLiveStreams(url='http://tvpstream.tvp.pl'):
                     'url':url+livesrc % video_id})
     return out
 
-def playLiveVido(ex_link='http://tvpstream.tvp.pl/sess/tvplayer.php?object_id=26283354'):
+def playLiveVido(ex_link='http://tvpstream.tvp.pl/sess/tvplayer.php?object_id=26771385'):
     data=getUrl(ex_link)
     live_src = re.compile("0:{src:'(.*?)'", re.DOTALL).findall(data)
     if live_src:

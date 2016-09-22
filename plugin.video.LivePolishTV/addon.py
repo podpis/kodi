@@ -28,7 +28,7 @@ sys.path.append( os.path.join( PATH, "lib" ) )
 import telewizjada as tel
 #import matchsport as ms
 import iklub
-#import ihtv
+import ihtv
 import itivi
 import yoytv
 import looknijin
@@ -342,7 +342,7 @@ if mode is None:
     addDir('LIVE TV: moje-filmy.tk',iconImage=RESOURCES+'moje-filmy.png')
     addDir('LIVE TV: iklub.net',iconImage=RESOURCES+'iklub.png')
     #addDir('LIVE TV: match-sport',iconImage='')    offline
-    #addDir('LIVE TV: ihtv',iconImage=RESOURCES+'ihtv.png')
+    addDir('LIVE TV: ihqtv',iconImage=RESOURCES+'ihtv.png')
     addDir('LIVE TV: itivi',iconImage=RESOURCES+'itivi.png')
     addDir('LIVE TV: yoy.tv',iconImage=RESOURCES+'yoytv.png')
     addDir('LIVE TV: looknij.in',iconImage=RESOURCES+'looknijin.png')
@@ -454,13 +454,13 @@ elif mode[0]=='play_sporttvp':
 #     else:
 #         xbmcplugin.setResolvedUrl(addon_handle, False, xbmcgui.ListItem(path=''))
 
-# elif mode[0]=='play_telewizjalive':
-#     stream_url = telewizjalive.decode_url(ex_link)
-#     #xbmcgui.Dialog().ok('',stream_url)
-#     if stream_url:
-#         xbmcplugin.setResolvedUrl(addon_handle, True, xbmcgui.ListItem(path=stream_url))
-#     else:
-#         xbmcplugin.setResolvedUrl(addon_handle, False, xbmcgui.ListItem(path=''))
+elif mode[0]=='play_telewizjalive':
+    stream_url = telewizjalive.decode_url(ex_link)
+    #xbmcgui.Dialog().ok('',stream_url)
+    if stream_url:
+        xbmcplugin.setResolvedUrl(addon_handle, True, xbmcgui.ListItem(path=stream_url))
+    else:
+        xbmcplugin.setResolvedUrl(addon_handle, False, xbmcgui.ListItem(path=''))
 
 
 elif mode[0]=='play_psatv':
@@ -627,7 +627,7 @@ elif mode[0] == 'folder':
     #     content = ms.get_root()
     #     for one in content:
     #         addLinkItem(one.get('title',''),  one['url'], 'play_match-sport', one.get('epgname',None),iconimage=one.get('img'))
-    elif fname == 'LIVE TV: ihtv':
+    elif fname == 'LIVE TV: ihqtv':
         content = ihtv.get_root()
         for one in content:
             addLinkItem(one.get('title',''),  one['url'], 'play_ihtv', one.get('epgname',None),iconimage=one.get('img'))

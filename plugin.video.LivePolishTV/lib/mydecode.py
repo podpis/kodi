@@ -34,12 +34,19 @@ def decode(url,data):
     # if query:
     #     query=query.group(1)
     #     
-    srcs=re.compile('src=["\'](http.*?)["\']').findall(data)
+    srcs=re.compile('src=["\'](http.*?)["\']',re.DOTALL+re.IGNORECASE).findall(data)
     #query = srcs[0]
     ## MAIN CASE
     for query in srcs:
+        query = query.replace('\n','')
         if 'livecounter' in query:
             pass
+        elif 'osgchmura.tk' in query:
+            print '@osgchmura'
+            return _osgchmura(query,data,url)  
+        elif 'static.u-pro.fr' in query:
+            print '@static.u-pro.fr'
+            return _static_u_pro(query,data,url)  
         elif 'widestream.io' in query:
             print '@@widestream.io'    #D
             return _widestream(query,data,url)  
@@ -103,7 +110,29 @@ def decode(url,data):
     print srcs
     return None
 
-
+##
+def _osgchmura(query,data,url):
+    vido_url=''
+    header = {'User-Agent':UA,
+             'Referer': url,}
+    decoded = getUrl(query,header=header)
+    source = re.compile('src=["\'](http.*?)["\']').findall(decoded)
+    for src in source:
+        if src.endswith('m3u8'):
+            vido_url = src
+            print vido_url
+            break
+    return vido_url
+##
+def _static_u_pro(query,data,url):
+    vido_url=''
+    source = re.compile('src=["\'](http.*?)["\']').findall(data)
+    if source:
+        source = re.compile('source=(rtmp.*?[^&]*)').findall(source[0])
+        if source:
+            vido_url = source[0]
+    return vido_url
+##
 def _widestream(query,data,url):
     vido_url=''
     header = {'User-Agent':UA,
@@ -455,7 +484,8 @@ def _privatestream(query,data):
     decoded = getUrl(query)
     src2=re.compile('"(http://privatestream.tv/.*?)"').findall(decoded)
     if src2:
-        decoded = getUrl(src2[0])   
+        
+        #decoded = getUrl(src2[0])   
         swfUrl='http://privatestream.tv/js/jwplayer.flash.swf'
  
         a=int(re.search('a = ([0-9]+)',decoded).group(1))

@@ -6,7 +6,7 @@ import time
 import mydecode
 
 
-BASEURL='http://i-htv.net/'
+BASEURL='http://i-hqtv.com/'
 UA='Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'
 
 fix={
@@ -71,82 +71,33 @@ def getUrl(url,data=None,header={}):
 def get_root(addheader=False):
     content = getUrl(BASEURL)
     out=[]
-    group=''
-    groups=re.compile('<li><a href="(.*?)">(.*?)</a></li>').findall(content)
-    for href,group in groups:
-        #print href
-        content = getUrl(BASEURL+href)
-        channels=re.compile('<a href="(.*?)" class="link"><img src="(.*?)"').findall(content)
-        
-        if addheader:
-            t='[COLOR yellow]Updated: %s (i-htv.net)[/COLOR]' %time.strftime("%d/%m/%Y: %H:%M:%S")
-            out.append({'title':t,'tvid':'','img':'','url':'http://wizja.tv/','group':'','urlepg':''})
-        #one=match[0]
-        for ch in channels:
-            t = ch[1].split('/')[-1].split('.')[0]
-            i = BASEURL + ch[1]
-            h = BASEURL + ch[0]
-            out.append(fixForEPG({'title':t,'tvid':t,'img':i,'url':h,'group':group,'urlepg':''}))
-      
+
+    groups=re.compile('<li id="menu-item-.*?" class=".*?"><a href="(.*?)">(.*?)</a></li>').findall(content)
+    for href,title in groups:
+        #href,title =groups[0]
+
+        out.append(fixForEPG({'title':title.strip(),'tvid':title.strip(),'img':'','url':href,'group':'','urlepg':''}))
+    if out and addheader:
+        t='[COLOR yellow]Updated: %s (i-htv.net)[/COLOR]' %time.strftime("%d/%m/%Y: %H:%M:%S")
+        out.append({'title':t,'tvid':'','img':'','url':'http://wizja.tv/','group':'','urlepg':''})
+              
     return out
 
-url='http://i-htv.net/tvpseriale.html'
-def decode_url(url='http://i-htv.net/tvp1.html'):
+url='http://i-hqtv.com/tvn-7/'
+def decode_url(url='http://i-hqtv.com/discovery-channel/'):
     vido_url=''
-    if 'i-htv.net' in url:
-        content = getUrl(url)
-        iframes = re.compile('<iframe(.*?)</iframe>').findall(content)
-        if iframes:
-            pageUrl = re.compile('src="(.*?)"').findall(iframes[0])
-            if pageUrl:
-                data=getUrl(pageUrl[0])
-                vido_url = mydecode.decode(pageUrl[0],data)
-                print '@@@@@',vido_url
+    content = getUrl(url)
+    iframes = re.compile('<iframe(.*?)</iframe>').findall(content)
+    if iframes:
+        pageUrl = re.compile('src="(.*?)"',re.IGNORECASE).findall(iframes[0])
+        if pageUrl:
+            data=getUrl(pageUrl[0])
+            vido_url = mydecode.decode(pageUrl[0],data)
+            print '@@@@@',vido_url
 
     return vido_url    
     
 ##
-# url="http://i-htv.net/tvp1.html"
-# url="http://i-htv.net/tvp2.html"
-# url="http://i-htv.net/tvphd.html"
-# url="http://i-htv.net/tvn.html"
-# url="http://i-htv.net/tvn7.html"
-# url="http://i-htv.net/tvpuls.html"
-# url="http://i-htv.net/tvn24.html"
-# url="http://i-htv.net/tvpinfo.html"
-# url="http://i-htv.net/tvrepublika.html"
-# url="http://i-htv.net/canal.html"
-# url="http://i-htv.net/canalfilm.html"
-# url="http://i-htv.net/canalfamily.html"
-# url="http://i-htv.net/axn.html"
-# url="http://i-htv.net/hbo.html"
-# url="http://i-htv.net/hbo2.html"
-# url="http://i-htv.net/hbo3.html"
-# url="http://i-htv.net/fox.html"
-# url="http://i-htv.net/kinopolska.html"
-# url="http://i-htv.net/canalsport.html"
-# url="http://i-htv.net/canalsport2.html"
-# url="http://i-htv.net/nsport.html"
-# url="http://i-htv.net/eurosport.html"
-# url="http://i-htv.net/eurosport2.html"
-# url="http://i-htv.net/tvpsport.html"
-# url="http://i-htv.net/eleven.html"
-# url="http://i-htv.net/elevensport.html"
-# url="http://i-htv.net/animalplanet.html"
-# url="http://i-htv.net/discovery.html"
-# url="http://i-htv.net/discoveryhistoria.html"
-# url="http://i-htv.net/history.html"
-# url="http://i-htv.net/h2.html"
-# url="http://i-htv.net/natgeo.html"
-# url="http://i-htv.net/natgeowild.html"
-# url="http://i-htv.net/tvnturbo.html"
-# url="http://i-htv.net/tvnstyle.html"
-# url="http://i-htv.net/tlc.html"
-# url="http://i-htv.net/eskatv.html"
-# url="http://i-htv.net/mtv.html"
-
-# link=decode_url(url)
-# print link
 
 def test():
     out = get_root()

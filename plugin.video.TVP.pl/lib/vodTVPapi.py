@@ -74,12 +74,12 @@ def _getPlayable(episode):
         E['date']= '?'
     return E
 
-channel_id='26221210&mime_type=video/mp4'
+channel_id='26754935&mime_type=video/mp4'
 VIDEO_LINK='http://www.tvp.pl/pub/stat/videofileinfo?video_id='
 TOKENIZER_URL = 'http://www.tvp.pl/shared/cdn/tokenizer_v2.php?object_id='
 BRAMKA='http://www.bramka.proxy.net.pl/index.php?q='
 
-def vodTVP_GetStreamTokenizer(channel_id,proxy={},timeout=TIMEOUT,bramka=False):
+def vodTVP_GetStreamTokenizer(channel_id='26754935',proxy={},timeout=TIMEOUT,bramka=False):
     video_url=''
     # videofileinfo = urllib2.urlopen( TOKENIZER_URL+ channel_id)
     # js = json.loads(videofileinfo.read())
@@ -195,7 +195,25 @@ def vodTVPapi(parent_id=25621524,Count=150):
         (lista_katalogow,lista_pozycji) = vodTVPapi(lista_katalogow[0].get('id'),Count)
     return (lista_katalogow,lista_pozycji)
 
-
+#url='http://188.47.195.3/token/video/live/26767399/20160921/1401320273/a8b4364c-e774-4cc8-a37b-5b35235a05be/live191.isml/manifest.m3u8'
+#url='http://188.47.195.3/token/video/live/26771385/20160921/1401320273/373d5ad8-de22-4ad9-89d5-338e39ce3e0c/tvpinfo.isml/tvpinfo.m3u8'
+def m3u_quality(url):
+    #http://httpstream2.rai.it/Italy/rai2.isml/QualityLevels(1256000)/manifest(format=m3u8-aapl).m3u8
+    out=[url]
+    if url and url.endswith('.m3u8'):
+        rptxt = re.search('/(\w+)\.m3u8',url)
+        rptxt = rptxt.group(1) if rptxt else 'manifest'
+        content = getUrl(url)
+        #content = '#EXTM3U\r\n#EXT-X-VERSION:2\r\n#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=393072,RESOLUTION=512x288\r\nQualityLevels(376000)/manifest(format=m3u8-aapl)\r\n#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=730332,RESOLUTION=512x288\r\nQualityLevels(706000)/manifest(format=m3u8-aapl)\r\n#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=1251552,RESOLUTION=512x288\r\nQualityLevels(1216000)/manifest(format=m3u8-aapl)\r\n#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=1905632,RESOLUTION=720x404\r\nQualityLevels(1856000)/manifest(format=m3u8-aapl)\r\n#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=2518832,RESOLUTION=1024x576\r\nQualityLevels(2456000)/manifest(format=m3u8-aapl)\r\n#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=3847432,RESOLUTION=1280x720\r\nQualityLevels(3756000)/manifest(format=m3u8-aapl)\r\n#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=7935432,RESOLUTION=1920x1080\r\nQualityLevels(7756000)/manifest(format=m3u8-aapl)\r\n#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=266032\r\nQualityLevels(256000)/manifest(format=m3u8-aapl)\r\n'
+        matches=re.compile('RESOLUTION=(.*?)\r\n(QualityLevels\(.*\)/manifest\(format=m3u8-aapl\))').findall(content)
+        if matches:
+            out=[{'title':'auto','url':url}]
+            #title, part = matches[0]
+            for title, part in matches:
+                one={'title':title,'url':url.replace('manifest',part)}
+                out.append(one)
+    return out
+    
 # a=vodTVPapi(19181289)
 # a=vodTVPapi(26326674)
 # a=vodTVPapi(26389937)

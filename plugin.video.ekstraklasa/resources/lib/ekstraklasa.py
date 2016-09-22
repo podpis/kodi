@@ -10,6 +10,7 @@ BASEURL= "https://api.dailymotion.com"
 TIMEOUT = 10
 UA='Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.97 Safari/537.36'
 
+GATE=''
 GATE='http://invisiblesurf.review/index.php?q='
 
 def getUrl(url,data=None,cookies=None):
@@ -39,8 +40,8 @@ def getLive(user):
     if content:
         data = json.loads(content)
         L = data.get('list',[])
-        for l in L:
-            print l
+        # for l in L:
+        #     print l
     return L
     
 def getVideos(user,sort='recent',page='1'):  #visited
@@ -72,6 +73,9 @@ def getVideos(user,sort='recent',page='1'):  #visited
         
     return (L,(prevPage,nextPage))
 
+# GATE=''
+# GATE='http://invisiblesurf.review/index.php?q='
+
 # media_id='x4nrxj6'x2yclwl
 def getVideoLinks(media_id='x2yclwl'):
     content = getUrl('http://www.dailymotion.com/embed/video/%s' % media_id)
@@ -79,7 +83,10 @@ def getVideoLinks(media_id='x2yclwl'):
     #srcs=re.compile('"(auto)":\[{"type":"(.*?)","url":"(.*?)"}\]',re.DOTALL).findall(content)
     out=[]
     for quality,type,url in srcs:
+        if GATE:
+            url = GATE+base64.b64encode(url.replace('\\',''))+'&hl=ed'
         out.append({'label':quality,'url':url.replace('\\','')}) 
+        
     if not out:
         srcs=re.compile('"(auto)":\[{"type":"(.*?)","url":"(.*?)"}\]',re.DOTALL).findall(content)
         for quality,type,url in srcs:
@@ -89,7 +96,13 @@ def getVideoLinks(media_id='x2yclwl'):
                 for label,url in qq:
                     out.append({'label':label,'url':url})    
             else:
-                out.append({'label':'auto','url':m3u}) 
+                burl = m3u.split('live.isml')[0]+'live.isml/'
+                m3u2 = getUrl(url.replace('\\',''))
+                if '#EXTM3U' in m3u2:
+                    qq=re.compile('RESOLUTION=(.*?)\n(.*?)\n').findall(m3u2)
+                    for label,pp in qq:
+                        out.append({'label':label,'url':burl+pp})  
+                #out.append({'label':'auto','url':m3u+'&events(live-1474037409)/live-audio=128000-video=700000.m3u8?vbegin=1451606400'}) 
     return out
     
 # def getVideoLinks(media_id='x2yclwl'):

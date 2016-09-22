@@ -79,7 +79,6 @@ def get_streams(url,title):
 # url=streams[0].get('url')
 #item['url']=
 
-
 def get_link(item):
     content = getUrl(item.get('url'),useCookies=True)
     link=re.compile('(http://www.[^\.]+.pw/(?!&#)[^"]+)', re.IGNORECASE + re.DOTALL + re.MULTILINE + re.UNICODE).findall(content)
@@ -89,27 +88,54 @@ def get_link(item):
                   'Referer':item.get('url')}
         data = getUrl(link,header=header,useCookies=True)
         f=re.compile('.*?name="f"\s*value=["\']([^"\']+)["\']').findall(data)
-        s=re.compile('.*?name="s"\s*value=["\']([^"\']+)["\']').findall(data)
         r=re.compile('[\'"]action[\'"][,\s]*[\'"](http.*?)[\'"]').findall(data)
-        sk=''
-        if s:
-            s=aes.decode_hls(s[0])
-            sk=re.compile('"stkey":"(.*?)"').findall(s)
-            sk = sk[0] if sk else ''
         if f and r:
             enc_data=json.loads(base64.b64decode(f[0]))
             ciphertext = 'Salted__' + enc_data['s'].decode('hex') + base64.b64decode(enc_data['ct'])
             src=aes.decrypt(item.get('key'),base64.b64encode(ciphertext))
-            src=src.replace('"','').replace(sk,'').replace('\\','').encode('utf-8')
-            print src
+            src=src.replace('"','').replace('\\','').encode('utf-8')
+            #print src
             if src.startswith('http'):
-                href =src+'|Referer=%s&User-Agent=%s'%(urllib.quote(r[0]),UA)
+                href =src+'|Referer=%s&User-Agent=%s&X-Requested-With=ShockwaveFlash/22.0.0.209'%(urllib.quote(r[0]),UA)
+                return href
             else:
                 href=aes.decode_hls(src)
                 if href:
-                    href +='|Referer=%s&User-Agent=%s'%(urllib.quote(r[0]),UA)
+                    href +='|Referer=%s&User-Agent=%s&X-Requested-With=ShockwaveFlash/22.0.0.209'%(urllib.quote(r[0]),UA)
                     return href
     return ''
+
+
+# def get_link_old(item):
+#     content = getUrl(item.get('url'),useCookies=True)
+#     link=re.compile('(http://www.[^\.]+.pw/(?!&#)[^"]+)', re.IGNORECASE + re.DOTALL + re.MULTILINE + re.UNICODE).findall(content)
+#     if link:
+#         link=re.sub(r'&#(\d+);', lambda x: chr(int(x.group(1))), link[0])
+#         header = {'User-Agent':UA,
+#                   'Referer':item.get('url')}
+#         data = getUrl(link,header=header,useCookies=True)
+#         f=re.compile('.*?name="f"\s*value=["\']([^"\']+)["\']').findall(data)
+#         s=re.compile('.*?name="s"\s*value=["\']([^"\']+)["\']').findall(data)
+#         r=re.compile('[\'"]action[\'"][,\s]*[\'"](http.*?)[\'"]').findall(data)
+#         sk=''
+#         if s:
+#             s=aes.decode_hls(s[0])
+#             sk=re.compile('"stkey":"(.*?)"').findall(s)
+#             sk = sk[0] if sk else ''
+#         if f and r:
+#             enc_data=json.loads(base64.b64decode(f[0]))
+#             ciphertext = 'Salted__' + enc_data['s'].decode('hex') + base64.b64decode(enc_data['ct'])
+#             src=aes.decrypt(item.get('key'),base64.b64encode(ciphertext))
+#             src=src.replace('"','').replace(sk,'').replace('\\','').encode('utf-8')
+#             print src
+#             if src.startswith('http'):
+#                 href =src+'|Referer=%s&User-Agent=%s'%(urllib.quote(item.get('url')),UA)
+#             else:
+#                 href=aes.decode_hls(src)
+#                 if href:
+#                     href +='|Referer=%s&User-Agent=%s'%(urllib.quote(r[0]),UA)
+#                     return href
+#     return ''
 
 
 class JsUnwiser:
