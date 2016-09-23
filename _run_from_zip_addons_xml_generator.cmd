@@ -1,0 +1,2 @@
+python.exe from_zip_addons_xml_generator.py
+pause
