@@ -1,8 +1,0 @@
-1.2
-- a new source added: iptvlikss
-
-1.1
-- play fix
-
-1.0
-- initial version
