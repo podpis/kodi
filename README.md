@@ -26,4 +26,8 @@ Repozytorium wtyczke dla programu KODI
 |<img src="https://offshoregit.com/ramicspa/kodi/zips/plugin.video.cdapl/icon.png" width="48">|CDAPL|1.7.4|2016-08-14
 |<img src="https://offshoregit.com/ramicspa/kodi/zips/plugin.video.cdaonline/icon.png" width="48">|cda-online|1.7.0|2016-08-02
 |<img src="https://offshoregit.com/ramicspa/kodi/zips/plugin.video.iitv/icon.png" width="48">|iitv-seriale|1.0|2016-06-21
+<<<<<<< HEAD
 |<img src="https://offshoregit.com/ramicspa/kodi/zips/plugin.video.viderpl/icon.png" width="48">|vider.pl|1.1|2016-05-15
+=======
+|<img src="https://offshoregit.com/ramicspa/kodi/zips/plugin.video.viderpl/icon.png" width="48">|vider.pl|1.1|2016-05-15
+>>>>>>> 7caccb5b966ed713aac8bbaaefac0a0276705207
