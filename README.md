@@ -4,8 +4,8 @@ Repozytorium wtyczke dla programu KODI
 ## Zawartość repozytoium
 |Wtyczka|Nazwa|Wersja|Aktualizacja|
 |---|---|---|---|
-|<img src="https://offshoregit.com/ramicspa/kodi/zips/repository.ramic/icon.png" width="48">|Ramic Kodi Add-ons Repository|1.2.1|2016-09-23
 |<img src="https://offshoregit.com/ramicspa/kodi/zips/plugin.video.LivePolishTV/icon.png" width="48">|LivePolishTV|1.7.20|2016-09-23
+|<img src="https://offshoregit.com/ramicspa/kodi/zips/repository.ramic/icon.png" width="48">|Ramic Kodi Add-ons Repository|1.2.1|2016-09-23
 |<img src="https://offshoregit.com/ramicspa/kodi/zips/plugin.video.ekstraklasa/icon.png" width="48">|Ekstraklasa|1.6|2016-09-21
 |<img src="https://offshoregit.com/ramicspa/kodi/zips/plugin.video.TVP.pl/icon.png" width="48">|TVP.pl|1.5.2|2016-09-21
 |<img src="https://offshoregit.com/ramicspa/kodi/zips/plugin.video.ekinotv/icon.png" width="48">|eKino-tv|1.5|2016-09-21
@@ -27,4 +27,3 @@ Repozytorium wtyczke dla programu KODI
 |<img src="https://offshoregit.com/ramicspa/kodi/zips/plugin.video.cdaonline/icon.png" width="48">|cda-online|1.7.0|2016-08-02
 |<img src="https://offshoregit.com/ramicspa/kodi/zips/plugin.video.iitv/icon.png" width="48">|iitv-seriale|1.0|2016-06-21
 |<img src="https://offshoregit.com/ramicspa/kodi/zips/plugin.video.viderpl/icon.png" width="48">|vider.pl|1.1|2016-05-15
-

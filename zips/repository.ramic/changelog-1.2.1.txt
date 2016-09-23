@@ -1,5 +1,5 @@
 [B]1.2.1[/B]
-- repository location updated 'zips/
+- repository location updated 'zips/'
 
 [B]1.2.0[/B]
 - repository location updated
