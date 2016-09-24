@@ -378,10 +378,10 @@ provider-name="Michal">
 </addon>
 
 <addon
-	id="plugin.video.LivePolishTV"
-	name="LivePolishTV"
-	version="1.7.20"
-	provider-name="Michal">
+    id="plugin.video.LivePolishTV"
+    name="LivePolishTV"
+    version="1.7.21"
+    provider-name="Michal">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
 </requires>
