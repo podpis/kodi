@@ -53,12 +53,12 @@ provider-name="Michal">
 </addon>
 
 <addon id="plugin.video.cdaonline"
-version="1.7.0"
+version="1.7.1"
 name="cda-online"
 provider-name="Michal">
 <requires>
   <import addon="xbmc.python" version="2.1.0"/>
-  <import addon="script.module.urlresolver" version="3.0.0"/>
+  <import addon="script.module.urlresolver" version="3.0.15"/>
   <import addon="script.common.plugin.cache" version="2.5.5"/>
 </requires>
 <extension point="xbmc.python.pluginsource" library="main.py">
@@ -74,7 +74,7 @@ provider-name="Michal">
   <forum></forum>
   <website>https://github.com/ramicspa/kodi</website>
   <email>ramicspa@gmail.com</email>
-  <source></source>
+  <source>https://github.com/ramicspa/kodi</source>
 </extension>
 </addon>
 

@@ -4,6 +4,7 @@ Repozytorium wtyczek dla programu KODI
 ## Zawartość repozytoium
 |Wtyczka|Nazwa|Wersja|Aktualizacja|
 |---|---|---|---|
+|<img src="https://offshoregit.com/ramicspa/kodi/zips/plugin.video.cdaonline/icon.png" width="48">|cda-online|1.7.1|2016-09-24
 |<img src="https://offshoregit.com/ramicspa/kodi/zips/plugin.video.LivePolishTV/icon.png" width="48">|LivePolishTV|1.7.20|2016-09-23
 |<img src="https://offshoregit.com/ramicspa/kodi/zips/repository.ramic/icon.png" width="48">|Ramic Kodi Add-ons Repository|1.2.1|2016-09-23
 |<img src="https://offshoregit.com/ramicspa/kodi/zips/plugin.video.ekstraklasa/icon.png" width="48">|Ekstraklasa|1.6|2016-09-21
@@ -24,6 +25,5 @@ Repozytorium wtyczek dla programu KODI
 |<img src="https://offshoregit.com/ramicspa/kodi/zips/plugin.video.folderramic/icon.png" width="48">|folder|1.1b|2016-08-19
 |<img src="https://offshoregit.com/ramicspa/kodi/zips/plugin.video.seansik.nl/icon.png" width="48">|Seansik.nl|1.0|2016-08-17
 |<img src="https://offshoregit.com/ramicspa/kodi/zips/plugin.video.cdapl/icon.png" width="48">|CDAPL|1.7.4|2016-08-14
-|<img src="https://offshoregit.com/ramicspa/kodi/zips/plugin.video.cdaonline/icon.png" width="48">|cda-online|1.7.0|2016-08-02
 |<img src="https://offshoregit.com/ramicspa/kodi/zips/plugin.video.iitv/icon.png" width="48">|iitv-seriale|1.0|2016-06-21
 |<img src="https://offshoregit.com/ramicspa/kodi/zips/plugin.video.viderpl/icon.png" width="48">|vider.pl|1.1|2016-05-15
