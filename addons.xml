@@ -429,21 +429,21 @@ provider-name="Michal">
 </addon>
 
 <addon
-	id="plugin.video.naszekino"
-	name="Nasze-Kino"
-	version="1.3"
-	provider-name="Michal">
+    id="plugin.video.naszekino"
+    name="Nasze-Kino"
+    version="1.4"
+    provider-name="Michal">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
-    <import addon="script.module.urlresolver" version="3.0.0"/>
+    <import addon="script.module.urlresolver" version="3.0.20"/>
 
   </requires>
   <extension point="xbmc.python.pluginsource" library="addon.py">
     <provides>video</provides>
   </extension>
   <extension point="xbmc.addon.metadata">
-    <summary lang="en">...</summary>
-    <description lang="en">Odgrywa zasoby Nasze-Kino</description>
+    <summary lang="en">nasze-kino.online</summary>
+    <description lang="en">Odgrywa zasoby nasze-kino.online</description>
     <disclaimer lang="en"></disclaimer>
     <language></language>
     <platform>all</platform>
