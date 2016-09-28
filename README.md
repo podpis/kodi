@@ -4,7 +4,7 @@ Repozytorium wtyczek dla programu KODI
 ## Zawartość repozytoium
 |Wtyczka|Nazwa|Wersja|Aktualizacja|
 |---|---|---|---|
-|<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.LivePolishTV/icon.png" width="48">|LivePolishTV|1.7.22|2016-09-27
+|<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.LivePolishTV/icon.png" width="48">|LivePolishTV|1.7.23|2016-09-28
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/repository.ramic/icon.png" width="48">|Ramic Kodi Add-ons Repository|1.2.2|2016-09-27
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.naszekino/icon.png" width="48">|Nasze-Kino|1.4|2016-09-25
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.kinex.tv/icon.png" width="48">|kinex.tv|1.0|2016-09-25
