@@ -4,6 +4,7 @@ Repozytorium wtyczek dla programu KODI
 ## Zawartość repozytoium
 |Wtyczka|Nazwa|Wersja|Aktualizacja|
 |---|---|---|---|
+|<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.iwatchonline/icon.png" width="48">|iwatchonline|1.2|2016-09-29
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.ekstraklasa/icon.png" width="48">|Ekstraklasa|1.7_kodi17|2016-09-28
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.LivePolishTV/icon.png" width="48">|LivePolishTV|1.7.24|2016-09-28
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.viderpl/icon.png" width="48">|vider.info|1.2|2016-09-28
@@ -19,7 +20,6 @@ Repozytorium wtyczek dla programu KODI
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/script.module.urlresolver/icon.png" width="48">|URLResolver|3.0.20|2016-09-15
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.LiveIPTV/icon.png" width="48">|Live IPTV|1.2|2016-09-11
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.kino24tv/icon.png" width="48">|kino24tv|1.0|2016-09-01
-|<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.iwatchonline/icon.png" width="48">|iwatchonline|1.1|2016-08-30
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.efilmy/icon.png" width="48">|efilmy|1.1|2016-08-27
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.segos/icon.png" width="48">|segos|1.5|2016-08-25
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.kinoiseriale/icon.png" width="48">|kinoiseriale|1.1|2016-08-22
