@@ -1,0 +1,5 @@
+1.1
+- ling scraper fixed
+
+1.0
+- initial version
