@@ -406,7 +406,7 @@ provider-name="Michal">
 <addon
     id="plugin.video.LivePolishTV"
     name="LivePolishTV"
-    version="1.7.23"
+    version="1.7.24"
     provider-name="Michal">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
@@ -425,6 +425,16 @@ provider-name="Michal">
     <forum></forum>
     <website>https://github.com/ramicspa/kodi</website>
     <email>ramicspa@gmail.com</email>
+  <assets>
+    <icon>icon.png</icon>
+    <fanart>fanart.jpg</fanart>
+    <screenshot>resources/iklub.png</screenshot>
+    <screenshot>resources/itivi.png</screenshot>
+  </assets>
+  <news>
+1.7.14
+- TEST msg
+  </news>
   </extension>
 </addon>
 
