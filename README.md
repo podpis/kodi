@@ -4,6 +4,7 @@ Repozytorium wtyczek dla programu KODI
 ## Zawartość repozytoium
 |Wtyczka|Nazwa|Wersja|Aktualizacja|
 |---|---|---|---|
+|<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.viderpl/icon.png" width="48">|vider.info|1.2|2016-09-28
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.freedisc.pl/icon.png" width="48">|freedisc|1.1|2016-09-28
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.LivePolishTV/icon.png" width="48">|LivePolishTV|1.7.23|2016-09-28
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/repository.ramic/icon.png" width="48">|Ramic Kodi Add-ons Repository|1.2.2|2016-09-27
@@ -27,4 +28,3 @@ Repozytorium wtyczek dla programu KODI
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.seansik.nl/icon.png" width="48">|Seansik.nl|1.0|2016-08-17
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.cdapl/icon.png" width="48">|CDAPL|1.7.4|2016-08-14
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.iitv/icon.png" width="48">|iitv-seriale|1.0|2016-06-21
-|<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.viderpl/icon.png" width="48">|vider.pl|1.1|2016-05-15
