@@ -53,7 +53,7 @@ provider-name="Michal">
 </addon>
 
 <addon id="plugin.video.cdaonline"
-version="1.7.1"
+version="1.7.2"
 name="cda-online"
 provider-name="Michal">
 <requires>
@@ -67,13 +67,13 @@ provider-name="Michal">
 <extension point="xbmc.addon.metadata">
   <summary lang="en">cda-online</summary>
   <description lang="en">Zasoby cda-online.pl</description>
-  <disclaimer lang="en">private use</disclaimer>
+  <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/ramicspa/kodi</disclaimer>
   <language></language>
   <platform>all</platform>
-  <license></license>
-  <forum></forum>
+  <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
+  <forum>https://github.com/ramicspa/kodi/issues</forum>
   <website>https://github.com/ramicspa/kodi</website>
-  <email>ramicspa@gmail.com</email>
+  <email>ramicspa at gmail dot com</email>
   <source>https://github.com/ramicspa/kodi</source>
 </extension>
 </addon>
