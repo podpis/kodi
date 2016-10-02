@@ -367,8 +367,8 @@ provider-name="Michal">
 </addon>
 
 <addon id="plugin.video.kino24tv"
-version="1.0"
-name="kino24tv"
+version="1.1"
+name="cda-kino"
 provider-name="Michal">
 <requires>
   <import addon="xbmc.python" version="2.1.0"/>
@@ -379,8 +379,8 @@ provider-name="Michal">
   <provides>video</provides>
 </extension>
 <extension point="xbmc.addon.metadata">
-  <summary lang="en">kino24tv</summary>
-  <description lang="en">Zasoby kino24tv</description>
+  <summary lang="en">cda-kino</summary>
+  <description lang="en">Zasoby http://cda-kino.pl/</description>
   <disclaimer lang="en">private use</disclaimer>
   <language></language>
   <platform>all</platform>
