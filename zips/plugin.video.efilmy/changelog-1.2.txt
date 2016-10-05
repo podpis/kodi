@@ -1,0 +1,10 @@
+1.2
+- search option fixed
+- kodi17 compatibility
+
+1.1
+- new categories for movies and tv shows
+- minor code improvement
+
+1.0
+- initial version
