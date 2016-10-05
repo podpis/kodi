@@ -200,7 +200,7 @@ provider-name="Michal">
 <addon
 	id="plugin.video.ekinotv"
 	name="eKino-tv"
-	version="1.5"
+	version="1.6"
 	provider-name="Michal">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
