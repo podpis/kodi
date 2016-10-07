@@ -4,7 +4,7 @@ Repozytorium wtyczek dla programu KODI
 ## Zawartość repozytoium
 |Wtyczka|Nazwa|Wersja|Aktualizacja|
 |---|---|---|---|
-|<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.efilmy/icon.png" width="48">|efilmy|1.3|2016-10-07
+|<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.efilmy/icon.png" width="48">|efilmy|1.3b|2016-10-08
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.alltube.tv/icon.png" width="48">|alltube.tv|1.5|2016-10-07
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.cdapl/icon.png" width="48">|cda.pl|1.7.5|2016-10-06
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.ekinotv/icon.png" width="48">|eKino-tv|1.6|2016-10-05
@@ -19,7 +19,6 @@ Repozytorium wtyczek dla programu KODI
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.freedisc.pl/icon.png" width="48">|freedisc|1.1|2016-09-28
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/repository.ramic/icon.png" width="48">|Ramic Kodi Add-ons Repository|1.2.2|2016-09-27
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.naszekino/icon.png" width="48">|Nasze-Kino|1.4|2016-09-25
-|<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.kinex.tv/icon.png" width="48">|kinex.tv|1.0|2016-09-25
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.TVP.pl/icon.png" width="48">|TVP.pl|1.5.2|2016-09-21
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.ekabaretpl/icon.png" width="48">|ekabaret|1.0|2016-09-18
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.anime.pl/icon.png" width="48">|anime.pl|1.0|2016-09-17
