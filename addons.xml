@@ -422,7 +422,7 @@ provider-name="Michal">
 <addon
     id="plugin.video.LivePolishTV"
     name="LivePolishTV"
-    version="1.7.25"
+    version="1.7.26"
     provider-name="Michal">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
@@ -449,6 +449,7 @@ provider-name="Michal">
   </assets>
   <news>
 looknijin and itivi fixed
+tele-wizja 2 m3u
   </news>
   </extension>
 </addon>
