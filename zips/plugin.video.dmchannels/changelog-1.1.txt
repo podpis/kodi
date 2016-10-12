@@ -1,0 +1,5 @@
+1.1
+- video quality selection option
+
+1.0
+- initial version
