@@ -4,10 +4,10 @@ Repozytorium wtyczek dla programu KODI
 ## Zawartość repozytoium
 |Wtyczka|Nazwa|Wersja|Aktualizacja|
 |---|---|---|---|
+|<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.LivePolishTV/icon.png" width="48">|LivePolishTV|1.7.29|2016-10-15
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.ekstraklasa/icon.png" width="48">|Ekstraklasa|1.11|2016-10-13
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.alltube.tv/icon.png" width="48">|alltube.tv|1.6|2016-10-12
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.dmchannels/icon.png" width="48">|DailyMotion channels|1.1|2016-10-12
-|<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.LivePolishTV/icon.png" width="48">|LivePolishTV|1.7.28|2016-10-12
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.LiveIPTV/icon.png" width="48">|Live IPTV|1.4|2016-10-11
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.naszekino/icon.png" width="48">|Nasze-Kino|1.5|2016-10-09
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.efilmy/icon.png" width="48">|efilmy|1.4|2016-10-08
