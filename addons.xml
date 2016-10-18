@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addons>
 <addon id="plugin.video.alltube.tv"
-version="1.6"
+version="1.7"
 name="alltube.tv"
 provider-name="Michal">
 <requires>
