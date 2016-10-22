@@ -106,7 +106,7 @@ provider-name="Michal">
 </extension>
 </addon>
 
-<addon id="plugin.video.dmchannels" name="DailyMotion channels" version="1.1" provider-name="Michal">
+<addon id="plugin.video.dmchannels" name="DailyMotion channels" version="1.2" provider-name="Michal">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
     <import addon="script.module.urlresolver" version="3.0.15"/>
@@ -131,7 +131,7 @@ provider-name="Michal">
     <fanart>fanart.jpg</fanart>
   </assets>
   <news>
-video quliaty selection options
+link parser fixed
   </news>
  </extension>
 </addon>
@@ -220,7 +220,7 @@ filwebapi fixed
   </extension>
 </addon>
 
-<addon id="plugin.video.ekstraklasa" name="Ekstraklasa" version="1.12" provider-name="Michal">
+<addon id="plugin.video.ekstraklasa" name="Ekstraklasa" version="1.13" provider-name="Michal">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
     <import addon="script.module.urlresolver" version="3.0.15"/>
@@ -242,7 +242,7 @@ filwebapi fixed
         <fanart>fanart.jpg</fanart>
     </assets>
   <news>
-GoalsArena
+Ekstraklasa: link parser fixed
  </news>
   </extension>
 </addon>
