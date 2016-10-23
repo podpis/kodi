@@ -421,25 +421,25 @@ provider-name="Michal">
 <addon
     id="plugin.video.LivePolishTV"
     name="LivePolishTV"
-    version="1.7.31"
+    version="2.0.0"
     provider-name="Michal">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
 </requires>
-  <extension point="xbmc.python.pluginsource" library="addon.py">
+  <extension point="xbmc.python.pluginsource" library="main.py">
 
  <provides>video</provides>
   </extension>
   <extension point="xbmc.addon.metadata">
-    <summary lang="en">Live Polish TV </summary>
+    <summary lang="en">Live Polish TV</summary>
     <description lang="en">Live Polish TV</description>
-    <disclaimer lang="en"></disclaimer>
+    <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/ramicspa/kodi</disclaimer>
     <language></language>
     <platform>all</platform>
-    <license></license>
-    <forum></forum>
+    <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
+    <forum>https://github.com/ramicspa/kodi/issues</forum>
     <website>https://github.com/ramicspa/kodi</website>
-    <email>ramicspa@gmail.com</email>
+    <email>ramicspa at gmail dot com</email>
   <assets>
     <icon>icon.png</icon>
     <fanart>fanart.jpg</fanart>
@@ -447,8 +447,6 @@ provider-name="Michal">
     <screenshot>resources/itivi.png</screenshot>
   </assets>
   <news>
-looknijin and itivi fixed
-tele-wizja 2 m3u
   </news>
   </extension>
 </addon>
