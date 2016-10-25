@@ -4,6 +4,7 @@ Repozytorium wtyczek dla programu KODI
 ## Zawartość repozytoium
 |Wtyczka|Nazwa|Wersja|Aktualizacja|
 |---|---|---|---|
+|<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.filmyto/icon.png" width="48">|Filmy.to|1.0|2016-10-25
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.LivePolishTV/icon.png" width="48">|LivePolishTV|2.0.1|2016-10-24
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.ekstraklasa/icon.png" width="48">|Ekstraklasa|1.14|2016-10-23
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.dmchannels/icon.png" width="48">|DailyMotion channels|1.2|2016-10-22
