@@ -247,10 +247,10 @@ Laczy nas pilka
   </extension>
 </addon>
 
-<addon id="plugin.video.filmyto" version="1.0" name="Filmy.to" provider-name="Michal">
+<addon id="plugin.video.filmyto" version="1.1" name="Filmy.to" provider-name="Michal">
 <requires>
     <import addon="xbmc.python" version="2.1.0"/>
-    <import addon="script.mrknow.urlresolver" />
+    <import addon="script.module.urlresolver" version="3.0.20"/>
 </requires>
 
 <extension point="xbmc.python.pluginsource" library="main.py">
@@ -272,7 +272,7 @@ Laczy nas pilka
     <fanart>fanart.jpg</fanart>
   </assets>
   <news>
-
+2 resolvers
   </news>
 </extension>
 </addon>
@@ -558,10 +558,10 @@ provider-name="Michal">
 </extension>
 </addon>
 
-<addon id="plugin.video.serialosypl" version="1.0" name="serialosy.pl" provider-name="Michal">
+<addon id="plugin.video.serialosypl" version="1.1" name="serialosy.pl" provider-name="Michal">
 <requires>
   <import addon="xbmc.python" version="2.1.0"/>
-  <import addon="script.mrknow.urlresolver" />
+  <import addon="script.module.urlresolver" version="3.0.20"/>
 </requires>
 
 <extension point="xbmc.python.pluginsource" library="main.py">
@@ -583,6 +583,7 @@ provider-name="Michal">
     <fanart>fanart.jpg</fanart>
   </assets>
   <news>
+2 resolvers
   </news>
 </extension>
 </addon>
