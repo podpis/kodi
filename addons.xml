@@ -639,6 +639,34 @@ provider-name="Michal">
 </extension>
 </addon>
 
+<addon id="plugin.video.zalukajcom" version="1.0" name="zalukaj" provider-name="Michal">
+<requires>
+    <import addon="xbmc.python" version="2.25.0"/>
+</requires>
+
+<extension point="xbmc.python.pluginsource" library="main.py">
+  <provides>video</provides>
+</extension>
+
+<extension point="xbmc.addon.metadata">
+  <summary lang="en">zalukaj.com</summary>
+  <description lang="en">zalukaj.com</description>
+  <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/ramicspa/kodi</disclaimer>
+  <language></language>
+  <platform>all</platform>
+  <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
+  <forum>https://github.com/ramicspa/kodi/issues</forum>
+  <website>https://github.com/ramicspa/kodi</website>
+  <email>ramicspa at gmail dot com</email>
+  <assets>
+    <icon>icon.png</icon>
+    <fanart>fanart.jpg</fanart>
+  </assets>
+  <news>
+  </news>
+</extension>
+</addon>
+
 <addon id="repository.ramic" name="Ramic Kodi Add-ons Repository" version="1.2.2" provider-name="Michal">
     <extension point="xbmc.addon.repository" name="Ramic Kodi Add-ons Repository">
         <info compressed="false">http://raw.github.com/ramicspa/kodi/master/addons.xml</info>
@@ -658,7 +686,7 @@ provider-name="Michal">
     </extension>
 </addon>
 
-<addon id="script.module.urlresolver" name="URLResolver" version="3.0.21b" provider-name="Eldorado">
+<addon id="script.module.urlresolver" name="URLResolver" version="3.0.23" provider-name="tvaddons.ag, Eldorado">
 	<requires>
 		<import addon="xbmc.python" version="2.1.0" />
 	</requires>
