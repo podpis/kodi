@@ -4,6 +4,8 @@ Repozytorium wtyczek dla programu KODI
 ## Zawartość repozytoium
 |Wtyczka|Nazwa|Wersja|Aktualizacja|
 |---|---|---|---|
+|<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.ekabaretpl/icon.png" width="48">|ekabaret|1.1|2016-11-02
+|<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/script.module.urlresolver/icon.png" width="48">|URLResolver|3.0.23|2016-11-01
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.zalukajcom/icon.png" width="48">|zalukaj|1.0|2016-11-01
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.serialosypl/icon.png" width="48">|serialosy.pl|1.1|2016-10-30
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.filmyto/icon.png" width="48">|Filmy.to|1.1|2016-10-30
@@ -23,11 +25,9 @@ Repozytorium wtyczek dla programu KODI
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.freedisc.pl/icon.png" width="48">|freedisc|1.1|2016-09-28
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/repository.ramic/icon.png" width="48">|Ramic Kodi Add-ons Repository|1.2.2|2016-09-27
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.TVP.pl/icon.png" width="48">|TVP.pl|1.5.2|2016-09-21
-|<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.ekabaretpl/icon.png" width="48">|ekabaret|1.0|2016-09-18
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.anime.pl/icon.png" width="48">|anime.pl|1.0|2016-09-17
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.segos/icon.png" width="48">|segos|1.5|2016-08-25
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.kinoiseriale/icon.png" width="48">|kinoiseriale|1.1|2016-08-22
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.folderramic/icon.png" width="48">|folder|1.1b|2016-08-19
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.seansik.nl/icon.png" width="48">|Seansik.nl|1.0|2016-08-17
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.iitv/icon.png" width="48">|iitv-seriale|1.0|2016-06-21
-|<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/script.module.urlresolver/icon.png" width="48">|URLResolver|3.0.23|2016-11-01

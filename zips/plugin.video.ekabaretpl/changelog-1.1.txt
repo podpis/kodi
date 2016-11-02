@@ -1,0 +1,5 @@
+1.1
+- tvp.pl sources now available as well
+
+1.0
+- initial version
