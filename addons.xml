@@ -79,7 +79,7 @@ provider-name="Michal">
 </addon>
 
 <addon id="plugin.video.cdapl"
-    version="1.7.5"
+    version="1.7.6"
     name="cda.pl"
     provider-name="Michal">
 
