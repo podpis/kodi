@@ -4,9 +4,9 @@ Repozytorium wtyczek dla programu KODI
 ## Zawartość repozytoium
 |Wtyczka|Nazwa|Wersja|Aktualizacja|
 |---|---|---|---|
+|<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.LivePolishTV/icon.png" width="48">|LivePolishTV|2.0.5|2016-11-05
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.alltube.tv/icon.png" width="48">|alltube.tv|1.9|2016-11-05
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.cdapl/icon.png" width="48">|cda.pl|1.7.6|2016-11-04
-|<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.LivePolishTV/icon.png" width="48">|LivePolishTV|2.0.4|2016-11-04
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.filmydokumentalne/icon.png" width="48">|Filmy Dokumentalne|1.1|2016-11-03
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.ekabaretpl/icon.png" width="48">|ekabaret|1.1|2016-11-02
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/script.module.urlresolver/icon.png" width="48">|URLResolver|3.0.23|2016-11-01
