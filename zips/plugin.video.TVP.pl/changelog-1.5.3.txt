@@ -1,0 +1,45 @@
+1.5.3
+- mminor chage
+- proxy
+- typo
+
+1.5.2
+- live news stream: quality option
+
+1.5.1
+- astronarium
+
+1.5.0
+- episode time
+- proxy thread
+- Rio removed
+
+1.4.1
+- proxy fixed
+- Rio 2016 
+
+1.4.0
+- major update
+
+1.2.2
+- removed live tv (looknij)
+- fixed main menu entry
+
+1.2.2
+- simplejson to json
+
+1.2.1
+- minor fix
+
+1.2.0
+- Telewizja polska live z looknij.tv
+
+1.1.1
+- some links has been fixed (kabarety)
+- Rozrywka routed outside vod audycje.
+
+1.1.0
+- added vod.tvp.pl: seriale/filmy fabularne/dokumenty/archiwa/audycje
+
+1.0.1
+- initial version

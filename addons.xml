@@ -53,7 +53,7 @@ provider-name="Michal">
 </addon>
 
 <addon id="plugin.video.cdaonline"
-version="1.7.3"
+version="1.7.4"
 name="cda-online"
 provider-name="Michal">
 <requires>
@@ -137,7 +137,7 @@ link parser fixed
 </addon>
 
 <addon id="plugin.video.efilmy"
-version="1.4"
+version="1.5"
 name="efilmy"
 provider-name="Michal">
 <requires>
@@ -220,7 +220,7 @@ filwebapi fixed
   </extension>
 </addon>
 
-<addon id="plugin.video.ekstraklasa" name="Ekstraklasa" version="1.14" provider-name="Michal">
+<addon id="plugin.video.ekstraklasa" name="Ekstraklasa" version="1.15" provider-name="Michal">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
     <import addon="script.module.urlresolver" version="3.0.15"/>
@@ -354,7 +354,7 @@ Laczy nas pilka
 <addon
 	id="plugin.video.iitv"
 	name="iitv-seriale"
-	version="1.0"
+	version="1.1"
 	provider-name="Michal">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
@@ -455,7 +455,7 @@ provider-name="Michal">
 </extension>
 </addon>
 
-<addon id="plugin.video.LiveIPTV" name="Live IPTV" version="1.4" provider-name="Michal">
+<addon id="plugin.video.LiveIPTV" name="Live IPTV" version="1.5" provider-name="Michal">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
     <import addon="plugin.video.f4mTester" version="2.2.3" optional="true" />
@@ -477,7 +477,7 @@ provider-name="Michal">
   </extension>
 </addon>
 
-<addon id="plugin.video.LivePolishTV" name="LivePolishTV" version="2.0.5" provider-name="Michal">
+<addon id="plugin.video.LivePolishTV" name="LivePolishTV" version="2.0.6" provider-name="Michal">
     <requires>
         <import addon="xbmc.python" version="2.1.0"/>
         <import addon="service.cronxbmc" optional="true"/>
@@ -510,7 +510,7 @@ provider-name="Michal">
 <addon
     id="plugin.video.naszekino"
     name="Nasze-Kino"
-    version="1.5"
+    version="1.6"
     provider-name="Michal">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
@@ -563,7 +563,7 @@ provider-name="Michal">
 </addon>
 
 <addon id="plugin.video.segos"
-version="1.5"
+version="1.6"
 name="segos"
 provider-name="Michal">
 <requires>
@@ -621,7 +621,7 @@ provider-name="Michal">
 <addon
     id="plugin.video.TVP.pl"
     name="TVP.pl"
-    version="1.5.2"
+    version="1.5.3"
     provider-name="Michal">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
