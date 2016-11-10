@@ -4,6 +4,7 @@ Repozytorium wtyczek dla programu KODI
 ## Zawartość repozytoium
 |Wtyczka|Nazwa|Wersja|Aktualizacja|
 |---|---|---|---|
+|<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.cdaonline/icon.png" width="48">|cda-online|1.7.5|2016-11-10
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.TVP.pl/icon.png" width="48">|TVP.pl|1.5.3|2016-11-10
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.segos/icon.png" width="48">|segos|1.6|2016-11-10
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.naszekino/icon.png" width="48">|Nasze-Kino|1.6|2016-11-10
@@ -11,7 +12,6 @@ Repozytorium wtyczek dla programu KODI
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.iitv/icon.png" width="48">|iitv-seriale|1.1|2016-11-10
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.ekstraklasa/icon.png" width="48">|Ekstraklasa|1.15|2016-11-10
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.efilmy/icon.png" width="48">|efilmy|1.5|2016-11-10
-|<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.cdaonline/icon.png" width="48">|cda-online|1.7.4|2016-11-10
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.LivePolishTV/icon.png" width="48">|LivePolishTV|2.0.6|2016-11-10
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.cdapl/icon.png" width="48">|cda.pl|1.7.7|2016-11-08
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.alltube.tv/icon.png" width="48">|alltube.tv|1.9|2016-11-05
