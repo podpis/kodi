@@ -1,6 +1,0 @@
-1.1
-- new categories for movies and tv shows
-- minor code improvement
-
-1.0
-- initial version

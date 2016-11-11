@@ -1,6 +1,0 @@
-1.0.1
-- added: Dzieki Bogu Juz Weekend
-
-1.0.0
-- initial version
-	

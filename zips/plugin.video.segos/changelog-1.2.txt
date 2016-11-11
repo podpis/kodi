@@ -1,8 +1,0 @@
-1.2
-- video link greevid.com fixed
-
-1.1
-- video link parser for multiple source
-
-1.0
-- initial version

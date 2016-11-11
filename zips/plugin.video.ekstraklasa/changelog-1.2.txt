@@ -1,8 +1,0 @@
-1.2
-- minor fix
-
-1.1
-- proxy gate pl ips
-
-1.0
-- initial version
