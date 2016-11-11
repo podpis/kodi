@@ -1,0 +1,8 @@
+1.2
+- 
+
+1.1
+- minor fix: najpopularniejsze
+
+1.0
+- initial version

@@ -1,0 +1,8 @@
+1.2
+-
+
+1.1
+- debug window removed
+
+1.0
+- initial version
