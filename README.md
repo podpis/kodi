@@ -4,9 +4,9 @@ Repozytorium wtyczek dla programu KODI
 ## Zawartość repozytoium
 |Wtyczka|Nazwa|Wersja|Aktualizacja|
 |---|---|---|---|
+|<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.LivePolishTV/icon.png" width="48">|LivePolishTV|2.0.9|2016-11-18
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.serialosypl/icon.png" width="48">|serialosy.pl|1.3|2016-11-13
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.kinoiseriale/icon.png" width="48">|kinoiseriale|1.3|2016-11-12
-|<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.LivePolishTV/icon.png" width="48">|LivePolishTV|2.0.8|2016-11-12
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.viderpl/icon.png" width="48">|vider.info|1.3|2016-11-11
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.TVP.pl/icon.png" width="48">|TVP.pl|1.5.4|2016-11-11
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.segos/icon.png" width="48">|segos|1.8|2016-11-11
