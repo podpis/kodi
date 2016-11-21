@@ -165,7 +165,7 @@ link parser fixed
 </addon>
 
 <addon id="plugin.video.efilmy"
-version="1.6"
+version="1.7"
 name="efilmy"
 provider-name="Michal">
 <requires>
@@ -458,7 +458,7 @@ provider-name="Michal">
 </addon>
 
 <addon id="plugin.video.kinoiseriale"
-version="1.3"
+version="1.4"
 name="kinoiseriale"
 provider-name="Michal">
 <requires>
