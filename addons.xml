@@ -165,7 +165,7 @@ link parser fixed
 </addon>
 
 <addon id="plugin.video.efilmy"
-version="1.7"
+version="1.8"
 name="efilmy"
 provider-name="Michal">
 <requires>
@@ -185,7 +185,7 @@ provider-name="Michal">
   <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
   <forum>https://github.com/ramicspa/kodi/issues</forum>
   <website>https://github.com/ramicspa/kodi</website>
-  <email>ramicspa at gmail dot com</email>
+  <email></email>
   <assets>
     <icon>icon.png</icon>
     <fanart>fanart.jpg</fanart>
