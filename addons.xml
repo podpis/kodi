@@ -165,7 +165,7 @@ link parser fixed
 </addon>
 
 <addon id="plugin.video.efilmy"
-version="1.8"
+version="1.9"
 name="efilmy"
 provider-name="Michal">
 <requires>
