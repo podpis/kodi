@@ -1,8 +1,0 @@
-1.2
-- minor change
-
-1.1
-- compatibility fixed
-
-1.0
-- initial version
