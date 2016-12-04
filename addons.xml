@@ -105,20 +105,14 @@ provider-name="Michal">
 </extension>
 </addon>
 
-<addon id="plugin.video.cdapl"
-    version="1.7.8"
-    name="cda.pl"
-    provider-name="Michal">
-
+<addon id="plugin.video.cdapl" version="1.8.0" name="cda.pl" provider-name="Michal">
 <requires>
   <import addon="xbmc.python" version="2.1.0"/>
   <import addon="script.common.plugin.cache" version="2.5.5"/>
 </requires>
-
 <extension point="xbmc.python.pluginsource" library="main.py">
   <provides>video</provides>
 </extension>
-
 <extension point="xbmc.addon.metadata">
   <summary lang="en">CDAPL Kodi Video Plugin</summary>
   <description lang="en">cda.pl playlist</description>

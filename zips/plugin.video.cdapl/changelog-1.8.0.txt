@@ -1,6 +1,41 @@
+1.8.0
+- db update
+
+1.7.8
+- 
+
+1.7.7
+- naming search folders
+- show premium in search
+- premium: quality selection
+
+1.7.6
+- search pagination fixed
+
+1.7.5
+- fixed premium content
+- serach option when source unavailable
+
+1.7.4
+- minor changes
+- icon.png
+- search history
+
+1.7.3
+- filmy parsing fixed
+
+1.7.2
+- filmy parsing fixed
+
+1.7.1
+- auto selection fixed with msg
+
+1.7.0
+- added premium darmowe
+- minor fixes (msgs)
+
 1.6.1
 - improved loading large datasets
-- remote request : video info extraction
 
 1.6.0
 - added Wybrane - available from context menu
