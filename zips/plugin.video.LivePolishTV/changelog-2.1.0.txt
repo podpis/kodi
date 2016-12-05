@@ -1,3 +1,8 @@
+2.1.0
+- telewizyjka
+- fixed: polontv,psa-tv, tvp1-online
+- removed tv-online.fm
+
 2.0.9
 - amigostv fix
 
