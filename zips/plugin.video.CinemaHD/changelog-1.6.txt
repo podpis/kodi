@@ -1,3 +1,6 @@
+1.6
+- sources update, autoplay
+
 1.5
 - android fix - walk in folders
 
