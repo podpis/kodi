@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addons>
-<addon id="plugin.video.alltube.tv"
-version="1.10"
-name="alltube.tv"
-provider-name="Michal">
+<addon id="plugin.video.alltube.tv" version="1.11" name="alltube.tv" provider-name="Michal">
 <requires>
   <import addon="xbmc.python" version="2.1.0"/>
   <import addon="script.module.urlresolver" version="3.0.15"/>
   <import addon="script.common.plugin.cache" version="2.5.5"/>
+  <import addon="script.module.simple.downloader" optional="true"/>
 </requires>
 <extension point="xbmc.python.pluginsource" library="main.py">
   <provides>video</provides>
