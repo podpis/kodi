@@ -6,6 +6,7 @@ Niektóre wtyczki z repozytorium wymagać bedą standardowych ustawień programu
 ## Zawartość repozytoium
 |Wtyczka|Nazwa|Wersja|Aktualizacja|
 |---|---|---|---|
+|<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.ramictvn24/icon.png" width="48">|TVN24|1.0|2016-12-11
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.CinemaHD/icon.png" width="48">|CinemaHD|1.6|2016-12-10
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.cdapl/icon.png" width="48">|cda.pl|1.8.1|2016-12-08
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.LiveIPTV/icon.png" width="48">|Live IPTV|1.7|2016-12-08

@@ -583,6 +583,32 @@ provider-name="Michal">
   </extension>
 </addon>
 
+<addon id="plugin.video.ramictvn24" version="1.0" name="TVN24" provider-name="Michal">
+<requires>
+  <import addon="xbmc.python" version="2.1.0"/>
+</requires>
+<extension point="xbmc.python.pluginsource" library="main.py">
+  <provides>video</provides>
+</extension>
+<extension point="xbmc.addon.metadata">
+  <summary lang="en">TVN24</summary>
+  <description lang="en">TVN24</description>
+  <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/ramicspa/kodi</disclaimer>
+  <language></language>
+  <platform>all</platform>
+  <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
+  <forum>https://github.com/ramicspa/kodi/issues</forum>
+  <website>https://github.com/ramicspa/kodi</website>
+  <email>ramicspa at gmail dot com</email>
+  <assets>
+    <icon>icon.png</icon>
+    <fanart>fanart.jpg</fanart>
+  </assets>
+  <news>
+  </news>
+</extension>
+</addon>
+
 <addon
 	id="plugin.video.seansik.nl"
 	name="Seansik.nl"
