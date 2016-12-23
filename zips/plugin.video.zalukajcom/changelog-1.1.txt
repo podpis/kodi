@@ -1,0 +1,6 @@
+1.1
+- added: login, quota msg
+- minor fixes
+
+1.0
+- initial version
