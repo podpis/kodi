@@ -6,6 +6,7 @@ Niektóre wtyczki z repozytorium wymagać bedą standardowych ustawień programu
 ## Zawartość repozytoium
 |Wtyczka|Nazwa|Wersja|Aktualizacja|
 |---|---|---|---|
+|<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.CinemaHD/icon.png" width="48">|CinemaHD|1.7|[2016-12-29](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.CinemaHD/changelog-1.7.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.LivePolishTV/icon.png" width="48">|LivePolishTV|2.1.4|[2016-12-27](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.LivePolishTV/changelog-2.1.4.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.alltube.tv/icon.png" width="48">|alltube.tv|1.13|[2016-12-27](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.alltube.tv/changelog-1.13.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.dreamvision/icon.png" width="48">|Dream Vision|1.0.1|[2016-12-23](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.dreamvision/changelog-1.0.1.txt)
@@ -37,4 +38,3 @@ Niektóre wtyczki z repozytorium wymagać bedą standardowych ustawień programu
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.anime.pl/icon.png" width="48">|anime.pl|1.3|[2016-12-14](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.anime.pl/changelog-1.3.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.TVP.pl/icon.png" width="48">|TVP.pl|1.5.4|[2016-12-14](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.TVP.pl/changelog-1.5.4.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.LiveIPTV/icon.png" width="48">|Live IPTV|1.7|[2016-12-14](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.LiveIPTV/changelog-1.7.txt)
-|<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.CinemaHD/icon.png" width="48">|CinemaHD|1.6|[2016-12-14](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.CinemaHD/changelog-1.6.txt)
