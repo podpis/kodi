@@ -125,7 +125,7 @@ provider-name="Michal">
 </extension>
 </addon>
 
-<addon id="plugin.video.CinemaHD" version="1.7" name="CinemaHD" provider-name="Michal">
+<addon id="plugin.video.CinemaHD" version="1.8" name="CinemaHD" provider-name="Michal">
 <requires>
     <import addon="xbmc.python" version="2.1.0"/>
     <import addon="script.module.urlresolver" version="3.0.20"/>
@@ -204,10 +204,7 @@ link parser fixed
 	</extension>
 </addon>
 
-<addon id="plugin.video.efilmy"
-version="1.10"
-name="efilmy"
-provider-name="Michal">
+<addon id="plugin.video.efilmy" version="1.11" name="efilmy" provider-name="Michal">
 <requires>
   <import addon="xbmc.python" version="2.1.0"/>
   <import addon="script.common.plugin.cache" version="2.5.5"/>
