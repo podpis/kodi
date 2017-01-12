@@ -6,6 +6,7 @@ Niektóre wtyczki z repozytorium wymagać bedą standardowych ustawień programu
 ## Zawartość repozytoium
 |Wtyczka|Nazwa|Wersja|Aktualizacja|
 |---|---|---|---|
+|<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.zalukajcom/icon.png" width="48">|Zalukaj|1.2|[2017-01-12](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.zalukajcom/changelog-1.2.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.serialosypl/icon.png" width="48">|serialosy.pl|1.4|[2017-01-10](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.serialosypl/changelog-1.4.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.segos/icon.png" width="48">|segos|1.9|[2017-01-10](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.segos/changelog-1.9.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.dmchannels/icon.png" width="48">|Dailymotion channels|1.5|[2017-01-10](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.dmchannels/changelog-1.5.txt)
@@ -14,7 +15,6 @@ Niektóre wtyczki z repozytorium wymagać bedą standardowych ustawień programu
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.LivePolishTV/icon.png" width="48">|LivePolishTV|2.1.4|[2016-12-27](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.LivePolishTV/changelog-2.1.4.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.alltube.tv/icon.png" width="48">|alltube.tv|1.13|[2016-12-27](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.alltube.tv/changelog-1.13.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.dreamvision/icon.png" width="48">|Dream Vision|1.0.1|[2016-12-23](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.dreamvision/changelog-1.0.1.txt)
-|<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.zalukajcom/icon.png" width="48">|Zalukaj|1.1|[2016-12-23](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.zalukajcom/changelog-1.1.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.iwatchonline/icon.png" width="48">|iwatchonline|1.4|[2016-12-23](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.iwatchonline/changelog-1.4.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/script.module.urlresolver/icon.png" width="48">|URLResolver|3.0.23|[2016-12-14](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/script.module.urlresolver/changelog-3.0.23.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/repository.ramic/icon.png" width="48">|Ramic Kodi Add-ons Repository|1.2.2|[2016-12-14](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/repository.ramic/changelog-1.2.2.txt)

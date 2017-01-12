@@ -752,9 +752,10 @@ provider-name="Michal">
 </extension>
 </addon>
 
-<addon id="plugin.video.zalukajcom" version="1.1" name="Zalukaj" provider-name="Michal">
+<addon id="plugin.video.zalukajcom" version="1.2" name="Zalukaj" provider-name="Michal">
 <requires>
     <import addon="xbmc.python" version="2.25.0"/>
+    <import addon="script.module.urlresolver" version="3.0.0"/>
 </requires>
 <extension point="xbmc.python.pluginsource" library="main.py">
   <provides>video</provides>
@@ -768,7 +769,7 @@ provider-name="Michal">
   <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
   <forum>https://github.com/ramicspa/kodi/issues</forum>
   <website>https://github.com/ramicspa/kodi</website>
-  <email>ramicspa at gmail dot com</email>
+  <email>ramicspaatgmaildotcom</email>
   <assets>
     <icon>icon.png</icon>
     <fanart>fanart.jpg</fanart>
