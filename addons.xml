@@ -100,7 +100,7 @@
 </extension>
 </addon>
 
-<addon id="plugin.video.cdapl" version="1.8.2" name="cda.pl" provider-name="Michal">
+<addon id="plugin.video.cdapl" version="1.8.3" name="cda.pl" provider-name="Michal">
 <requires>
   <import addon="xbmc.python" version="2.1.0"/>
   <import addon="script.common.plugin.cache" version="2.5.5"/>
@@ -117,7 +117,7 @@
   <license></license>
   <forum></forum>
   <website>https://github.com/ramicspa/kodi</website>
-  <email>ramicspa@gmail.com</email>
+  <email>ramicspa at gmail dot com</email>
   <source></source>
 </extension>
 </addon>
