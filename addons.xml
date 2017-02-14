@@ -229,6 +229,29 @@ filwebapi fixed
 </extension>
 </addon>
 
+<addon id="plugin.video.efilmy.online" version="1.0" name="efilmy.online" provider-name="Michal">
+<requires>
+  <import addon="xbmc.python" version="2.25.0"/>
+  <import addon="script.module.urlresolver" version="3.0.15"/>
+  <import addon="script.common.plugin.cache" version="2.5.5"/>
+</requires>
+<extension point="xbmc.python.pluginsource" library="main.py">
+  <provides>video</provides>
+</extension>
+<extension point="xbmc.addon.metadata">
+  <summary lang="en">efilmy.online</summary>
+  <description lang="en">efilmy.online</description>
+  <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/ramicspa/kodi</disclaimer>
+  <language></language>
+  <platform>all</platform>
+  <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
+  <forum>https://github.com/ramicspa/kodi/issues</forum>
+  <website>https://github.com/ramicspa/kodi</website>
+  <email>ramicspaatgmaildotcom</email>
+  <source>https://github.com/ramicspa/kodi</source>
+</extension>
+</addon>
+
 <addon
 	id="plugin.video.ekabaretpl"
 	name="ekabaret"
