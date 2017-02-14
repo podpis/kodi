@@ -1,0 +1,111 @@
+2.0.3
+- poster fix code
+
+2.0.2
+- seriale fixed
+
+2.0.1
+- minor fix
+
+2.0.0
+- web scraper adapted to a new domain cda-online -> cdax
+
+1.7.6
+-
+
+1.7.5
+- parser fixed
+- rapidvideoresolver
+
+1.7.4
+- mminor change
+
+1.7.3
+- cloudflare fix
+- pagination fixed
+
+1.7.2
+- minor fix,
+- compatiblity with kodi 17
+
+1.7.1
+==24SEP2016
+- pagination fix via proxy
+
+1.7.0
+==02AUG2016
+- access fix via proxy
+- fixed playernaut
+
+1.6.5
+==29JUN2016
+- access fix
+
+1.6.4
+==24JUN2016
+- minor fix
+
+1.6.3
+==17JUN2016
+- parsing fix
+
+1.6.2
+==11JUN2016
+- fixed cloudflare 
+
+1.6.1
+==09JUN2016
+- fixed playernaut
+
+1.6.0
+==04JUN2016
+- fixed Search
+- Quality option added
+- minor parser changes
+
+1.5.2
+==21MAY2016
+- fixed for new link shortener
+
+1.5.1
+==19MAY2016
+- playernaut back online
+
+1.5.0
+==17MAY2016
+- scraper fixed
+- urlshortnen fixed
+
+1.4.2
+==19APR2016
+- link extraction improved
+
+1.4.0=1.4.1
+- link extraction fixed
+
+1.3.0
+===30MAR2016
+- fixed website links resolver
+- added playernaut
+
+1.2.2
+===09MAR2016 	
+- fixed cda resolver
+- removed unsupported openload.co
+
+1.2.1 	
+===03MAR2016
+- video link scraper fixed
+
+1.2.0 	
+===27FEb2016
+- Search history
+
+1.1.0 	
+===24FEb2016
+- Genre/Year for Movies and TV shows
+- Polish characters fix
+
+
+1.0.0
+- initial version with remote json sources
