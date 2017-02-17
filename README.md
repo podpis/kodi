@@ -3,9 +3,11 @@ Repozytorium wtyczek dla programu KODI
 [repository.ramic.zip](https://github.com/ramicspa/kodi/raw/master/repository.ramic.zip)
 ## Informacja
 Niektóre wtyczki z repozytorium wymagać bedą standardowych ustawień programu KODI do poprawnego działania.
+### KOD: **ASW2Q**
 ## Zawartość repozytoium
 |Wtyczka|Nazwa|Wersja|Aktualizacja|
 |---|---|---|---|
+|<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.filisertv/icon.png" width="48">|Filiser|1.0|[2017-02-17](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.filisertv/changelog-1.0.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.segos/icon.png" width="48">|segos|2.2|[2017-02-15](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.segos/changelog-2.2.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.alltube.tv/icon.png" width="48">|alltube.tv|1.14|[2017-02-15](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.alltube.tv/changelog-1.14.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.ninateka/icon.png" width="48">|ninateka|1.0|[2017-02-14](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.ninateka/changelog-1.0.txt)
