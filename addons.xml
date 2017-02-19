@@ -150,7 +150,7 @@
 </extension>
 </addon>
 
-<addon id="plugin.video.dmchannels" name="Dailymotion channels" version="1.5" provider-name="Michal">
+<addon id="plugin.video.dmchannels" name="Dailymotion channels" version="1.6" provider-name="Michal">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
     <import addon="script.module.urlresolver" version="3.0.15"/>
@@ -159,12 +159,14 @@
     <provides>video</provides>
   </extension>
   <extension point="xbmc.addon.metadata">
+  <summary lang="he">ערוצי משתמש Dailymotion</summary>
   <summary lang="pl">Kanały użytkowników z Dailymotion</summary>
   <summary lang="fr">Canaux des utilisateurs de Dailymotion</summary>
   <summary lang="en">Dailymotion user channels</summary>
+  <description lang="he">ההרחבה מאפשרת לעיין בתוכן הערוצים שנוצרו על ידי משתמשים ב - Dailymotion.</description>
   <description lang="pl">Wtyczka pozwala na przeglądanie zasobów video kanałów użytkowników serwisu.</description>
   <description lang="en">The addon allows to browse the content of the channels created by Dailymotion users.</description>
-  <description lang="fr">Cette addon permet de parcourir le contenu des chaînes créées par les utilisateurs de Dailymotion.</description>
+  <description lang="fr">Cette addon permet de pa\rcourir le contenu des chaînes créées par les utilisateurs de Dailymotion.</description>
   <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/ramicspa/kodi</disclaimer>
   <language></language>
   <platform>all</platform>
