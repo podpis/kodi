@@ -674,7 +674,7 @@ provider-name="Michal">
 </extension>
 </addon>
 
-<addon id="plugin.video.ramictvn24" version="1.0" name="TVN24" provider-name="Michal">
+<addon id="plugin.video.ramictvn24" version="1.1" name="TVN24" provider-name="Michal">
 <requires>
   <import addon="xbmc.python" version="2.1.0"/>
 </requires>
