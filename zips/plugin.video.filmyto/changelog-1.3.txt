@@ -1,0 +1,12 @@
+1.3
+- pagination fixed again
+
+1.2
+-
+- pagination fixed
+
+1.1
+- optional mrknow resolver 
+
+1.0
+- initial version
