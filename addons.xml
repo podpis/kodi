@@ -25,10 +25,7 @@
 </addon>
 
 <addon
-	id="plugin.video.anime.pl"
-	name="anime.pl"
-	version="1.3"
-	provider-name="Michal">
+	id="plugin.video.anime.pl" name="anime.pl" version="1.4" provider-name="Michal">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
 	<import addon="script.module.urlresolver" version="3.0.15"/>
@@ -45,7 +42,7 @@
     <license></license>
     <forum></forum>
     <website>https://github.com/ramicspa/kodi</website>
-    <email>ramicspa@gmail.com</email>
+    <email>ramicspa at gmail dot com</email>
     <source></source>
   </extension>
 </addon>
