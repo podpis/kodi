@@ -1,6 +1,6 @@
 2.0.4
 - parser fixed
-- searched removed (temporarly)
+- searched removed (temporarily)
 - TODO captcha
 - new icon
 
