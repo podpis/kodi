@@ -1,0 +1,6 @@
+1.1
+- search option
+- minor changes
+
+1.0
+- initial version
