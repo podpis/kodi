@@ -7,7 +7,7 @@ Niektóre wtyczki z repozytorium wymagać bedą standardowych ustawień programu
 ## Zawartość repozytoium
 |Wtyczka|Nazwa|Wersja|Aktualizacja|
 |---|---|---|---|
-|<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.cdaonline/icon.png" width="48">|cdax.tv|2.0.5|[2017-03-15](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.cdaonline/changelog-2.0.5.txt)
+|<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.cdaonline/icon.png" width="48">|cdax.tv|2.0.6|[2017-03-16](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.cdaonline/changelog-2.0.6.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.filisertv/icon.png" width="48">|Filiser|1.1|[2017-03-15](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.filisertv/changelog-1.1.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.kino24tv/icon.png" width="48">|cda-kino|1.3|[2017-03-10](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.kino24tv/changelog-1.3.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.CinemaHD/icon.png" width="48">|CinemaHD|2.4|[2017-03-05](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.CinemaHD/changelog-2.4.txt)

@@ -74,7 +74,7 @@
 </extension>
 </addon>
 
-<addon id="plugin.video.cdaonline" version="2.0.5" name="cdax.tv" provider-name="Michal">
+<addon id="plugin.video.cdaonline" version="2.0.6" name="cdax.tv" provider-name="Michal">
 <requires>
   <import addon="xbmc.python" version="2.1.0"/>
   <import addon="script.module.urlresolver" version="3.0.15"/>
