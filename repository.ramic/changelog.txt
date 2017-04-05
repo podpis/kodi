@@ -1,0 +1,15 @@
+1.2.2
+- new version to addons fixed location issue
+
+1.2.1[/B]
+- repository location updated 'zips/'
+
+1.2.0[/B]
+- repository location updated
+
+1.1.0
+- repository
+- urlresolver
+
+1.0.0
+Repository Kodi

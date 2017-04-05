@@ -859,11 +859,11 @@ provider-name="Michal">
 </extension>
 </addon>
 
-<addon id="repository.ramic" name="Ramic Kodi Add-ons Repository" version="1.2.2" provider-name="Michal">
+<addon id="repository.ramic" name="Ramic Kodi Add-ons Repository" version="1.3.0" provider-name="Michal">
     <extension point="xbmc.addon.repository" name="Ramic Kodi Add-ons Repository">
-        <info compressed="false">http://raw.github.com/ramicspa/kodi/master/addons.xml</info>
-        <checksum>http://raw.github.com/ramicspa/kodi/master/addons.xml.md5</checksum>
-        <datadir zip="true">https://raw.githubusercontent.com/ramicspa/kodi/master/zips/</datadir>
+        <info compressed="false">https://offshoregit.com/ramicspa/kodi/addons.xml</info>
+        <checksum>https://offshoregit.com/ramicspa/kodi/addons.xml.md5</checksum>
+        <datadir zip="true">https://offshoregit.com/ramicspa/kodi/zips/</datadir>
     </extension>
     <extension point="xbmc.addon.metadata">
         <summary>Ramic Kodi Repository</summary>
@@ -874,7 +874,7 @@ provider-name="Michal">
         <disclaimer lang="pl">Zawartość repozytorium ma charakter niekomercyjny, tworzone dla zabawy.</disclaimer>
         <platform>all</platform>
         <website>https://github.com/ramicspa/kodi</website>
-        <email>ramicspa@gmail.com</email>
+        <email>ramicspa at gmail dot com</email>
     </extension>
 </addon>
 
