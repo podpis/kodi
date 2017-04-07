@@ -216,6 +216,6 @@ pip-log.txt
 .mr.developer.cfg
 
 plugin.video*.zip
-
+_plugin.*
 #Local scripts
 __*
