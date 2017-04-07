@@ -1,3 +1,10 @@
+2.0
+- login added
+- info
+
+1.7
+- 
+
 1.6
 - mminor change
 

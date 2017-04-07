@@ -621,16 +621,11 @@ provider-name="Michal">
   </extension>
 </addon>
 
-<addon
-    id="plugin.video.naszekino"
-    name="Nasze-Kino"
-    version="1.7"
-    provider-name="Michal">
+<addon id="plugin.video.naszekino" name="Nasze-Kino" version="2.0" provider-name="Michal">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
     <import addon="script.module.urlresolver" version="3.0.20"/>
 
-  </requires>
   <extension point="xbmc.python.pluginsource" library="addon.py">
     <provides>video</provides>
   </extension>
@@ -836,9 +831,9 @@ provider-name="Michal">
 
 <addon id="repository.ramic" name="Ramic Kodi Add-ons Repository" version="1.3.0" provider-name="Michal">
     <extension point="xbmc.addon.repository" name="Ramic Kodi Add-ons Repository">
-        <info compressed="false">http://raw.github.com/ramicspa/kodi/master/addons.xml</info>
-        <checksum>http://raw.github.com/ramicspa/kodi/master/addons.xml.md5</checksum>
-        <datadir zip="true">https://raw.githubusercontent.com/ramicspa/kodi/master/zips/</datadir>
+        <info compressed="false">https://offshoregit.com/ramicspa/kodi/addons.xml</info>
+        <checksum>https://offshoregit.com/ramicspa/kodi/addons.xml.md5</checksum>
+        <datadir zip="true">https://offshoregit.com/ramicspa/kodi/zips/</datadir>
     </extension>
     <extension point="xbmc.addon.metadata">
         <summary>Ramic Kodi Repository</summary>
