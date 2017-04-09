@@ -96,7 +96,7 @@
 </extension>
 </addon>
 
-<addon id="plugin.video.CinemaHD" version="2.4" name="CinemaHD" provider-name="Michal">
+<addon id="plugin.video.CinemaHD" version="2.5" name="CinemaHD" provider-name="Michal">
 <requires>
     <import addon="xbmc.python" version="2.1.0"/>
     <import addon="script.module.urlresolver" version="3.0.20"/>
@@ -279,7 +279,7 @@ filwebapi fixed
   </extension>
 </addon>
 
-<addon id="plugin.video.ekstraklasa" name="Ekstraklasa" version="1.18" provider-name="Michal">
+<addon id="plugin.video.ekstraklasa" name="Ekstraklasa" version="1.19" provider-name="Michal">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
     <import addon="script.module.urlresolver" version="3.0.15"/>
@@ -398,7 +398,7 @@ filwebapi fixed
 </extension>
 </addon>
 
-<addon id="plugin.video.filmyto" version="1.4" name="Filmy.to" provider-name="Michal">
+<addon id="plugin.video.filmyto" version="1.5" name="Filmy.to" provider-name="Michal">
 <requires>
     <import addon="xbmc.python" version="2.1.0"/>
     <import addon="script.module.urlresolver" version="3.0.20"/>
@@ -423,6 +423,7 @@ filwebapi fixed
     <fanart>fanart.jpg</fanart>
   </assets>
   <news>
+2 resolvers
   </news>
 </extension>
 </addon>
@@ -620,7 +621,7 @@ provider-name="Michal">
   </extension>
 </addon>
 
-<addon id="plugin.video.naszekino" name="Nasze-Kino" version="2.0" provider-name="Michal">
+<addon id="plugin.video.naszekino" name="Nasze-Kino" version="2.1" provider-name="Michal">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
     <import addon="script.module.urlresolver" version="3.0.20"/>
@@ -698,7 +699,7 @@ provider-name="Michal">
 </extension>
 </addon>
 
-<addon id="plugin.video.segos" version="2.4" name="segos" provider-name="Michal">
+<addon id="plugin.video.segos" version="2.5" name="segos" provider-name="Michal">
 <requires>
   <import addon="xbmc.python" version="2.1.0"/>
   <import addon="script.common.plugin.cache" version="2.5.5"/>
@@ -747,6 +748,36 @@ provider-name="Michal">
   </assets>
   <news>
 </news>
+</extension>
+</addon>
+
+<addon id="plugin.video.szukajkatv" version="1.0" name="Szukajka.tv" provider-name="Michal">
+<requires>
+    <import addon="xbmc.python" version="2.1.0"/>
+    <import addon="script.common.plugin.cache" version="2.5.5"/>
+    <import addon="script.module.urlresolver" version="3.0.20"/>
+</requires>
+
+<extension point="xbmc.python.pluginsource" library="main.py">
+  <provides>video</provides>
+</extension>
+
+<extension point="xbmc.addon.metadata">
+  <summary lang="en">Szukajka.tv</summary>
+  <description lang="en">Szukajka.tv</description>
+  <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/ramicspa/kodi</disclaimer>
+  <language></language>
+  <platform>all</platform>
+  <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
+  <forum>https://github.com/ramicspa/kodi/issues</forum>
+  <website>https://github.com/ramicspa/kodi</website>
+  <email>ramicspa at gmail dot com</email>
+  <assets>
+    <icon>icon.png</icon>
+    <fanart>fanart.jpg</fanart>
+  </assets>
+  <news>
+  </news>
 </extension>
 </addon>
 
