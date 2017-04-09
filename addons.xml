@@ -499,11 +499,11 @@ filwebapi fixed
   </extension>
 </addon>
 
-<addon id="plugin.video.iwatchonline" version="1.4" name="iwatchonline" provider-name="Michal">
+<addon id="plugin.video.iwatchonline" version="1.5" name="iwatchonline" provider-name="Michal">
 <requires>
-  <import addon="xbmc.python" version="2.25.0"/>
+  <import addon="xbmc.python" version="2.1.0"/>
   <import addon="script.common.plugin.cache" version="2.5.5"/>
-  <import addon="script.module.urlresolver" version="3.0.0"/>
+  <import addon="script.module.urlresolver" version="3.0.20"/>
 </requires>
 <extension point="xbmc.python.pluginsource" library="main.py">
   <provides>video</provides>
@@ -517,7 +517,7 @@ filwebapi fixed
   <license></license>
   <forum></forum>
   <website>https://github.com/ramicspa/kodi</website>
-  <email>ramicspa@gmail.com</email>
+  <email>ramicspaatgmaildotcom</email>
   <source></source>
 </extension>
 </addon>
