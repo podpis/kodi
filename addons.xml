@@ -96,7 +96,7 @@
 </extension>
 </addon>
 
-<addon id="plugin.video.CinemaHD" version="2.5" name="CinemaHD" provider-name="Michal">
+<addon id="plugin.video.CinemaHD" version="2.6" name="CinemaHD" provider-name="Michal">
 <requires>
     <import addon="xbmc.python" version="2.1.0"/>
     <import addon="script.module.urlresolver" version="3.0.20"/>
@@ -699,7 +699,7 @@ provider-name="Michal">
 </extension>
 </addon>
 
-<addon id="plugin.video.segos" version="2.5" name="segos" provider-name="Michal">
+<addon id="plugin.video.segos" version="2.6" name="segos" provider-name="Michal">
 <requires>
   <import addon="xbmc.python" version="2.1.0"/>
   <import addon="script.common.plugin.cache" version="2.5.5"/>
