@@ -1,12 +1,12 @@
 # Ramic Kodi Addons Repository
 Repozytorium wtyczek dla programu KODI
-[repository.ramic.zip](https://github.com/ramicspa/kodi/raw/master/repository.ramic.zip) (wersja 1.3.0)
+[repository.ramic.zip](https://github.com/ramicspa/kodi/raw/master/repository.ramic.zip) (wersja 1.3.1)
 ## Informacja
 Niektóre wtyczki z repozytorium wymagać bedą standardowych ustawień programu KODI do poprawnego działania.
-### KOD: **ghvn**
 ## Zawartość repozytoium
 |Wtyczka|Nazwa|Wersja|Aktualizacja|
 |---|---|---|---|
+|<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.TVP.pl/icon.png" width="48">|TVP.pl|2.0.0|[2017-4-22](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.TVP.pl/changelog-2.0.0.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.szukajkatv/icon.png" width="48">|Szukajka.tv|1.1|[2017-4-21](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.szukajkatv/changelog-1.1.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.CinemaHD/icon.png" width="48">|CinemaHD|2.6|[2017-4-14](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.CinemaHD/changelog-2.6.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.segos/icon.png" width="48">|segos|2.6|[2017-4-14](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.segos/changelog-2.6.txt)
@@ -37,6 +37,5 @@ Niektóre wtyczki z repozytorium wymagać bedą standardowych ustawień programu
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.filmydokumentalne/icon.png" width="48">|Filmy Dokumentalne|1.2|[2016-11-11](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.filmydokumentalne/changelog-1.2.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.freedisc.pl/icon.png" width="48">|freedisc|1.2|[2016-11-11](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.freedisc.pl/changelog-1.2.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.iitv/icon.png" width="48">|iitv-seriale|1.2|[2016-11-11](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.iitv/changelog-1.2.txt)
-|<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.TVP.pl/icon.png" width="48">|TVP.pl|1.5.4|[2016-11-11](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.TVP.pl/changelog-1.5.4.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.viderpl/icon.png" width="48">|vider.info|1.3|[2016-11-11](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.viderpl/changelog-1.3.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.folderramic/icon.png" width="48">|folder|1.1b|[2016-8-19](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.folderramic/changelog-1.1b.txt)
