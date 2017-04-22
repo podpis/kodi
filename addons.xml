@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addons>
-<addon id="plugin.video.alltube.tv" version="1.16" name="alltube.tv" provider-name="Michal">
+<addon id="plugin.video.alltube.tv" version="2.0" name="alltube.tv" provider-name="Michal">
 <requires>
   <import addon="xbmc.python" version="2.1.0"/>
   <import addon="script.module.urlresolver" version="3.0.15"/>
+  <import addon="script.module.ramic"/>
   <import addon="script.common.plugin.cache" version="2.5.5"/>
   <import addon="script.module.simple.downloader" optional="true"/>
 </requires>
@@ -74,10 +75,11 @@
 </extension>
 </addon>
 
-<addon id="plugin.video.cdapl" version="1.8.4" name="cda.pl" provider-name="Michal">
+<addon id="plugin.video.cdapl" version="1.9.0" name="cda.pl" provider-name="Michal">
 <requires>
   <import addon="xbmc.python" version="2.1.0"/>
   <import addon="script.common.plugin.cache" version="2.5.5"/>
+  <import addon="script.module.ramic"/>
 </requires>
 <extension point="xbmc.python.pluginsource" library="main.py">
   <provides>video</provides>
@@ -96,10 +98,11 @@
 </extension>
 </addon>
 
-<addon id="plugin.video.CinemaHD" version="2.6" name="CinemaHD" provider-name="Michal">
+<addon id="plugin.video.CinemaHD" version="2.7" name="CinemaHD" provider-name="Michal">
 <requires>
     <import addon="xbmc.python" version="2.1.0"/>
     <import addon="script.module.urlresolver" version="3.0.20"/>
+	<import addon="script.module.ramic"/>
 </requires>
 <extension point="xbmc.python.pluginsource" library="main.py">
     <provides>video</provides>
@@ -175,11 +178,12 @@
 	</extension>
 </addon>
 
-<addon id="plugin.video.efilmy" version="1.11" name="efilmy" provider-name="Michal">
+<addon id="plugin.video.efilmy" version="1.12" name="efilmy" provider-name="Michal">
 <requires>
   <import addon="xbmc.python" version="2.1.0"/>
   <import addon="script.common.plugin.cache" version="2.5.5"/>
   <import addon="script.module.urlresolver" version="3.0.20"/>
+  <import addon="script.module.ramic"/>
 </requires>
 <extension point="xbmc.python.pluginsource" library="main.py">
   <provides>video</provides>
@@ -204,10 +208,11 @@ filwebapi fixed
 </extension>
 </addon>
 
-<addon id="plugin.video.efilmy.online" version="1.0" name="efilmy.online" provider-name="Michal">
+<addon id="plugin.video.efilmy.online" version="1.1" name="efilmy.online" provider-name="Michal">
 <requires>
   <import addon="xbmc.python" version="2.25.0"/>
   <import addon="script.module.urlresolver" version="3.0.15"/>
+  <import addon="script.module.ramic" />
   <import addon="script.common.plugin.cache" version="2.5.5"/>
 </requires>
 <extension point="xbmc.python.pluginsource" library="main.py">
@@ -279,10 +284,11 @@ filwebapi fixed
   </extension>
 </addon>
 
-<addon id="plugin.video.ekstraklasa" name="Ekstraklasa" version="1.19" provider-name="Michal">
+<addon id="plugin.video.ekstraklasa" name="Ekstraklasa" version="1.20" provider-name="Michal">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
     <import addon="script.module.urlresolver" version="3.0.15"/>
+	<import addon="script.module.ramic" />
   </requires>
   <extension point="xbmc.python.pluginsource" library="main.py">
     <provides>video</provides>
@@ -311,10 +317,11 @@ filwebapi fixed
   </extension>
 </addon>
 
-<addon id="plugin.video.filisertv" version="1.1" name="Filiser" provider-name="Michal">
+<addon id="plugin.video.filisertv" version="1.2" name="Filiser" provider-name="Michal">
 <requires>
   <import addon="xbmc.python" version="2.1.0"/>
   <import addon="script.module.urlresolver" version="3.0.15"/>
+  <import addon="script.module.ramic"/>
 </requires>
 
 <extension point="xbmc.python.pluginsource" library="main.py">
@@ -398,10 +405,11 @@ filwebapi fixed
 </extension>
 </addon>
 
-<addon id="plugin.video.filmyto" version="1.5" name="Filmy.to" provider-name="Michal">
+<addon id="plugin.video.filmyto" version="1.6" name="Filmy.to" provider-name="Michal">
 <requires>
     <import addon="xbmc.python" version="2.1.0"/>
     <import addon="script.module.urlresolver" version="3.0.20"/>
+	<import addon="script.module.ramic"/>
 </requires>
 
 <extension point="xbmc.python.pluginsource" library="main.py">
@@ -621,9 +629,10 @@ provider-name="Michal">
   </extension>
 </addon>
 
-<addon id="plugin.video.naszekino" name="Nasze-Kino" version="2.1" provider-name="Michal">
+<addon id="plugin.video.naszekino" name="Nasze-Kino" version="2.2" provider-name="Michal">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
+	<import addon="script.module.ramic"/>
     <import addon="script.module.urlresolver" version="3.0.20"/>
   </requires>
   <extension point="xbmc.python.pluginsource" library="addon.py">
@@ -643,9 +652,10 @@ provider-name="Michal">
   </extension>
 </addon>
 
-<addon id="plugin.video.ninateka" version="1.0" name="ninateka" provider-name="Michal">
+<addon id="plugin.video.ninateka" version="1.1" name="ninateka" provider-name="Michal">
 <requires>
   <import addon="xbmc.python" version="2.1.0"/>
+  <import addon="script.module.ramic"/>
 </requires>
 
 <extension point="xbmc.python.pluginsource" library="main.py">
@@ -673,9 +683,10 @@ provider-name="Michal">
 </extension>
 </addon>
 
-<addon id="plugin.video.ramictvn24" version="1.1" name="TVN24" provider-name="Michal">
+<addon id="plugin.video.ramictvn24" version="1.2" name="TVN24" provider-name="Michal">
 <requires>
   <import addon="xbmc.python" version="2.1.0"/>
+  <import addon="script.module.ramic"/>
 </requires>
 <extension point="xbmc.python.pluginsource" library="main.py">
   <provides>video</provides>
@@ -699,11 +710,12 @@ provider-name="Michal">
 </extension>
 </addon>
 
-<addon id="plugin.video.segos" version="2.6" name="segos" provider-name="Michal">
+<addon id="plugin.video.segos" version="2.7" name="segos" provider-name="Michal">
 <requires>
   <import addon="xbmc.python" version="2.1.0"/>
   <import addon="script.common.plugin.cache" version="2.5.5"/>
   <import addon="script.module.urlresolver" version="3.0.15"/>
+  <import addon="script.module.ramic"/>
 </requires>
 <extension point="xbmc.python.pluginsource" library="main.py">
   <provides>video</provides>
@@ -834,10 +846,11 @@ provider-name="Michal">
 </extension>
 </addon>
 
-<addon id="plugin.video.zalukajcom" version="1.2" name="Zalukaj" provider-name="Michal">
+<addon id="plugin.video.zalukajcom" version="1.3" name="Zalukaj" provider-name="Michal">
 <requires>
     <import addon="xbmc.python" version="2.25.0"/>
     <import addon="script.module.urlresolver" version="3.0.0"/>
+    <import addon="script.module.ramic"/>
 </requires>
 <extension point="xbmc.python.pluginsource" library="main.py">
   <provides>video</provides>
