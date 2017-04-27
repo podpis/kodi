@@ -7,6 +7,7 @@ Niektóre wtyczki z repozytorium wymagać bedą standardowych ustawień programu
 ## Zawartość repozytoium
 |Wtyczka|Nazwa|Wersja|Aktualizacja|
 |---|---|---|---|
+|<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.filisertv/icon.png" width="48">|Filiser|1.3|[2017-4-27](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.filisertv/changelog-1.3.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.iitv/icon.png" width="48">|iitv-seriale|1.4|[2017-4-27](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.iitv/changelog-1.4.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.anime.pl/icon.png" width="48">|anime.pl|1.5|[2017-4-23](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.anime.pl/changelog-1.5.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.bajkionline/icon.png" width="48">|bajki|1.1|[2017-4-23](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.bajkionline/changelog-1.1.txt)
@@ -21,7 +22,6 @@ Niektóre wtyczki z repozytorium wymagać bedą standardowych ustawień programu
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.cdapl/icon.png" width="48">|cda.pl|1.9.0|[2017-4-22](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.cdapl/changelog-1.9.0.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.CinemaHD/icon.png" width="48">|CinemaHD|2.7|[2017-4-22](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.CinemaHD/changelog-2.7.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.efilmy.online/icon.png" width="48">|efilmy.online|1.1|[2017-4-22](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.efilmy.online/changelog-1.1.txt)
-|<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.filisertv/icon.png" width="48">|Filiser|1.2|[2017-4-22](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.filisertv/changelog-1.2.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.filmyto/icon.png" width="48">|Filmy.to|1.6|[2017-4-22](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.filmyto/changelog-1.6.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.naszekino/icon.png" width="48">|Nasze-Kino|2.2|[2017-4-22](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.naszekino/changelog-2.2.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.ramictvn24/icon.png" width="48">|TVN24|1.2|[2017-4-22](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.ramictvn24/changelog-1.2.txt)
