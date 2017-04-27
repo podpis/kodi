@@ -3,6 +3,7 @@ Repozytorium wtyczek dla programu KODI
 [repository.ramic.zip](https://github.com/ramicspa/kodi/raw/master/repository.ramic.zip) (wersja 1.3.1)
 ## Informacja
 Niektóre wtyczki z repozytorium wymagać bedą standardowych ustawień programu KODI do poprawnego działania.
+### KOD: **nowy**
 ## Zawartość repozytoium
 |Wtyczka|Nazwa|Wersja|Aktualizacja|
 |---|---|---|---|
