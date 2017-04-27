@@ -7,13 +7,13 @@ Niektóre wtyczki z repozytorium wymagać bedą standardowych ustawień programu
 ## Zawartość repozytoium
 |Wtyczka|Nazwa|Wersja|Aktualizacja|
 |---|---|---|---|
+|<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.iitv/icon.png" width="48">|iitv-seriale|1.4|[2017-4-27](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.iitv/changelog-1.4.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.anime.pl/icon.png" width="48">|anime.pl|1.5|[2017-4-23](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.anime.pl/changelog-1.5.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.bajkionline/icon.png" width="48">|bajki|1.1|[2017-4-23](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.bajkionline/changelog-1.1.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.efilmy/icon.png" width="48">|efilmy|1.13|[2017-4-23](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.efilmy/changelog-1.13.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.ekstraklasa/icon.png" width="48">|Ekstraklasa|1.20|[2017-4-23](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.ekstraklasa/changelog-1.20.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.filmmilicyjny/icon.png" width="48">|film-milicyjny|1.1|[2017-4-23](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.filmmilicyjny/changelog-1.1.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.filmydokumentalne/icon.png" width="48">|Filmy Dokumentalne|1.3|[2017-4-23](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.filmydokumentalne/changelog-1.3.txt)
-|<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.iitv/icon.png" width="48">|iitv-seriale|1.3|[2017-4-23](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.iitv/changelog-1.3.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.ninateka/icon.png" width="48">|ninateka|1.1|[2017-4-23](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.ninateka/changelog-1.1.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.serialosypl/icon.png" width="48">|serialosy.pl|1.5|[2017-4-23](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.serialosypl/changelog-1.5.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.zalukajcom/icon.png" width="48">|Zalukaj|1.3|[2017-4-23](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.zalukajcom/changelog-1.3.txt)
