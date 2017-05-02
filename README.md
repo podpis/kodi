@@ -7,6 +7,7 @@ Niektóre wtyczki z repozytorium wymagać bedą standardowych ustawień programu
 ## Zawartość repozytoium
 |Wtyczka|Nazwa|Wersja|Aktualizacja|
 |---|---|---|---|
+|<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.naszekino/icon.png" width="48">|Nasze-Kino|2.3|[2017-5-2](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.naszekino/changelog-2.3.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.alltube.tv/icon.png" width="48">|alltube.tv|2.1|[2017-5-1](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.alltube.tv/changelog-2.1.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.filisertv/icon.png" width="48">|Filiser|1.3|[2017-4-27](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.filisertv/changelog-1.3.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.iitv/icon.png" width="48">|iitv-seriale|1.4|[2017-4-27](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.iitv/changelog-1.4.txt)
@@ -24,7 +25,6 @@ Niektóre wtyczki z repozytorium wymagać bedą standardowych ustawień programu
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.CinemaHD/icon.png" width="48">|CinemaHD|2.7|[2017-4-22](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.CinemaHD/changelog-2.7.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.efilmy.online/icon.png" width="48">|efilmy.online|1.1|[2017-4-22](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.efilmy.online/changelog-1.1.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.filmyto/icon.png" width="48">|Filmy.to|1.6|[2017-4-22](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.filmyto/changelog-1.6.txt)
-|<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.naszekino/icon.png" width="48">|Nasze-Kino|2.2|[2017-4-22](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.naszekino/changelog-2.2.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.ramictvn24/icon.png" width="48">|TVN24|1.2|[2017-4-22](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.ramictvn24/changelog-1.2.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.segos/icon.png" width="48">|segos|2.7|[2017-4-22](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.segos/changelog-2.7.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.TVP.pl/icon.png" width="48">|TVP.pl|2.0.0|[2017-4-22](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.TVP.pl/changelog-2.0.0.txt)
