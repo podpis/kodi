@@ -7,6 +7,7 @@ Niektóre wtyczki z repozytorium wymagać bedą standardowych ustawień programu
 ## Zawartość repozytoium
 |Wtyczka|Nazwa|Wersja|Aktualizacja|
 |---|---|---|---|
+|<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.cdahd/icon.png" width="48">|cda-hd|1.0|[2017-5-5](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.cdahd/changelog-1.0.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.ramicpolsat/icon.png" width="48">|PolsatNews|1.0|[2017-5-4](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.ramicpolsat/changelog-1.0.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.naszekino/icon.png" width="48">|Nasze-Kino|2.3|[2017-5-2](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.naszekino/changelog-2.3.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.alltube.tv/icon.png" width="48">|alltube.tv|2.1|[2017-5-1](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.alltube.tv/changelog-2.1.txt)
@@ -31,7 +32,6 @@ Niektóre wtyczki z repozytorium wymagać bedą standardowych ustawień programu
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.TVP.pl/icon.png" width="48">|TVP.pl|2.0.0|[2017-4-22](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.TVP.pl/changelog-2.0.0.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.szukajkatv/icon.png" width="48">|Szukajka.tv|1.1|[2017-4-21](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.szukajkatv/changelog-1.1.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.iwatchonline/icon.png" width="48">|iwatchonline|1.5|[2017-4-9](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.iwatchonline/changelog-1.5.txt)
-|<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.kino24tv/icon.png" width="48">|cda-kino|1.3|[2017-3-10](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.kino24tv/changelog-1.3.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.dmchannels/icon.png" width="48">|Dailymotion channels|1.6|[2017-2-19](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.dmchannels/changelog-1.6.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.dreamvision/icon.png" width="48">|Dream Vision|1.0.1|[2016-12-23](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.dreamvision/changelog-1.0.1.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.LiveIPTV/icon.png" width="48">|Live IPTV|1.7|[2016-12-8](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.LiveIPTV/changelog-1.7.txt)
