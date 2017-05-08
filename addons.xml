@@ -549,29 +549,6 @@ filwebapi fixed
 </extension>
 </addon>
 
-<addon id="plugin.video.kino24tv" version="1.3" name="cda-kino" provider-name="Michal">
-<requires>
-  <import addon="xbmc.python" version="2.1.0"/>
-  <import addon="script.module.urlresolver" version="3.0.15"/>
-  <import addon="script.common.plugin.cache" version="2.5.5"/>
-</requires>
-<extension point="xbmc.python.pluginsource" library="main.py">
-  <provides>video</provides>
-</extension>
-<extension point="xbmc.addon.metadata">
-  <summary lang="en">cda-kino</summary>
-  <description lang="en">Zasoby http://cda-kino.pl/</description>
-  <disclaimer lang="en">private use</disclaimer>
-  <language></language>
-  <platform>all</platform>
-  <license></license>
-  <forum></forum>
-  <website>https://github.com/ramicspa/kodi</website>
-  <email>ramicspa at gmail dot com</email>
-  <source></source>
-</extension>
-</addon>
-
 <addon id="plugin.video.kinoiseriale"
 version="1.4"
 name="kinoiseriale"
