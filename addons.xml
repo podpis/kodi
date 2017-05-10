@@ -49,7 +49,7 @@
   </extension>
 </addon>
 
- <addon id="plugin.video.bajkionline" version="1.1" name="bajki" provider-name="Michal">
+ <addon id="plugin.video.bajkionline" version="1.2" name="bajki" provider-name="Michal">
  <requires>
   <import addon="xbmc.python" version="2.1.0"/>
   <import addon="script.module.urlresolver" version="3.0.15"/>
@@ -487,25 +487,31 @@ filwebapi fixed
 </extension>
 </addon>
 
-<addon id="plugin.video.freedisc.pl" version="1.2" name="freedisc" provider-name="Michal">
+<addon id="plugin.video.freedisc.pl" version="1.3" name="freedisc" provider-name="Michal">
 <requires>
   <import addon="xbmc.python" version="2.1.0"/>
   <import addon="script.common.plugin.cache" version="2.5.5"/>
+  <import addon="script.module.ramic" />
 </requires>
 <extension point="xbmc.python.pluginsource" library="main.py">
   <provides>video</provides>
 </extension>
 <extension point="xbmc.addon.metadata">
-  <summary lang="en">freedisc</summary>
-  <description lang="en">freedisc</description>
-  <disclaimer lang="en">private use</disclaimer>
+  <summary lang="en">Freedisc</summary>
+  <description lang="en">Freedisc</description>
+  <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/ramicspa/kodi</disclaimer>
   <language></language>
   <platform>all</platform>
-  <license></license>
-  <forum></forum>
+  <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
+  <forum>https://github.com/ramicspa/kodi/issues</forum>
   <website>https://github.com/ramicspa/kodi</website>
-  <email>ramicspa@gmail.com</email>
-  <source></source>
+  <email>ramicspa at gmail dot com</email>
+  <assets>
+    <icon>icon.png</icon>
+    <fanart>fanart.jpg</fanart>
+  </assets>
+  <news>
+  </news>
 </extension>
 </addon>
 
@@ -846,28 +852,31 @@ provider-name="Michal">
   </extension>
 </addon>
 
-<addon id="plugin.video.viderpl"
-version="1.3"
-name="vider.info"
-provider-name="Michal">
+<addon id="plugin.video.viderpl" version="1.4" name="vider" provider-name="Michal">
 <requires>
   <import addon="xbmc.python" version="2.1.0"/>
   <import addon="script.common.plugin.cache" version="2.5.5"/>
+  <import addon="script.module.ramic" />
 </requires>
 <extension point="xbmc.python.pluginsource" library="main.py">
   <provides>video</provides>
 </extension>
 <extension point="xbmc.addon.metadata">
-  <summary lang="en">vider.pl</summary>
-  <description lang="en">Zasoby vider.pl</description>
-  <disclaimer lang="en">private use</disclaimer>
+  <summary lang="en">vider.info</summary>
+  <description lang="en">vider.pl</description>
+  <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/ramicspa/kodi</disclaimer>
   <language></language>
   <platform>all</platform>
-  <license></license>
-  <forum></forum>
+  <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
+  <forum>https://github.com/ramicspa/kodi/issues</forum>
   <website>https://github.com/ramicspa/kodi</website>
-  <email>ramicspa@gmail.com</email>
-  <source></source>
+  <email>ramicspa at gmail dot com</email>
+  <assets>
+    <icon>icon.png</icon>
+    <fanart>fanart.jpg</fanart>
+  </assets>
+  <news>
+  </news>
 </extension>
 </addon>
 
