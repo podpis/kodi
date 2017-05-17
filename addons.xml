@@ -515,9 +515,9 @@ filwebapi fixed
 </extension>
 </addon>
 
-<addon id="plugin.video.iitv" name="iitv-seriale" version="1.4" provider-name="Michal">
+<addon id="plugin.video.iitv" name="iitv-seriale" version="1.5" provider-name="Michal">
   <requires>
-    <import addon="xbmc.python" version="2.1.0"/>
+    <import addon="xbmc.python" version="2.25.0"/>
 	<import addon="script.module.urlresolver" version="3.0.0"/>
 	<import addon="script.module.ramic" />
   </requires>
@@ -527,9 +527,20 @@ filwebapi fixed
   <extension point="xbmc.addon.metadata">
     <summary lang="en">iitv</summary>
     <description lang="en">Odgrywa zasoby iitv.pl</description>
-    <disclaimer lang="en"></disclaimer>
-    <platform>all</platform>
-  </extension>
+	<disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/ramicspa/kodi</disclaimer>
+	<language></language>
+	<platform>all</platform>
+	<license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
+	<forum>https://github.com/ramicspa/kodi/issues</forum>
+	<website>https://github.com/ramicspa/kodi</website>
+	<email>ramicspaatgmaildotcom</email>
+	<assets>
+		<icon>icon.png</icon>
+		<fanart>fanart.jpg</fanart>
+	</assets>
+	<news>
+	</news>
+</extension>
 </addon>
 
 <addon id="plugin.video.iwatchonline" version="1.5" name="iwatchonline" provider-name="Michal">
@@ -627,7 +638,7 @@ provider-name="Michal">
   </extension>
 </addon>
 
-<addon id="plugin.video.LivePolishTV" name="LivePolishTV" version="2.2.6" provider-name="Michal">
+<addon id="plugin.video.LivePolishTV" name="LivePolishTV" version="2.2.7" provider-name="Michal">
     <requires>
         <import addon="xbmc.python" version="2.1.0"/>
         <import addon="service.cronxbmc" optional="true"/>
