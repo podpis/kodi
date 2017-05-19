@@ -310,7 +310,7 @@ filwebapi fixed
   </extension>
 </addon>
 
-<addon id="plugin.video.ekstraklasa" name="Ekstraklasa" version="1.20" provider-name="Michal">
+<addon id="plugin.video.ekstraklasa" name="Ekstraklasa" version="1.21" provider-name="Michal">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
     <import addon="script.module.urlresolver" version="3.0.15"/>
@@ -638,7 +638,7 @@ provider-name="Michal">
   </extension>
 </addon>
 
-<addon id="plugin.video.LivePolishTV" name="LivePolishTV" version="2.2.7" provider-name="Michal">
+<addon id="plugin.video.LivePolishTV" name="LivePolishTV" version="2.2.8" provider-name="Michal">
     <requires>
         <import addon="xbmc.python" version="2.1.0"/>
         <import addon="service.cronxbmc" optional="true"/>
