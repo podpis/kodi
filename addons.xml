@@ -310,7 +310,7 @@ filwebapi fixed
   </extension>
 </addon>
 
-<addon id="plugin.video.ekstraklasa" name="Ekstraklasa" version="1.21" provider-name="Michal">
+<addon id="plugin.video.ekstraklasa" name="Ekstraklasa" version="1.22" provider-name="Michal">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
     <import addon="script.module.urlresolver" version="3.0.15"/>
@@ -339,6 +339,7 @@ filwebapi fixed
 - GoalArena
 - Polast Sport
 - Lech TV
+- ekstrakalasa.tv
  </news>
   </extension>
 </addon>
