@@ -258,30 +258,32 @@ filwebapi fixed
 </extension>
 </addon>
 
-<addon
-	id="plugin.video.ekabaretpl"
-	name="ekabaret"
-	version="1.2"
-	provider-name="Michal">
+<addon 	id="plugin.video.ekabaretpl" name="ekabaret" version="1.3" provider-name="Michal">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
 	<import addon="script.module.urlresolver" version="3.0.15"/>
+	<import addon="script.module.ramic" />
   </requires>
   <extension point="xbmc.python.pluginsource" library="addon.py">
     <provides>video</provides>
   </extension>
   <extension point="xbmc.addon.metadata">
-    <summary lang="en">ekabaret</summary>
-    <description lang="en">ekabaret</description>
-    <disclaimer lang="en"></disclaimer>
-    <language></language>
-    <platform>all</platform>
-    <license></license>
-    <forum></forum>
-    <website>https://github.com/ramicspa/kodi</website>
-    <email>ramicspa@gmail.com</email>
-    <source></source>
-  </extension>
+   <summary lang="en">ekabaret</summary>
+   <description lang="en">Zasoby ekabaret.pl</description>
+   <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/ramicspa/kodi</disclaimer>
+  <language>pl</language>
+  <platform>all</platform>
+  <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
+  <forum>https://github.com/ramicspa/kodi/issues</forum>
+  <website>https://github.com/ramicspa/kodi</website>
+  <email>ramicspa at gmail dot com</email>
+  <assets>
+    <icon>icon.png</icon>
+    <fanart>fanart.jpg</fanart>
+  </assets>
+  <news>
+  </news>
+</extension>
 </addon>
 
 <addon
@@ -567,29 +569,32 @@ filwebapi fixed
 </extension>
 </addon>
 
-<addon id="plugin.video.kinoiseriale"
-version="1.4"
-name="kinoiseriale"
-provider-name="Michal">
+<addon id="plugin.video.kinoiseriale" version="1.5" name="Joy.tv" provider-name="Michal">
 <requires>
   <import addon="xbmc.python" version="2.1.0"/>
   <import addon="script.module.urlresolver" version="3.0.0"/>
+  <import addon="script.module.ramic" />
   <import addon="script.common.plugin.cache" version="2.5.5"/>
 </requires>
 <extension point="xbmc.python.pluginsource" library="main.py">
   <provides>video</provides>
 </extension>
 <extension point="xbmc.addon.metadata">
-  <summary lang="en">kinoiseriale</summary>
-  <description lang="en">Zasoby kinoiseriale.tv</description>
-  <disclaimer lang="en">private use</disclaimer>
+  <summary lang="en">Joy.tv</summary>
+  <description lang="en">Zasoby serwisu filmyiseriale.org</description>
+  <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/ramicspa/kodi</disclaimer>
   <language></language>
   <platform>all</platform>
-  <license></license>
-  <forum></forum>
+  <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
+  <forum>https://github.com/ramicspa/kodi/issues</forum>
   <website>https://github.com/ramicspa/kodi</website>
-  <email>ramicspa@gmail.com</email>
-  <source></source>
+  <email>ramicspa at gmail dot com</email>
+  <assets>
+    <icon>icon.png</icon>
+    <fanart>fanart.jpg</fanart>
+  </assets>
+  <news>
+  </news>
 </extension>
 </addon>
 
