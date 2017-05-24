@@ -376,17 +376,15 @@ filwebapi fixed
 </extension>
 </addon>
 
-<addon id="plugin.video.filmmilicyjny" version="1.1" name="film-milicyjny" provider-name="Michal">
+<addon id="plugin.video.filmmilicyjny" version="1.2" name="film-milicyjny" provider-name="Michal">
 <requires>
   <import addon="xbmc.python" version="2.1.0"/>
   <import addon="script.module.urlresolver" version="3.0.15"/>
   <import addon="script.module.ramic" />
 </requires>
-
 <extension point="xbmc.python.pluginsource" library="main.py">
   <provides>video</provides>
 </extension>
-
 <extension point="xbmc.addon.metadata">
   <summary lang="en">http://www.film-milicyjny.klubmord.com/</summary>
   <description lang="en">film-milicyjny: Klub MOrd – Polskie filmy kryminalne i sensacyjne - Filmy PRL -</description>
