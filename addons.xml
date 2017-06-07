@@ -971,9 +971,9 @@ filwebapi fixed
     </extension>
 </addon>
 
-<addon id="script.module.ramic" name="repository.ramic" version="1.0.4" provider-name="Michal">
+<addon id="script.module.ramic" name="repository.ramic" version="1.0.5" provider-name="Michal">
   <requires>
-    <import addon="xbmc.python" version="2.14.0"/>
+    <import addon="xbmc.python" version="2.1.0"/>
   </requires>
   <extension point="xbmc.python.module" library="lib" />
   <extension point="xbmc.addon.metadata">
