@@ -1,7 +1,3 @@
-2.7
-- host fixed
-- kod,repo
-
 2.6
 - new host
 

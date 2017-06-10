@@ -1,3 +1,39 @@
+2.3.4
+- tele-wizja fixed
+
+2.3.3
+- minor fixes 
+- telemiki (not all sources)
+
+2.3.2
+- minor fixes 
+
+2.3.1
+- minor fixes 
+
+2.3.0
+- minor fixes 
+
+2.2.9
+- m3u list hosts update
+- removed inactive
+ 
+2.2.8
+- m3u list update
+ 
+2.2.7
+- m3u list update
+- char encoding
+
+2.2.6
+- telewizja-black
+
+2.2.5
+- minor fixed random error
+
+2.2.4
+- iholandia
+
 2.2.3
 - ustream
 - wintex (test)

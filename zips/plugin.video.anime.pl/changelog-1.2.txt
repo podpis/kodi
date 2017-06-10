@@ -1,8 +1,0 @@
-1.2
-- mminor change
-
-1.1
-- link grabber fixed
-
-1.0
-- initial version

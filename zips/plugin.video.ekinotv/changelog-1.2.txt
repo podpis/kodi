@@ -1,8 +1,0 @@
-1.2
-- web parser fixed
-
-1.1
-- minor fixes
-
-1.0
-- initial version
