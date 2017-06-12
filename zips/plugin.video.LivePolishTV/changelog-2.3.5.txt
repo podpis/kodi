@@ -1,3 +1,6 @@
+2.3.5
+- tele-wizja patch
+
 2.3.4
 - tele-wizja fixed
 

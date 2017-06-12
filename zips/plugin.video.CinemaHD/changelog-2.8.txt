@@ -1,3 +1,6 @@
+2.8
+- version number bumps up
+
 2.6
 - new host
 
