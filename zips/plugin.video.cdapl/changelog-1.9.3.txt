@@ -1,3 +1,8 @@
+1.9.3
+- clean title (option)
+- html tags removed
+- free premium videos fixed
+
 1.9.2
 - secure connection added
 

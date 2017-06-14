@@ -1,3 +1,7 @@
+1.2
+- encoding fixed
+- seriale removed
+
 1.1
 - resolver
 - info,repo
