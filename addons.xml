@@ -101,7 +101,7 @@
 </extension>
 </addon>
 
-<addon id="plugin.video.cdapl" version="1.9.3" name="cda.pl" provider-name="Michal">
+<addon id="plugin.video.cdapl" version="1.9.4" name="cda.pl" provider-name="Michal">
 <requires>
   <import addon="xbmc.python" version="2.1.0"/>
   <import addon="script.common.plugin.cache" version="2.5.5"/>
@@ -349,7 +349,7 @@ filwebapi fixed
   </extension>
 </addon>
 
-<addon id="plugin.video.filisertv" version="1.4" name="Filiser" provider-name="Michal">
+<addon id="plugin.video.filisertv" version="1.5" name="Filiser" provider-name="Michal">
 <requires>
   <import addon="xbmc.python" version="2.1.0"/>
   <import addon="script.module.urlresolver" version="3.0.15"/>

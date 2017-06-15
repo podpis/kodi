@@ -1,3 +1,7 @@
+1.9.4
+- premium seriale fixed
+- search permium
+
 1.9.3
 - clean title (option)
 - html tags removed
