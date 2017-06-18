@@ -1,3 +1,7 @@
+2.3.6
+- minor resolver fixes
+- channels names
+
 2.3.5
 - tele-wizja patch
 
