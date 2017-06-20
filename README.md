@@ -4,7 +4,7 @@ Repozytorium wtyczek dla programu KODI
 <br>Zainstaluj z pliku zip poprzez źródło: http://ramicspa.github.io/kodi/
 ## Informacja
 Niektóre wtyczki z repozytorium wymagać bedą standardowych ustawień programu KODI do poprawnego działania.
-### KOD: **nowy**
+### KOD: **kod**
 ## Zawartość repozytoium
 |Wtyczka|Nazwa|Wersja|Aktualizacja|
 |---|---|---|---|
