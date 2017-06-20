@@ -1,0 +1,14 @@
+1.6
+- link resolver
+
+1.5
+- kodi 17
+
+1.2
+- 
+
+1.1
+- mminor change
+
+1.0
+- initial version

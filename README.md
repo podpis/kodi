@@ -8,6 +8,8 @@ Niektóre wtyczki z repozytorium wymagać bedą standardowych ustawień programu
 ## Zawartość repozytoium
 |Wtyczka|Nazwa|Wersja|Aktualizacja|
 |---|---|---|---|
+|<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.iitv/icon.png" width="48">|iitv-seriale|1.6|[2017-6-20](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.iitv/changelog-1.6.txt)
+|<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.LiveIPTV/icon.png" width="48">|Live IPTV|2.0|[2017-6-20](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.LiveIPTV/changelog-2.0.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.LivePolishTV/icon.png" width="48">|LivePolishTV|2.3.7|[2017-6-20](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.LivePolishTV/changelog-2.3.7.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.cdapl/icon.png" width="48">|cda.pl|1.9.4|[2017-6-15](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.cdapl/changelog-1.9.4.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.filisertv/icon.png" width="48">|Filiser|1.5|[2017-6-15](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.filisertv/changelog-1.5.txt)
@@ -18,7 +20,6 @@ Niektóre wtyczki z repozytorium wymagać bedą standardowych ustawień programu
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.ekabaretpl/icon.png" width="48">|ekabaret|1.3|[2017-5-23](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.ekabaretpl/changelog-1.3.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.kinoiseriale/icon.png" width="48">|Joy.tv|1.5|[2017-5-23](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.kinoiseriale/changelog-1.5.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.ekstraklasa/icon.png" width="48">|Ekstraklasa|1.22|[2017-5-22](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.ekstraklasa/changelog-1.22.txt)
-|<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.iitv/icon.png" width="48">|iitv-seriale|1.5|[2017-5-17](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.iitv/changelog-1.5.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.kinostacja/icon.png" width="48">|kinostacja|1.0|[2017-5-13](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.kinostacja/changelog-1.0.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.naszekino/icon.png" width="48">|Nasze-Kino|2.4|[2017-5-12](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.naszekino/changelog-2.4.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.bajkionline/icon.png" width="48">|bajki|1.2|[2017-5-10](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.bajkionline/changelog-1.2.txt)
@@ -42,5 +43,4 @@ Niektóre wtyczki z repozytorium wymagać bedą standardowych ustawień programu
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.kino24tv/icon.png" width="48">|cda-kino|1.3|[2017-3-10](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.kino24tv/changelog-1.3.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.dmchannels/icon.png" width="48">|Dailymotion channels|1.6|[2017-2-19](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.dmchannels/changelog-1.6.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.dreamvision/icon.png" width="48">|Dream Vision|1.0.1|[2017-2-13](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.dreamvision/changelog-1.0.1.txt)
-|<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.LiveIPTV/icon.png" width="48">|Live IPTV|1.7|[2016-12-8](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.LiveIPTV/changelog-1.7.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.folderramic/icon.png" width="48">|folder|1.1b|[2016-8-19](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.folderramic/changelog-1.1b.txt)

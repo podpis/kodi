@@ -519,7 +519,7 @@ filwebapi fixed
 </extension>
 </addon>
 
-<addon id="plugin.video.iitv" name="iitv-seriale" version="1.5" provider-name="Michal">
+<addon id="plugin.video.iitv" name="iitv-seriale" version="1.6" provider-name="Michal">
   <requires>
     <import addon="xbmc.python" version="2.25.0"/>
 	<import addon="script.module.urlresolver" version="3.0.0"/>
@@ -646,10 +646,11 @@ filwebapi fixed
 </extension>
 </addon>
 
-<addon id="plugin.video.LiveIPTV" name="Live IPTV" version="1.7" provider-name="Michal">
+<addon id="plugin.video.LiveIPTV" name="Live IPTV" version="2.0" provider-name="Michal">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
     <import addon="plugin.video.f4mTester" version="2.2.3" optional="true" />
+    <import addon="script.module.ramic" />
 </requires>
   <extension point="xbmc.python.pluginsource" library="addon.py">
 
@@ -658,13 +659,20 @@ filwebapi fixed
   <extension point="xbmc.addon.metadata">
     <summary lang="en">Live IP TV </summary>
     <description lang="en">Live IP TV</description>
-    <disclaimer lang="en"></disclaimer>
+    <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/ramicspa/kodi</disclaimer>
     <language></language>
     <platform>all</platform>
-    <license></license>
-    <forum></forum>
+    <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
+    <forum>https://github.com/ramicspa/kodi/issues</forum>
     <website>https://github.com/ramicspa/kodi</website>
-    <email>ramicspa@gmail.com</email>
+    <email></email>
+  <assets>
+    <icon>icon.png</icon>
+    <fanart>fanart.jpg</fanart>
+  </assets>
+  <news>
+
+  </news>
   </extension>
 </addon>
 
