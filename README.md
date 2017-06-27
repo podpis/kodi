@@ -1,6 +1,6 @@
 # Ramic Kodi Addons Repository
 Repozytorium wtyczek dla programu KODI
-[repository.ramic.zip](https://github.com/ramicspa/kodi/raw/master/repository.ramic.zip) (wersja 1.3.3)
+[repository.ramic.zip](https://github.com/ramicspa/kodi/raw/master/repository.ramic.zip) (wersja 1.3.4)
 <br>Zainstaluj z pliku zip poprzez źródło: http://ramicspa.github.io/kodi/
 ## Informacja
 Niektóre wtyczki z repozytorium wymagać bedą standardowych ustawień programu KODI do poprawnego działania.

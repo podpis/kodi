@@ -1006,7 +1006,7 @@ filwebapi fixed
 </extension>
 </addon>
 
-<addon id="repository.ramic" name="Ramic Kodi Add-ons Repository" version="1.3.3" provider-name="Michal">
+<addon id="repository.ramic" name="Ramic Kodi Add-ons Repository" version="1.3.4" provider-name="Michal">
     <extension point="xbmc.addon.repository" name="Ramic Kodi Add-ons Repository">
         <dir>
             <info compressed="false">https://github.com/kawamic/speedy/raw/master/zips/addons.xml</info>
@@ -1014,8 +1014,8 @@ filwebapi fixed
             <datadir zip="true">https://github.com/kawamic/speedy/raw/master/zips/</datadir>
         </dir>
         <dir>
-            <info compressed="false">http://www.ramic.ga/ramicspa/kodi/addons.xml</info>
-            <checksum>http://www.ramic.ga/ramicspa/kodi/addons.xml.md5</checksum>
+			<info compressed="false">http://raw.github.com/ramicspa/kodi/master/addons.xml</info>
+			<checksum>http://raw.github.com/ramicspa/kodi/master/addons.xml.md5</checksum>
             <datadir zip="true">http://www.ramic.ga/ramicspa/kodi/zips/</datadir>
         </dir>
 		<dir>
@@ -1033,7 +1033,7 @@ filwebapi fixed
         <disclaimer lang="pl">Zawartość repozytorium ma charakter niekomercyjny, tworzone dla zabawy.</disclaimer>
         <platform>all</platform>
         <website>https://github.com/ramicspa/kodi</website>
-        <email>ramicspa at gmail dot com</email>
+        <email></email>
     </extension>
 </addon>
 
