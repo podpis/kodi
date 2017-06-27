@@ -49,7 +49,7 @@
   </extension>
 </addon>
 
- <addon id="plugin.video.bajkionline" version="1.2" name="bajki" provider-name="Michal">
+ <addon id="plugin.video.bajkionline" version="1.3" name="bajki" provider-name="Michal">
  <requires>
   <import addon="xbmc.python" version="2.1.0"/>
   <import addon="script.module.urlresolver" version="3.0.15"/>
@@ -838,7 +838,7 @@ filwebapi fixed
 </extension>
 </addon>
 
-<addon id="plugin.video.segos" version="2.7" name="segos" provider-name="Michal">
+<addon id="plugin.video.segos" version="2.8" name="segos" provider-name="Michal">
 <requires>
   <import addon="xbmc.python" version="2.1.0"/>
   <import addon="script.common.plugin.cache" version="2.5.5"/>
