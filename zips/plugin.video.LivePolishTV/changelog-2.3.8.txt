@@ -1,3 +1,7 @@
+2.3.8
+- tele-wizja fixed
+- darmowa-telewizja: m3u list
+
 2.3.7
 - fixes m3u list thething
 - darmowa-telewizja
