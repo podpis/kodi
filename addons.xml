@@ -946,7 +946,7 @@ filwebapi fixed
 </extension>
 </addon>
 
-<addon id="plugin.video.TVP.pl" name="TVP.pl" version="2.0.2" provider-name="Michal">
+<addon id="plugin.video.TVP.pl" name="TVP.pl" version="2.1.0" provider-name="Michal">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
     <import addon="script.module.ramic"/>
@@ -963,7 +963,7 @@ filwebapi fixed
 	<license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
 	<forum>https://github.com/ramicspa/kodi/issues</forum>
 	<website>https://github.com/ramicspa/kodi</website>
-	<email>ramicspa at gmail dot com</email>
+	<email></email>
 	<assets>
 		<icon>icon.png</icon>
 		<fanart>fanart.jpg</fanart>

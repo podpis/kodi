@@ -1,3 +1,7 @@
+2.1.0
+- proxy option
+- updated vod links
+
 2.0.2
 - minor changes
 
