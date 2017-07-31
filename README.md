@@ -1,6 +1,6 @@
 # Ramic Kodi Addons Repository
 Repozytorium wtyczek dla programu KODI
-[repository.ramic.zip](https://github.com/ramicspa/kodi/raw/master/repository.ramic.zip) (wersja 1.3.4)
+[repository.ramic.zip](https://github.com/ramicspa/kodi/raw/master/repository.ramic.zip) (wersja 1.3.5)
 <br>Zainstaluj z pliku zip poprzez źródło: http://ramicspa.github.io/kodi/
 ## Informacja
 Niektóre wtyczki z repozytorium wymagać bedą standardowych ustawień programu KODI do poprawnego działania.
@@ -8,6 +8,7 @@ Niektóre wtyczki z repozytorium wymagać bedą standardowych ustawień programu
 ## Zawartość repozytoium
 |Wtyczka|Nazwa|Wersja|Aktualizacja|
 |---|---|---|---|
+|<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.ekstraklasa/icon.png" width="48">|Ekstraklasa|1.23|[2017-7-31](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.ekstraklasa/changelog-1.23.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.TVP.pl/icon.png" width="48">|TVP.pl|2.1.0|[2017-7-25](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.TVP.pl/changelog-2.1.0.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.LivePolishTV/icon.png" width="48">|LivePolishTV|2.3.8|[2017-7-23](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.LivePolishTV/changelog-2.3.8.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.iitv/icon.png" width="48">|iitv-seriale|1.8|[2017-7-16](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.iitv/changelog-1.8.txt)
@@ -25,7 +26,6 @@ Niektóre wtyczki z repozytorium wymagać bedą standardowych ustawień programu
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.filmmilicyjny/icon.png" width="48">|film-milicyjny|1.2|[2017-5-24](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.filmmilicyjny/changelog-1.2.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.ekabaretpl/icon.png" width="48">|ekabaret|1.3|[2017-5-23](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.ekabaretpl/changelog-1.3.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.kinoiseriale/icon.png" width="48">|Joy.tv|1.5|[2017-5-23](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.kinoiseriale/changelog-1.5.txt)
-|<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.ekstraklasa/icon.png" width="48">|Ekstraklasa|1.22|[2017-5-22](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.ekstraklasa/changelog-1.22.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.kinostacja/icon.png" width="48">|kinostacja|1.0|[2017-5-13](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.kinostacja/changelog-1.0.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.naszekino/icon.png" width="48">|Nasze-Kino|2.4|[2017-5-12](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.naszekino/changelog-2.4.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.freedisc.pl/icon.png" width="48">|freedisc|1.3|[2017-5-10](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.freedisc.pl/changelog-1.3.txt)

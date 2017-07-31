@@ -1,9 +1,0 @@
-[B]1.2.0[/B]
-- repository location updated
-
-[B]1.1.0[/B]
-- repository
-- urlresolver
-
-[B]1.0.0[/B]
-Repository Kodi

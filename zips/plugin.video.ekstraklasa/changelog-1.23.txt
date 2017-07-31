@@ -1,3 +1,6 @@
+1.23
+- live stream resolution selection
+
 1.22
 - ekstraklasa.tv fixed
 - estadios.pl fixed
