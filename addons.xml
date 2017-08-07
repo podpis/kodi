@@ -131,7 +131,7 @@
 </extension>
 </addon>
 
-<addon id="plugin.video.cdapl" version="1.9.4" name="cda.pl" provider-name="Michal">
+<addon id="plugin.video.cdapl" version="1.9.5" name="cda.pl" provider-name="Michal">
 <requires>
   <import addon="xbmc.python" version="2.1.0"/>
   <import addon="script.common.plugin.cache" version="2.5.5"/>
@@ -759,6 +759,36 @@ filwebapi fixed
   </extension>
 </addon>
 
+<addon id="plugin.video.montypython" version="1.0" name="Monty-Python" provider-name="Michal">
+<requires>
+    <import addon="xbmc.python" version="2.1.0"/>
+    <import addon="script.module.urlresolver" version="3.0.20"/>
+	<import addon="script.module.ramic" />
+</requires>
+
+<extension point="xbmc.python.pluginsource" library="main.py">
+  <provides>video</provides>
+</extension>
+
+<extension point="xbmc.addon.metadata">
+  <summary lang="en">Komedie brytyjskie on-line</summary>
+  <description lang="en">Komedie brytyjskie on-line</description>
+  <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/ramicspa/kodi</disclaimer>
+  <language></language>
+  <platform>all</platform>
+  <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
+  <forum>https://github.com/ramicspa/kodi/issues</forum>
+  <website>https://github.com/ramicspa/kodi</website>
+  <email></email>
+  <assets>
+    <icon>icon.png</icon>
+    <fanart>fanart.jpg</fanart>
+  </assets>
+  <news>
+  </news>
+</extension>
+</addon>
+
 <addon id="plugin.video.naszekino" name="Nasze-Kino" version="2.4" provider-name="Michal">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
@@ -1085,7 +1115,7 @@ filwebapi fixed
     </extension>
 </addon>
 
-<addon id="script.module.ramic" name="repository.ramic" version="1.0.9" provider-name="Michal">
+<addon id="script.module.ramic" name="repository.ramic" version="1.1.0" provider-name="Michal">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
   </requires>

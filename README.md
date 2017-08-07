@@ -8,6 +8,8 @@ Niektóre wtyczki z repozytorium wymagać bedą standardowych ustawień programu
 ## Zawartość repozytoium
 |Wtyczka|Nazwa|Wersja|Aktualizacja|
 |---|---|---|---|
+|<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.cdapl/icon.png" width="48">|cda.pl|1.9.5|[2017-8-7](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.cdapl/changelog-1.9.5.txt)
+|<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.montypython/icon.png" width="48">|Monty-Python|1.0|[2017-8-7](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.montypython/changelog-1.0.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.LivePolishTV/icon.png" width="48">|LivePolishTV|2.3.9|[2017-8-5](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.LivePolishTV/changelog-2.3.9.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.anyfilespl/icon.png" width="48">|anyFiles|1.0|[2017-8-2](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.anyfilespl/changelog-1.0.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.ekstraklasa/icon.png" width="48">|Ekstraklasa|1.23|[2017-7-31](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.ekstraklasa/changelog-1.23.txt)
@@ -20,7 +22,6 @@ Niektóre wtyczki z repozytorium wymagać bedą standardowych ustawień programu
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.CinemaHD/icon.png" width="48">|CinemaHD|2.9|[2017-6-26](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.CinemaHD/changelog-2.9.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.naszekinotv/icon.png" width="48">|nasze-kino.tv|1.0|[2017-6-22](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.naszekinotv/changelog-1.0.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.LiveIPTV/icon.png" width="48">|Live IPTV|2.0|[2017-6-20](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.LiveIPTV/changelog-2.0.txt)
-|<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.cdapl/icon.png" width="48">|cda.pl|1.9.4|[2017-6-15](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.cdapl/changelog-1.9.4.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.filisertv/icon.png" width="48">|Filiser|1.5|[2017-6-15](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.filisertv/changelog-1.5.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.efilmy.online/icon.png" width="48">|efilmy.online|1.2|[2017-6-14](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.efilmy.online/changelog-1.2.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.ekinotv/icon.png" width="48">|ekino-tv|1.8|[2017-6-9](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.ekinotv/changelog-1.8.txt)
