@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addons>
-<addon id="plugin.video.alltube.tv" version="2.1" name="alltube.tv" provider-name="Michal">
+<addon id="plugin.video.alltube.tv" version="2.2" name="alltube.tv" provider-name="Michal">
 <requires>
   <import addon="xbmc.python" version="2.1.0"/>
   <import addon="script.module.urlresolver" version="3.0.15"/>
@@ -13,14 +13,14 @@
 </extension>
 <extension point="xbmc.addon.metadata">
   <summary lang="en">alltube.tv</summary>
-  <description lang="en">Zasoby alltube.tv</description>
+  <description lang="en">Zasoby serwisu alltube.tv</description>
   <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/ramicspa/kodi</disclaimer>
   <language></language>
   <platform>all</platform>
   <license></license>
   <forum>https://github.com/ramicspa/kodi/issues</forum>
   <website>https://github.com/ramicspa/kodi</website>
-  <email>ramicspa at gmail dot com</email>
+  <email></email>
   <source></source>
 </extension>
 </addon>

@@ -1,7 +1,9 @@
+2.2
+- minor fixes
+
 2.1
 - proxy
 - pagination
-
 
 2.0
 - resolver
