@@ -1,3 +1,6 @@
+2.4.0
+- sporttvp fix
+
 2.3.9
 - zapsowy player | tele-wizja
 - tv-weeb

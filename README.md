@@ -8,10 +8,10 @@ Niektóre wtyczki z repozytorium wymagać bedą standardowych ustawień programu
 ## Zawartość repozytoium
 |Wtyczka|Nazwa|Wersja|Aktualizacja|
 |---|---|---|---|
+|<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.LivePolishTV/icon.png" width="48">|LivePolishTV|2.4.0|[2017-8-11](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.LivePolishTV/changelog-2.4.0.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.alltube.tv/icon.png" width="48">|alltube.tv|2.2|[2017-8-9](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.alltube.tv/changelog-2.2.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.cdapl/icon.png" width="48">|cda.pl|1.9.5|[2017-8-7](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.cdapl/changelog-1.9.5.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.montypython/icon.png" width="48">|Monty-Python|1.0|[2017-8-7](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.montypython/changelog-1.0.txt)
-|<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.LivePolishTV/icon.png" width="48">|LivePolishTV|2.3.9|[2017-8-5](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.LivePolishTV/changelog-2.3.9.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.anyfilespl/icon.png" width="48">|anyFiles|1.0|[2017-8-2](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.anyfilespl/changelog-1.0.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.ekstraklasa/icon.png" width="48">|Ekstraklasa|1.23|[2017-7-31](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.ekstraklasa/changelog-1.23.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.TVP.pl/icon.png" width="48">|TVP.pl|2.1.0|[2017-7-25](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.TVP.pl/changelog-2.1.0.txt)
