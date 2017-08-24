@@ -1,3 +1,7 @@
+2.4.2
+- minor changes
+- pilotWP added
+
 2.4.1
 - darmowa-telewizja.info fix
 
