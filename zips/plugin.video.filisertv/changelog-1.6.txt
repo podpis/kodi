@@ -1,3 +1,6 @@
+1.6
+- link parser fixed
+
 1.5
 - host updated
 
