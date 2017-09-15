@@ -1,3 +1,6 @@
+1.9.7
+- link parse fixed
+
 1.9.6
 - optinal paginatoin for user content (speeds up loading folders with large number of files)
 - fixed in ulubione folder content

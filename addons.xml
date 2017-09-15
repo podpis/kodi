@@ -131,7 +131,7 @@
 </extension>
 </addon>
 
-<addon id="plugin.video.cdapl" version="1.9.6" name="cda.pl" provider-name="Michal">
+<addon id="plugin.video.cdapl" version="1.9.7" name="cda.pl" provider-name="Michal">
 <requires>
   <import addon="xbmc.python" version="2.1.0"/>
   <import addon="script.common.plugin.cache" version="2.5.5"/>
@@ -921,7 +921,7 @@ filwebapi fixed
 </extension>
 </addon>
 
-<addon id="plugin.video.segos" version="2.8" name="segos" provider-name="Michal">
+<addon id="plugin.video.segos" version="2.9" name="segos" provider-name="Michal">
 <requires>
   <import addon="xbmc.python" version="2.1.0"/>
   <import addon="script.common.plugin.cache" version="2.5.5"/>
@@ -975,7 +975,7 @@ filwebapi fixed
 </extension>
 </addon>
 
-<addon id="plugin.video.szukajkatv" version="1.1" name="Szukajka.tv" provider-name="Michal">
+<addon id="plugin.video.szukajkatv" version="1.2" name="Szukajka.tv" provider-name="Michal">
 <requires>
     <import addon="xbmc.python" version="2.1.0"/>
     <import addon="script.common.plugin.cache" version="2.5.5"/>
@@ -1115,7 +1115,7 @@ filwebapi fixed
     </extension>
 </addon>
 
-<addon id="script.module.ramic" name="repository.ramic" version="1.1.1" provider-name="Michal">
+<addon id="script.module.ramic" name="repository.ramic" version="1.1.2" provider-name="Michal">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
   </requires>
@@ -1125,7 +1125,7 @@ filwebapi fixed
   </extension>
 </addon>
 
-<addon id="script.module.urlresolver" name="URLResolver" version="4.0.01" provider-name="Eldorado, tknorris, jsergio">
+<addon id="script.module.urlresolver" name="URLResolver" version="4.0.04" provider-name="Eldorado, tknorris, jsergio, tvaddons">
 	<requires>
 		<import addon="xbmc.python" version="2.1.0" />
 		<import addon="plugin.video.youtube" optional="true" />
@@ -1138,6 +1138,8 @@ filwebapi fixed
 		<platform>all</platform>
 		<summary lang="en">Resolve common video host URL's to be playable in XBMC/Kodi.</summary>
 		<description lang="en">Resolve common video host URL's to be playable in XBMC/Kodi, simplify addon development of video plugins requiring multi video hosts.</description>
+        <forum>https://www.tvaddons.co/forums</forum>
+        <website>https://www.tvaddons.co</website>
 	</extension>
 </addon>
 </addons>
