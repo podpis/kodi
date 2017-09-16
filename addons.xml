@@ -1061,7 +1061,7 @@ filwebapi fixed
 </extension>
 </addon>
 
-<addon id="plugin.video.zalukajcom" version="1.3" name="Zalukaj" provider-name="Michal">
+<addon id="plugin.video.zalukajcom" version="1.4" name="Zalukaj" provider-name="Michal">
 <requires>
     <import addon="xbmc.python" version="2.25.0"/>
     <import addon="script.module.urlresolver" version="3.0.0"/>
@@ -1115,7 +1115,7 @@ filwebapi fixed
     </extension>
 </addon>
 
-<addon id="script.module.ramic" name="repository.ramic" version="1.1.2" provider-name="Michal">
+<addon id="script.module.ramic" name="repository.ramic" version="1.1.3" provider-name="Michal">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
   </requires>
