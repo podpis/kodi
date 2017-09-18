@@ -8,6 +8,7 @@ Niektóre wtyczki z repozytorium wymagać bedą standardowych ustawień programu
 ## Zawartość repozytoium
 |Wtyczka|Nazwa|Wersja|Aktualizacja|
 |---|---|---|---|
+|<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.serialosypl/icon.png" width="48">|serialosy.pl|1.6|[2017-9-18](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.serialosypl/changelog-1.6.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.efilmy/icon.png" width="48">|efilmy|1.14|[2017-9-17](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.efilmy/changelog-1.14.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.zalukajcom/icon.png" width="48">|Zalukaj|1.5|[2017-9-17](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.zalukajcom/changelog-1.5.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.cdapl/icon.png" width="48">|cda.pl|1.9.7|[2017-9-15](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.cdapl/changelog-1.9.7.txt)
@@ -41,7 +42,6 @@ Niektóre wtyczki z repozytorium wymagać bedą standardowych ustawień programu
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.anime.pl/icon.png" width="48">|anime.pl|1.5|[2017-4-23](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.anime.pl/changelog-1.5.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.filmydokumentalne/icon.png" width="48">|Filmy Dokumentalne|1.3|[2017-4-23](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.filmydokumentalne/changelog-1.3.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.ninateka/icon.png" width="48">|ninateka|1.1|[2017-4-23](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.ninateka/changelog-1.1.txt)
-|<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.serialosypl/icon.png" width="48">|serialosy.pl|1.5|[2017-4-23](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.serialosypl/changelog-1.5.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.ramictvn24/icon.png" width="48">|TVN24|1.2|[2017-4-22](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.ramictvn24/changelog-1.2.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.iwatchonline/icon.png" width="48">|iwatchonline|1.5|[2017-4-9](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.iwatchonline/changelog-1.5.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.kino24tv/icon.png" width="48">|cda-kino|1.3|[2017-3-10](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.kino24tv/changelog-1.3.txt)

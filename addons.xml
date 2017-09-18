@@ -945,7 +945,7 @@ filwebapi fixed
 </extension>
 </addon>
 
-<addon id="plugin.video.serialosypl" version="1.5" name="serialosy.pl" provider-name="Michal">
+<addon id="plugin.video.serialosypl" version="1.6" name="serialosy.pl" provider-name="Michal">
 <requires>
   <import addon="xbmc.python" version="2.1.0"/>
   <import addon="script.module.urlresolver" version="3.0.20"/>
@@ -965,7 +965,7 @@ filwebapi fixed
   <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
   <forum>https://github.com/ramicspa/kodi/issues</forum>
   <website>https://github.com/ramicspa/kodi</website>
-  <email>ramicspaatgmaildotcom</email>
+  <email></email>
   <assets>
     <icon>icon.png</icon>
     <fanart>fanart.jpg</fanart>
