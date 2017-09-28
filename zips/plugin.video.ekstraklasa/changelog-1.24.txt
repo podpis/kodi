@@ -1,3 +1,7 @@
+1.24
+fixed: Football Video,FootballOrgin,GoolsArena
+added MechReplay
+
 1.23
 - live stream resolution selection
 

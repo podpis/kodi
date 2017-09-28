@@ -293,7 +293,7 @@ filwebapi fixed
   </extension>
 </addon>
 
-<addon id="plugin.video.ekstraklasa" name="Ekstraklasa" version="1.23" provider-name="Michal">
+<addon id="plugin.video.ekstraklasa" name="Ekstraklasa" version="1.24" provider-name="Michal">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
     <import addon="script.module.urlresolver" version="3.0.15"/>
@@ -316,13 +316,9 @@ filwebapi fixed
         <fanart>fanart.jpg</fanart>
     </assets>
   <news>
-- Ekstraklasy z Dalimotion
-- Estadios
 - FootballOrgin
 - GoalArena
-- Polast Sport
-- Lech TV
-- ekstrakalasa.tv
+
  </news>
   </extension>
 </addon>
