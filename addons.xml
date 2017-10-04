@@ -206,7 +206,7 @@
 	</extension>
 </addon>
 
-<addon id="plugin.video.efilmy" version="1.14" name="efilmy" provider-name="Michal">
+<addon id="plugin.video.efilmy" version="1.15" name="efilmy" provider-name="Michal">
 <requires>
   <import addon="xbmc.python" version="2.1.0"/>
   <import addon="script.common.plugin.cache" version="2.5.5"/>
@@ -231,7 +231,6 @@
     <fanart>fanart.jpg</fanart>
   </assets>
   <news>
-filwebapi fixed
   </news>
 </extension>
 </addon>
