@@ -322,7 +322,7 @@
   </extension>
 </addon>
 
-<addon id="plugin.video.filmbooster" version="1.7" name="FilmwebBooster" provider-name="Michal">
+<addon id="plugin.video.filmbooster" version="1.8" name="FilmwebBooster" provider-name="Michal">
 <requires>
   <import addon="xbmc.python" version="2.1.0"/>
   <import addon="script.module.urlresolver" version="3.0.15"/>

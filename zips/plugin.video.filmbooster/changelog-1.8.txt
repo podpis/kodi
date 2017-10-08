@@ -1,0 +1,22 @@
+1.6/7/8
+- Library integration (initial version)
+- webparser fixes
+- settigns
+- pickup order
+
+1.5
+- some fixes
+
+1.4
+- some fixes
+
+1.3
+- addon updated
+- seriale
+- search fixed
+
+1.2
+- addon updated
+
+1.0
+- initial version 
