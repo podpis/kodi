@@ -322,7 +322,7 @@
   </extension>
 </addon>
 
-<addon id="plugin.video.filmbooster" version="1.6" name="FilmwebBooster" provider-name="Michal">
+<addon id="plugin.video.filmbooster" version="1.7" name="FilmwebBooster" provider-name="Michal">
 <requires>
   <import addon="xbmc.python" version="2.1.0"/>
   <import addon="script.module.urlresolver" version="3.0.15"/>
@@ -1005,7 +1005,7 @@ Do not bother asking for one.
     </extension>
 </addon>
 
-<addon id="script.module.ramic" name="repository.ramic" version="1.1.5" provider-name="Michal">
+<addon id="script.module.ramic" name="repository.ramic" version="1.1.6" provider-name="Michal">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
   </requires>
