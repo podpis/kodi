@@ -107,6 +107,39 @@
 </extension>
 </addon>
 
+<addon id="plugin.video.boxfilmpl" version="1.0" name="boxfilmpl" provider-name="Michal">
+<requires>
+  <import addon="xbmc.python" version="2.1.0"/>
+  <import addon="script.module.urlresolver" version="3.0.15"/>
+  <import addon="script.module.ramic" />
+  <import addon="script.common.plugin.cache" version="2.5.5"/>
+</requires>
+
+<extension point="xbmc.python.pluginsource" library="main.py">
+  <provides>video</provides>
+</extension>
+
+<extension point="xbmc.addon.metadata">
+  <summary lang="en">boxfilmpl</summary>
+  <description lang="en">boxfilmpl</description>
+  <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/ramicspa/kodi</disclaimer>
+  <language></language>
+  <platform>all</platform>
+  <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
+  <forum>https://github.com/ramicspa/kodi/issues</forum>
+  <website>https://github.com/ramicspa/kodi</website>
+  <assets>
+    <icon>icon.png</icon>
+    <fanart>fanart.jpg</fanart>
+    <screenshot>resources/screenshot-01.jpg</screenshot>
+    <screenshot>resources/screenshot-02.jpg</screenshot>
+  </assets>
+  <news>
+
+  </news>
+</extension>
+</addon>
+
 <addon id="plugin.video.cdahd" version="1.0" name="cda-hd" provider-name="Michal">
 <requires>
   <import addon="xbmc.python" version="2.1.0"/>
@@ -1035,7 +1068,7 @@ Do not bother asking for one.
     </extension>
 </addon>
 
-<addon id="script.module.ramic" name="repository.ramic" version="1.1.6" provider-name="Michal">
+<addon id="script.module.ramic" name="repository.ramic" version="1.1.7" provider-name="Michal">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
   </requires>
@@ -1045,7 +1078,7 @@ Do not bother asking for one.
   </extension>
 </addon>
 
-<addon id="script.module.urlresolver" name="URLResolver" version="4.0.04" provider-name="Eldorado, tknorris, jsergio, tvaddons">
+<addon id="script.module.urlresolver" name="URLResolver" version="4.0.07" provider-name="Eldorado, tknorris, jsergio">
 	<requires>
 		<import addon="xbmc.python" version="2.1.0" />
 		<import addon="plugin.video.youtube" optional="true" />
@@ -1058,8 +1091,7 @@ Do not bother asking for one.
 		<platform>all</platform>
 		<summary lang="en">Resolve common video host URL's to be playable in XBMC/Kodi.</summary>
 		<description lang="en">Resolve common video host URL's to be playable in XBMC/Kodi, simplify addon development of video plugins requiring multi video hosts.</description>
-        <forum>https://www.tvaddons.co/forums</forum>
-        <website>https://www.tvaddons.co</website>
+        <source>https://github.com/jsergio123/script.module.urlresolver</source>
 	</extension>
 </addon>
 </addons>
