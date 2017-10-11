@@ -1,0 +1,5 @@
+1.1
+- better cookies :)
+
+1.0
+- initial version
