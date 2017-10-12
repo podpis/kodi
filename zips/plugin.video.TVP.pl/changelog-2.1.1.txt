@@ -1,3 +1,7 @@
+2.1.1
+- proxy gate fixed
+- Przegapiles w TV zobacz teraz!
+
 2.1.0
 - proxy option
 - updated vod links
