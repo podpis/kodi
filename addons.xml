@@ -679,7 +679,7 @@
   </extension>
 </addon>
 
-<addon id="plugin.video.LivePolishTV" name="LivePolishTV" version="2.4.3" provider-name="Michal">
+<addon id="plugin.video.LivePolishTV" name="LivePolishTV" version="2.4.4" provider-name="Michal">
     <requires>
         <import addon="xbmc.python" version="2.1.0"/>
         <import addon="service.cronxbmc" optional="true"/>
@@ -695,16 +695,16 @@
     <language></language>
     <platform>all</platform>
     <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
-    <forum>https://github.com/ramicspa/kodi(2)/issues</forum>
-    <website>https://github.com/ramicspa/kodi(2)</website>
+    <forum>https://github.com/ramicspa/kodi/issues</forum>
+    <website>https://github.com/ramicspa/kodi</website>
     <email>ramicspa at gmail dot com</email>
   <assets>
     <icon>icon.png</icon>
     <fanart>fanart.jpg</fanart>
   </assets>
   <news>
-paid services are not supported
-Do not bother asking for one.
+Paid services are not supported. Do not bother asking for one.
+Do not install this addon if you are using a build.
   </news>
   </extension>
 </addon>

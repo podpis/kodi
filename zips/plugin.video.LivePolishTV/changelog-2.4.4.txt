@@ -1,3 +1,7 @@
+2.4.4
+- some resolver fixes
+- darmowa-tv
+
 2.4.3
 - fixed: inatv,tele-wizja,TVP stream,
 - out: darmowa-telewizja,itivi,yoy
