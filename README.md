@@ -8,9 +8,9 @@ Niektóre wtyczki z repozytorium wymagać bedą standardowych ustawień programu
 ## Zawartość repozytoium
 |Wtyczka|Nazwa|Wersja|Aktualizacja|
 |---|---|---|---|
+|<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.boxfilmpl/icon.png" width="48">|boxfilm|1.3|[2017-10-18](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.boxfilmpl/changelog-1.3.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.LivePolishTV/icon.png" width="48">|LivePolishTV|2.4.4|[2017-10-15](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.LivePolishTV/changelog-2.4.4.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.TVP.pl/icon.png" width="48">|TVP.pl|2.1.1|[2017-10-13](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.TVP.pl/changelog-2.1.1.txt)
-|<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.boxfilmpl/icon.png" width="48">|boxfilm|1.2|[2017-10-12](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.boxfilmpl/changelog-1.2.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.filisertv/icon.png" width="48">|Filiser|2.0|[2017-10-10](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.filisertv/changelog-2.0.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.filmbooster/icon.png" width="48">|FilmwebBooster|1.8|[2017-10-8](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.filmbooster/changelog-1.8.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.efilmy/icon.png" width="48">|efilmy|1.15|[2017-10-4](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.efilmy/changelog-1.15.txt)

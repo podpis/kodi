@@ -107,7 +107,7 @@
 </extension>
 </addon>
 
-<addon id="plugin.video.boxfilmpl" version="1.2" name="boxfilm" provider-name="Michal">
+<addon id="plugin.video.boxfilmpl" version="1.3" name="boxfilm" provider-name="Michal">
 <requires>
   <import addon="xbmc.python" version="2.1.0"/>
   <import addon="script.module.urlresolver" version="3.0.15"/>
@@ -119,7 +119,7 @@
 </extension>
 <extension point="xbmc.addon.metadata">
   <summary lang="pl">Zasoby serwisów: boxfilm.pl oraz jbofilm.pl  </summary>
-  <description lang="pl">wszystkie filmy dostępne w serwisie są dostępne zupełnie za darmo.</description>
+  <description lang="pl">Wszystkie filmy dostępne w serwisie są dostępne zupełnie za darmo.</description>
   <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/ramicspa/kodi</disclaimer>
   <language></language>
   <platform>all</platform>
@@ -133,6 +133,7 @@
     <screenshot>resources/screenshot-02.jpg</screenshot>
   </assets>
   <news>
+Do not install this addon if you are using a build.
   </news>
 </extension>
 </addon>
