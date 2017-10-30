@@ -1,3 +1,6 @@
+1.7
+- resolver resolve
+
 1.6
 - web scraper
 

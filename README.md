@@ -8,6 +8,7 @@ Niektóre wtyczki z repozytorium wymagać bedą standardowych ustawień programu
 ## Zawartość repozytoium
 |Wtyczka|Nazwa|Wersja|Aktualizacja|
 |---|---|---|---|
+|<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.serialosypl/icon.png" width="48">|serialosy.pl|1.7|[2017-10-30](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.serialosypl/changelog-1.7.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.cdapl/icon.png" width="48">|cda.pl|2.0.0|[2017-10-22](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.cdapl/changelog-2.0.0.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.boxfilmpl/icon.png" width="48">|boxfilm|1.3|[2017-10-18](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.boxfilmpl/changelog-1.3.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.LivePolishTV/icon.png" width="48">|LivePolishTV|2.4.4|[2017-10-15](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.LivePolishTV/changelog-2.4.4.txt)
@@ -17,7 +18,6 @@ Niektóre wtyczki z repozytorium wymagać bedą standardowych ustawień programu
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.efilmy/icon.png" width="48">|efilmy|1.15|[2017-10-4](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.efilmy/changelog-1.15.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.ekstraklasa/icon.png" width="48">|Ekstraklasa|1.25|[2017-10-4](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.ekstraklasa/changelog-1.25.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.iitv/icon.png" width="48">|iitv-seriale|2.0|[2017-9-27](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.iitv/changelog-2.0.txt)
-|<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.serialosypl/icon.png" width="48">|serialosy.pl|1.6|[2017-9-18](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.serialosypl/changelog-1.6.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.zalukajcom/icon.png" width="48">|Zalukaj|1.5|[2017-9-17](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.zalukajcom/changelog-1.5.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.segos/icon.png" width="48">|segos|2.9|[2017-9-15](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.segos/changelog-2.9.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.szukajkatv/icon.png" width="48">|Szukajka.tv|1.2|[2017-9-15](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.szukajkatv/changelog-1.2.txt)
