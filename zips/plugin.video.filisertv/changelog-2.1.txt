@@ -1,5 +1,9 @@
+2.1
+- search fixed
+- free proxy (for users outside PL)
+
 2.0
-- reborns
+- reborn
 
 1.6
 - link parser fixed
