@@ -4,10 +4,11 @@ Repozytorium wtyczek dla programu KODI
 <br>Zainstaluj z pliku zip poprzez źródło: http://ramicspa.github.io/kodi/
 ## Informacja
 Niektóre wtyczki z repozytorium wymagać bedą standardowych ustawień programu KODI do poprawnego działania.
-### KOD: **poi**
+### KOD: **oiu**
 ## Zawartość repozytoium
 |Wtyczka|Nazwa|Wersja|Aktualizacja|
 |---|---|---|---|
+|<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.tvlinks/icon.png" width="48">|TvLinks|1.0|[2017-11-3](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.tvlinks/changelog-1.0.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.filisertv/icon.png" width="48">|Filiser|2.1|[2017-10-30](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.filisertv/changelog-2.1.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.serialosypl/icon.png" width="48">|serialosy.pl|1.7|[2017-10-30](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.serialosypl/changelog-1.7.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.cdapl/icon.png" width="48">|cda.pl|2.0.0|[2017-10-22](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.cdapl/changelog-2.0.0.txt)
