@@ -844,6 +844,35 @@ Do not install this addon if you are using a build.
 </extension>
 </addon>
 
+<addon id="plugin.video.ramictvlinkspl" version="1.0" name="TvLinks" provider-name="Michal">
+<requires>
+  <import addon="xbmc.python" version="2.1.0"/>
+  <import addon="script.module.urlresolver" version="3.0.15"/>
+  <import addon="script.module.ramic" />
+  <import addon="script.common.plugin.cache" version="2.5.5"/>
+</requires>
+<extension point="xbmc.python.pluginsource" library="main.py">
+  <provides>video</provides>
+</extension>
+<extension point="xbmc.addon.metadata">
+  <summary lang="pl">Zasoby serwisu: http://www.tvlinks.pl</summary>
+  <description lang="pl"></description>
+  <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/ramicspa/kodi</disclaimer>
+  <language></language>
+  <platform>all</platform>
+  <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
+  <forum>https://github.com/ramicspa/kodi/issues</forum>
+  <website>https://github.com/ramicspa/kodi</website>
+  <assets>
+    <icon>icon.png</icon>
+    <fanart>fanart.jpg</fanart>
+  </assets>
+  <news>
+Do not install this addon if you are using a build.
+  </news>
+</extension>
+</addon>
+
 <addon id="plugin.video.ramictvn24" version="1.2" name="TVN24" provider-name="Michal">
 <requires>
   <import addon="xbmc.python" version="2.1.0"/>
@@ -952,35 +981,6 @@ Do not install this addon if you are using a build.
     <fanart>fanart.jpg</fanart>
   </assets>
   <news>
-  </news>
-</extension>
-</addon>
-
-<addon id="plugin.video.tvlinks" version="1.0" name="TvLinks" provider-name="Michal">
-<requires>
-  <import addon="xbmc.python" version="2.1.0"/>
-  <import addon="script.module.urlresolver" version="3.0.15"/>
-  <import addon="script.module.ramic" />
-  <import addon="script.common.plugin.cache" version="2.5.5"/>
-</requires>
-<extension point="xbmc.python.pluginsource" library="main.py">
-  <provides>video</provides>
-</extension>
-<extension point="xbmc.addon.metadata">
-  <summary lang="pl">Zasoby serwisu: http://www.tvlinks.pl</summary>
-  <description lang="pl"></description>
-  <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/ramicspa/kodi</disclaimer>
-  <language></language>
-  <platform>all</platform>
-  <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
-  <forum>https://github.com/ramicspa/kodi/issues</forum>
-  <website>https://github.com/ramicspa/kodi</website>
-  <assets>
-    <icon>icon.png</icon>
-    <fanart>fanart.jpg</fanart>
-  </assets>
-  <news>
-Do not install this addon if you are using a build.
   </news>
 </extension>
 </addon>
