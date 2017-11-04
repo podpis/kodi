@@ -517,7 +517,7 @@ Dostęp do serwisu bez polskiego IP
 </extension>
 </addon>
 
-<addon id="plugin.video.freedisc.pl" version="1.3" name="freedisc" provider-name="Michal">
+<addon id="plugin.video.freedisc.pl" version="1.4" name="freedisc" provider-name="Michal">
 <requires>
   <import addon="xbmc.python" version="2.1.0"/>
   <import addon="script.common.plugin.cache" version="2.5.5"/>
