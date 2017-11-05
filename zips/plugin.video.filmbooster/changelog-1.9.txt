@@ -1,6 +1,13 @@
-1.6
+1.9
+- color changed
+- minor chages
+- webparser
+
+1.6/7/8
 - Library integration (initial version)
 - webparser fixes
+- settigns
+- pickup order
 
 1.5
 - some fixes
