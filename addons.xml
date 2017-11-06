@@ -162,7 +162,7 @@ Do not install this addon if you are using a build.
 </extension>
 </addon>
 
-<addon id="plugin.video.cdapl" version="2.0.0" name="cda.pl" provider-name="Michal">
+<addon id="plugin.video.cdapl" version="2.0.1" name="cda.pl" provider-name="Michal">
 <requires>
   <import addon="xbmc.python" version="2.1.0"/>
   <import addon="script.common.plugin.cache" version="2.5.5"/>
@@ -171,17 +171,25 @@ Do not install this addon if you are using a build.
 <extension point="xbmc.python.pluginsource" library="main.py">
   <provides>video</provides>
 </extension>
+<extension point="xbmc.service" library="check.py" start="startup"/>
 <extension point="xbmc.addon.metadata">
-  <summary lang="en">cda.pl Kodi Video Plugin</summary>
-  <description lang="en">cda.pl playlist</description>
-  <disclaimer lang="en">private kodi addon</disclaimer>
-  <platform>all</platform>
+  <summary lang="pl">Zasoby serwisu [B]cda.pl[/B]</summary>
+  <description lang="pl">Wtyczka umożliwia dostęp do bazy cda.pl</description>
+  <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/ramicspa/kodi</disclaimer>
   <language></language>
-  <license></license>
-  <forum></forum>
+  <platform>all</platform>
+  <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
+  <forum>https://github.com/ramicspa/kodi/issues</forum>
   <website>https://github.com/ramicspa/kodi</website>
-  <email></email>
-  <source></source>
+  <assets>
+    <icon>icon.png</icon>
+    <fanart>fanart.jpg</fanart>
+    <screenshot>resources/screenshot-01.jpg</screenshot>
+    <screenshot>resources/screenshot-02.jpg</screenshot>
+  </assets>
+  <news>
+Do not install this addon if you are using a build.
+  </news>
 </extension>
 </addon>
 

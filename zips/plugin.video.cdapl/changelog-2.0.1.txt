@@ -1,3 +1,7 @@
+2.0.1
+- service
+- several changes
+
 2.0.0
 - movie timing fixed
 - several minor fixes
