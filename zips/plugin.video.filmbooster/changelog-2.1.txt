@@ -1,3 +1,9 @@
+2.1
+- filmwebbooster: single source
+
+2.0
+- tvshows parser fixed
+
 1.9
 - color changed
 - minor chages
