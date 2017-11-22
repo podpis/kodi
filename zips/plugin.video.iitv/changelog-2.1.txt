@@ -1,3 +1,7 @@
+2.1
+- link parser fixed
+- img fixed
+
 2.0
 - link parser fixed
 
