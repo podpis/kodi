@@ -1,3 +1,9 @@
+2.4.5
+- some resolver fixes/pathces
+- removed dead services
+- added teleVHS
+- other
+
 2.4.4
 - some resolver fixes
 - darmowa-tv
