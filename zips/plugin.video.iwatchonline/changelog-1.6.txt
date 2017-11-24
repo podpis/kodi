@@ -1,3 +1,6 @@
+1.6
+- multiple fixes
+
 1.5
 - fixed link grabber
 
