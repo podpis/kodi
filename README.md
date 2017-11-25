@@ -8,6 +8,7 @@ Niektóre wtyczki z repozytorium wymagać bedą standardowych ustawień programu
 ## Zawartość repozytoium
 |Wtyczka|Nazwa|Wersja|Aktualizacja|
 |---|---|---|---|
+|<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.ninateka/icon.png" width="48">|ninateka|1.2|[2017-11-25](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.ninateka/changelog-1.2.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.iwatchonline/icon.png" width="48">|iwatchonline|1.6|[2017-11-24](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.iwatchonline/changelog-1.6.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.LivePolishTV/icon.png" width="48">|LivePolishTV|2.4.5|[2017-11-23](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.LivePolishTV/changelog-2.4.5.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.iitv/icon.png" width="48">|iitv-seriale|2.1|[2017-11-22](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.iitv/changelog-2.1.txt)
@@ -42,7 +43,6 @@ Niektóre wtyczki z repozytorium wymagać bedą standardowych ustawień programu
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.ramicpolsat/icon.png" width="48">|PolsatNews|1.0|[2017-5-4](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.ramicpolsat/changelog-1.0.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.anime.pl/icon.png" width="48">|anime.pl|1.5|[2017-4-23](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.anime.pl/changelog-1.5.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.filmydokumentalne/icon.png" width="48">|Filmy Dokumentalne|1.3|[2017-4-23](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.filmydokumentalne/changelog-1.3.txt)
-|<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.ninateka/icon.png" width="48">|ninateka|1.1|[2017-4-23](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.ninateka/changelog-1.1.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.ramictvn24/icon.png" width="48">|TVN24|1.2|[2017-4-22](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.ramictvn24/changelog-1.2.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.dmchannels/icon.png" width="48">|Dailymotion channels|1.6|[2017-2-19](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.dmchannels/changelog-1.6.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.folderramic/icon.png" width="48">|folder|1.1b|[2016-8-19](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.folderramic/changelog-1.1b.txt)
