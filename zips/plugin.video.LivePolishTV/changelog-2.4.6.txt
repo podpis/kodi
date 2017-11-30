@@ -1,3 +1,7 @@
+2.4.6
+- tele-wizja ling parser chagnes
+- kodiultimate out
+
 2.4.5
 - some resolver fixes/pathces
 - removed dead services
