@@ -8,6 +8,7 @@ Niektóre wtyczki z repozytorium wymagać bedą standardowych ustawień programu
 ## Zawartość repozytoium
 |Wtyczka|Nazwa|Wersja|Aktualizacja|
 |---|---|---|---|
+|<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.szukajkatv/icon.png" width="48">|Szukajka.tv|1.3|[2017-12-1](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.szukajkatv/changelog-1.3.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.LivePolishTV/icon.png" width="48">|LivePolishTV|2.4.6|[2017-11-30](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.LivePolishTV/changelog-2.4.6.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.ninateka/icon.png" width="48">|ninateka|1.2|[2017-11-25](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.ninateka/changelog-1.2.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.iwatchonline/icon.png" width="48">|iwatchonline|1.6|[2017-11-24](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.iwatchonline/changelog-1.6.txt)
@@ -27,7 +28,6 @@ Niektóre wtyczki z repozytorium wymagać bedą standardowych ustawień programu
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.ekstraklasa/icon.png" width="48">|Ekstraklasa|1.25|[2017-10-4](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.ekstraklasa/changelog-1.25.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.zalukajcom/icon.png" width="48">|Zalukaj|1.5|[2017-9-17](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.zalukajcom/changelog-1.5.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.segos/icon.png" width="48">|segos|2.9|[2017-9-15](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.segos/changelog-2.9.txt)
-|<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.szukajkatv/icon.png" width="48">|Szukajka.tv|1.2|[2017-9-15](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.szukajkatv/changelog-1.2.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.ekinotv/icon.png" width="48">|ekino-tv|1.9|[2017-8-22](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.ekinotv/changelog-1.9.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.alltube.tv/icon.png" width="48">|alltube.tv|2.2|[2017-8-9](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.alltube.tv/changelog-2.2.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.montypython/icon.png" width="48">|Monty-Python|1.0|[2017-8-7](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.montypython/changelog-1.0.txt)
