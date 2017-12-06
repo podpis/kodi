@@ -1008,7 +1008,7 @@ Do not install this addon if you are using a build.
 </extension>
 </addon>
 
-<addon id="plugin.video.TVP.pl" name="TVP.pl" version="2.1.1" provider-name="Michal">
+<addon id="plugin.video.TVP.pl" name="TVP.pl" version="2.1.2" provider-name="Michal">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
     <import addon="script.module.ramic"/>
@@ -1031,6 +1031,7 @@ Do not install this addon if you are using a build.
 		<fanart>fanart.jpg</fanart>
 	</assets>
 	<news>
+Do not install this addon if you are using a build.
 	</news>
   </extension>
 </addon>
@@ -1117,7 +1118,7 @@ Do not install this addon if you are using a build.
     </extension>
 </addon>
 
-<addon id="script.module.ramic" name="repository.ramic" version="1.2.1" provider-name="Michal">
+<addon id="script.module.ramic" name="repository.ramic" version="1.2.2" provider-name="Michal">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
   </requires>

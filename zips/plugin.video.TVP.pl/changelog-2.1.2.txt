@@ -1,3 +1,8 @@
+2.1.2
+- live stream fixed
+- Przegapiles w TV (antena)
+- automatic quality selection
+
 2.1.1
 - proxy gate fixed
 - Przegapiles w TV zobacz teraz!
