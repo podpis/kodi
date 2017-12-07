@@ -312,11 +312,11 @@ Do not install this addon if you are using a build.
   </extension>
 </addon>
 
-<addon id="plugin.video.ekstraklasa" name="Ekstraklasa" version="1.25" provider-name="Michal">
+<addon id="plugin.video.ekstraklasa" name="Ekstraklasa" version="1.26" provider-name="Michal">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
     <import addon="script.module.urlresolver" version="3.0.15"/>
-	<import addon="script.module.ramic" />
+	<import addon="script.module.ramic" "1.2.2"/>
   </requires>
   <extension point="xbmc.python.pluginsource" library="main.py">
     <provides>video</provides>
@@ -329,15 +329,23 @@ Do not install this addon if you are using a build.
     <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
     <forum>https://github.com/ramicspa/kodi/issues</forum>
     <website>https://github.com/ramicspa/kodi</website>
-    <email>ramicspa at gmail dot com</email>
+    <email></email>
     <assets>
         <icon>icon.png</icon>
         <fanart>fanart.jpg</fanart>
     </assets>
   <news>
-- FootballOrgin
-- GoalArena
-
+Ekstrakalasa.tv
+Estadios.pl
+LiveFootBallol
+Lech.tv
+FootbalOrgin
+GoalArean
+Meczyki.pl
+Mecz replay
+Polsat Sport
+Laczy nas piłka
+Do not install this addon if you are using a build.
  </news>
   </extension>
 </addon>
@@ -610,7 +618,7 @@ Dostęp do serwisu bez polskiego IP
 </extension>
 </addon>
 
-<addon id="plugin.video.LiveIPTV" name="Live IPTV" version="2.0" provider-name="Michal">
+<addon id="plugin.video.LiveIPTV" name="Live IPTV" version="2.1" provider-name="Michal">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
     <import addon="plugin.video.f4mTester" version="2.2.3" optional="true" />
@@ -635,7 +643,7 @@ Dostęp do serwisu bez polskiego IP
     <fanart>fanart.jpg</fanart>
   </assets>
   <news>
-
+Do not install this addon if you are using a build.
   </news>
   </extension>
 </addon>

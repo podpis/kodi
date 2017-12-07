@@ -1,3 +1,6 @@
+1.26
+- meczyki.pl
+
 1.25
 - MechReplay: fixed pagination
 
