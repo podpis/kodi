@@ -8,7 +8,7 @@ Niektóre wtyczki z repozytorium wymagać bedą standardowych ustawień programu
 ## Zawartość repozytoium
 |Wtyczka|Nazwa|Wersja|Aktualizacja|
 |---|---|---|---|
-|<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.ekstraklasa/icon.png" width="48">|Ekstraklasa|1.26|[2017-12-7](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.ekstraklasa/changelog-1.26.txt)
+|<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.ekstraklasa/icon.png" width="48">|Ekstraklasa|1.26|[2017-12-8](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.ekstraklasa/changelog-1.26.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.LiveIPTV/icon.png" width="48">|Live IPTV|2.1|[2017-12-7](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.LiveIPTV/changelog-2.1.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.TVP.pl/icon.png" width="48">|TVP.pl|2.1.2|[2017-12-6](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.TVP.pl/changelog-2.1.2.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.ramicpbs/icon.png" width="48">|PBS|1.0|[2017-12-2](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.ramicpbs/changelog-1.0.txt)
