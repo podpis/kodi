@@ -1,3 +1,6 @@
+1.27
+- proxy fixed (including live?)
+
 1.26
 - meczyki.pl
 
