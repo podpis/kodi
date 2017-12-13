@@ -1,3 +1,7 @@
+2.4.8
+- some additional parser improvements
+- sejm - limited to live streams
+
 2.4.7
 - link parser improvements
 
