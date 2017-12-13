@@ -542,7 +542,7 @@ Dostęp do serwisu bez polskiego IP
 </extension>
 </addon>
 
-<addon id="plugin.video.iitv" name="iitv-seriale" version="2.1" provider-name="Michal">
+<addon id="plugin.video.iitv" name="iitv-seriale" version="2.2" provider-name="Michal">
   <requires>
     <import addon="xbmc.python" version="2.25.0"/>
 	<import addon="script.module.urlresolver" version="3.0.0"/>

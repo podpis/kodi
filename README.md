@@ -8,6 +8,7 @@ Niektóre wtyczki z repozytorium wymagać bedą standardowych ustawień programu
 ## Zawartość repozytoium
 |Wtyczka|Nazwa|Wersja|Aktualizacja|
 |---|---|---|---|
+|<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.iitv/icon.png" width="48">|iitv-seriale|2.2|[2017-12-13](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.iitv/changelog-2.2.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.filmbooster/icon.png" width="48">|FilmwebBooster|2.2|[2017-12-12](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.filmbooster/changelog-2.2.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.LivePolishTV/icon.png" width="48">|LivePolishTV|2.4.7|[2017-12-9](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.LivePolishTV/changelog-2.4.7.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.ekstraklasa/icon.png" width="48">|Ekstraklasa|1.27|[2017-12-8](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.ekstraklasa/changelog-1.27.txt)
@@ -17,7 +18,6 @@ Niektóre wtyczki z repozytorium wymagać bedą standardowych ustawień programu
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.szukajkatv/icon.png" width="48">|Szukajka.tv|1.3|[2017-12-1](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.szukajkatv/changelog-1.3.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.ninateka/icon.png" width="48">|ninateka|1.2|[2017-11-25](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.ninateka/changelog-1.2.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.iwatchonline/icon.png" width="48">|iwatchonline|1.6|[2017-11-24](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.iwatchonline/changelog-1.6.txt)
-|<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.iitv/icon.png" width="48">|iitv-seriale|2.1|[2017-11-22](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.iitv/changelog-2.1.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.openkatalogcom/icon.png" width="48">|OpenKatalog|1.0|[2017-11-15](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.openkatalogcom/changelog-1.0.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.viderpl/icon.png" width="48">|vider|1.5|[2017-11-13](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.viderpl/changelog-1.5.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.cdapl/icon.png" width="48">|cda.pl|2.0.1|[2017-11-6](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.cdapl/changelog-2.0.1.txt)
