@@ -138,7 +138,7 @@ Do not install this addon if you are using a build.
 </extension>
 </addon>
 
-<addon id="plugin.video.cdahd" version="1.1" name="cda-hd" provider-name="Michal">
+<addon id="plugin.video.cdahd" version="1.2" name="cda-hd" provider-name="Michal">
 <requires>
   <import addon="xbmc.python" version="2.1.0"/>
   <import addon="script.module.urlresolver" version="3.0.15"/>
@@ -149,8 +149,8 @@ Do not install this addon if you are using a build.
   <provides>video</provides>
 </extension>
 <extension point="xbmc.addon.metadata">
-  <summary lang="en">cda-hd.pl </summary>
-  <description lang="en">Zasoby cda-hd.pl</description>
+  <summary lang="en">filmtu.pl (cda-hd.pl)</summary>
+  <description lang="en">Zasoby filmtu.pl (cda-hd.pl)</description>
   <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/ramicspa/kodi</disclaimer>
   <language></language>
   <platform>all</platform>
@@ -708,11 +708,11 @@ Do not install this addon if you are using a build.
 </extension>
 </addon>
 
-<addon id="plugin.video.naszekino" name="Nasze-Kino" version="2.4" provider-name="Michal">
+<addon id="plugin.video.naszekino" name="Nasze-Kino" version="2.5" provider-name="Michal">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
-    <import addon="script.module.ramic"/>
-    <import addon="script.module.urlresolver" version="3.0.20"/>
+    <import addon="script.module.ramic" version="1.2.2"/>
+    <import addon="script.module.urlresolver" version="4.0.0"/>
   </requires>
   <extension point="xbmc.python.pluginsource" library="addon.py">
     <provides>video</provides>

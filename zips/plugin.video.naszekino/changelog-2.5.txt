@@ -1,3 +1,6 @@
+2.5
+- login fixed
+
 2.4
 - forum links pagination
 
