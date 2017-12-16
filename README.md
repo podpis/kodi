@@ -8,6 +8,7 @@ Niektóre wtyczki z repozytorium wymagać bedą standardowych ustawień programu
 ## Zawartość repozytoium
 |Wtyczka|Nazwa|Wersja|Aktualizacja|
 |---|---|---|---|
+|<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.filmyto/icon.png" width="48">|Filmy.to|2.0|[2017-12-16](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.filmyto/changelog-2.0.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.cdahd/icon.png" width="48">|cda-hd|1.2|[2017-12-14](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.cdahd/changelog-1.2.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.naszekino/icon.png" width="48">|Nasze-Kino|2.5|[2017-12-14](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.naszekino/changelog-2.5.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.iitv/icon.png" width="48">|iitv-seriale|2.2|[2017-12-13](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.iitv/changelog-2.2.txt)
@@ -35,7 +36,6 @@ Niektóre wtyczki z repozytorium wymagać bedą standardowych ustawień programu
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.alltube.tv/icon.png" width="48">|alltube.tv|2.2|[2017-8-9](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.alltube.tv/changelog-2.2.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.montypython/icon.png" width="48">|Monty-Python|1.0|[2017-8-7](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.montypython/changelog-1.0.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.anyfilespl/icon.png" width="48">|anyFiles|1.0|[2017-8-2](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.anyfilespl/changelog-1.0.txt)
-|<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.filmyto/icon.png" width="48">|Filmy.to|1.9|[2017-7-6](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.filmyto/changelog-1.9.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.bajkionline/icon.png" width="48">|bajki|1.3|[2017-6-27](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.bajkionline/changelog-1.3.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.naszekinotv/icon.png" width="48">|nasze-kino.tv|1.0|[2017-6-22](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.naszekinotv/changelog-1.0.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.filmmilicyjny/icon.png" width="48">|film-milicyjny|1.2|[2017-5-24](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.filmmilicyjny/changelog-1.2.txt)
