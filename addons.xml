@@ -431,17 +431,15 @@ Dostęp do serwisu bez polskiego IP
 </extension>
 </addon>
 
-<addon id="plugin.video.filmydokumentalne" version="1.3" name="Filmy Dokumentalne" provider-name="Michal">
+<addon id="plugin.video.filmydokumentalne" version="1.4" name="Filmy Dokumentalne" provider-name="Michal">
 <requires>
     <import addon="xbmc.python" version="2.1.0"/>
     <import addon="script.module.urlresolver" version="3.0.20"/>
-	<import addon="script.module.ramic" />
+    <import addon="script.module.ramic" version="1.2.2"/>
 </requires>
-
 <extension point="xbmc.python.pluginsource" library="main.py">
   <provides>video</provides>
 </extension>
-
 <extension point="xbmc.addon.metadata">
   <summary lang="en">http://www.filmydokumentalne.eu/</summary>
   <description lang="en">http://www.filmydokumentalne.eu/</description>
@@ -451,7 +449,7 @@ Dostęp do serwisu bez polskiego IP
   <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
   <forum>https://github.com/ramicspa/kodi/issues</forum>
   <website>https://github.com/ramicspa/kodi</website>
-  <email>ramicspa at gmail dot com</email>
+  <email></email>
   <assets>
     <icon>icon.png</icon>
     <fanart>fanart.jpg</fanart>
