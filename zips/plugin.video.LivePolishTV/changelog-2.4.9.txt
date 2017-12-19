@@ -1,3 +1,6 @@
+2.4.9
+- WP pilot fixed
+
 2.4.8
 - some additional parser improvements
 - sejm - limited to live streams
