@@ -1,3 +1,6 @@
+2.5.0
+- WP pilot (un)subscribed access
+
 2.4.9
 - WP pilot fixed
 
