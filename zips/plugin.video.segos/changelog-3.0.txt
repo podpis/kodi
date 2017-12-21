@@ -1,3 +1,6 @@
+3.0
+- several fixes, login, content etc...
+
 2.9
 - 10Top fixed
 
