@@ -1,3 +1,8 @@
+2.3
+- download fixed (independent)
+- playlist content
+- search by actor not supported by the service
+
 2.2
 - minor fixes
 
