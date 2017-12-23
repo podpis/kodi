@@ -8,10 +8,10 @@ Niektóre wtyczki z repozytorium wymagać bedą standardowych ustawień programu
 ## Zawartość repozytoium
 |Wtyczka|Nazwa|Wersja|Aktualizacja|
 |---|---|---|---|
+|<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.LivePolishTV/icon.png" width="48">|LivePolishTV|2.5.1|[2017-12-23](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.LivePolishTV/changelog-2.5.1.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.naszekinotv/icon.png" width="48">|nasze-kino.tv|1.1|[2017-12-23](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.naszekinotv/changelog-1.1.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.alltube.tv/icon.png" width="48">|alltube.tv|2.3|[2017-12-22](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.alltube.tv/changelog-2.3.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.segos/icon.png" width="48">|segos|3.0|[2017-12-21](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.segos/changelog-3.0.txt)
-|<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.LivePolishTV/icon.png" width="48">|LivePolishTV|2.5.0|[2017-12-20](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.LivePolishTV/changelog-2.5.0.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.musichubdcom/icon.png" width="48">|MusicHub|1.0|[2017-12-20](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.musichubdcom/changelog-1.0.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.filmydokumentalne/icon.png" width="48">|Filmy Dokumentalne|1.4|[2017-12-17](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.filmydokumentalne/changelog-1.4.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.filmyto/icon.png" width="48">|Filmy.to|2.0|[2017-12-16](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.filmyto/changelog-2.0.txt)
