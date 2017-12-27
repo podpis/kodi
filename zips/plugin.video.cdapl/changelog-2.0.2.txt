@@ -1,3 +1,8 @@
+2.0.2
+- metadata in threads
+- service in threads
+- minor code improvements
+
 2.0.1
 - service
 - several changes
