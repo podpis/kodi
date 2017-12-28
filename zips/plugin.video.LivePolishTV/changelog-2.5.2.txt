@@ -1,3 +1,7 @@
+2.5.2
+- zobaczTV
+- parser improvements
+
 2.5.1
 - PVR client : option link
 - threads improvement
