@@ -1,3 +1,9 @@
+2.3
+- Baza programow TV
+- Baza/ranking ludzi filmu
+- dzis w TV pagination x3
+- perfrormance improvements
+
 2.2
 - baza filmow/seriali support old template
 
