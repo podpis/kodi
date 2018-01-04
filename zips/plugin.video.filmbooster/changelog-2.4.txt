@@ -1,3 +1,6 @@
+2.4
+- Baza programow TV: fixed 
+
 2.3
 - Baza programow TV
 - Baza/ranking ludzi filmu

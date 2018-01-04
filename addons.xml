@@ -394,7 +394,7 @@ Dostęp do serwisu bez polskiego IP
 </extension>
 </addon>
 
-<addon id="plugin.video.filmbooster" version="2.3" name="FilmwebBooster" provider-name="Michal">
+<addon id="plugin.video.filmbooster" version="2.4" name="FilmwebBooster" provider-name="Michal">
 <requires>
   <import addon="xbmc.python" version="2.1.0"/>
   <import addon="script.module.urlresolver" version="3.0.15"/>
@@ -415,6 +415,13 @@ Dostęp do serwisu bez polskiego IP
   <website>https://github.com/ramicspa/kodi</website>
   <email></email>
   <source>https://github.com/ramicspa/kodi</source>
+  <assets>
+    <icon>icon.png</icon>
+    <fanart>fanart.jpg</fanart>
+  </assets>
+  <news>
+Do not install this addon if you are using a build.
+  </news>
 </extension>
 </addon>
 

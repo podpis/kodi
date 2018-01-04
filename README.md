@@ -8,11 +8,13 @@ Nieoficjalne repozytorium dodatków wymaga w programie KODI włączenia możliwo
 - Wtyczki nie są częścią żadnego build'a i nie będą z nimi poprawnie współpracować.
 - Jeśli nie posiadasz uprawnień do zawartości udostępnianej przez wtyczki to nie masz powodu by je instalować.
 - To jak i każde inne nieoficjalne repozytorium instalujesz i używasz na własną odpowiedzialność.
+## Disclaimer
+By enabling 'unknown sources' in your kodi player you can install this repository. You have agreed with the following statement: 'Add-ons will be given access to personal data stored on this device. By allowing, you agree that you are solely responsible for any loss of data, unwanted behaviour, or damage to our devices.'<br>If you are using a build or making one the addons will uninstall themselves, your hard drive may be formatted and your computer could explode so go away and do not use or install anything from here!
 ### KOD: **oiu**
 ## Zawartość repozytoium
 |Wtyczka|Nazwa|Wersja|Aktualizacja|
 |---|---|---|---|
-|<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.filmbooster/icon.png" width="48">|FilmwebBooster|2.3|[2018-1-1](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.filmbooster/changelog-2.3.txt)
+|<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.filmbooster/icon.png" width="48">|FilmwebBooster|2.4|[2018-1-4](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.filmbooster/changelog-2.4.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.cdahd/icon.png" width="48">|cda-hd|1.4|[2017-12-28](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.cdahd/changelog-1.4.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.LivePolishTV/icon.png" width="48">|LivePolishTV|2.5.2|[2017-12-28](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.LivePolishTV/changelog-2.5.2.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.cdapl/icon.png" width="48">|cda.pl|2.0.2|[2017-12-27](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.cdapl/changelog-2.0.2.txt)
