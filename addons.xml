@@ -1082,7 +1082,7 @@ Do not install this addon if you are using a build.
 </extension>
 </addon>
 
-<addon id="plugin.video.TVP.pl" name="TVP.pl" version="2.1.2" provider-name="Michal">
+<addon id="plugin.video.TVP.pl" name="TVP.pl" version="2.1.3" provider-name="Michal">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
     <import addon="script.module.ramic"/>
