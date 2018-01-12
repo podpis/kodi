@@ -14,6 +14,7 @@ By enabling 'unknown sources' in your kodi player you can install this repositor
 ## Zawartość repozytoium
 |Wtyczka|Nazwa|Wersja|Aktualizacja|
 |---|---|---|---|
+|<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.discoarenapl/icon.png" width="48">|discoARENA|1.0|[2018-1-12](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.discoarenapl/changelog-1.0.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.TVP.pl/icon.png" width="48">|TVP.pl|2.1.3|[2018-1-11](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.TVP.pl/changelog-2.1.3.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.filmbooster/icon.png" width="48">|FilmwebBooster|2.4|[2018-1-4](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.filmbooster/changelog-2.4.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.cdahd/icon.png" width="48">|cda-hd|1.4|[2017-12-28](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.cdahd/changelog-1.4.txt)
