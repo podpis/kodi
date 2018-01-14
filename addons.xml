@@ -177,11 +177,11 @@ Do not install this addon if you are using a build.
 </extension>
 </addon>
 
-<addon id="plugin.video.cdapl" version="2.0.2" name="cda.pl" provider-name="Michal">
+<addon id="plugin.video.cdapl" version="2.0.3" name="cda.pl" provider-name="Michal">
 <requires>
   <import addon="xbmc.python" version="2.1.0"/>
   <import addon="script.common.plugin.cache" version="2.5.5"/>
-  <import addon="script.module.ramic"/>
+  <import addon="script.module.ramic" version="1.2.6"/>
 </requires>
 <extension point="xbmc.python.pluginsource" library="main.py">
   <provides>video</provides>
