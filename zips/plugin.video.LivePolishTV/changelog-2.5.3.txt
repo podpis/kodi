@@ -1,4 +1,7 @@
 2.5.2
+- eskagoTV
+
+2.5.2
 - zobaczTV
 - parser improvements
 
