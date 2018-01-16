@@ -1,5 +1,8 @@
+2.1.4
+- vod based Regional services 
+
 2.1.3
-- dymanic VOD record length
+- dymanic VOD record lenthgh
 
 2.1.2
 - live stream fixed

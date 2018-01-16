@@ -14,10 +14,11 @@ By enabling 'unknown sources' in your kodi player you can install this repositor
 ## Zawartość repozytoium
 |Wtyczka|Nazwa|Wersja|Aktualizacja|
 |---|---|---|---|
+|<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.TVP.pl/icon.png" width="48">|TVP.pl|2.1.4|[2018-1-17](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.TVP.pl/changelog-2.1.4.txt)
+|<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.ekinomaniaktv/icon.png" width="48">|ekinomaniak|1.0|[2018-1-16](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.ekinomaniaktv/changelog-1.0.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.cdapl/icon.png" width="48">|cda.pl|2.0.3|[2018-1-14](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.cdapl/changelog-2.0.3.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.LivePolishTV/icon.png" width="48">|LivePolishTV|2.5.3|[2018-1-14](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.LivePolishTV/changelog-2.5.3.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.discoarenapl/icon.png" width="48">|discoARENA|1.0|[2018-1-12](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.discoarenapl/changelog-1.0.txt)
-|<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.TVP.pl/icon.png" width="48">|TVP.pl|2.1.3|[2018-1-11](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.TVP.pl/changelog-2.1.3.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.filmbooster/icon.png" width="48">|FilmwebBooster|2.4|[2018-1-4](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.filmbooster/changelog-2.4.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.cdahd/icon.png" width="48">|cda-hd|1.4|[2017-12-28](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.cdahd/changelog-1.4.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.musichubdcom/icon.png" width="48">|MusicHub|1.1|[2017-12-26](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.musichubdcom/changelog-1.1.txt)
