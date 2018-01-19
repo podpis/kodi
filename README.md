@@ -14,6 +14,7 @@ By enabling 'unknown sources' in your kodi player you can install this repositor
 ## Zawartość repozytoium
 |Wtyczka|Nazwa|Wersja|Aktualizacja|
 |---|---|---|---|
+|<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.dokumentcyfrowo/icon.png" width="48">|Dokument Cyfrowo|1.0|[2018-1-19](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.dokumentcyfrowo/changelog-1.0.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.TVP.pl/icon.png" width="48">|TVP.pl|2.1.4|[2018-1-17](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.TVP.pl/changelog-2.1.4.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.ekinomaniaktv/icon.png" width="48">|ekinomaniak|1.0|[2018-1-16](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.ekinomaniaktv/changelog-1.0.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.cdapl/icon.png" width="48">|cda.pl|2.0.3|[2018-1-14](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.cdapl/changelog-2.0.3.txt)
