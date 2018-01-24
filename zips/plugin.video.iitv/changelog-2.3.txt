@@ -1,3 +1,7 @@
+2.3
+- minor scrapper fixes
+- host name
+
 2.2
 - link parser fixed
 

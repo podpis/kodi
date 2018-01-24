@@ -208,37 +208,6 @@ Do not install this addon if you are using a build.
 </extension>
 </addon>
 
-<addon id="plugin.video.discoarenapl" version="1.0" name="discoARENA" provider-name="Michal">
-<requires>
-  <import addon="xbmc.python" version="2.1.0"/>
-  <import addon="script.module.urlresolver" version="4.0.0"/>
-  <import addon="script.module.ramic" version="1.2.6"/>
-  <import addon="script.common.plugin.cache" version="2.5.5"/>
-</requires>
-<extension point="xbmc.python.pluginsource" library="main.py">
-  <provides>video</provides>
-</extension>
-<extension point="xbmc.addon.metadata">
-  <summary lang="en">http://www.discoarena.pl/</summary>
-  <description lang="en">http://www.discoarena.pl/</description>
-  <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/ramicspa/kodi</disclaimer>
-  <language></language>
-  <platform>all</platform>
-  <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
-  <forum>https://github.com/ramicspa/kodi/issues</forum>
-  <website>https://github.com/ramicspa/kodi</website>
-  <assets>
-    <icon>icon.png</icon>
-    <fanart>fanart.jpg</fanart>
-    <screenshot>resources/screenshot-01.jpg</screenshot>
-    <screenshot>resources/screenshot-02.jpg</screenshot>
-  </assets>
-  <news>
-Do not install this addon if you are using a build.
-  </news>
-</extension>
-</addon>
-
 <addon id="plugin.video.dmchannels" name="Dailymotion channels" version="1.6" provider-name="Michal">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
@@ -484,7 +453,7 @@ Dostęp do serwisu bez polskiego IP
 </extension>
 </addon>
 
-<addon id="plugin.video.filmbooster" version="2.4" name="FilmwebBooster" provider-name="Michal">
+<addon id="plugin.video.filmbooster" version="2.5" name="FilmwebBooster" provider-name="Michal">
 <requires>
   <import addon="xbmc.python" version="2.1.0"/>
   <import addon="script.module.urlresolver" version="3.0.15"/>
@@ -651,11 +620,11 @@ Zawartość dostępne tylko z polskiego IP.
 </extension>
 </addon>
 
-<addon id="plugin.video.iitv" name="iitv-seriale" version="2.2" provider-name="Michal">
+<addon id="plugin.video.iitv" name="iitv-seriale" version="2.3" provider-name="Michal">
   <requires>
     <import addon="xbmc.python" version="2.25.0"/>
-	<import addon="script.module.urlresolver" version="3.0.0"/>
-	<import addon="script.module.ramic" />
+	<import addon="script.module.urlresolver" version="4.0.0"/>
+	<import addon="script.module.ramic" version="1.2.6"/>
   </requires>
   <extension point="xbmc.python.pluginsource" library="addon.py">
     <provides>video</provides>
