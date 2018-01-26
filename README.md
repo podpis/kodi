@@ -14,6 +14,7 @@ By enabling 'unknown sources' in your kodi player you can install this repositor
 ## Zawartość repozytoium
 |Wtyczka|Nazwa|Wersja|Aktualizacja|
 |---|---|---|---|
+|<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.musicstreampl/icon.png" width="48">|MusicStream|1.0|[2018-1-26](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.musicstreampl/changelog-1.0.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.filmbooster/icon.png" width="48">|FilmwebBooster|2.5|[2018-1-24](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.filmbooster/changelog-2.5.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.iitv/icon.png" width="48">|iitv-seriale|2.3|[2018-1-24](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.iitv/changelog-2.3.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.dokumentcyfrowo/icon.png" width="48">|Dokument Cyfrowo|1.0|[2018-1-19](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.dokumentcyfrowo/changelog-1.0.txt)
