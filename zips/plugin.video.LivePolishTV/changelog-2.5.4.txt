@@ -1,4 +1,10 @@
-2.5.2
+2.5.4
+- out: darmowa-tv,teleVHS
+- wRealu24
+- odpalTV
+- parser improvements
+
+2.5.3
 - eskagoTV
 
 2.5.2
