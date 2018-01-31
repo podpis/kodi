@@ -1,3 +1,6 @@
+2.6
+- fixes: search, premiere
+
 2.5
 - fixes: Baza filmow/seriali/programow/osob
 
