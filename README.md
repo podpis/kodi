@@ -10,7 +10,7 @@ Nieoficjalne repozytorium dodatków wymaga w programie KODI włączenia możliwo
 - To jak i każde inne nieoficjalne repozytorium instalujesz i używasz na własną odpowiedzialność.
 ## Disclaimer
 By enabling 'unknown sources' in your kodi player you can install this repository. You have agreed with the following statement: 'Add-ons will be given access to personal data stored on this device. By allowing, you agree that you are solely responsible for any loss of data, unwanted behaviour, or damage to our devices.'<br>If you are using a build or making one the addons will uninstall themselves, your hard drive may be formatted and your computer could explode so go away and do not use or install anything from here!
-### KOD: **oiu**
+### KOD: **lkj**
 ## Zawartość repozytoium
 |Wtyczka|Nazwa|Wersja|Aktualizacja|
 |---|---|---|---|
