@@ -1,3 +1,7 @@
+1.5
+- parse fixes
+- serach engine
+
 1.4
 - domain name
 
