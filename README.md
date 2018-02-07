@@ -14,6 +14,7 @@ By enabling 'unknown sources' in your kodi player you can install this repositor
 ## Zawartość repozytoium
 |Wtyczka|Nazwa|Wersja|Aktualizacja|
 |---|---|---|---|
+|<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.cdaxpl/icon.png" width="48">|cda-x|1.0|[2018-2-7](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.cdaxpl/changelog-1.0.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.kreskowkazonepl/icon.png" width="48">|Kreskowka Zone|1.1|[2018-2-5](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.kreskowkazonepl/changelog-1.1.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.cdahd/icon.png" width="48">|cda-hd|1.5|[2018-2-3](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.cdahd/changelog-1.5.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.filmbooster/icon.png" width="48">|FilmwebBooster|2.6|[2018-2-1](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.filmbooster/changelog-2.6.txt)
