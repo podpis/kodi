@@ -1,3 +1,8 @@
+2.1.5
+- code fixes
+- sort options
+- pyeongchang
+
 2.1.4
 - vod based Regional services 
 

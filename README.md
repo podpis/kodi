@@ -14,6 +14,7 @@ By enabling 'unknown sources' in your kodi player you can install this repositor
 ## Zawartość repozytoium
 |Wtyczka|Nazwa|Wersja|Aktualizacja|
 |---|---|---|---|
+|<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.TVP.pl/icon.png" width="48">|TVP.pl|2.1.5|[2018-2-10](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.TVP.pl/changelog-2.1.5.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.cdaxpl/icon.png" width="48">|cda-x|1.0|[2018-2-7](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.cdaxpl/changelog-1.0.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.kreskowkazonepl/icon.png" width="48">|Kreskowka Zone|1.1|[2018-2-5](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.kreskowkazonepl/changelog-1.1.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.cdahd/icon.png" width="48">|cda-hd|1.5|[2018-2-3](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.cdahd/changelog-1.5.txt)
@@ -22,7 +23,6 @@ By enabling 'unknown sources' in your kodi player you can install this repositor
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.musicstreampl/icon.png" width="48">|MusicStream|1.0|[2018-1-26](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.musicstreampl/changelog-1.0.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.iitv/icon.png" width="48">|iitv-seriale|2.3|[2018-1-24](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.iitv/changelog-2.3.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.dokumentcyfrowo/icon.png" width="48">|Dokument Cyfrowo|1.0|[2018-1-19](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.dokumentcyfrowo/changelog-1.0.txt)
-|<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.TVP.pl/icon.png" width="48">|TVP.pl|2.1.4|[2018-1-17](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.TVP.pl/changelog-2.1.4.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.ekinomaniaktv/icon.png" width="48">|ekinomaniak|1.0|[2018-1-16](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.ekinomaniaktv/changelog-1.0.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.cdapl/icon.png" width="48">|cda.pl|2.0.3|[2018-1-14](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.cdapl/changelog-2.0.3.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.musichubdcom/icon.png" width="48">|MusicHub|1.1|[2017-12-26](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.musichubdcom/changelog-1.1.txt)
