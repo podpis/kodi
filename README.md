@@ -10,7 +10,6 @@ Nieoficjalne repozytorium dodatków wymaga w programie KODI włączenia możliwo
 - To jak i każde inne nieoficjalne repozytorium instalujesz i używasz na własną odpowiedzialność.
 ## Disclaimer
 By enabling 'unknown sources' in your kodi player you can install this repository. You have agreed with the following statement: 'Add-ons will be given access to personal data stored on this device. By allowing, you agree that you are solely responsible for any loss of data, unwanted behaviour, or damage to our devices.'<br>If you are using a build or making one the addons will uninstall themselves, your hard drive may be formatted and your computer could explode so go away and do not use or install anything from here!
-### KOD: **lkj**
 ## Zawartość repozytoium
 |Wtyczka|Nazwa|Wersja|Aktualizacja|
 |---|---|---|---|
@@ -31,7 +30,6 @@ By enabling 'unknown sources' in your kodi player you can install this repositor
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.alltube.tv/icon.png" width="48">|alltube.tv|2.3|[2017-12-22](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.alltube.tv/changelog-2.3.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.segos/icon.png" width="48">|segos|3.0|[2017-12-21](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.segos/changelog-3.0.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.filmydokumentalne/icon.png" width="48">|Filmy Dokumentalne|1.4|[2017-12-17](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.filmydokumentalne/changelog-1.4.txt)
-|<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.filmyto/icon.png" width="48">|Filmy.to|2.0|[2017-12-16](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.filmyto/changelog-2.0.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.naszekino/icon.png" width="48">|Nasze-Kino|2.5|[2017-12-14](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.naszekino/changelog-2.5.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.LiveIPTV/icon.png" width="48">|Live IPTV|2.1|[2017-12-7](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.LiveIPTV/changelog-2.1.txt)
 |<img src="https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.ramicpbs/icon.png" width="48">|PBS|1.0|[2017-12-2](https://raw.githubusercontent.com/ramicspa/kodi/master/zips/plugin.video.ramicpbs/changelog-1.0.txt)
