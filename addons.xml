@@ -1289,28 +1289,28 @@ Do not install this addon if you are using a build.
 </extension>
 </addon>
 
-<addon id="repository.ramic" name="Ramic Kodi Add-ons Repository" version="1.3.5" provider-name="Michal">
-    <extension point="xbmc.addon.repository" name="Ramic Kodi Add-ons Repository">
+<addon id="repository.ramic" name="Ramic Kodi Add-ons Repository (Unofficial)" version="1.4.0" provider-name="Michal">">
+    <extension point="xbmc.addon.repository" name="Ramic Kodi Add-ons Repository (Unofficial)">
         <dir>
-            <info compressed="false">https://github.com/kawamic/speedy/raw/master/zips/addons.xml</info>
-            <checksum>https://github.com/kawamic/speedy/raw/master/zips/addons.xml.md5</checksum>
-            <datadir zip="true">https://github.com/kawamic/speedy/raw/master/zips/</datadir>
+            <info compressed="false">http://cherrytv.webd.pl/ramicmod/addons.xml</info>
+            <checksum>http://cherrytv.webd.pl/ramicmod/addons.xml.md5</checksum>
+            <datadir zip="true">http://cherrytv.webd.pl/ramicmod/ramic/</datadir>
         </dir>
         <dir>
-			<info compressed="false">http://raw.github.com/ramicspa/kodi/master/addons.xml</info>
-			<checksum>http://raw.github.com/ramicspa/kodi/master/addons.xml.md5</checksum>
-            <datadir zip="true">https://bitbucket.org/versys/machine/raw/master/zips/</datadir>
+            <info compressed="false">https://raw.githubusercontent.com/meserak86/cimar/master/addons.xml</info>
+            <checksum>https://raw.githubusercontent.com/meserak86/cimar/master/addons.xml.md5</checksum>
+            <datadir zip="true">https://github.com/meserak86/cimar/raw/master/ramic</datadir>
         </dir>
     </extension>
     <extension point="xbmc.addon.metadata">
-        <summary>Ramic Kodi Repository</summary>
-        <summary lang="pl">Repozytorium wtyczek by Ramic</summary>
+        <summary>Ramic Kodi Repository (Unofficial)</summary>
+        <summary lang="pl">Repozytorium wtyczek</summary>
         <summary lang="en">Addons repository</summary>
         <description>Unofficial, private Addons repository.</description>
         <disclaimer>Repository has non-comercial nature. Just for fun</disclaimer>
         <disclaimer lang="pl">Zawartość repozytorium ma charakter niekomercyjny, tworzone dla zabawy.</disclaimer>
         <platform>all</platform>
-        <website>https://github.com/ramicspa/kodi</website>
+        <website></website>
         <email></email>
     </extension>
 </addon>
