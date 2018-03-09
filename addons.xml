@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addons>
-<addon id="plugin.video.alltube.tv" version="2.3" name="alltube.tv" provider-name="Michal">
+<addon id="plugin.video.alltube.tv" version="2.3" name="alltube.tv" provider-name="Podpis">
 <requires>
   <import addon="xbmc.python" version="2.24.0"/>
   <import addon="script.module.urlresolver" version="3.0.15"/>
@@ -13,12 +13,12 @@
 <extension point="xbmc.addon.metadata">
   <summary lang="en">alltube.tv</summary>
   <description lang="en">Zasoby serwisu alltube.tv</description>
-  <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/ramicspa/kodi</disclaimer>
+  <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/podpis/kodi</disclaimer>
   <language></language>
   <platform>all</platform>
   <license></license>
-  <forum>https://github.com/ramicspa/kodi/issues</forum>
-  <website>https://github.com/ramicspa/kodi</website>
+  <forum>https://github.com/podpis/kodi/issues</forum>
+  <website>https://github.com/podpis/kodi</website>
   <email></email>
   <source></source>
   <assets>
@@ -32,7 +32,7 @@ Do not install this addon if you are using a build.
 </addon>
 
 <addon
-	id="plugin.video.anime.pl" name="anime.pl" version="1.5" provider-name="Michal">
+	id="plugin.video.anime.pl" name="anime.pl" version="1.5" provider-name="Podpis">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
 	<import addon="script.module.urlresolver" version="3.0.15"/>
@@ -48,14 +48,14 @@ Do not install this addon if you are using a build.
     <language></language>
     <platform>all</platform>
     <license></license>
-    <forum></forum>
-    <website>https://github.com/ramicspa/kodi</website>
+    <forum>https://github.com/podpis/kodi/issues</forum>
+    <website>https://github.com/podpis/kodi</website>
     <email>ramicspa at gmail dot com</email>
     <source></source>
   </extension>
 </addon>
 
-<addon id="plugin.video.anyfilespl" version="1.0" name="anyFiles" provider-name="Michal">
+<addon id="plugin.video.anyfilespl" version="1.0" name="anyFiles" provider-name="Podpis">
 <requires>
   <import addon="xbmc.python" version="2.1.0"/>
   <import addon="script.module.urlresolver" version="3.0.15"/>
@@ -69,12 +69,12 @@ Do not install this addon if you are using a build.
 <extension point="xbmc.addon.metadata">
   <summary lang="en">anyFiles</summary>
   <description lang="en">anyFiles</description>
-  <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/ramicspa/kodi</disclaimer>
+  <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/podpis/kodi</disclaimer>
   <language></language>
   <platform>all</platform>
   <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
-  <forum>https://github.com/ramicspa/kodi/issues</forum>
-  <website>https://github.com/ramicspa/kodi</website>
+  <forum>https://github.com/podpis/kodi/issues</forum>
+  <website>https://github.com/podpis/kodi</website>
   <email></email>
   <assets>
     <icon>icon.png</icon>
@@ -85,7 +85,7 @@ Do not install this addon if you are using a build.
 </extension>
 </addon>
 
-<addon id="plugin.video.bajkionline" version="1.3" name="bajki" provider-name="Michal">
+<addon id="plugin.video.bajkionline" version="1.3" name="bajki" provider-name="Podpis">
  <requires>
   <import addon="xbmc.python" version="2.1.0"/>
   <import addon="script.module.urlresolver" version="3.0.15"/>
@@ -97,12 +97,12 @@ Do not install this addon if you are using a build.
 <extension point="xbmc.addon.metadata">
   <summary lang="en">Bajkionline, Bajkipopolsku</summary>
   <description lang="en">Bajkionline, Bajkipopolsku</description>
-  <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/ramicspa/kodi</disclaimer>
+  <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/podpis/kodi</disclaimer>
   <language></language>
   <platform>all</platform>
   <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
-  <forum>https://github.com/ramicspa/kodi/issues</forum>
-  <website>https://github.com/ramicspa/kodi</website>
+  <forum>https://github.com/podpis/kodi/issues</forum>
+  <website>https://github.com/podpis/kodi</website>
   <email></email>
   <assets>
     <icon>icon.png</icon>
@@ -113,7 +113,7 @@ Do not install this addon if you are using a build.
 </extension>
 </addon>
 
-<addon id="plugin.video.boxfilmpl" version="1.3" name="boxfilm" provider-name="Michal">
+<addon id="plugin.video.boxfilmpl" version="1.3" name="boxfilm" provider-name="Podpis">
 <requires>
   <import addon="xbmc.python" version="2.1.0"/>
   <import addon="script.module.urlresolver" version="3.0.15"/>
@@ -126,12 +126,12 @@ Do not install this addon if you are using a build.
 <extension point="xbmc.addon.metadata">
   <summary lang="pl">Zasoby serwisów: boxfilm.pl oraz jbofilm.pl  </summary>
   <description lang="pl">Wszystkie filmy dostępne w serwisie są dostępne zupełnie za darmo.</description>
-  <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/ramicspa/kodi</disclaimer>
+  <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/podpis/kodi</disclaimer>
   <language></language>
   <platform>all</platform>
   <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
-  <forum>https://github.com/ramicspa/kodi/issues</forum>
-  <website>https://github.com/ramicspa/kodi</website>
+  <forum>https://github.com/podpis/kodi/issues</forum>
+  <website>https://github.com/podpis/kodi</website>
   <assets>
     <icon>icon.png</icon>
     <fanart>fanart.jpg</fanart>
@@ -144,7 +144,7 @@ Do not install this addon if you are using a build.
 </extension>
 </addon>
 
-<addon id="plugin.video.cdahd" version="1.5" name="cda-hd" provider-name="Michal">
+<addon id="plugin.video.cdahd" version="1.5" name="cda-hd" provider-name="Podpis">
 <requires>
   <import addon="xbmc.python" version="2.1.0"/>
   <import addon="script.module.urlresolver" version="3.0.15"/>
@@ -157,14 +157,14 @@ Do not install this addon if you are using a build.
 <extension point="xbmc.addon.metadata">
   <summary lang="en">filmtu.pl (cda-hd.pl)</summary>
   <description lang="en">Zasoby filmtu.pl (cda-hd.pl)</description>
-  <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/ramicspa/kodi</disclaimer>
+  <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/podpis/kodi</disclaimer>
   <language></language>
   <platform>all</platform>
   <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
-  <forum>https://github.com/ramicspa/kodi/issues</forum>
-  <website>https://github.com/ramicspa/kodi</website>
+  <forum>https://github.com/podpis/kodi/issues</forum>
+  <website>https://github.com/podpis/kodi</website>
   <email></email>
-  <source>https://github.com/ramicspa/kodi</source>
+  <source>https://github.com/podpis/kodi</source>
   <assets>
     <icon>icon.png</icon>
     <fanart>fanart.jpg</fanart>
@@ -177,7 +177,7 @@ Do not install this addon if you are using a build.
 </extension>
 </addon>
 
-<addon id="plugin.video.cdapl" version="2.0.3" name="cda.pl" provider-name="Michal">
+<addon id="plugin.video.cdapl" version="2.0.3" name="cda.pl" provider-name="Podpis">
 <requires>
   <import addon="xbmc.python" version="2.1.0"/>
   <import addon="script.common.plugin.cache" version="2.5.5"/>
@@ -190,12 +190,12 @@ Do not install this addon if you are using a build.
 <extension point="xbmc.addon.metadata">
   <summary lang="pl">Zasoby serwisu [B]cda.pl[/B]</summary>
   <description lang="pl">Wtyczka umożliwia dostęp do bazy cda.pl</description>
-  <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/ramicspa/kodi</disclaimer>
+  <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/podpis/kodi</disclaimer>
   <language></language>
   <platform>all</platform>
   <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
-  <forum>https://github.com/ramicspa/kodi/issues</forum>
-  <website>https://github.com/ramicspa/kodi</website>
+  <forum>https://github.com/podpis/kodi/issues</forum>
+  <website>https://github.com/podpis/kodi</website>
   <assets>
     <icon>icon.png</icon>
     <fanart>fanart.jpg</fanart>
@@ -208,7 +208,7 @@ Do not install this addon if you are using a build.
 </extension>
 </addon>
 
-<addon id="plugin.video.cdaxpl" version="1.0" name="cda-x" provider-name="Michal">
+<addon id="plugin.video.cdaxpl" version="1.0" name="cda-x" provider-name="Podpis">
 <requires>
   <import addon="xbmc.python" version="2.1.0"/>
   <import addon="script.module.urlresolver" version="3.0.15"/>
@@ -221,12 +221,12 @@ Do not install this addon if you are using a build.
 <extension point="xbmc.addon.metadata">
   <summary lang="pl">Zasoby: cda-x.pl </summary>
   <description lang="pl">cda-x.pl – filmy i seriale online</description>
-  <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/ramicspa/kodi</disclaimer>
+  <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/podpis/kodi</disclaimer>
   <language></language>
   <platform>all</platform>
   <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
-  <forum>https://github.com/ramicspa/kodi/issues</forum>
-  <website>https://github.com/ramicspa/kodi</website>
+  <forum>https://github.com/podpis/kodi/issues</forum>
+  <website>https://github.com/podpis/kodi</website>
   <assets>
     <icon>icon.png</icon>
     <fanart>fanart.jpg</fanart>
@@ -239,7 +239,7 @@ Do not install this addon if you are using a build.
 </extension>
 </addon>
 
-<addon id="plugin.video.dmchannels" name="Dailymotion channels" version="1.6" provider-name="Michal">
+<addon id="plugin.video.dmchannels" name="Dailymotion channels" version="1.6" provider-name="Podpis">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
     <import addon="script.module.urlresolver" version="3.0.15"/>
@@ -256,12 +256,12 @@ Do not install this addon if you are using a build.
   <description lang="pl">Wtyczka pozwala na przeglądanie zasobów video kanałów użytkowników serwisu.</description>
   <description lang="en">The addon allows to browse the content of the channels created by Dailymotion users.</description>
   <description lang="fr">Cette addon permet de pa\rcourir le contenu des chaînes créées par les utilisateurs de Dailymotion.</description>
-  <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/ramicspa/kodi</disclaimer>
+  <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/podpis/kodi</disclaimer>
   <language></language>
   <platform>all</platform>
   <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
-  <forum>https://github.com/ramicspa/kodi/issues</forum>
-  <website>https://github.com/ramicspa/kodi</website>
+  <forum>https://github.com/podpis/kodi/issues</forum>
+  <website>https://github.com/podpis/kodi</website>
   <email>ramicspa at gmail dot com</email>
   <assets>
     <icon>icon.png</icon>
@@ -272,7 +272,7 @@ Do not install this addon if you are using a build.
  </extension>
 </addon>
 
-<addon id="plugin.video.dokumentcyfrowo" version="1.0" name="Dokument Cyfrowo" provider-name="Michal">
+<addon id="plugin.video.dokumentcyfrowo" version="1.0" name="Dokument Cyfrowo" provider-name="Podpis">
 <requires>
   <import addon="xbmc.python" version="2.1.0"/>
   <import addon="script.module.urlresolver" version="4.0.10"/>
@@ -284,12 +284,12 @@ Do not install this addon if you are using a build.
 <extension point="xbmc.addon.metadata">
   <summary lang="en">http://www.dokumentcyfrowo.pl/</summary>
   <description lang="en">http://www.dokumentcyfrowo.pl/</description>
-  <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/ramicspa/kodi</disclaimer>
+  <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/podpis/kodi</disclaimer>
   <language></language>
   <platform>all</platform>
   <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
-  <forum>https://github.com/ramicspa/kodi/issues</forum>
-  <website>https://github.com/ramicspa/kodi</website>
+  <forum>https://github.com/podpis/kodi/issues</forum>
+  <website>https://github.com/podpis/kodi</website>
   <email></email>
   <assets>
     <icon>icon.png</icon>
@@ -300,7 +300,7 @@ Do not install this addon if you are using a build.
 </extension>
 </addon>
 
-<addon id="plugin.video.efilmy" version="1.15" name="efilmy" provider-name="Michal">
+<addon id="plugin.video.efilmy" version="1.15" name="efilmy" provider-name="Podpis">
 <requires>
   <import addon="xbmc.python" version="2.1.0"/>
   <import addon="script.common.plugin.cache" version="2.5.5"/>
@@ -313,12 +313,12 @@ Do not install this addon if you are using a build.
 <extension point="xbmc.addon.metadata">
   <summary lang="en">efilmy</summary>
   <description lang="en">Zasoby efilmy.tv</description>
-  <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/ramicspa/kodi</disclaimer>
+  <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/podpis/kodi</disclaimer>
   <language></language>
   <platform>all</platform>
   <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
-  <forum>https://github.com/ramicspa/kodi/issues</forum>
-  <website>https://github.com/ramicspa/kodi</website>
+  <forum>https://github.com/podpis/kodi/issues</forum>
+  <website>https://github.com/podpis/kodi</website>
   <email></email>
   <assets>
     <icon>icon.png</icon>
@@ -329,7 +329,7 @@ Do not install this addon if you are using a build.
 </extension>
 </addon>
 
-<addon 	id="plugin.video.ekabaretpl" name="ekabaret" version="1.3" provider-name="Michal">
+<addon 	id="plugin.video.ekabaretpl" name="ekabaret" version="1.3" provider-name="Podpis">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
 	<import addon="script.module.urlresolver" version="3.0.15"/>
@@ -341,12 +341,12 @@ Do not install this addon if you are using a build.
   <extension point="xbmc.addon.metadata">
    <summary lang="en">ekabaret</summary>
    <description lang="en">Zasoby ekabaret.pl</description>
-   <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/ramicspa/kodi</disclaimer>
+   <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/podpis/kodi</disclaimer>
   <language>pl</language>
   <platform>all</platform>
   <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
-  <forum>https://github.com/ramicspa/kodi/issues</forum>
-  <website>https://github.com/ramicspa/kodi</website>
+  <forum>https://github.com/podpis/kodi/issues</forum>
+  <website>https://github.com/podpis/kodi</website>
   <email>ramicspa at gmail dot com</email>
   <assets>
     <icon>icon.png</icon>
@@ -357,7 +357,7 @@ Do not install this addon if you are using a build.
 </extension>
 </addon>
 
-<addon id="plugin.video.ekinomaniaktv" version="1.0" name="ekinomaniak" provider-name="Michal">
+<addon id="plugin.video.ekinomaniaktv" version="1.0" name="ekinomaniak" provider-name="Podpis">
 <requires>
   <import addon="xbmc.python" version="2.1.0"/>
   <import addon="script.module.urlresolver" version="4.0.0"/>
@@ -370,12 +370,12 @@ Do not install this addon if you are using a build.
 <extension point="xbmc.addon.metadata">
   <summary lang="en">http://ekinomaniak.tv/</summary>
   <description lang="en">http://ekinomaniak.tv/</description>
-  <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/ramicspa/kodi</disclaimer>
+  <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/podpis/kodi</disclaimer>
   <language></language>
   <platform>all</platform>
   <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
-  <forum>https://github.com/ramicspa/kodi/issues</forum>
-  <website>https://github.com/ramicspa/kodi</website>
+  <forum>https://github.com/podpis/kodi/issues</forum>
+  <website>https://github.com/podpis/kodi</website>
   <assets>
     <icon>icon.png</icon>
     <fanart>fanart.jpg</fanart>
@@ -388,7 +388,7 @@ Do not install this addon if you are using a build.
 </extension>
 </addon>
 
-<addon id="plugin.video.ekinotv" name="ekino-tv" version="1.9" provider-name="Michal">
+<addon id="plugin.video.ekinotv" name="ekino-tv" version="1.9" provider-name="Podpis">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
 	<import addon="script.module.urlresolver" version="3.0.15"/>
@@ -400,12 +400,12 @@ Do not install this addon if you are using a build.
   <extension point="xbmc.addon.metadata">
     <summary lang="en">http://ekino-tv.pl/</summary>
     <description lang="en">Odgrywa zasoby Ekino-tv</description>
-    <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/ramicspa/kodi</disclaimer>
+    <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/podpis/kodi</disclaimer>
     <language></language>
     <platform>all</platform>
     <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
-    <forum>https://github.com/ramicspa/kodi(2)/issues</forum>
-    <website>https://github.com/ramicspa/kodi(2)</website>
+    <forum>https://github.com/podpis/kodi(2)/issues</forum>
+    <website>https://github.com/podpis/kodi(2)</website>
     <email>ramicspa at gmail dot com</email>
   <assets>
     <icon>icon.png</icon>
@@ -417,7 +417,7 @@ Do not install this addon if you are using a build.
   </extension>
 </addon>
 
-<addon id="plugin.video.ekstraklasa" name="Ekstraklasa" version="2.0" provider-name="Michal">
+<addon id="plugin.video.ekstraklasa" name="Ekstraklasa" version="2.0" provider-name="Podpis">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
     <import addon="script.module.urlresolver" version="3.0.15"/>
@@ -432,8 +432,8 @@ Do not install this addon if you are using a build.
     <language></language>
     <platform>all</platform>
     <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
-    <forum>https://github.com/ramicspa/kodi/issues</forum>
-    <website>https://github.com/ramicspa/kodi</website>
+    <forum>https://github.com/podpis/kodi/issues</forum>
+    <website>https://github.com/podpis/kodi</website>
     <email></email>
     <assets>
         <icon>icon.png</icon>
@@ -455,7 +455,7 @@ Do not install this addon if you are using a build.
   </extension>
 </addon>
 
-<addon id="plugin.video.filisertv" version="2.1" name="Filiser" provider-name="Michal">
+<addon id="plugin.video.filisertv" version="2.1" name="Filiser" provider-name="Podpis">
 <requires>
   <import addon="xbmc.python" version="2.1.0"/>
   <import addon="script.module.urlresolver" version="3.0.15"/>
@@ -467,12 +467,12 @@ Do not install this addon if you are using a build.
 <extension point="xbmc.addon.metadata">
   <summary lang="en">Filiser</summary>
   <description lang="en">Filiser</description>
-  <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/ramicspa/kodi</disclaimer>
+  <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/podpis/kodi</disclaimer>
   <language></language>
   <platform>all</platform>
   <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
-  <forum>https://github.com/ramicspa/kodi/issues</forum>
-  <website>https://github.com/ramicspa/kodi</website>
+  <forum>https://github.com/podpis/kodi/issues</forum>
+  <website>https://github.com/podpis/kodi</website>
   <email></email>
   <assets>
     <icon>icon.png</icon>
@@ -484,7 +484,7 @@ Dostęp do serwisu bez polskiego IP
 </extension>
 </addon>
 
-<addon id="plugin.video.filmbooster" version="2.6" name="FilmwebBooster" provider-name="Michal">
+<addon id="plugin.video.filmbooster" version="2.6" name="FilmwebBooster" provider-name="Podpis">
 <requires>
   <import addon="xbmc.python" version="2.1.0"/>
   <import addon="script.module.urlresolver" version="3.0.15"/>
@@ -497,14 +497,14 @@ Dostęp do serwisu bez polskiego IP
 <extension point="xbmc.addon.metadata">
   <summary lang="pl">FilmwebBooster</summary>
   <description lang="pl">Baza filmów i seriali serwisu http://filmweb.pl wsparta silnikiem http://filmwebbooster.pl</description>
-  <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/ramicspa/kodi</disclaimer>
+  <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/podpis/kodi</disclaimer>
   <language></language>
   <platform>all</platform>
   <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
-  <forum>https://github.com/ramicspa/kodi/issues</forum>
-  <website>https://github.com/ramicspa/kodi</website>
+  <forum>https://github.com/podpis/kodi/issues</forum>
+  <website>https://github.com/podpis/kodi</website>
   <email></email>
-  <source>https://github.com/ramicspa/kodi</source>
+  <source>https://github.com/podpis/kodi</source>
   <assets>
     <icon>icon.png</icon>
     <fanart>fanart.jpg</fanart>
@@ -515,7 +515,7 @@ Do not install this addon if you are using a build.
 </extension>
 </addon>
 
-<addon id="plugin.video.filmmilicyjny" version="1.2" name="film-milicyjny" provider-name="Michal">
+<addon id="plugin.video.filmmilicyjny" version="1.2" name="film-milicyjny" provider-name="Podpis">
 <requires>
   <import addon="xbmc.python" version="2.1.0"/>
   <import addon="script.module.urlresolver" version="3.0.15"/>
@@ -527,12 +527,12 @@ Do not install this addon if you are using a build.
 <extension point="xbmc.addon.metadata">
   <summary lang="en">http://www.film-milicyjny.klubmord.com/</summary>
   <description lang="en">film-milicyjny: Klub MOrd – Polskie filmy kryminalne i sensacyjne - Filmy PRL -</description>
-  <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/ramicspa/kodi</disclaimer>
+  <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/podpis/kodi</disclaimer>
   <language>pl</language>
   <platform>all</platform>
   <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
-  <forum>https://github.com/ramicspa/kodi/issues</forum>
-  <website>https://github.com/ramicspa/kodi</website>
+  <forum>https://github.com/podpis/kodi/issues</forum>
+  <website>https://github.com/podpis/kodi</website>
   <email>ramicspa at gmail dot com</email>
   <assets>
     <icon>icon.png</icon>
@@ -543,7 +543,7 @@ Do not install this addon if you are using a build.
 </extension>
 </addon>
 
-<addon id="plugin.video.filmydokumentalne" version="1.4" name="Filmy Dokumentalne" provider-name="Michal">
+<addon id="plugin.video.filmydokumentalne" version="1.4" name="Filmy Dokumentalne" provider-name="Podpis">
 <requires>
     <import addon="xbmc.python" version="2.1.0"/>
     <import addon="script.module.urlresolver" version="3.0.20"/>
@@ -555,12 +555,12 @@ Do not install this addon if you are using a build.
 <extension point="xbmc.addon.metadata">
   <summary lang="en">http://www.filmydokumentalne.eu/</summary>
   <description lang="en">http://www.filmydokumentalne.eu/</description>
-  <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/ramicspa/kodi</disclaimer>
+  <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/podpis/kodi</disclaimer>
   <language></language>
   <platform>all</platform>
   <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
-  <forum>https://github.com/ramicspa/kodi/issues</forum>
-  <website>https://github.com/ramicspa/kodi</website>
+  <forum>https://github.com/podpis/kodi/issues</forum>
+  <website>https://github.com/podpis/kodi</website>
   <email></email>
   <assets>
     <icon>icon.png</icon>
@@ -571,7 +571,7 @@ Do not install this addon if you are using a build.
 </extension>
 </addon>
 
-<addon id="plugin.video.folderramic" name="folder" provider-name="Michal" version="1.1b">
+<addon id="plugin.video.folderramic" name="folder" provider-name="Podpis" version="1.1b">
 <requires>
   <import addon="xbmc.python" version="2.1.0" />
 </requires>
@@ -588,13 +588,13 @@ Do not install this addon if you are using a build.
   <platform>all</platform>
   <license />
   <forum />
-  <website>https://github.com/ramicspa/kodi</website>
+  <website>https://github.com/podpis/kodi</website>
   <email>ramicspa@gmail.com</email>
   <source />
 </extension>
 </addon>
 
-<addon id="plugin.video.freedisc.pl" version="1.4" name="freedisc" provider-name="Michal">
+<addon id="plugin.video.freedisc.pl" version="1.4" name="freedisc" provider-name="Podpis">
 <requires>
   <import addon="xbmc.python" version="2.1.0"/>
   <import addon="script.common.plugin.cache" version="2.5.5"/>
@@ -606,12 +606,12 @@ Do not install this addon if you are using a build.
 <extension point="xbmc.addon.metadata">
   <summary lang="en">Freedisc</summary>
   <description lang="en">Freedisc</description>
-  <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/ramicspa/kodi</disclaimer>
+  <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/podpis/kodi</disclaimer>
   <language></language>
   <platform>all</platform>
   <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
-  <forum>https://github.com/ramicspa/kodi/issues</forum>
-  <website>https://github.com/ramicspa/kodi</website>
+  <forum>https://github.com/podpis/kodi/issues</forum>
+  <website>https://github.com/podpis/kodi</website>
   <email>ramicspa at gmail dot com</email>
   <assets>
     <icon>icon.png</icon>
@@ -622,7 +622,7 @@ Do not install this addon if you are using a build.
 </extension>
 </addon>
 
-<addon id="plugin.video.iitv" name="iitv-seriale" version="2.3" provider-name="Michal">
+<addon id="plugin.video.iitv" name="iitv-seriale" version="2.3" provider-name="Podpis">
   <requires>
     <import addon="xbmc.python" version="2.25.0"/>
 	<import addon="script.module.urlresolver" version="4.0.0"/>
@@ -634,12 +634,12 @@ Do not install this addon if you are using a build.
   <extension point="xbmc.addon.metadata">
     <summary lang="en">iitv</summary>
     <description lang="en">Odgrywa zasoby iitv.pl</description>
-	<disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/ramicspa/kodi</disclaimer>
+	<disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/podpis/kodi</disclaimer>
 	<language></language>
 	<platform>all</platform>
 	<license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
-	<forum>https://github.com/ramicspa/kodi/issues</forum>
-	<website>https://github.com/ramicspa/kodi</website>
+	<forum>https://github.com/podpis/kodi/issues</forum>
+	<website>https://github.com/podpis/kodi</website>
 	<email></email>
 	<assets>
 		<icon>icon.png</icon>
@@ -650,7 +650,7 @@ Do not install this addon if you are using a build.
 </extension>
 </addon>
 
-<addon id="plugin.video.iwatchonline" version="1.6" name="iwatchonline" provider-name="Michal">
+<addon id="plugin.video.iwatchonline" version="1.6" name="iwatchonline" provider-name="Podpis">
 <requires>
   <import addon="xbmc.python" version="2.1.0"/>
   <import addon="script.common.plugin.cache" version="2.5.5"/>
@@ -668,13 +668,13 @@ Do not install this addon if you are using a build.
   <platform>all</platform>
   <license></license>
   <forum></forum>
-  <website>https://github.com/ramicspa/kodi</website>
+  <website>https://github.com/podpis/kodi</website>
   <email></email>
   <source></source>
 </extension>
 </addon>
 
-<addon id="plugin.video.kinostacja" version="1.0" name="kinostacja" provider-name="Michal">
+<addon id="plugin.video.kinostacja" version="1.0" name="kinostacja" provider-name="Podpis">
 <requires>
   <import addon="xbmc.python" version="2.1.0"/>
   <import addon="script.module.urlresolver" version="3.0.15"/>
@@ -687,18 +687,18 @@ Do not install this addon if you are using a build.
 <extension point="xbmc.addon.metadata">
   <summary lang="en">kinostacja</summary>
   <description lang="en">kinostacja</description>
-  <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/ramicspa/kodi</disclaimer>
+  <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/podpis/kodi</disclaimer>
   <language></language>
   <platform>all</platform>
   <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
-  <forum>https://github.com/ramicspa/kodi/issues</forum>
-  <website>https://github.com/ramicspa/kodi</website>
+  <forum>https://github.com/podpis/kodi/issues</forum>
+  <website>https://github.com/podpis/kodi</website>
   <email>ramicspaatgmaildotcom</email>
-  <source>https://github.com/ramicspa/kodi</source>
+  <source>https://github.com/podpis/kodi</source>
 </extension>
 </addon>
 
-<addon id="plugin.video.kreskowkazonepl" version="1.1" name="Kreskowka Zone" provider-name="Michal">
+<addon id="plugin.video.kreskowkazonepl" version="1.1" name="Kreskowka Zone" provider-name="Podpis">
 <requires>
   <import addon="xbmc.python" version="2.1.0"/>
   <import addon="script.module.urlresolver" version="3.0.15"/>
@@ -711,12 +711,12 @@ Do not install this addon if you are using a build.
 <extension point="xbmc.addon.metadata">
   <summary lang="pl">Zasoby serwisu: http://www.kreskowkazone.pl</summary>
   <description lang="pl">[COLOR red]kreskowka[/COLOR][COLOR white]zone[/COLOR]</description>
-  <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/ramicspa/kodi</disclaimer>
+  <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/podpis/kodi</disclaimer>
   <language></language>
   <platform>all</platform>
   <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
-  <forum>https://github.com/ramicspa/kodi/issues</forum>
-  <website>https://github.com/ramicspa/kodi</website>
+  <forum>https://github.com/podpis/kodi/issues</forum>
+  <website>https://github.com/podpis/kodi</website>
   <assets>
     <icon>icon.png</icon>
     <fanart>fanart.jpg</fanart>
@@ -729,7 +729,7 @@ Do not install this addon if you are using a build.
 </extension>
 </addon>
 
-<addon id="plugin.video.LiveIPTV" name="Live IPTV" version="2.1" provider-name="Michal">
+<addon id="plugin.video.LiveIPTV" name="Live IPTV" version="2.1" provider-name="Podpis">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
     <import addon="plugin.video.f4mTester" version="2.2.3" optional="true" />
@@ -742,12 +742,12 @@ Do not install this addon if you are using a build.
   <extension point="xbmc.addon.metadata">
     <summary lang="en">Live IP TV </summary>
     <description lang="en">Live IP TV</description>
-    <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/ramicspa/kodi</disclaimer>
+    <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/podpis/kodi</disclaimer>
     <language></language>
     <platform>all</platform>
     <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
-    <forum>https://github.com/ramicspa/kodi/issues</forum>
-    <website>https://github.com/ramicspa/kodi</website>
+    <forum>https://github.com/podpis/kodi/issues</forum>
+    <website>https://github.com/podpis/kodi</website>
     <email></email>
   <assets>
     <icon>icon.png</icon>
@@ -759,7 +759,7 @@ Do not install this addon if you are using a build.
   </extension>
 </addon>
 
-<addon id="plugin.video.LivePolishTV" name="LivePolishTV" version="2.5.7" provider-name="Michal">
+<addon id="plugin.video.LivePolishTV" name="LivePolishTV" version="2.5.7" provider-name="Podpis">
     <requires>
         <import addon="xbmc.python" version="2.1.0"/>
         <import addon="service.cronxbmc" optional="true"/>
@@ -771,12 +771,12 @@ Do not install this addon if you are using a build.
   <extension point="xbmc.addon.metadata">
     <summary lang="en">Live Polish TV</summary>
     <description lang="en">Live Polish TV</description>
-    <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/ramicspa/kodi</disclaimer>
+    <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/podpis/kodi</disclaimer>
     <language></language>
     <platform>all</platform>
     <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
-    <forum>https://github.com/ramicspa/kodi/issues</forum>
-    <website>https://github.com/ramicspa/kodi</website>
+    <forum>https://github.com/podpis/kodi/issues</forum>
+    <website>https://github.com/podpis/kodi</website>
     <email>ramicspa at gmail dot com</email>
   <assets>
     <icon>icon.png</icon>
@@ -789,7 +789,7 @@ Do not install this addon if you are using a build.
   </extension>
 </addon>
 
-<addon id="plugin.video.montypython" version="1.0" name="Monty-Python" provider-name="Michal">
+<addon id="plugin.video.montypython" version="1.0" name="Monty-Python" provider-name="Podpis">
 <requires>
     <import addon="xbmc.python" version="2.1.0"/>
     <import addon="script.module.urlresolver" version="3.0.20"/>
@@ -803,12 +803,12 @@ Do not install this addon if you are using a build.
 <extension point="xbmc.addon.metadata">
   <summary lang="en">Komedie brytyjskie on-line</summary>
   <description lang="en">Komedie brytyjskie on-line</description>
-  <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/ramicspa/kodi</disclaimer>
+  <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/podpis/kodi</disclaimer>
   <language></language>
   <platform>all</platform>
   <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
-  <forum>https://github.com/ramicspa/kodi/issues</forum>
-  <website>https://github.com/ramicspa/kodi</website>
+  <forum>https://github.com/podpis/kodi/issues</forum>
+  <website>https://github.com/podpis/kodi</website>
   <email></email>
   <assets>
     <icon>icon.png</icon>
@@ -819,7 +819,7 @@ Do not install this addon if you are using a build.
 </extension>
 </addon>
 
-<addon id="plugin.video.musichubdcom" version="1.1" name="MusicHub" provider-name="Michal">
+<addon id="plugin.video.musichubdcom" version="1.1" name="MusicHub" provider-name="Podpis">
 <requires>
   <import addon="xbmc.python" version="2.1.0"/>
   <import addon="script.module.urlresolver" version="4.0.0"/>
@@ -832,12 +832,12 @@ Do not install this addon if you are using a build.
 <extension point="xbmc.addon.metadata">
   <summary lang="en">All Your Favorite Music Under One Roof</summary>
   <description lang="en">The Musixhub platform lets you watch videos and play music from your favorite artists - full albums / latest videos / interviews / live performances and more.</description>
-  <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/ramicspa/kodi</disclaimer>
+  <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/podpis/kodi</disclaimer>
   <language></language>
   <platform>all</platform>
   <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
-  <forum>https://github.com/ramicspa/kodi/issues</forum>
-  <website>https://github.com/ramicspa/kodi</website>
+  <forum>https://github.com/podpis/kodi/issues</forum>
+  <website>https://github.com/podpis/kodi</website>
   <assets>
     <icon>icon.png</icon>
     <fanart>fanart.jpg</fanart>
@@ -850,7 +850,7 @@ Do not install this addon if you are using a build.
 </extension>
 </addon>
 
-<addon id="plugin.video.musicstreampl" version="1.0" name="MusicStream" provider-name="Michal">
+<addon id="plugin.video.musicstreampl" version="1.0" name="MusicStream" provider-name="Podpis">
 <requires>
   <import addon="xbmc.python" version="2.24.0"/>
   <import addon="script.module.urlresolver" version="4.0.0"/>
@@ -863,12 +863,12 @@ Do not install this addon if you are using a build.
 <extension point="xbmc.addon.metadata">
   <summary lang="en">http://www.musicstream.pl</summary>
   <description lang="en">http://www.musicstream.pl</description>
-  <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/ramicspa/kodi</disclaimer>
+  <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/podpis/kodi</disclaimer>
   <language></language>
   <platform>all</platform>
   <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
-  <forum>https://github.com/ramicspa/kodi/issues</forum>
-  <website>https://github.com/ramicspa/kodi</website>
+  <forum>https://github.com/podpis/kodi/issues</forum>
+  <website>https://github.com/podpis/kodi</website>
   <assets>
     <icon>icon.png</icon>
     <fanart>fanart.jpg</fanart>
@@ -881,7 +881,7 @@ Do not install this addon if you are using a build.
 </extension>
 </addon>
 
-<addon id="plugin.video.naszekino" name="Nasze-Kino" version="2.5" provider-name="Michal">
+<addon id="plugin.video.naszekino" name="Nasze-Kino" version="2.5" provider-name="Podpis">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
     <import addon="script.module.ramic" version="1.2.2"/>
@@ -904,7 +904,7 @@ Do not install this addon if you are using a build.
   </extension>
 </addon>
 
-<addon id="plugin.video.naszekinotv" version="1.1" name="nasze-kino.tv" provider-name="Michal">
+<addon id="plugin.video.naszekinotv" version="1.1" name="nasze-kino.tv" provider-name="Podpis">
 <requires>
   <import addon="xbmc.python" version="2.1.0"/>
   <import addon="script.module.urlresolver" version="3.0.15"/>
@@ -917,14 +917,14 @@ Do not install this addon if you are using a build.
 <extension point="xbmc.addon.metadata">
   <summary lang="en">nasze-kino.tv</summary>
   <description lang="en">nasze-kino.tv</description>
-  <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/ramicspa/kodi</disclaimer>
+  <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/podpis/kodi</disclaimer>
   <language></language>
   <platform>all</platform>
   <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
-  <forum>https://github.com/ramicspa/kodi/issues</forum>
-  <website>https://github.com/ramicspa/kodi</website>
+  <forum>https://github.com/podpis/kodi/issues</forum>
+  <website>https://github.com/podpis/kodi</website>
   <email></email>
-  <source>https://github.com/ramicspa/kodi</source>
+  <source>https://github.com/podpis/kodi</source>
   <assets>
     <icon>icon.png</icon>
     <fanart>fanart.jpg</fanart>
@@ -935,7 +935,7 @@ Do not install this addon if you are using a build.
 </extension>
 </addon>
 
-<addon id="plugin.video.ninateka" version="1.2" name="ninateka" provider-name="Michal">
+<addon id="plugin.video.ninateka" version="1.2" name="ninateka" provider-name="Podpis">
 <requires>
   <import addon="xbmc.python" version="2.1.0"/>
   <import addon="script.module.ramic"/>
@@ -948,12 +948,12 @@ Do not install this addon if you are using a build.
 <extension point="xbmc.addon.metadata">
   <summary lang="en">ninateka</summary>
   <description lang="en">ninateka</description>
-  <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/ramicspa/kodi</disclaimer>
+  <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/podpis/kodi</disclaimer>
   <language></language>
   <platform>all</platform>
   <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
-  <forum>https://github.com/ramicspa/kodi/issues</forum>
-  <website>https://github.com/ramicspa/kodi</website>
+  <forum>https://github.com/podpis/kodi/issues</forum>
+  <website>https://github.com/podpis/kodi</website>
   <email></email>
   <assets>
     <icon>icon.png</icon>
@@ -966,7 +966,7 @@ Do not install this addon if you are using a build.
 </extension>
 </addon>
 
-<addon id="plugin.video.openkatalogcom" version="1.0" name="OpenKatalog" provider-name="Michal">
+<addon id="plugin.video.openkatalogcom" version="1.0" name="OpenKatalog" provider-name="Podpis">
 <requires>
   <import addon="xbmc.python" version="2.1.0"/>
   <import addon="script.module.urlresolver" version="3.0.15"/>
@@ -979,12 +979,12 @@ Do not install this addon if you are using a build.
 <extension point="xbmc.addon.metadata">
   <summary lang="pl">Zasoby serwisów: openkatalog.com </summary>
   <description lang="pl">OpenKatalog - nowym Polski katalogu filmów i seriali załadowanych na hosting - openload</description>
-  <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/ramicspa/kodi</disclaimer>
+  <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/podpis/kodi</disclaimer>
   <language></language>
   <platform>all</platform>
   <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
-  <forum>https://github.com/ramicspa/kodi/issues</forum>
-  <website>https://github.com/ramicspa/kodi</website>
+  <forum>https://github.com/podpis/kodi/issues</forum>
+  <website>https://github.com/podpis/kodi</website>
   <assets>
     <icon>icon.png</icon>
     <fanart>fanart.jpg</fanart>
@@ -997,7 +997,7 @@ Do not install this addon if you are using a build.
 </extension>
 </addon>
 
-<addon id="plugin.video.ramicpbs" version="1.0" name="PBS" provider-name="Michal">
+<addon id="plugin.video.ramicpbs" version="1.0" name="PBS" provider-name="Podpis">
 <requires>
   <import addon="xbmc.python" version="2.1.0"/>
   <import addon="script.module.urlresolver" version="3.0.15"/>
@@ -1010,12 +1010,12 @@ Do not install this addon if you are using a build.
 <extension point="xbmc.addon.metadata">
   <summary lang="en">PBS ThinkTV</summary>
   <description lang="en">PBS ThinkTV</description>
-  <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/ramicspa/kodi</disclaimer>
+  <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/podpis/kodi</disclaimer>
   <language></language>
   <platform>all</platform>
   <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
-  <forum>https://github.com/ramicspa/kodi/issues</forum>
-  <website>https://github.com/ramicspa/kodi</website>
+  <forum>https://github.com/podpis/kodi/issues</forum>
+  <website>https://github.com/podpis/kodi</website>
   <assets>
     <icon>icon.png</icon>
     <fanart>fanart.jpg</fanart>
@@ -1028,7 +1028,7 @@ Do not install this addon if you are using a build.
 </extension>
 </addon>
 
-<addon id="plugin.video.ramicpolsat" version="1.0" name="PolsatNews" provider-name="Michal">
+<addon id="plugin.video.ramicpolsat" version="1.0" name="PolsatNews" provider-name="Podpis">
 <requires>
   <import addon="xbmc.python" version="2.1.0"/>
   <import addon="script.module.ramic"/>
@@ -1039,12 +1039,12 @@ Do not install this addon if you are using a build.
 <extension point="xbmc.addon.metadata">
   <summary lang="en">PolsatNews</summary>
   <description lang="en">PolsatNews</description>
-  <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/ramicspa/kodi</disclaimer>
+  <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/podpis/kodi</disclaimer>
   <language></language>
   <platform>all</platform>
   <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
-  <forum>https://github.com/ramicspa/kodi/issues</forum>
-  <website>https://github.com/ramicspa/kodi</website>
+  <forum>https://github.com/podpis/kodi/issues</forum>
+  <website>https://github.com/podpis/kodi</website>
   <email>ramicspa at gmail dot com</email>
   <assets>
     <icon>icon.png</icon>
@@ -1055,7 +1055,7 @@ Do not install this addon if you are using a build.
 </extension>
 </addon>
 
-<addon id="plugin.video.ramictvlinkspl" version="1.0" name="TvLinks" provider-name="Michal">
+<addon id="plugin.video.ramictvlinkspl" version="1.0" name="TvLinks" provider-name="Podpis">
 <requires>
   <import addon="xbmc.python" version="2.1.0"/>
   <import addon="script.module.urlresolver" version="3.0.15"/>
@@ -1068,12 +1068,12 @@ Do not install this addon if you are using a build.
 <extension point="xbmc.addon.metadata">
   <summary lang="pl">Zasoby serwisu: http://www.tvlinks.pl</summary>
   <description lang="pl"></description>
-  <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/ramicspa/kodi</disclaimer>
+  <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/podpis/kodi</disclaimer>
   <language></language>
   <platform>all</platform>
   <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
-  <forum>https://github.com/ramicspa/kodi/issues</forum>
-  <website>https://github.com/ramicspa/kodi</website>
+  <forum>https://github.com/podpis/kodi/issues</forum>
+  <website>https://github.com/podpis/kodi</website>
   <assets>
     <icon>icon.png</icon>
     <fanart>fanart.jpg</fanart>
@@ -1084,7 +1084,7 @@ Do not install this addon if you are using a build.
 </extension>
 </addon>
 
-<addon id="plugin.video.ramictvn24" version="1.2" name="TVN24" provider-name="Michal">
+<addon id="plugin.video.ramictvn24" version="1.2" name="TVN24" provider-name="Podpis">
 <requires>
   <import addon="xbmc.python" version="2.1.0"/>
   <import addon="script.module.ramic"/>
@@ -1095,12 +1095,12 @@ Do not install this addon if you are using a build.
 <extension point="xbmc.addon.metadata">
   <summary lang="en">TVN24</summary>
   <description lang="en">TVN24</description>
-  <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/ramicspa/kodi</disclaimer>
+  <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/podpis/kodi</disclaimer>
   <language></language>
   <platform>all</platform>
   <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
-  <forum>https://github.com/ramicspa/kodi/issues</forum>
-  <website>https://github.com/ramicspa/kodi</website>
+  <forum>https://github.com/podpis/kodi/issues</forum>
+  <website>https://github.com/podpis/kodi</website>
   <email>ramicspa at gmail dot com</email>
   <assets>
     <icon>icon.png</icon>
@@ -1111,7 +1111,7 @@ Do not install this addon if you are using a build.
 </extension>
 </addon>
 
-<addon id="plugin.video.segos" version="3.0" name="segos" provider-name="Michal">
+<addon id="plugin.video.segos" version="3.0" name="segos" provider-name="Podpis">
 <requires>
   <import addon="xbmc.python" version="2.1.0"/>
   <import addon="script.common.plugin.cache" version="2.5.5"/>
@@ -1129,7 +1129,7 @@ Do not install this addon if you are using a build.
   <platform>all</platform>
   <license></license>
   <forum></forum>
-  <website>https://github.com/ramicspa/kodi</website>
+  <website>https://github.com/podpis/kodi</website>
   <email>ramicspaatgmaildotcom</email>
   <source></source>
   <assets>
@@ -1144,7 +1144,7 @@ Do not install this addon if you are using a build.
 </extension>
 </addon>
 
-<addon id="plugin.video.serialosypl" version="1.7" name="serialosy.pl" provider-name="Michal">
+<addon id="plugin.video.serialosypl" version="1.7" name="serialosy.pl" provider-name="Podpis">
 <requires>
   <import addon="xbmc.python" version="2.1.0"/>
   <import addon="script.module.urlresolver" version="3.0.20"/>
@@ -1158,12 +1158,12 @@ Do not install this addon if you are using a build.
 <extension point="xbmc.addon.metadata">
   <summary lang="en">Serialosy.pl</summary>
   <description lang="en">Serialosy.pl</description>
-  <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/ramicspa/kodi</disclaimer>
+  <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/podpis/kodi</disclaimer>
   <language></language>
   <platform>all</platform>
   <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
-  <forum>https://github.com/ramicspa/kodi/issues</forum>
-  <website>https://github.com/ramicspa/kodi</website>
+  <forum>https://github.com/podpis/kodi/issues</forum>
+  <website>https://github.com/podpis/kodi</website>
   <email></email>
   <assets>
     <icon>icon.png</icon>
@@ -1174,7 +1174,7 @@ Do not install this addon if you are using a build.
 </extension>
 </addon>
 
-<addon id="plugin.video.szukajkatv" version="1.3" name="Szukajka.tv" provider-name="Michal">
+<addon id="plugin.video.szukajkatv" version="1.3" name="Szukajka.tv" provider-name="Podpis">
 <requires>
     <import addon="xbmc.python" version="2.1.0"/>
     <import addon="script.common.plugin.cache" version="2.5.5"/>
@@ -1189,12 +1189,12 @@ Do not install this addon if you are using a build.
 <extension point="xbmc.addon.metadata">
   <summary lang="en">Szukajka.tv</summary>
   <description lang="en">Szukajka.tv</description>
-  <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/ramicspa/kodi</disclaimer>
+  <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/podpis/kodi</disclaimer>
   <language></language>
   <platform>all</platform>
   <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
-  <forum>https://github.com/ramicspa/kodi/issues</forum>
-  <website>https://github.com/ramicspa/kodi</website>
+  <forum>https://github.com/podpis/kodi/issues</forum>
+  <website>https://github.com/podpis/kodi</website>
   <email>ramicspa at gmail dot com</email>
   <assets>
     <icon>icon.png</icon>
@@ -1205,7 +1205,7 @@ Do not install this addon if you are using a build.
 </extension>
 </addon>
 
-<addon id="plugin.video.TVP.pl" name="TVP.pl" version="2.1.5" provider-name="Michal">
+<addon id="plugin.video.TVP.pl" name="TVP.pl" version="2.1.5" provider-name="Podpis">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
     <import addon="script.module.ramic"/>
@@ -1216,12 +1216,12 @@ Do not install this addon if you are using a build.
   <extension point="xbmc.addon.metadata">
 	<summary lang="en">Zasoby serwisu tvp.pl oraz vod.tvp.pl</summary>
 	<description lang="en">Zasoby serwisu tvp.pl oraz vod.tvp.pl</description>
-	<disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/ramicspa/kodi</disclaimer>
+	<disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/podpis/kodi</disclaimer>
 	<language>pl</language>
 	<platform>all</platform>
 	<license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
-	<forum>https://github.com/ramicspa/kodi/issues</forum>
-	<website>https://github.com/ramicspa/kodi</website>
+	<forum>https://github.com/podpis/kodi/issues</forum>
+	<website>https://github.com/podpis/kodi</website>
 	<email></email>
 	<assets>
 		<icon>icon.png</icon>
@@ -1233,7 +1233,7 @@ Do not install this addon if you are using a build.
   </extension>
 </addon>
 
-<addon id="plugin.video.viderpl" version="1.5" name="vider" provider-name="Michal">
+<addon id="plugin.video.viderpl" version="1.5" name="vider" provider-name="Podpis">
 <requires>
   <import addon="xbmc.python" version="2.1.0"/>
   <import addon="script.common.plugin.cache" version="2.5.5"/>
@@ -1245,12 +1245,12 @@ Do not install this addon if you are using a build.
 <extension point="xbmc.addon.metadata">
   <summary lang="en">vider.info</summary>
   <description lang="en">vider.pl</description>
-  <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/ramicspa/kodi</disclaimer>
+  <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/podpis/kodi</disclaimer>
   <language></language>
   <platform>all</platform>
   <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
-  <forum>https://github.com/ramicspa/kodi/issues</forum>
-  <website>https://github.com/ramicspa/kodi</website>
+  <forum>https://github.com/podpis/kodi/issues</forum>
+  <website>https://github.com/podpis/kodi</website>
   <email>ramicspa at gmail dot com</email>
   <assets>
     <icon>icon.png</icon>
@@ -1261,7 +1261,7 @@ Do not install this addon if you are using a build.
 </extension>
 </addon>
 
-<addon id="plugin.video.zalukajcom" version="1.5" name="Zalukaj" provider-name="Michal">
+<addon id="plugin.video.zalukajcom" version="1.5" name="Zalukaj" provider-name="Podpis">
 <requires>
     <import addon="xbmc.python" version="2.25.0"/>
     <import addon="script.module.urlresolver" version="3.0.0"/>
@@ -1273,12 +1273,12 @@ Do not install this addon if you are using a build.
 <extension point="xbmc.addon.metadata">
   <summary lang="en">zalukaj.com</summary>
   <description lang="en">zalukaj.com</description>
-  <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/ramicspa/kodi</disclaimer>
+  <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/podpis/kodi</disclaimer>
   <language></language>
   <platform>all</platform>
   <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
-  <forum>https://github.com/ramicspa/kodi/issues</forum>
-  <website>https://github.com/ramicspa/kodi</website>
+  <forum>https://github.com/podpis/kodi/issues</forum>
+  <website>https://github.com/podpis/kodi</website>
   <email>ramicspaatgmaildotcom</email>
   <assets>
     <icon>icon.png</icon>
@@ -1289,7 +1289,7 @@ Do not install this addon if you are using a build.
 </extension>
 </addon>
 
-<addon id="repository.ramic" name="Ramic Kodi Add-ons Repository (Unofficial)" version="1.4.0" provider-name="Michal">">
+<addon id="repository.ramic" name="Ramic Kodi Add-ons Repository (Unofficial)" version="1.4.0" provider-name="Podpis">">
     <extension point="xbmc.addon.repository" name="Ramic Kodi Add-ons Repository (Unofficial)">
         <dir>
             <info compressed="false">http://cherrytv.webd.pl/ramicmod/addons.xml</info>
@@ -1315,7 +1315,7 @@ Do not install this addon if you are using a build.
     </extension>
 </addon>
 
-<addon id="script.module.ramic" name="repository.ramic" version="1.2.8" provider-name="Michal">
+<addon id="script.module.ramic" name="repository.ramic" version="1.2.8" provider-name="Podpis">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
   </requires>
