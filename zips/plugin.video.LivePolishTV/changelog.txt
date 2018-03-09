@@ -1,5 +1,5 @@
 2.5.8
-- decoding the plugin
+- decoding the plugin code
 - remove of malicious codes from the plugin
 
 2.5.7
