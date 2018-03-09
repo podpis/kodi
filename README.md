@@ -1,5 +1,5 @@
-# Ramic Kodi Addons Repository
-Repozytorium opuszcza github'a i przeniosło się na prywatny serwer. Zawartość repozytorium nie będzie dostepna publicznie. Zainstalowane wytczki powinny działać dalej funkcjonować a aktualizacjami ich kodu zajmą się ochotnicy co do swoich build'ów nie bardzo mają co włożyć. 
+# Podpis Kodi Addons Repository
+Repozytorium Ramic zostało przejęte przez repozytorium Podpis. Ramic pisał złosliwe oprogramowanie i po nakryciu go opusścił github'a i przeniósł się na prywatny serwer. Zawartość jego repozytorium nie będzie dostepna publicznie. Zainstalowane wytczki Ramica powinny dalej funkcjonować a aktualizacjami zajmie się repozytorium Podpis. Za szkody wyreządzone jego wtyczkami repozytorium Podpis nie przejmuje żadnej odpowiedzialności. Chętnych programistów zapraszam do współpracy. 
 
 ## Zawartość repozytoium
 |Wtyczka|Nazwa|Wersja|Aktualizacja|
