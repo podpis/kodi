@@ -1289,21 +1289,21 @@ Do not install this addon if you are using a build.
 </extension>
 </addon>
 
-<addon id="repository.ramic" name="Ramic Kodi Add-ons Repository (Unofficial)" version="1.4.0" provider-name="Podpis">">
-    <extension point="xbmc.addon.repository" name="Ramic Kodi Add-ons Repository (Unofficial)">
+<addon id="repository.podpis" name="Podpis Kodi Add-ons Repository" version="1.4.1" provider-name="Podpis">">
+    <extension point="xbmc.addon.repository" name="Podpis Kodi Add-ons Repository (Unofficial)">
         <dir>
-            <info compressed="false">http://cherrytv.webd.pl/ramicmod/addons.xml</info>
-            <checksum>http://cherrytv.webd.pl/ramicmod/addons.xml.md5</checksum>
-            <datadir zip="true">http://cherrytv.webd.pl/ramicmod/ramic/</datadir>
+            <info compressed="false">https://github.com/podpis/kodi/blob/master/addons.xml</info>
+            <checksum>https://github.com/podpis/kodi/blob/master/addons.xml.md5</checksum>
+            <datadir zip="true">https://github.com/podpis/kodi/tree/master/zips/</datadir>
         </dir>
         <dir>
-            <info compressed="false">https://raw.githubusercontent.com/meserak86/cimar/master/addons.xml</info>
-            <checksum>https://raw.githubusercontent.com/meserak86/cimar/master/addons.xml.md5</checksum>
-            <datadir zip="true">https://github.com/meserak86/cimar/raw/master/ramic</datadir>
+            <info compressed="false">https://github.com/podpis/kodi/blob/master/addons.xml</info>
+            <checksum>https://github.com/podpis/kodi/blob/master/addons.xml.md5</checksum>
+            <datadir zip="true">https://github.com/podpis/kodi/tree/master/zips/</datadir>
         </dir>
     </extension>
     <extension point="xbmc.addon.metadata">
-        <summary>Ramic Kodi Repository (Unofficial)</summary>
+        <summary>Podpis Kodi Repository</summary>
         <summary lang="pl">Repozytorium wtyczek</summary>
         <summary lang="en">Addons repository</summary>
         <description>Unofficial, private Addons repository.</description>
@@ -1315,7 +1315,7 @@ Do not install this addon if you are using a build.
     </extension>
 </addon>
 
-<addon id="script.module.ramic" name="repository.ramic" version="1.2.8" provider-name="Podpis">
+<addon id="script.module.ramic" name="repository.podpis" version="1.2.8" provider-name="Podpis">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
   </requires>
