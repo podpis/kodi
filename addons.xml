@@ -1,5 +1,35 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addons>
+<addon id="plugin.video.LivePolishTV" name="LivePolishTV" version="2.5.8" provider-name="Podpis">
+    <requires>
+        <import addon="xbmc.python" version="2.7.0"/>
+        <import addon="service.cronxbmc" optional="true"/>
+        <import addon="script.module.ramic" version="1.2.8"/>
+    </requires>
+    <extension point="xbmc.python.pluginsource" library="main.py">
+        <provides>video</provides>
+    </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en">Live Polish TV</summary>
+    <description lang="en">Live Polish TV</description>
+    <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/podpis/kodi</disclaimer>
+    <language></language>
+    <platform>all</platform>
+    <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
+    <forum>https://github.com/podpis/kodi/issues</forum>
+    <website>https://github.com/podpis/kodi</website>
+    <email>podpis@op.pl</email>
+  <assets>
+    <icon>icon.png</icon>
+    <fanart>fanart.jpg</fanart>
+  </assets>
+  <news>
+Paid services are not supported. Do not bother asking for one.
+Do not install this addon if you are using a build.
+  </news>
+  </extension>
+</addon>
+
 <addon id="plugin.video.alltube.tv" version="2.3" name="alltube.tv" provider-name="Podpis">
 <requires>
   <import addon="xbmc.python" version="2.24.0"/>
@@ -754,36 +784,6 @@ Do not install this addon if you are using a build.
     <fanart>fanart.jpg</fanart>
   </assets>
   <news>
-Do not install this addon if you are using a build.
-  </news>
-  </extension>
-</addon>
-
-<addon id="plugin.video.LivePolishTV" name="LivePolishTV" version="2.5.7" provider-name="Podpis">
-    <requires>
-        <import addon="xbmc.python" version="2.1.0"/>
-        <import addon="service.cronxbmc" optional="true"/>
-        <import addon="script.module.ramic" version="1.2.6"/>
-    </requires>
-    <extension point="xbmc.python.pluginsource" library="main.py">
-        <provides>video</provides>
-    </extension>
-  <extension point="xbmc.addon.metadata">
-    <summary lang="en">Live Polish TV</summary>
-    <description lang="en">Live Polish TV</description>
-    <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/podpis/kodi</disclaimer>
-    <language></language>
-    <platform>all</platform>
-    <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
-    <forum>https://github.com/podpis/kodi/issues</forum>
-    <website>https://github.com/podpis/kodi</website>
-    <email>ramicspa at gmail dot com</email>
-  <assets>
-    <icon>icon.png</icon>
-    <fanart>fanart.jpg</fanart>
-  </assets>
-  <news>
-Paid services are not supported. Do not bother asking for one.
 Do not install this addon if you are using a build.
   </news>
   </extension>
