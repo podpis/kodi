@@ -2,7 +2,7 @@
 <addons>
 <addon id="plugin.video.LivePolishTV" name="LivePolishTV" version="2.5.8" provider-name="Podpis">
     <requires>
-        <import addon="xbmc.python" version="2.7.0"/>
+        <import addon="xbmc.python" version="2.1.0"/>
         <import addon="service.cronxbmc" optional="true"/>
         <import addon="script.module.ramic" version="1.2.8"/>
     </requires>
