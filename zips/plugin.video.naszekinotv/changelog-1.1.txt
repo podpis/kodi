@@ -1,5 +1,0 @@
-1.1
-- captcha fixed
-
-1.0
-- initial version 
