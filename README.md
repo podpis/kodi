@@ -7,4 +7,4 @@ Chętnych programistów zapraszam do współpracy przy rozwoju i pielęgnacji wt
 |---|---|---|---|
 |<img src="https://raw.githubusercontent.com/podpis/kodi/master/zips/plugin.video.LivePolishTV/icon.png" width="48">|LivePolishTV|2.5.8|[2018-3-10](https://raw.githubusercontent.com/podpis/kodi/master/zips/plugin.video.LivePolishTV/changelog.txt)
 |<img src="https://raw.githubusercontent.com/podpis/kodi/master/zips/plugin.video.TVP.pl/icon.png" width="48">|TVP.pl|2.1.6|[2018-4-08](https://raw.githubusercontent.com/podpis/kodi/master/zips/plugin.video.TVP.pl/changelog.txt)
-|<img src="https://raw.githubusercontent.com/podpis/kodi/master/zips/plugin.video.naszekinotv/icon.png" width="48">|nasze-kino.tv|1.4|[2018-4-15](https://raw.githubusercontent.com/podpis/kodi/master/zips/plugin.video.naszekinotv/changelog.txt)
+|<img src="https://raw.githubusercontent.com/podpis/kodi/master/zips/plugin.video.naszekinotv/icon.png" width="48">|nasze-kino.tv|1.5|[2018-4-22](https://raw.githubusercontent.com/podpis/kodi/master/zips/plugin.video.naszekinotv/changelog.txt)
