@@ -1,3 +1,7 @@
+1.5.1
+- thumbnails fixed
+- add description of move
+
 1.5
 - Removal of errors made by the author of the plugin
 
