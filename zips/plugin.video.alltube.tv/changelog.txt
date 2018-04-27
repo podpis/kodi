@@ -1,3 +1,6 @@
+2.5
+- minor fixes
+
 2.4
 - decoding the plugin code
 - reconstruction of variable names and names functions
