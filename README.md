@@ -2,7 +2,7 @@
 Repozytorium Ramic zostało przejęte przez repozytorium Podpis. Ramic tworzył złosliwe oprogramowanie i po nakryciu go opuścił github'a i przeniósł się na prywatny serwer. Zawartość jego repozytorium nie będzie dostepna publicznie. Zainstalowane wytczki Ramica powinny dalej funkcjonować a aktualizacjami zajmie się repozytorium Podpis. Za szkody wyrządzone jego wtyczkami i utracone dane repozytorium Podpis nie przejmuje i nie ponosi żadnej odpowiedzialności. 
 Chętnych programistów zapraszam do współpracy przy rozwoju i pielęgnacji wtyczek. 
 
-## Zawartość repozytoium
+## Zawartość repozytorium
 |Wtyczka|Nazwa|Wersja|Aktualizacja|
 |---|---|---|---|
 |<img src="https://raw.githubusercontent.com/podpis/kodi/master/zips/plugin.video.LivePolishTV/icon.png" width="48">|LivePolishTV|2.5.8|[2018-3-10](https://raw.githubusercontent.com/podpis/kodi/master/zips/plugin.video.LivePolishTV/changelog.txt)
