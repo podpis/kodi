@@ -1,3 +1,8 @@
+2.1.7
+- Przegapiles w TV fixed
+- Change function Przegapiles w TV
+- a better sorting function has been added for Przegapiles w TV
+
 2.1.6
 - decoding the plugin code
 - reconstruction of variable names and names functions
