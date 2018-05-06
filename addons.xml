@@ -29,7 +29,7 @@
   </extension>
 </addon>
 
-<addon id="plugin.video.TVP.pl" name="TVP.pl" version="2.1.6" provider-name="Podpis">
+<addon id="plugin.video.TVP.pl" name="TVP.pl" version="2.1.7" provider-name="Podpis">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
   </requires>
