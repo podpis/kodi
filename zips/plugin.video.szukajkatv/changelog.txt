@@ -1,3 +1,6 @@
+1.4.1
+- Selection Hosting fixed
+
 1.4
 - decoding the plugin code
 - reconstruction of variable names and names functions
