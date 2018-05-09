@@ -116,7 +116,7 @@ Róbta co chceta! :)
 </extension>
 </addon>
 
-<addon id="plugin.video.szukajkatv" version="1.4" name="Szukajka.tv" provider-name="Podpis">
+<addon id="plugin.video.szukajkatv" version="1.4.1" name="Szukajka.tv" provider-name="Podpis">
 <requires>
     <import addon="xbmc.python" version="2.1.0"/>
     <import addon="script.common.plugin.cache" version="2.5.5"/> 
