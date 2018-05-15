@@ -1,0 +1,6 @@
+1.4.2
+- changed icon and fanart
+- switched to zipped version
+
+1.4.1
+- First initial release of repo Podpis
