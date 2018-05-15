@@ -242,5 +242,22 @@ Róbta co chceta! :)
 		<description lang="hr">Prilagodi najčešće URL-ove video izvora kako bi radili u XBMC/Kodiju, pojednostavnjuje razvoj priključaka za video dodatke koji zahtjevaju višestruke video izvore.</description>
 	</extension>
 </addon>
-	
+
+<addon id="service.cronxbmc"
+    name="Cron" version="0.0.9" provider-name="robweber">
+  <requires>
+    <import addon="xbmc.python" version="2.24.0"/>
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="gui.py"> 
+     <provides>executable</provides> 
+  </extension> 
+  <extension point="xbmc.service" library="service.py" start="login" />
+  <extension point="xbmc.python.module" library="resources/lib" />
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en">A customizable Cron timer for Kodi. </summary>
+    <description lang="en">Create cron timers for Kodi functions. This addon can schedule and run any built-in Kodi functions. No more reliance on add-on developers to allow for "timer" functionality, no more scripts running on other machines to send commands to your HTPC. All of your timers can now be handled directly within Kodi. It can also display notifications when your tasks run if configured to do so.</description>
+    <platform>all</platform>
+  </extension>
+</addon>
+
 </addons>
