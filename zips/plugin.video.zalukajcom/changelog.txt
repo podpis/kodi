@@ -1,3 +1,8 @@
+1.7
+- seriale fix
+- premium fix
+- lastes series fix
+
 1.6
 - decoding the plugin code
 - reconstruction of variable names and names functions
