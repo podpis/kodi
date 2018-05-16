@@ -145,7 +145,7 @@ Róbta co chceta! :)
 </extension>
 </addon>
 
-<addon id="plugin.video.zalukajcom" version="1.6" name="Zalukaj" provider-name="Podpis">
+<addon id="plugin.video.zalukajcom" version="1.7" name="Zalukaj" provider-name="Podpis">
 <requires>
     <import addon="xbmc.python" version="2.25.0"/>
     <import addon="script.module.resolveurl" version="5.0.00"/>  
@@ -168,6 +168,10 @@ Róbta co chceta! :)
     <fanart>fanart.jpg</fanart>
   </assets>
   <news>
+Version 1.7
+- seriale fix
+- premium fix
+- lastes series fix
   </news>
 </extension>
 </addon>
