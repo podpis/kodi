@@ -168,6 +168,10 @@ Róbta co chceta! :)
     <fanart>fanart.jpg</fanart>
   </assets>
   <news>
+Version 1.7.1
+- Thumbnail fixed
+- minor fixes
+
 Version 1.7
 - seriale fix
 - premium fix
@@ -176,6 +180,46 @@ Version 1.7
 </extension>
 </addon>
 
+<addon id="plugin.video.boxfilmpl" version="1.4" name="boxfilm.pl" provider-name="Podpis">
+<requires>
+  <import addon="xbmc.python" version="2.1.0"/>
+  <import addon="script.module.resolveurl" version="5.0.00"/>
+  <import addon="script.common.plugin.cache" version="2.5.5"/> 
+</requires>
+<extension point="xbmc.python.pluginsource" library="main.py">
+  <provides>video</provides>
+</extension>
+<extension point="xbmc.addon.metadata">
+  <summary lang="pl">Zasoby serwisu boxfilm.pl</summary>
+  <description lang="pl">Wszystkie filmy dostępne w serwisie są dostępne zupełnie za darmo.</description>
+  <disclaimer lang="en">A private use only. For bugs, requests or general questions visit my repository https://github.com/podpis/kodi</disclaimer>
+  <language></language>
+  <platform>all</platform>
+  <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
+  <forum>https://github.com/podpis/kodi/issues</forum>
+  <website>https://github.com/podpis/kodi</website>
+  <assets>
+    <icon>icon.png</icon>
+    <fanart>fanart.jpg</fanart>
+    <screenshot>resources/screenshot-01.jpg</screenshot>
+    <screenshot>resources/screenshot-02.jpg</screenshot>
+  </assets>
+  <news>
+Version 1.4
+- decoding the plugin code
+- reconstruction of variable names and names functions
+- remove of malicious codes from the plugin
+- remove of script.module.ramic from the plugin
+- remove of unnecessary modules and functions from the plugin
+- change urlresolver to resolveurl
+- add httplib2 module
+- fix search
+- fix categories
+- seriale(jbofilm.pl) out
+  </news>
+</extension>
+</addon>
+	
 <addon id="plugin.video.dokumentcyfrowo" version="1.1" name="Dokument Cyfrowo" provider-name="Podpis">
 <requires>
   <import addon="xbmc.python" version="2.1.0"/>
