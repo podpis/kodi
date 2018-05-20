@@ -1,3 +1,7 @@
+1.4.1
+- change module urllib2 to module requests
+- add screenshots
+
 1.4
 - decoding the plugin code
 - reconstruction of variable names and names functions
