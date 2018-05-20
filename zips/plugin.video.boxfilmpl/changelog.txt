@@ -1,5 +1,5 @@
 1.4.1
-- change module urllib2 to module requests
+- change modules urllib/urllib2/httplib2 to module requests
 - add screenshots
 
 1.4
