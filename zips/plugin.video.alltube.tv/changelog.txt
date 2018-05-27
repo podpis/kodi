@@ -1,3 +1,6 @@
+2.5.4b
+- episodes fixed
+
 2.5.4a
 - hoster list fixed
 
