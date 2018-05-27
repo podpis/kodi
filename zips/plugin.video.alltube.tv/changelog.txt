@@ -1,3 +1,6 @@
+2.5.4a
+- hoster list fixed
+
 2.5.4
 - serial downloads added
 - Fun fixed
