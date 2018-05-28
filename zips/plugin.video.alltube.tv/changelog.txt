@@ -1,3 +1,6 @@
+2.5.4c
+- minor fixes
+
 2.5.4b
 - episodes fixed
 
