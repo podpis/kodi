@@ -1,3 +1,10 @@
+1.6.1
+- addon is again based on version 1.5.1
+- better Cloudflare routine
+
+1.6
+- Cloudflare block fixed by mbebe
+
 1.5.1
 - thumbnails fixed
 - add description of move
