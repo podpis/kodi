@@ -1,3 +1,6 @@
+1.6.2
+- minor fixes
+
 1.6.1
 - addon is again based on version 1.5.1
 - better Cloudflare routine
