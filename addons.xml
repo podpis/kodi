@@ -86,7 +86,7 @@ Róbta co chceta! :)
 </extension>
 </addon>
 
-<addon id="plugin.video.alltube.tv" version="2.5.4c" name="alltube.tv" provider-name="Podpis">
+<addon id="plugin.video.alltube.tv" version="2.5.5" name="alltube.tv" provider-name="Podpis">
 <requires>
   <import addon="xbmc.python" version="2.24.0"/>
   <import addon="script.module.resolveurl" version="5.0.00"/>
