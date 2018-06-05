@@ -91,6 +91,7 @@ Róbta co chceta! :)
   <import addon="xbmc.python" version="2.24.0"/>
   <import addon="script.module.resolveurl" version="5.0.00"/>
   <import addon="script.common.plugin.cache" version="2.5.5"/>
+  <import addon="script.module.requests" version="2.18.4"/>
 </requires>
 <extension point="xbmc.python.pluginsource" library="main.py">
   <provides>video</provides>
