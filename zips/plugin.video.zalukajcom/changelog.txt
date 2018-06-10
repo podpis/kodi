@@ -1,3 +1,6 @@
+1.7.2
+- Fixed problem with login process
+
 1.7.1
 - Thumbnail fixed
 - minor fixes
