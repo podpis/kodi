@@ -7,7 +7,7 @@ Chętnych programistów zapraszam do współpracy przy rozwoju i pielęgnacji wt
 |---|---|---|---|
 |<img src="https://raw.githubusercontent.com/podpis/kodi/master/zips/plugin.video.LivePolishTV/icon.png" width="48">|LivePolishTV|2.5.8|[2018-3-10](https://raw.githubusercontent.com/podpis/kodi/master/zips/plugin.video.LivePolishTV/changelog.txt)
 |<img src="https://raw.githubusercontent.com/podpis/kodi/master/zips/plugin.video.TVP.pl/icon.png" width="48">|TVP.pl|2.1.7|[2018-5-07](https://raw.githubusercontent.com/podpis/kodi/master/zips/plugin.video.TVP.pl/changelog.txt)
-|<img src="https://raw.githubusercontent.com/podpis/kodi/master/zips/plugin.video.cdahd/icon.png" width="48">|cda-hd|1.5|[2018-07-01](https://raw.githubusercontent.com/podpis/kodi/master/zips/plugin.video.cdahd/changelog.txt)
+|<img src="https://raw.githubusercontent.com/podpis/kodi/master/zips/plugin.video.cdahd/icon.png" width="48">|cda-hd|1.6|[2018-07-01](https://raw.githubusercontent.com/podpis/kodi/master/zips/plugin.video.cdahd/changelog.txt)
 |<img src="https://raw.githubusercontent.com/podpis/kodi/master/zips/plugin.video.naszekinotv/icon.png" width="48">|nasze-kino.tv|1.6.2|[2018-6-02](https://raw.githubusercontent.com/podpis/kodi/master/zips/plugin.video.naszekinotv/changelog.txt)
 |<img src="https://raw.githubusercontent.com/podpis/kodi/master/zips/plugin.video.alltube.tv/icon.png" width="48">|alltube.tv|2.5.5a|[2018-6-05](https://raw.githubusercontent.com/podpis/kodi/master/zips/plugin.video.alltube.tv/changelog.txt)
 |<img src="https://raw.githubusercontent.com/podpis/kodi/master/zips/plugin.video.szukajkatv/icon.png" width="48">|Szukajka.tv|1.4.1|[2018-5-09](https://raw.githubusercontent.com/podpis/kodi/master/zips/plugin.video.szukajkatv/changelog.txt)
