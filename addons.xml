@@ -59,7 +59,7 @@
 <addon id="plugin.video.cdahd" version="1.6" name="cda-hd" provider-name="Podpis">
 <requires>
   <import addon="xbmc.python" version="2.1.0"/>
-  <import addon="script.module.resolveurl" version="6.0.09"/>
+  <import addon="script.module.resolveurl" version="5.0.12a"/>
   <import addon="script.common.plugin.cache" version="2.5.5"/> 
 </requires>
 <extension point="xbmc.python.pluginsource" library="main.py">
