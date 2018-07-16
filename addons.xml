@@ -29,6 +29,42 @@
   </extension>
 </addon>
 
+<addon id="plugin.video.ekstraklasa" name="Ekstraklasa" version="2.1" provider-name="Podpis">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0"/>
+    <import addon="script.module.resolveurl" version="5.0.12b"/> 
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="main.py">
+    <provides>video</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="pl">Mecze Ekstraklasy z Dailymotion i nie tylko</summary>
+    <description lang="en">Ekstraklasa</description>
+    <language></language>
+    <platform>all</platform>
+    <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
+    <forum>https://github.com/podpis/kodi/issues</forum>
+    <website>https://github.com/podpis/kodi</website>
+    <email></email>
+    <assets>
+        <icon>icon.png</icon>
+        <fanart>fanart.jpg</fanart>
+    </assets>
+  <news>
+Ekstrakalasa.tv
+Estadios.pl
+LiveFootBallol
+Lech.tv
+FootbalOrgin
+GoalArean
+Meczyki.pl
+Mecz replay
+Polsat Sport
+Łączy nas piłka
+ </news>
+  </extension>
+</addon>
+	
 <addon id="plugin.video.TVP.pl" name="TVP.pl" version="2.1.7" provider-name="Podpis">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
