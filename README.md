@@ -6,7 +6,7 @@ Chętnych programistów zapraszam do współpracy przy rozwoju i pielęgnacji wt
 |Wtyczka|Nazwa|Wersja|Aktualizacja|
 |---|---|---|---|
 |<img src="https://raw.githubusercontent.com/podpis/kodi/master/zips/plugin.video.LivePolishTV/icon.png" width="48">|LivePolishTV|2.5.8|[2018-3-10](https://raw.githubusercontent.com/podpis/kodi/master/zips/plugin.video.LivePolishTV/changelog.txt)
-|<img src="https://raw.githubusercontent.com/podpis/kodi/master/zips/plugin.video.ekstraklasa/icon.png" width="48">|Ekstraklasa|2.1|[2018-07-16](https://raw.githubusercontent.com/podpis/kodi/master/zips/plugin.video.ekstraklasa/changelog.txt)
+|<img src="https://raw.githubusercontent.com/podpis/kodi/master/zips/plugin.video.ekstraklasa/icon.png" width="48">|Ekstraklasa|2.1.1|[2018-07-18](https://raw.githubusercontent.com/podpis/kodi/master/zips/plugin.video.ekstraklasa/changelog.txt)
 |<img src="https://raw.githubusercontent.com/podpis/kodi/master/zips/plugin.video.TVP.pl/icon.png" width="48">|TVP.pl|2.1.7|[2018-5-07](https://raw.githubusercontent.com/podpis/kodi/master/zips/plugin.video.TVP.pl/changelog.txt)
 |<img src="https://raw.githubusercontent.com/podpis/kodi/master/zips/plugin.video.cdahd/icon.png" width="48">|cda-hd|1.6|[2018-07-01](https://raw.githubusercontent.com/podpis/kodi/master/zips/plugin.video.cdahd/changelog.txt)
 |<img src="https://raw.githubusercontent.com/podpis/kodi/master/zips/plugin.video.cdaxpl/icon.png" width="48">|cda-x|1.2.1|[2018-07-13](https://raw.githubusercontent.com/podpis/kodi/master/zips/plugin.video.cdaxpl/changelog.txt)
