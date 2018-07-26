@@ -1,3 +1,7 @@
+1.6.1
+- host name
+- search fix
+
 1.6 by mbebe
 - decoding the plugin code
 - reconstruction of variable names and names functions
