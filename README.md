@@ -1,6 +1,8 @@
 # Podpis Kodi Addons Repository
 Wtyczki w tym repo tworzone są wyłącznie do testów. Używanie ich na własną odpowiedzialność.  
-Chętnych programistów zapraszam do współpracy przy rozwoju i pielęgnacji wtyczek. 
+Chętnych programistów zapraszam do współpracy przy rozwoju i pielęgnacji wtyczek.
+
+Wkrótce pojawią się nowe wtyczki. Stare wtyczki nie będą dalej rizwijane.
 
 ## Zawartość repozytorium
 |Wtyczka|Nazwa|Wersja|Aktualizacja|
